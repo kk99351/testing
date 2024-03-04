@@ -1,0 +1,309 @@
+import React, { useState } from "react";
+import {
+  Col,
+  Row,
+  CardBody,
+  CardHeader,
+  Card,
+  Label,
+  Input,
+  Button,
+  Container,
+} from "reactstrap";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+const CreateItemsCreate = () => {
+  const navigate = useNavigate();
+    const requiredFields = {
+        item_name: "Item Name",
+        item_code: "Item Code",
+        item_type: "Item Type",
+        sub_category: "Sub Category",
+        category: "Category",
+        uom: "Uom",
+        model: "Make/Model",
+        discription: "Discription",
+
+
+  // remarks: "",
+    };
+    const initialFormData = {};
+const initialErrors = {};
+Object.keys(requiredFields).forEach(key => {
+    initialFormData[key] = "";
+    initialErrors[key] = "";
+});
+
+
+const [formData, setFormData] = useState(initialFormData);
+const [errors, setErrors] = useState(initialErrors);
+
+    const handleInputChange = e => {
+        const { name, value } = e.target;
+        setFormData(prevData => ({
+            ...prevData,
+            [name]: value,
+        }));
+        setErrors(prevErrors => ({
+            ...prevErrors,
+            [name]: "",
+        }));
+    };
+
+    const handleDropdownChange = e => {
+        const { name, value } = e.target;
+        setFormData(prevData => ({
+            ...prevData,
+            [name]: value,
+        }));
+        setErrors(prevErrors => ({
+            ...prevErrors,
+            [name]: "",
+        }));
+    };
+
+    const createHandle = async e => {
+        e.preventDefault();
+        let isValid = true;
+
+        Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
+            if (!formData[fieldName].trim()) {
+                setErrors(prevErrors => ({
+                    ...prevErrors,
+                    [fieldName]: `${fieldLabel} is required`,
+                }));
+                isValid = false;
+            }
+        });
+
+        if (isValid) {
+            try {
+                // await axios.post(`http://localhost:3000/region/`, formData);
+                // navigate("/company_group");
+                console.log("Form submitted successfully");
+            } catch (error) {
+                console.log("error in creating group data" + error);
+            }
+        }
+    };
+
+
+  return (
+    <React.Fragment>
+      <Container fluid>
+        <div className="page-content">
+          <Card className="mt-5">
+            <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+                DELIGATION DETAILS
+              </h1>
+            </CardHeader>
+            <CardBody>
+              <Row className="justify-content-center">
+                <Col xl={10}>
+                  <form className="needs-validation" noValidate>
+                    <Row className="mb-2">
+                    <Col md={6}>
+                        <Label for="item_type">
+                        ITEM TYPE<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="select"
+                          name="item_type"
+                          id="item_type"
+                          value={formData.item_type}
+                          onChange={handleDropdownChange}
+                          invalid={!!errors.item_type}
+                        >
+                          <option value="">SELECT ITEM TYPE</option>
+                          <option value="group1">Group 1</option>
+                          <option value="group2">Group 2</option>
+                        </Input>
+                        <span className="text-danger">
+                          {errors.item_type}
+                        </span>
+                      </Col>
+                      <Col md={6}>
+                        <Label for="category">
+                        CATEGORY<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="select"
+                          name="category"
+                          id="category"
+                          value={formData.category}
+                          onChange={handleDropdownChange}
+                          invalid={!!errors.category}
+                        >
+                          <option value="">SELECT CATEGORY</option>
+                          <option value="group1">Group 1</option>
+                          <option value="group2">Group 2</option>
+                        </Input>
+                        <span className="text-danger">
+                          {errors.category}
+                        </span>
+                      </Col>
+                      <hr className="mb-0 mt-3" />
+                    </Row>
+                    <Row className="mb-2">
+                    <Col md={6}>
+                        <Label for="sub_category">
+                        SUB CATEGORY<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="select"
+                          name="sub_category"
+                          id="sub_category"
+                          value={formData.sub_category}
+                          onChange={handleDropdownChange}
+                          invalid={!!errors.sub_category}
+                        >
+                          <option value="">SELECT SUB CATEGORY</option>
+                          <option value="group1">Group 1</option>
+                          <option value="group2">Group 2</option>
+                        </Input>
+                        <span className="text-danger">
+                          {errors.sub_category}
+                        </span>
+                      </Col>
+                      <Col md={6}>
+                        <Label for="item_name">
+                         ITEM NAME<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="text"
+                          name="item_name"
+                          id="item_name"
+                          value={formData.item_name}
+                          onChange={handleInputChange}
+                          invalid={!!errors.item_name}
+                        />
+                        <span className="text-danger">{errors.item_name}</span>
+                      </Col>
+                      
+                      <hr className="mb-0 mt-3" />
+                    </Row>
+                    <Row className="mb-2">
+                    <Col md={6}>
+                        <Label for="item_code">
+                         ITEM CODE<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="text"
+                          name="item_code"
+                          id="item_code"
+                          value={formData.item_code}
+                          onChange={handleInputChange}
+                          invalid={!!errors.item_code}
+                        />
+                        <span className="text-danger">{errors.item_code}</span>
+                      </Col>
+                      <Col md={6}>
+                        <Label for="uom">
+                        UOM<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="select"
+                          name="uom"
+                          id="uom"
+                          value={formData.uom}
+                          onChange={handleDropdownChange}
+                          invalid={!!errors.uom}
+                        >
+                          <option value="">SELECT UOM</option>
+                          <option value="group1">Group 1</option>
+                          <option value="group2">Group 2</option>
+                        </Input>
+                        <span className="text-danger">
+                          {errors.uom}
+                        </span>
+                      </Col>
+                      <hr className="mb-0 mt-3" />
+                    </Row>
+                    <Row className="mb-2">
+                    <Col md={6}>
+                        <Label for="model">
+                         MAKE/MODEL<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="text"
+                          name="model"
+                          id="model"
+                          value={formData.model}
+                          onChange={handleInputChange}
+                          invalid={!!errors.model}
+                        />
+                        <span className="text-danger">{errors.model}</span>
+                      </Col>
+                      <Col md={6}>
+                        <Label for="discription">
+                         DISCRIPTION<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="text"
+                          name="discription"
+                          id="discription"
+                          value={formData.discription}
+                          onChange={handleInputChange}
+                          invalid={!!errors.discription}
+                        />
+                        <span className="text-danger">{errors.discription}</span>
+                      </Col>
+                      <hr className="mb-0 mt-3" />
+                    </Row>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                        }}
+                      >
+                        <button
+                          type="button"
+                          className="btn btn-success-subtle border border-success"
+                          onClick={createHandle}
+                          style={{
+                            paddingTop: "10px",
+                            height: "45px",
+                            width: "80px",
+                            marginRight: "30px",
+                          }}
+                        >
+                          <Label>CREATE</Label>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary-subtle border border-secondary"
+                          onClick={() => {
+                            navigate("/create_items");
+                          }}
+                          style={{
+                            paddingTop: "10px",
+                            width: "80px",
+                            height: "45px",
+                          }}
+                        >
+                          <Label>BACK</Label>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </Col>
+              </Row>
+            </CardBody>
+          </Card>
+        </div>
+      </Container>
+    </React.Fragment>
+  );
+};
+
+export default CreateItemsCreate;
