@@ -17,7 +17,9 @@ const Navbar = (props: any) => {
 
   const [pricing, setpricing] = useState<boolean>(false);
   const [app, setapp] = useState<boolean>(false);
+  const [tag, settag] = useState<boolean>(false);
   const [email, setemail] = useState<boolean>(false);
+  const [addtostore, setaddtostore] = useState<boolean>(false);
   const [contact, setcontact] = useState<boolean>(false);
   const [component, setcomponent] = useState<boolean>(false);
   const [form, setform] = useState<boolean>(false);
@@ -421,14 +423,78 @@ const Navbar = (props: any) => {
                     <Icon name="database" /> <span>{props.t("ASSET")}</span>
                     <div className="arrow-down"></div>
                   </Link>
+                  
                   <div className={classname("dropdown-menu")}>
-                    <Link to="/add_new_asset" className="dropdown-item">
+                    <Link to="/bills_entry" className="dropdown-item">
+                      {props.t("Bills-Entry")}
+                    </Link>
+                    
+                    <div className="dropdown">
+                      <Link
+                        to="/#"
+                        className="dropdown-item dropdown-toggle arrow-none"
+                        onClick={e => {
+                          e.preventDefault();
+                          setaddtostore(!addtostore);
+                        }}
+                      >
+                        {props.t("Add-To-Store")} <div className="arrow-down"></div>
+                      </Link>
+                      <div
+                        className={classname("dropdown-menu", { show: addtostore })}
+                      >
+                        <Link to="/via_bills" className="dropdown-item">
+                          {props.t("Via-Bill")}
+                        </Link>
+                        {/* <Link to="/read-email" className="dropdown-item">
+                          {props.t("Without-Bill")}
+                        </Link> */}
+                      <Link to="/add_new_asset" className="dropdown-item">
                       {props.t("Add-New-Asset")}
                     </Link>
+                      </div>
+                    </div>
+                    <div className="dropdown">
+                      <Link
+                        to="/#"
+                        className="dropdown-item dropdown-toggle arrow-none"
+                        onClick={e => {
+                          e.preventDefault();
+                          settag(!tag);
+                        }}
+                      >
+                        {props.t("Tag-Printing")} <div className="arrow-down"></div>
+                      </Link>
+                      <div
+                        className={classname("dropdown-menu", { show: tag })}
+                      >
+                        <Link to="/barcode" className="dropdown-item">
+                          {props.t("Barcode")}
+                        </Link>
+                        <Link to="/qr_code" className="dropdown-item">
+                          {props.t("OR-Code")}
+                        </Link>
+                      </div>
+                    </div>
                     <Link to="/all_asset" className="dropdown-item">
                       {props.t("All-Assets")}
                     </Link>
+                    <Link to="/bulk_asset_allocate" className="dropdown-item">
+                      {props.t("Bulk-Asset-Allocate")}
+                    </Link>
+                    <Link to="/deallocate" className="dropdown-item">
+                      {props.t("De-Allocate")}
+                    </Link>
+                    <Link to="/damaged_asset" className="dropdown-item">
+                      {props.t("Damaged-Asset")}
+                    </Link>
+                    <Link to="/Approve_damaged_asset" className="dropdown-item">
+                      {props.t("approve_damaged_asset")}
+                    </Link>
+                    
                   </div>
+                  
+                  
                   
 </li>
 

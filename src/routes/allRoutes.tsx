@@ -245,6 +245,14 @@ import AddNewAsset from "src/pages/Asset-Module/AssetLists/AddNewAsset";
 import AddNewAssetCreate from "src/pages/Asset-Module/CreatePages/AddNewAssetCreate";
 import AddNewAssetUpdate from "src/pages/Asset-Module/UpdatePages/AddNewAssetUpdate";
 import AllAsset from "src/pages/Asset-Module/AssetLists/AllAsset";
+import BillsEntry from "src/pages/Asset-Module/AssetLists/BillsEntry";
+import ViaBill from "src/pages/Asset-Module/AssetLists/ViaBill";
+import Barcode from "src/pages/Asset-Module/AssetLists/Barcode";
+import QrCode from "src/pages/Asset-Module/AssetLists/QrCode";
+import BulkAssetAllocate from "src/pages/Asset-Module/AssetLists/BulkAssetAllocate";
+import DeAllocate from "src/pages/Asset-Module/AssetLists/DeAllocate";
+import DamagedAssets from "src/pages/Asset-Module/AssetLists/DamagedAssets";
+import ApproveDamagedAssets from "src/pages/Asset-Module/AssetLists/ApproveDamagedAssets";
 
 interface RouteProps {
   path: string;
@@ -259,6 +267,15 @@ const userRoutes: Array<RouteProps> = [
   //ASSET MASTER PAGES PATH
   { path: "/add_new_asset", component: <AddNewAsset /> },
   { path: "/all_asset", component: <AllAsset /> },
+  { path: "/bills_entry", component: <BillsEntry /> },
+  { path: "/via_bills", component: <ViaBill /> },
+  { path: "/barcode", component: <Barcode /> },
+  { path: "/qr_code", component: <QrCode /> },
+  { path: "/bulk_asset_allocate", component: <BulkAssetAllocate /> },
+  { path: "/deallocate", component: <DeAllocate /> },
+  { path: "/damaged_asset", component: <DamagedAssets /> },
+  { path: "/Approve_damaged_asset", component: <ApproveDamagedAssets /> },
+
   //ASSET MASTER CREATE PATH
   { path: "/create_add_new_asset", component: <AddNewAssetCreate /> },
   //ASSET MASTER MODIFY PATH
