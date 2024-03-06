@@ -279,6 +279,133 @@ const DisplayBillEntryDetails = () => {
       </td>
     </tr>
   ))}
+  <tr>
+  <td></td>
+  <td>Total Basic Price</td>
+  <td>Tax 1</td>
+  <td>Tax 2</td>
+  <td>Tax 1 Value</td>
+  <td>Tax 2 Value</td>
+  <td>Total Price</td>
+</tr>
+<tr>
+<td></td>
+  <td>
+    <Input
+      type="number"
+      name="basic_price"
+      id="basic_price"
+      readOnly
+    />
+  </td>
+  <td>
+    <Input
+      type="select"
+      name="id_tax1"
+      id="id_tax1"
+      onChange={(e) => setTax1Value(e.target.value)}
+    >
+      <option value="">Select Tax 1</option>
+      <option value="GST">GST</option>
+      <option value="VAT">VAT</option>
+      <option value="Service Tax">Service Tax</option>
+      {/* Add more tax options as needed */}
+    </Input>
+  </td>
+  <td>
+    <Input
+      type="select"
+      name="id_tax2"
+      id="id_tax2"
+      onChange={(e) => setTax2Value(e.target.value)}
+    >
+      <option value="">Select Tax 2</option>
+      <option value="GST">GST</option>
+      <option value="VAT">VAT</option>
+      <option value="Service Tax">Service Tax</option>
+      {/* Add more tax options as needed */}
+    </Input>
+  </td>
+  <td>
+    <Input
+      type="number"
+      name="tax_val1"
+      id="tax_val1"
+      readOnly
+    />
+  </td>
+  <td>
+    <Input
+      type="number"
+      name="tax_val2"
+      id="tax_val2"
+      readOnly
+    />
+  </td>
+  <td>
+    <Input
+      type="number"
+      name="basic_price_tax"
+      id="basic_price_tax"
+      readOnly
+    />
+  </td>
+</tr>
+<tr>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>
+    <Input
+      type="text"
+      name="oter_text"
+      id="oter_text"
+      readOnly
+    />
+  </td>
+  <td>
+    <Input
+      type="number"
+      name="frt_text"
+      id="frt_text"
+      readOnly
+    />
+  </td>
+</tr>
+<tr>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>Discount</td>
+  <td>
+    <Input
+      type="number"
+      name="discount"
+      id="discount"
+      readOnly
+    />
+  </td>
+</tr>
+<tr>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>Grand Total</td>
+  <td>
+    <Input
+      type="number"
+      name="tot"
+      id="tot"
+      readOnly
+    />
+  </td>
+</tr>
 </tbody>
 
       </table>
