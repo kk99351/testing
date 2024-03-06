@@ -253,6 +253,10 @@ import BulkAssetAllocate from "src/pages/Asset-Module/AssetLists/BulkAssetAlloca
 import DeAllocate from "src/pages/Asset-Module/AssetLists/DeAllocate";
 import DamagedAssets from "src/pages/Asset-Module/AssetLists/DamagedAssets";
 import ApproveDamagedAssets from "src/pages/Asset-Module/AssetLists/ApproveDamagedAssets";
+import AllAssetUpdate from "src/pages/Asset-Module/CreatePages/AllAssetUpdate";
+import AllAssetCreate from "src/pages/Asset-Module/CreatePages/AllAssetCreate";
+import BulkAssetCreate from "src/pages/Asset-Module/CreatePages/BulkAssetCreate";
+import BulkAssetUpdate from "src/pages/Asset-Module/UpdatePages/BulkAssetUpdate";
 import DisplayBillEntryDetails from "src/pages/Asset-Module/UpdatePages/BillEntryDetails";
 import DisplayViaBillEntryDetails from "src/pages/Asset-Module/UpdatePages/ViaBillEntryDetails";
 
@@ -276,12 +280,18 @@ const userRoutes: Array<RouteProps> = [
   { path: "/bulk_asset_allocate", component: <BulkAssetAllocate /> },
   { path: "/deallocate", component: <DeAllocate /> },
   { path: "/damaged_asset", component: <DamagedAssets /> },
-  { path: "/Approve_damaged_asset", component: <ApproveDamagedAssets /> },
-
+  { path: "/approve_damaged_asset", component: <ApproveDamagedAssets /> },
   //ASSET MASTER CREATE PATH
   { path: "/create_add_new_asset", component: <AddNewAssetCreate /> },
+  { path: "/create_all_asset", component: <AllAssetCreate /> },
+  { path: "/create_bulk_asset_allocate", component: <BulkAssetCreate /> },
+
   //ASSET MASTER MODIFY PATH
   { path: "/modify_add_new_asset/:id", component: <AddNewAssetUpdate /> },
+  { path: "/modify_all_asset/:id", component: <AllAssetUpdate /> },
+  { path: "/modify_bulk_asset_allocate/:id", component: <BulkAssetUpdate /> },
+
+
 
 
 
