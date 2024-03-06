@@ -257,6 +257,8 @@ import AllAssetUpdate from "src/pages/Asset-Module/CreatePages/AllAssetUpdate";
 import AllAssetCreate from "src/pages/Asset-Module/CreatePages/AllAssetCreate";
 import BulkAssetCreate from "src/pages/Asset-Module/CreatePages/BulkAssetCreate";
 import BulkAssetUpdate from "src/pages/Asset-Module/UpdatePages/BulkAssetUpdate";
+import DisplayBillEntryDetails from "src/pages/Asset-Module/UpdatePages/BillEntryDetails";
+import DisplayViaBillEntryDetails from "src/pages/Asset-Module/UpdatePages/ViaBillEntryDetails";
 
 interface RouteProps {
   path: string;
@@ -413,6 +415,10 @@ const userRoutes: Array<RouteProps> = [
   { path: "/user_type/:id", component: <UserTypeUpdate /> },
   { path: "/user_login/:id", component: <UserLoginUpdate /> },
   { path: "/department/:id", component: <DepartmentUpdate /> },
+
+  //AssetsSraban
+  { path: "/bill_entry/:id", component: <DisplayBillEntryDetails /> },
+  { path: "/via_bill/:id", component: <DisplayViaBillEntryDetails /> },
 
   //dashboard
   { path: "/sales", component: <Sales /> },

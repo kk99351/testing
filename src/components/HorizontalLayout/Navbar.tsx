@@ -426,7 +426,7 @@ const Navbar = (props: any) => {
                   
                   <div className={classname("dropdown-menu")}>
                     <Link to="/bills_entry" className="dropdown-item">
-                      {props.t("Bills-Entry")}
+                      {props.t("Bills Entry")}
                     </Link>
                     
                     <div className="dropdown">
@@ -480,16 +480,16 @@ const Navbar = (props: any) => {
                       {props.t("All-Assets")}
                     </Link>
                     <Link to="/bulk_asset_allocate" className="dropdown-item">
-                      {props.t("Bulk-Asset-Allocate")}
+                      {props.t("Bulk Asset-Allocate")}
                     </Link>
                     <Link to="/deallocate" className="dropdown-item">
                       {props.t("De-Allocate")}
                     </Link>
                     <Link to="/damaged_asset" className="dropdown-item">
-                      {props.t("Damaged-Asset")}
+                      {props.t("Damaged Asset")}
                     </Link>
-                    <Link to="/approve_damaged_asset" className="dropdown-item">
-                      {props.t("Approve-Damaged-Asset")}
+                    <Link to="/Approve_damaged_asset" className="dropdown-item">
+                      {props.t("approve_damaged_asset")}
                     </Link>
                     
                   </div>
