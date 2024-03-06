@@ -253,6 +253,8 @@ import BulkAssetAllocate from "src/pages/Asset-Module/AssetLists/BulkAssetAlloca
 import DeAllocate from "src/pages/Asset-Module/AssetLists/DeAllocate";
 import DamagedAssets from "src/pages/Asset-Module/AssetLists/DamagedAssets";
 import ApproveDamagedAssets from "src/pages/Asset-Module/AssetLists/ApproveDamagedAssets";
+import DisplayBillEntryDetails from "src/pages/Asset-Module/UpdatePages/BillEntryDetails";
+import DisplayViaBillEntryDetails from "src/pages/Asset-Module/UpdatePages/ViaBillEntryDetails";
 
 interface RouteProps {
   path: string;
@@ -403,6 +405,10 @@ const userRoutes: Array<RouteProps> = [
   { path: "/user_type/:id", component: <UserTypeUpdate /> },
   { path: "/user_login/:id", component: <UserLoginUpdate /> },
   { path: "/department/:id", component: <DepartmentUpdate /> },
+
+  //AssetsSraban
+  { path: "/bill_entry/:id", component: <DisplayBillEntryDetails /> },
+  { path: "/via_bill/:id", component: <DisplayViaBillEntryDetails /> },
 
   //dashboard
   { path: "/sales", component: <Sales /> },
