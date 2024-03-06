@@ -5,7 +5,7 @@ import classnames from "classnames";
 import CompanyMaster from "./CompanyMaster"
 import MailConfiguration from "./MailConfiguration";
 import HelpMailDesk from "./HelpMailDesk";
-
+ 
 const FormDetails = () => {
   const [col1, setcol1] = useState(false);
   const [col2, setcol2] = useState(false);
@@ -20,15 +20,15 @@ const FormDetails = () => {
     setcol1(false);
     setcol3(false);
   };
-
+ 
   const t_col3 = () => {
     setcol3(!col3);
     setcol1(false);
     setcol2(false);
   };
-
  
-
+ 
+ 
   return (
     <React.Fragment>
       <div className="page-content">
@@ -51,7 +51,7 @@ const FormDetails = () => {
                 </div>
               </div>
             </CardHeader>
-
+ 
             <CardBody className="p-4">
               <div
                 className="accordion accordion-flush"
@@ -116,5 +116,5 @@ const FormDetails = () => {
     </React.Fragment>
   );
 };
-
+ 
 export default FormDetails;

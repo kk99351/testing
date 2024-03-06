@@ -1,1255 +1,684 @@
-import React, { useEffect } from "react";
-import MetaTags from "react-meta-tags";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/plain.css";
+import * as Yup from "yup";
 import {
+  Button,
   Col,
   Input,
+  Label,
   Row,
+  FormGroup,
+  FormFeedback,
+  Form,
+  Container,
   Card,
   CardHeader,
   CardBody,
-  Button,
 } from "reactstrap";
-import axios from "axios";
-import styles from "../../../../assets/cssFiles/formPlaceholder.module.css";
+import { useFormik } from "formik";
+import { useGet } from "src/API/useGet";
 
 const CompanyMaster = props => {
-  const [errors, setErrors] = useState({});
-  const [companyFormData, setCompanyFormData] = useState();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(true);
-  const [logo, setLogo] = useState("");
-
   const { fun } = { ...props };
-  const validatePAN = value => {
-    return /^[A-Z]{5}\d{4}[A-Z]{1}$/.test(value);
-  };
-  const validateForm = () => {
-    let newErrors = {};
+  const [logoPreview, setLogoPreview] = useState("");
+  const [logoError, setLogoError] = useState("");
 
-    const isNullOrUndefinedOrEmpty = value =>
-      value === null || value === undefined || value === "";
-
-    if (isNullOrUndefinedOrEmpty(formData.email) || !formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Invalid email address";
-    }
-    if (isNullOrUndefinedOrEmpty(formData.nmCom) || !formData.nmCom.trim()) {
-      newErrors.companyname = "company name is required";
-    }
-    if (isNullOrUndefinedOrEmpty(formData.add1) || !formData.add1.trim()) {
-      newErrors.address1 = "address 1 is required";
-    }
-    if (isNullOrUndefinedOrEmpty(formData.city) || !formData.city.trim()) {
-      newErrors.city = "city is required";
-    }
-    if (isNullOrUndefinedOrEmpty(formData.add2) || !formData.add2.trim()) {
-      newErrors.address2 = "address 2 is required";
-    }
-    if (
-      isNullOrUndefinedOrEmpty(formData.nmState) ||
-      !formData.nmState.trim()
-    ) {
-      newErrors.state = "state is required";
-    }
-    if (isNullOrUndefinedOrEmpty(formData.pan) || !formData.pan.trim()) {
-      newErrors.pan = "pan is required";
-    }
-    if (
-      isNullOrUndefinedOrEmpty(formData.country) ||
-      !formData.country.trim()
-    ) {
-      newErrors.country = "country is required";
-    }
-    if (
-      isNullOrUndefinedOrEmpty(formData.nmContact) ||
-      !formData.nmContact.trim()
-    ) {
-      newErrors.contactperson = "contact person is required";
-    }
-    if (
-      isNullOrUndefinedOrEmpty(formData.GST) ||
-      !String(formData.GST).trim()
-    ) {
-      newErrors.gst = "gst is required";
-    }
-    if (
-      isNullOrUndefinedOrEmpty(formData.cin) ||
-      !String(formData.cin).trim()
-    ) {
-      newErrors.cin = "cin is required";
-    }
-    if (
-      isNullOrUndefinedOrEmpty(formData.assetPrefix) ||
-      !formData.assetPrefix.trim()
-    ) {
-      newErrors.asetprefix = "asset is required";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
- console.log(process.env.BASE_API_URL);
-  const [formData, setFormData] = useState({
-    idCom: "",
-    nmCom: "",
-    add1: "",
-    city: "",
-    add2: "",
-    nmState: "",
-    mailid: "",
-    pin: "",
-    phone: "",
-    country: "",
-    GST: "",
-    cin: "",
-    nmContact: "",
-    fax: "",
-    pan: "",
-    licenseNo: "",
-    assetPrefix: "",
-    licenseDt: "",
+  const [companyFormData, setCompanyFormData] = useState({
+    companyname: "HCS",
   });
-  useEffect(() => {
-    axios
-      .get(`${process.env.BASE_API_URL}/companyform`)
-      .then(response => {
-        setCompanyFormData(response[0]);
-        setFormData(response[0]);
-        setLoading(false);
-        setError(false);
-      })
-      .catch(error => {
-        console.log(error);
-        setError(true);
-      });
-  }, []);
+  // const { getData, data, isLoading, isError } = useGet();
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    let newValue = value;
-    if (name === "pan") {
-      // PAN format validation
-      const newValue = value.toUpperCase().replace(/[^A-Z\d]/g, "");
-      
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getData("http://localhost:3000/companyform");
+  //   }
+  //   fetch();
+  // }, [getData]);
+
+  // useEffect(() => {
+  //   setCompanyFormData(data[0]);
+  // }, [data]);
+
+  const validation = useFormik({
+    enableReinitialize: true,
+
+    initialValues: {
+      companyname: companyFormData?.companyname || "",
+      address1: companyFormData?.address1 || "",
+      city: companyFormData?.city || "",
+      address2: companyFormData?.address2 || "",
+      state: companyFormData?.state || "",
+      email: companyFormData?.email || "",
+      pin: companyFormData?.pin || "",
+      country: companyFormData?.country || "",
+      fax: companyFormData?.fax || "",
+      phone: companyFormData?.phone || "",
+      contactPerson: companyFormData?.contactPerson || "",
+      gst: companyFormData?.gst || "",
+      pan: companyFormData?.pan || "",
+      cin: companyFormData?.cin || "",
+      assetPrefix: companyFormData?.assetPrefix || "",
+      logo: companyFormData?.logo || null,
+    },
+
+    validationSchema: Yup.object({
+      companyname: Yup.string().required("Company Name is Required"),
+      address1: Yup.string().required("Address 1 is Required"),
+      city: Yup.string().required("City is Required"),
+      address2: Yup.string().required("Address 2 is Required"),
+      state: Yup.string().required("State is Required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is Required"),
+      country: Yup.string().required("Country is Required"),
+      fax: Yup.string(),
+      contactPerson: Yup.string().required("Contact Person is Required"),
+      gst: Yup.string().required("GST is Required"),
+      pan: Yup.string()
+        .max(10, "not be more than 10 characters")
+        .matches(/[A-Z]{5}[0-9]{4}[A-Z]/, "Invalid PAN format")
+        .required("PAN is Required"),
+      cin: Yup.string().required("CIN is Required"),
+      pin: Yup.string().required("PIN is Required"),
+      licenseNumber: Yup.string(),
+      assetPrefix: Yup.string().required("AssetPrefix is required"),
+      logo: Yup.string().required("Company Logo is Required"),
+    }),
+
+    onSubmit: values => {
+      alert("Form validated!");
+      console.log("values", values);
+    },
+  });
+
+  const handleChange = event => {
+    const fieldName = event.target.name;
+    const inputValue = event.target.value;
+    const uppercaseValue = inputValue ? inputValue.toUpperCase() : "";
+
+    validation.handleChange(event);
+    validation.setFieldValue(fieldName, uppercaseValue);
+  };
+
+  const handleLogoChange = e => {
+    const file = e.target.files[0];
+
+    if (file) {
       if (
-        (newValue.length <= 5 && /^[A-Z]*$/.test(newValue)) ||
-      (newValue.length > 5 &&
-        newValue.length <= 9 &&
-        /^\d*$/.test(newValue.substr(5))) ||
-      (newValue.length === 10 && /^[A-Z]$/.test(newValue.substr(9)))
+        !file.type.startsWith("image/") ||
+        !/\.(jpg|jpeg|png)$/i.test(file.name)
       ) {
-        setFormData({
-          ...formData,
-          [name]: newValue,
-        });
+        setLogoPreview(null);
+        validation.setFieldValue("logo", null);
+        setLogoError("Please choose a valid image file (jpg, jpeg, png).");
+      } else {
+        setLogoPreview(URL.createObjectURL(file));
+        validation.setFieldValue("logo", file);
+        setLogoError("");
       }
-    } else {
-      // For other fields, simply update the state
-      setFormData({
-        ...formData,
-        [name]: newValue,
-      });
+
+      validation.setFieldTouched("logo", true, false);
     }
   };
 
-  const handleSubmit = async () => {
-    if (validateForm()) {
-      // setLoading(true);
-      // console.log(formData);
-      // await axios
-      //   .put(`http://localhost:3000/companyform/1`, formData)
-      //   .then(response => {
-      //     console.log(response);
-      //     setLoading(false);
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //     setError(true);
-      //   });
-      alert("Form Validated and submited");
-    } else {
-      alert("Please fill all the Details");
-    }
-  };
+  // if (isLoading) {
+  //   return (
+  //     <Container fluid className="page-content">
+  //       <h1>Loading...</h1>
+  //     </Container>
+  //   );
+  // }
+
+  // if (isError) {
+  //   return (
+  //     <Container fluid className="page-content">
+  //       <h1>ERROR in API</h1>
+  //     </Container>
+  //   );
+  // }
 
   return (
     <React.Fragment>
-      <div>
-        <MetaTags>
-          <title>HCS Technology Private Limited</title>
-        </MetaTags>
-
-        <div className="container">
-          <Card
-            className="border"
-            style={{ boxShadow: "1px 1px 8px 1px gray" }}
-          >
-            <CardHeader>
-              <h3 className="d-flex justify-content-center">
-                FILL YOUR COMPANY DETAILS
-              </h3>
-            </CardHeader>
-
-            <CardBody>
-              <Row>
-                <Col xl={6}>
-                  <div>
-                    <Row
-                      className="mb-4"
-                      style={{ display: "flex", justifyContent: "center" }}
-                    >
-                      <Col md={8} className={styles.inputContainer}>
+      <>
+        <Card>
+          <CardHeader>
+            <h1 className="card-title" style={{ fontSize: "20px" }}>
+              FILL YOUR COMPANY DETAILS
+            </h1>
+          </CardHeader>
+          <CardBody>
+            <Row className="justify-content-center">
+              <Col xl={10}>
+                <Form
+                  className="needs-validation"
+                  onSubmit={validation.handleSubmit}
+                >
+                  <Row>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom01">
+                          COMPANY NAME<font color="red">*</font>
+                        </Label>
                         <Input
+                          name="companyname"
+                          placeholder="Company Name"
                           type="text"
-                          placeholder=""
-                          name="nmCom"
-                          value={formData.nmCom}
+                          className="form-control"
+                          value={validation.values.companyname}
                           onChange={handleChange}
-                          className={`${styles.input} ${
-                            errors.companyname ? "is-invalid" : ""
-                          }`}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.companyname &&
+                            validation.errors.companyname
+                          }
                         />
-                        <span className={styles["placeholder-label"]}>
-                          COMPANY NAME <font color="red">*</font>
-                        </span>
-                        {errors.companyname && (
-                          <div className="text-danger">{errors.companyame}</div>
-                        )}
-                      </Col>
-                    </Row>
-
-                    <Row
-                      className="mb-4"
-                      style={{ display: "flex", justifyContent: "center" }}
-                    >
-                      <Col md={8} className={styles.inputContainer}>
+                        {validation.touched.companyname &&
+                        validation.errors.companyname ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.companyname}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom02">
+                          ADDRESS1<font color="red">*</font>
+                        </Label>
                         <Input
+                          name="address1"
+                          placeholder="address1"
                           type="text"
-                          placeholder=" "
+                          className="form-control"
+                          value={validation.values.address1}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.address1 &&
+                            validation.errors.address1
+                          }
+                        />
+                        {validation.touched.address1 &&
+                        validation.errors.address1 ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.address1}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <hr className="mb-2 mt-0" />
+
+                  <Row>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom03">
+                          CITY<font color="red">*</font>
+                        </Label>
+                        <Input
                           name="city"
-                          value={formData.city}
-                          onChange={handleChange}
-                          className={`${styles.input} ${
-                            errors.city ? "is-invalid" : ""
-                          }`}
-                        />
-                        <span className={styles["placeholder-label"]}>
-                          CITY NAME<font color="red">*</font>
-                        </span>
-                        {errors.city && (
-                          <div className="text-danger">{errors.city}</div>
-                        )}
-                      </Col>
-                    </Row>
-
-                    <Row
-                      className="mb-4"
-                      style={{ display: "flex", justifyContent: "center" }}
-                    >
-                      <Col md={8} className={styles.inputContainer}>
-                        <Input
+                          placeholder="City"
                           type="text"
-                          placeholder=" "
-                          name="nmState"
-                          value={formData.nmState}
+                          className="form-control"
+                          value={validation.values.city}
                           onChange={handleChange}
-                          className={`${styles.input} ${
-                            errors.state ? "is-invalid" : ""
-                          }`}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.city && validation.errors.city
+                          }
                         />
-                        <span className={styles["placeholder-label"]}>
-                          STATE NAME<font color="red">*</font>
-                        </span>
-                        {errors.state && (
-                          <div className="text-danger">{errors.state}</div>
-                        )}
-                      </Col>
-                    </Row>
-
-                    <Row
-                      className="mb-4"
-                      style={{ display: "flex", justifyContent: "center" }}
-                    >
-                      <Col md={8} className={styles.inputContainer}>
+                        {validation.touched.city && validation.errors.city ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.city}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom04">
+                          ADDRESS2<font color="red">*</font>
+                        </Label>
                         <Input
-                          type="number"
-                          placeholder=" "
+                          name="address2"
+                          placeholder="Address2"
+                          type="text"
+                          className="form-control"
+                          value={validation.values.address2}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.address2 &&
+                            validation.errors.address2
+                          }
+                        />
+                        {validation.touched.address2 &&
+                        validation.errors.address2 ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.address2}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <hr className="mb-2 mt-0" />
+
+                  <Row>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom05">
+                          STATE<font color="red">*</font>
+                        </Label>
+                        <Input
+                          name="state"
+                          placeholder="State"
+                          type="text"
+                          className="form-control"
+                          value={validation.values.state}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.state && validation.errors.state
+                          }
+                        />
+                        {validation.touched.state && validation.errors.state ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.state}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom06">
+                          EMAIL<font color="red">*</font>
+                        </Label>
+                        <Input
+                          name="email"
+                          placeholder="Email"
+                          type="email"
+                          className="form-control"
+                          value={validation.values.email}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.email && validation.errors.email
+                          }
+                        />
+                        {validation.touched.email && validation.errors.email ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.email}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <hr className="mb-2 mt-0" />
+
+                  <Row>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom07">PIN</Label>
+                        <Input
                           name="pin"
-                          value={formData.pin}
-                          onChange={handleChange}
-                          className={`${styles.input} ${
-                            errors.pin ? "is-invalid" : ""
-                          }`}
-                        />
-                        <span className={styles["placeholder-label"]}>PIN</span>
-                      </Col>
-                    </Row>
-
-                    <Row
-                      className="mb-4"
-                      style={{ display: "flex", justifyContent: "center" }}
-                    >
-                      <Col md={8} className={styles.inputContainer}>
-                        <Input
+                          placeholder="PIN"
                           type="text"
-                          placeholder=" "
+                          className="form-control"
+                          value={validation.values.pin}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.pin && validation.errors.pin
+                          }
+                        />
+                        {validation.touched.pin && validation.errors.pin ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.pin}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom08">
+                          COUNTRY<font color="red">*</font>
+                        </Label>
+                        <Input
+                          name="country"
+                          placeholder="Country"
+                          type="text"
+                          className="form-control"
+                          value={validation.values.country}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.country &&
+                            validation.errors.country
+                          }
+                        />
+                        {validation.touched.country &&
+                        validation.errors.country ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.country}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <hr className="mb-2 mt-0" />
+
+                  <Row>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom09">FAX</Label>
+                        <Input
                           name="fax"
-                          value={formData.fax}
-                          onChange={handleChange}
-                          className={`${styles.input} ${
-                            errors.fax ? "is-invalid" : ""
-                          }`}
-                        />
-                        <span className={styles["placeholder-label"]}>FAX</span>
-                      </Col>
-                    </Row>
-
-                    <Row
-                      className="mb-4"
-                      style={{ display: "flex", justifyContent: "center" }}
-                    >
-                      <Col md={8} className={styles.inputContainer}>
-                        <Input
+                          placeholder="Fax"
                           type="text"
-                          placeholder=""
-                          name="nmContact"
-                          value={formData.nmContact}
+                          className="form-control"
+                          value={validation.values.fax}
                           onChange={handleChange}
-                          className={`${styles.input} ${
-                            errors.contactperson ? "is-invalid" : ""
-                          }`}
+                          onBlur={validation.handleBlur}
                         />
-                        <span className={styles["placeholder-label"]}>
+                      </FormGroup>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label>PHONE</Label>
+                        <PhoneInput
+                          inputStyle={{ width: "100%" }}
+                          name="phone"
+                          placeholder="Enter Phone"
+                          country="in"
+                          value={String(validation.values.phone)}
+                          onChange={value => {
+                            validation.setFieldValue("phone", value);
+                          }}
+                          isValid={(value, country) => {
+                            if (value.match(/12345/)) {
+                              return (
+                                "Invalid value: " + value + ", " + country.name
+                              );
+                            } else if (value.match(/1234/)) {
+                              return false;
+                            } else {
+                              return true;
+                            }
+                          }}
+                        />
+                        {/* <Input
+                          name="phone"
+                          placeholder="Phone"
+                          type="text"
+                          value={validation.values.phone}
+                          className="form-control"
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                        /> */}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <hr className="mb-2 mt-0" />
+
+                  <Row>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom11">
                           CONTACT PERSON<font color="red">*</font>
-                        </span>
-                        {errors.contactperson && (
-                          <div className="text-danger">
-                            {errors.contactperson}
+                        </Label>
+                        <Input
+                          name="contactPerson"
+                          placeholder="Contact Person"
+                          type="text"
+                          className="form-control"
+                          value={validation.values.contactPerson}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.contactPerson &&
+                            validation.errors.contactPerson
+                          }
+                        />
+                        {validation.touched.contactPerson &&
+                        validation.errors.contactPerson ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.contactPerson}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom12">
+                          GST<font color="red">*</font>
+                        </Label>
+                        <Input
+                          name="gst"
+                          placeholder="GST"
+                          type="text"
+                          className="form-control"
+                          value={validation.values.gst}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.gst && validation.errors.gst
+                          }
+                        />
+                        {validation.touched.gst && validation.errors.gst ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.gst}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <hr className="mb-2 mt-0" />
+
+                  <Row>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom13">
+                          PAN<font color="red">*</font>
+                        </Label>
+                        <Input
+                          name="pan"
+                          placeholder="PAN"
+                          type="text"
+                          className="form-control"
+                          value={validation.values.pan}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.pan && validation.errors.pan
+                          }
+                        />
+                        {validation.touched.pan && validation.errors.pan ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.pan}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom14">
+                          CIN<font color="red">*</font>
+                        </Label>
+                        <Input
+                          name="cin"
+                          placeholder="CIN"
+                          type="text"
+                          className="form-control"
+                          value={validation.values.cin}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.cin && validation.errors.cin
+                          }
+                        />
+                        {validation.touched.cin && validation.errors.cin ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.cin}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <hr className="mb-2 mt-0" />
+
+                  <Row>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom15">
+                          LICENSE NUMBER
+                        </Label>
+                        <Input
+                          name="licenseNumber"
+                          placeholder="License Number"
+                          type="text"
+                          className="form-control"
+                          value={validation.values.licenseNumber}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom16">
+                          LICENSE NUMBER
+                        </Label>
+                        <Input
+                          name="licenseNumberNoValidation"
+                          placeholder="License Number (No Validation)"
+                          type="text"
+                          className="form-control"
+                          value={validation.values.companyname}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <hr className="mb-2 mt-0" />
+                  </Row>
+
+                  <Row>
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom17">
+                          ASSET PREFIX<font color="red">*</font>
+                        </Label>
+                        <Input
+                          name="assetPrefix"
+                          placeholder="Asset Prefix"
+                          type="text"
+                          className="form-control"
+                          value={validation.values.assetPrefix}
+                          onChange={handleChange}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.assetPrefix &&
+                            validation.errors.assetPrefix
+                          }
+                        />
+                        {validation.touched.assetPrefix &&
+                        validation.errors.assetPrefix ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.assetPrefix}
+                          </FormFeedback>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+
+                    <Col md="6">
+                      <FormGroup className="mb-3">
+                        <Label htmlFor="validationCustom18">
+                          COMPANY LOGO<font color="red">*</font>
+                        </Label>
+                        <Input
+                          name="logo"
+                          type="file"
+                          accept="image/png"
+                          className="form-control"
+                          onChange={handleLogoChange}
+                          onBlur={validation.handleBlur}
+                          invalid={
+                            validation.touched.logo && validation.errors.logo
+                          }
+                        />
+
+                        {validation.touched.logo && validation.errors.logo && (
+                          <FormFeedback type="invalid">
+                            {validation.errors.logo && logoError}
+                          </FormFeedback>
+                        )}
+
+                        {logoPreview && (
+                          <div className="mt-2">
+                            <img
+                              src={logoPreview}
+                              alt="Company Logo Preview"
+                              className="img-fluid"
+                              style={{ maxHeight: "100px" }}
+                            />
                           </div>
                         )}
-                      </Col>
-                    </Row>
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <hr className="mb-3 mt-3" />
 
-                    <Row
-                      className="mb-4"
-                      style={{ display: "flex", justifyContent: "center" }}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-around",
+                      }}
                     >
-                      <Col md={8} className={styles.inputContainer}>
-                        {/* <Input
-                          type="text"
-                          placeholder=" "
-                          name="pan"
-                          value={formData.pan}
-                          onChange={handleChange}
-                          className={`${styles.input} ${
-                            errors.pan ? "is-invalid" : ""
-                          }`}
-                        />
-                        <span className={styles["placeholder-label"]}>
-                        PAN NUMBER<font color="red">*</font>
-                        </span>
-                        {errors.pan && (
-                          <div className="text-danger">{errors.pan}</div>
-                        )} */}
-
-                        <Input
-                          type="text"
-                          placeholder=""
-                          maxLength={10}
-                          className={`${styles.input} ${
-                            errors.pan ? "is-invalid" : ""
-                          }`}
-                          id="pan"
-                          name="pan"
-                          value={formData.pan}
-                          onChange={handleChange}
-                        />
-                        <span className={styles["placeholder-label"]}>
-                          PAN NUMBER<font color="red">*</font>
-                        </span>
-                        <div className="invalid-feedback">
-                          PAN NUMBER MUST BE IN A CORRECT FORMAT
-                        </div>
-                      </Col>
-                    </Row>
-
-                    <Row
-                      className="mb-4"
-                      style={{ display: "flex", justifyContent: "center" }}
-                    >
-                      <Col md={8} className={styles.inputContainer}>
-                        <Input
-                          type="text"
-                          name="assetPrefix"
-                          placeholder=" "
-                          value={formData.assetPrefix}
-                          onChange={handleChange}
-                          className={`${styles.input} ${
-                            errors.asetprefix ? "is-invalid" : ""
-                          }`}
-                        />
-                        <span className={styles["placeholder-label"]}>
-                          ASET-FIX<font color="red">*</font>
-                        </span>
-                        {errors.asetprefix && (
-                          <div className="text-danger">{errors.asetprefix}</div>
-                        )}
-                      </Col>
-                    </Row>
+                      {/* <div className="d-flex align-items-center justify-content-around"> */}
+                      <Button
+                        type="submit"
+                        color="success-subtle"
+                        className="border border-success"
+                        style={{
+                          paddingTop: "10px",
+                          height: "45px",
+                          width: "100px",
+                          marginRight: "30px",
+                        }}
+                      >
+                        CREATE
+                      </Button>
+                      <button
+                        type="button"
+                        className="btn btn-secondary-subtle border border-secondary"
+                        style={{
+                          paddingTop: "10px",
+                          width: "100px",
+                          height: "45px",
+                        }}
+                        onClick={fun}
+                      >
+                        <Label>NEXT</Label>
+                      </button>
+                    </div>
                   </div>
-                </Col>
-
-                {/* 2nd colunm */}
-
-                <div className="col-xl-6">
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="text"
-                        placeholder=" "
-                        name="add1"
-                        value={formData.add1}
-                        onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.address1 ? "is-invalid" : ""
-                        }`}
-                      />
-                      <span className={styles["placeholder-label"]}>
-                        ADDRESS 1<font color="red">*</font>
-                      </span>
-                      {errors.address1 && (
-                        <div className="text-danger">{errors.address1}</div>
-                      )}
-                    </Col>
-                  </Row>
-
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="text"
-                        placeholder=" "
-                        name="add2"
-                        value={formData.add2}
-                        onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.address2 ? "is-invalid" : ""
-                        }`}
-                      />
-                      <span className={styles["placeholder-label"]}>
-                        ADDRESS 2<font color="red">*</font>
-                      </span>
-                      {errors.address2 && (
-                        <div className="text-danger">{errors.address2}</div>
-                      )}
-                    </Col>
-                  </Row>
-
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="email"
-                        placeholder=" "
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.email ? "is-invalid" : ""
-                        }`}
-                      />
-                      <span className={styles["placeholder-label"]}>
-                        EMAIL<font color="red">*</font>
-                      </span>
-                      {errors.email && (
-                        <div className="text-danger">{errors.email}</div>
-                      )}
-                    </Col>
-                  </Row>
-
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="text"
-                        placeholder=""
-                        name="country"
-                        value={formData.country}
-                        onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.country ? "is-invalid" : ""
-                        }`}
-                      />
-                      <span className={styles["placeholder-label"]}>
-                        COUNTRY<font color="red">*</font>
-                      </span>
-                      {errors.country && (
-                        <div className="text-danger">{errors.country}</div>
-                      )}
-                    </Col>
-                  </Row>
-
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="number"
-                        value={formData.phone}
-                        name="phone"
-                        onChange={handleChange}
-                        placeholder=" "
-                        className={styles.input}
-                      />
-                      <span className={styles["placeholder-label"]}>PHONE</span>
-                    </Col>
-                  </Row>
-
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="number"
-                        placeholder=""
-                        name="GST"
-                        value={formData.GST}
-                        onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.gst ? "is-invalid" : ""
-                        }`}
-                      />
-                      <span className={styles["placeholder-label"]}>
-                        GST NUMBER<font color="red">*</font>
-                      </span>
-                      {errors.gst && (
-                        <div className="text-danger">{errors.gst}</div>
-                      )}
-                    </Col>
-                  </Row>
-
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="number"
-                        placeholder=""
-                        name="cin"
-                        value={formData.cin}
-                        onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.cin ? "is-invalid" : ""
-                        }`}
-                      />
-                      <span className={styles["placeholder-label"]}>
-                        CIN<font color="red">*</font>
-                      </span>
-                      {errors.cin && (
-                        <div className="text-danger">{errors.cin}</div>
-                      )}
-                    </Col>
-                  </Row>
-
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="date"
-                        name="licenseDt"
-                        value={formData.licenseDt}
-                        onChange={handleChange}
-                        className={styles.input}
-                      />
-                      <span>Select License Date</span>
-                    </Col>
-                  </Row>
-
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="file"
-                        placeholder=" "
-                        name="file"
-                        value={formData.logo}
-                        onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.logo ? "is-invalid" : ""
-                        }`}
-                      />
-                      <span>Place your company Logo</span>
-                      <font color="red">*</font>
-                      {errors.logo && (
-                        <div className="text-danger">{errors.logo}</div>
-                      )}
-                    </Col>
-                  </Row>
-                </div>
-              </Row>
-            </CardBody>
-          </Card>
-
-          <div className="justify-content-center d-flex align-items-center justify-content-around mb-4">
-            <Button className="btn-lg border-primary" onClick={handleSubmit}>
-              UPDATE
-            </Button>
-            <Button
-              className="btn-lg border-primary"
-              style={{ float: "right" }}
-              onClick={fun}
-            >
-              NEXT
-            </Button>
-          </div>
-        </div>
-        {/* )} */}
-      </div>
+                </Form>
+              </Col>
+            </Row>{" "}
+          </CardBody>
+        </Card>
+      </>
     </React.Fragment>
   );
 };
 
 export default CompanyMaster;
-
-// import React, { useState } from "react";
-// import MetaTags from "react-meta-tags";
-// import { Container } from "reactstrap";
-// import { Col, Row, Card, CardHeader, CardBody } from "reactstrap";
-// import "sweetalert2/dist/sweetalert2.min.css";
-// import "../../assets/cssFiles/Create.css";
-
-// const CompanyMaster = prop => {
-//   const { fun } = { ...prop };
-
-//   const [showForm, setShowForm] = useState(false);
-//   const [cpnyname, setcpnyname] = useState("HCS");
-//   const [add1, setadd1] = useState("BABUSABPALYA");
-//   const [city, setcity] = useState("BANGALORE");
-//   const [add2, setadd2] = useState(" KALYAN NAGAR");
-//   const [state, setstate] = useState("KARNATAKA");
-//   const [pin, setpin] = useState("577543");
-//   const [email, setemail] = useState("RASH@GMAIL.COM");
-//   const [country, setcountry] = useState("INDIA");
-//   const [fax, setfax] = useState("HGDHSGFDSGF");
-//   const [phone, setphone] = useState("0987654321");
-//   const [contactperson, setcontactperson] = useState("AMIT HOLKAR");
-//   const [gst, setgst] = useState("386463252587676");
-//   const [pan, setpan] = useState("J987654356");
-//   const [cin, setcin] = useState("454549473854675387657");
-//   const [lino, setlino] = useState("JSDFDF8476");
-//   const [lidt, setlidt] = useState("13-03-2023");
-//   const [assetpre, setassetpre] = useState("");
-//   const [selectedFile, setSelectedFile] = useState(null);
-
-//   const handlepanChange = setpan => event => {
-
-//     const newValue = event.target.value.toUpperCase().replace(/[^A-Z\d]/g, "");
-//     if (
-//       (newValue.length <= 5 && /^[A-Z]*$/.test(newValue)) ||
-//       (newValue.length > 5 &&
-//         newValue.length <= 9 &&
-//         /^\d+$/.test(newValue.substr(5))) ||
-//       (newValue.length === 10 && /^[A-Z]$/.test(newValue.substr(9)))
-//     ) {
-//       setpan(newValue);
-//     }
-//   };
-//   const validatePAN = value => {
-//     return /^[A-Z]{5}\d{4}[A-Z]{1}$/.test(value);
-//   };
-//   const handlecinChange = (setcin, validateFunction) => event => {
-//     const newValue = event.target.value.toUpperCase().replace(/\D/g, "");
-//     if (validateFunction && !validateFunction(newValue)) {
-//       return;
-//     }
-//     setcin(newValue);
-//   };
-//   const validateCIN = value => {
-//     return value.length <= 21;
-//   };
-
-//   const handlegstChange = (setgst, validateFunction) => event => {
-//     const newValue = event.target.value.toUpperCase().replace(/\D/g, "");
-//     if (validateFunction && !validateFunction(newValue)) {
-//       return;
-//     }
-//     setgst(newValue);
-//   };
-//   const validateGST = value => {
-//     return value.length <= 15;
-//   };
-
-//   const handlephoneChange = (setphone, validateFunction) => event => {
-//     const newValue = event.target.value.toUpperCase();
-//     if (newValue === "") {
-//       setphone("");
-//       return;
-//     }
-//     if (validateFunction && !validateFunction(newValue)) {
-//       return;
-//     }
-//     setphone(newValue);
-//   };
-//   const validatePHONE = value => {
-//     return /^\d{1,10}$/.test(value);
-//   };
-//   const handlePinChange = (setpin, validateFunction) => event => {
-//     const newValue = event.target.value.toUpperCase();
-//     if (newValue === "") {
-//       setpin("");
-//       return;
-//     }
-//     if (validateFunction && !validateFunction(newValue)) {
-//       return;
-//     }
-//     setpin(newValue);
-//   };
-//   const validatePIN = value => {
-//     return /^\d{1,6}$/.test(value);
-//   };
-
-//   const handlecpnynameChange = event => {
-//     setcpnyname(event.target.value.toUpperCase());
-//   };
-//   const handleadd1Change = event => {
-//     setadd1(event.target.value.toUpperCase());
-//   };
-//   const handleadd2Change = event => {
-//     setadd2(event.target.value.toUpperCase());
-//   };
-//   const handlefaxChange = event => {
-//     setfax(event.target.value.toUpperCase());
-//   };
-//   const handlecityChange = event => {
-//     setcity(event.target.value.toUpperCase());
-//   };
-//   const handleemailChange = event => {
-//     setemail(event.target.value.toUpperCase());
-//   };
-//   const handlecountryChange = event => {
-//     setcountry(event.target.value.toUpperCase());
-//   };
-//   const handlecontactpersonChange = event => {
-//     setcontactperson(event.target.value.toUpperCase());
-//   };
-//   const handlestateChange = event => {
-//     setstate(event.target.value.toUpperCase());
-//   };
-//   const handlelinoChange = event => {
-//     setlino(event.target.value.toUpperCase());
-//   };
-//   const handlelidtChange = event => {
-//     setlidt(event.target.value.toUpperCase());
-//   };
-//   const handleassetpreChange = event => {
-//     setassetpre(event.target.value.toUpperCase());
-//   };
-//   const handlelogoChange = event => {
-//     const file = event.target.files[0];
-//     setSelectedFile(file);
-//   };
-
-//   const handleUpdate = event => {
-//     const form = event.currentTarget;
-
-//     if (!form.checkValidity()) {
-//       event.preventDefault();
-//       event.stopPropagation();
-//     }
-
-//     // form.classList.add("was-validated");
-//     // if (email.trim() !== "" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-//     //   event.preventDefault();
-//     //   event.stopPropagation();
-//     //   Swal.fire({
-//     //     icon: "error",
-//     //     title: "OOPPPS.... :(",
-//     //     text: "PLEASE PROVIDE A VALID EMAIL ADDRESS...!",
-//     //     customClass: {
-//     //       backdrop: "sweetalert-custom-background",
-//     //     },
-//     //   });
-//     // }
-//     alert("done")
-//   };
-
-//   const handleNext = () => {
-//     history.push("/experiment");
-//   };
-
-//   return (
-//     <React.Fragment>
-//       <MetaTags>
-//         <title>Company Master</title>
-//       </MetaTags>
-
-//       <Container>
-//         <form className="row g-6" noValidate onSubmit={handleUpdate}>
-//           <Card
-//             className="border"
-//             style={{ boxShadow: "1px 1px 8px 1px gray" }}
-//           >
-//             <CardHeader>
-//               <h3 className="d-flex justify-content-center">
-//                 FILL YOUR COMPANY DETAILS
-//               </h3>
-//             </CardHeader>
-
-//             <CardBody>
-//               <div
-//                 className="mb-3"
-//                 style={{ display: "flex", justifyContent: "center" }}
-//               >
-//                 <div className="col-md-10 inputContainer">
-//                   <Row>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=""
-//                           placeholder=""
-//                           className="textbox form-control"
-//                           id="cpnyname"
-//                           value={cpnyname}
-//                           onChange={handlecpnynameChange}
-//                           required
-//                         />
-//                         <label htmlFor="cpnyname" className="form-label">
-//                           COMPANY NAME<span className="span">*</span>
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           {" "}
-//                           COMPANY NAME IS REQUIRED
-//                         </div>
-//                       </div>
-//                     </Col>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className="textbox form-control"
-//                           id="add1"
-//                           value={add1}
-//                           onChange={handleadd1Change}
-//                           required
-//                         />
-//                         <label htmlFor="add1" className="form-label">
-//                           ADDRESS 1<span className="span">*</span>
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           {" "}
-//                           ADDRESS1 IS REQUIRED
-//                         </div>
-//                       </div>
-//                     </Col>
-//                     <hr className="mb-0 mt-3" />
-//                   </Row>
-//                   <Row>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className="textbox form-control"
-//                           id="add2"
-//                           value={add2}
-//                           onChange={handleadd2Change}
-//                           required
-//                         />
-//                         <label htmlFor="add2" className="form-label">
-//                           ADDRESS 2<span className="span">*</span>
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           {" "}
-//                           ADDRESS2 IS REQUIRED{" "}
-//                         </div>
-//                       </div>
-//                     </Col>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className="textbox form-control"
-//                           id="city"
-//                           value={city}
-//                           onChange={handlecityChange}
-//                           required
-//                         />
-//                         <label htmlFor="city" className="form-label">
-//                           CITY<span className="span">*</span>
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           CITY IS REQUIRED{" "}
-//                         </div>
-//                       </div>
-//                     </Col>
-//                   </Row>
-//                   <hr className="mb-0 mt-3" />
-//                   <Row>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className="textbox  form-control"
-//                           id="state"
-//                           value={state}
-//                           onChange={handlestateChange}
-//                           required
-//                         />
-//                         <label htmlFor="state" className="form-label">
-//                           STATE<span className="span">*</span>
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           STATE IS REQUIRED{" "}
-//                         </div>
-//                       </div>
-//                     </Col>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className="textbox form-control "
-//                           id="country"
-//                           value={country}
-//                           onChange={handlecountryChange}
-//                           required
-//                         />
-//                         <label htmlFor="country" className="form-label">
-//                           COUNTRY<span className="span">*</span>
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           {" "}
-//                           COUNTRY IS REQUIRED{" "}
-//                         </div>
-//                       </div>
-//                     </Col>
-//                   </Row>
-//                   <hr className="mb-0 mt-3" />
-//                   <Row>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className={`textbox form-control ${
-//                             pin.length !== 6 && pin.length > 0
-//                               ? "is-invalid"
-//                               : ""
-//                           }`}
-//                           id="pin"
-//                           value={pin}
-//                           onChange={handlePinChange(setpin, validatePIN)}
-//                         />
-//                         <label htmlFor="pin" className="form-label">
-//                           PIN
-//                         </label>
-
-//                         <div className="invalid-feedback">
-//                           PIN SHOULD CONSIST OF 6 DIGITS
-//                         </div>
-//                       </div>
-//                     </Col>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="email"
-//                           name=" "
-//                           placeholder=""
-//                           className="textbox form-control "
-//                           id="email"
-//                           value={email}
-//                           onChange={handleemailChange}
-//                           required
-//                           pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-//                         />
-//                         <label htmlFor="email" className="form-label">
-//                           EMAIL<span className="span">*</span>
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           EMAIL MUST BE IN A CORRECT FORMAT{" "}
-//                         </div>
-//                       </div>
-//                     </Col>
-//                     <hr className="mb-0 mt-3" />
-//                   </Row>
-//                   <Row>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className="textbox form-control "
-//                           id="fax"
-//                           value={fax}
-//                           onChange={handlefaxChange}
-//                         />
-//                         <label htmlFor="fax" className="form-label">
-//                           FAX
-//                         </label>
-//                         <div className="invalid-feedback"></div>
-//                       </div>
-//                     </Col>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className={`textbox form-control ${
-//                             phone.length !== 10 && phone.length > 0
-//                               ? "is-invalid"
-//                               : ""
-//                           }`}
-//                           id="phone"
-//                           value={phone}
-//                           onChange={handlephoneChange(setphone, validatePHONE)}
-//                         />
-//                         <label htmlFor="phone" className="form-label">
-//                           PHONE
-//                         </label>
-
-//                         <div className="invalid-feedback">
-//                           PHONE NUMBER SHOULD CONSIST OF 10 DIGITS
-//                         </div>
-//                       </div>
-//                     </Col>
-//                     <hr className="mb-0 mt-3" />
-//                   </Row>
-//                   <Row>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className={`textbox form-control ${
-//                             gst.length !== 15 && gst.length > 0
-//                               ? "is-invalid"
-//                               : ""
-//                           }`}
-//                           id="gst"
-//                           value={gst}
-//                           onChange={handlegstChange(setgst, validateGST)}
-//                           required
-//                         />
-//                         <label htmlFor="gst" className="form-label">
-//                           GST<span className="span">*</span>
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           GST SHOULD CONSIST OF 15 DIGITS
-//                         </div>
-//                       </div>
-//                     </Col>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className={`textbox form-control ${
-//                             !validatePAN(pan) && pan.length > 0
-//                               ? "is-invalid"
-//                               : ""
-//                           }`}
-//                           id="pan"
-//                           value={pan}
-//                           onChange={handlepanChange(setpan)}
-//                           required
-//                         />
-//                         <label htmlFor="pan" className="form-label">
-//                           PAN<span className="span">*</span>
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           PAN NUMBER MUST BE IN A CORRECT FORMAT
-//                         </div>
-//                       </div>
-//                     </Col>
-
-//                     <hr className="mb-0 mt-3" />
-//                   </Row>
-//                   <Row>
-//                     <Col>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className={`textbox form-control ${
-//                             cin.length !== 21 && cin.length >= 0
-//                               ? "is-invalid "
-//                               : ""
-//                           }`}
-//                           id="cin"
-//                           value={cin}
-//                           onChange={handlecinChange(setcin, validateCIN)}
-//                           required
-//                         />
-//                         <label htmlFor="cin" className="form-label">
-//                           CIN<span className="span">*</span>
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           CIN SHOULD CONSIST OF 21 DIGITS
-//                         </div>
-//                       </div>
-//                     </Col>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className="textbox form-control"
-//                           id="contactperson"
-//                           value={contactperson}
-//                           onChange={handlecontactpersonChange}
-//                           required
-//                         />
-//                         <label htmlFor="contactperson" className="form-label">
-//                           CONTACT PERSON<span className="span">*</span>
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           CONTACT PERSON IS REQUIRED{" "}
-//                         </div>
-//                       </div>
-//                     </Col>
-//                     <hr className="mb-0 mt-3" />
-//                   </Row>
-//                   <Row>
-//                     <Col sm={6}>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="text"
-//                           name=" "
-//                           placeholder=""
-//                           className="textbox form-control"
-//                           id="lino"
-//                           value={lino}
-//                           onChange={handlelinoChange}
-//                           required
-//                         />
-//                         <label htmlFor="lino" className="form-label">
-//                           LICENSE NUMBER
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           LICENSE NUMBER IS REQUIRED{" "}
-//                         </div>
-//                       </div>
-//                     </Col>
-//                     <Col>
-//                       <div className="form mt-4">
-//                         <input
-//                           type="date"
-//                           name=" "
-//                           placeholder=""
-//                           className="textbox form-control"
-//                           id="lidt"
-//                           value={lidt}
-//                           onChange={handlelidtChange}
-//                           required
-//                         />
-//                         <label htmlFor="lidt" className="form-label">
-//                           LICENSE DATE
-//                         </label>
-//                         <div className="invalid-feedback">
-//                           LICENSE DATE IS REQUIRED
-//                         </div>
-//                       </div>
-//                     </Col>
-//                     <hr className="mb-0 mt-3" />
-//                   </Row>
-//                 </div>
-//               </div>
-//               <div
-//                 className="mb-3"
-//                 style={{ display: "flex", justifyContent: "center" }}
-//               >
-//                 <div className="col-md-10 inputContainer">
-//                   <Col>
-//                     <h5
-//                       className="text-muted d-flex justify-content-center"
-//                       style={{ fontSize: "17px", color: "#b78702" }}
-//                     >
-//                       COMPANY LOGO
-//                     </h5>
-//                     <hr className="mb-0" />
-//                   </Col>
-//                   <Row className="mb-5 mt-3">
-//                     <Col md={6}>
-//                       <input
-//                         type="file"
-//                         id="fileInput"
-//                         onChange={handlelogoChange}
-//                         accept="image/*"
-//                         className="form-control"
-//                         required
-//                       />
-//                       <div className="invalid-feedback"></div>
-//                     </Col>
-//                     <Col
-//                       md={6}
-//                       className="d-flex align-items-center justify-content-center"
-//                     >
-//                       {selectedFile ? (
-//                         <img
-//                           src={URL.createObjectURL(selectedFile)}
-//                           alt="Selected"
-//                           style={{ maxWidth: "100%", maxHeight: "100px" }}
-//                         />
-//                       ) : (
-//                         <div className="fileholder"></div>
-//                       )}
-//                     </Col>
-//                   </Row>
-//                   <hr className="mb-0 mt-3" />
-//                 </div>
-//               </div>
-//             </CardBody>
-//           </Card>
-
-//           <div className="col-md-12 inputContainer">
-//             <div className=" mt-2 mb-3 d-flex justify-content-between">
-//               <button className="update" type="Update">
-//                 UPDATE
-//               </button>
-//               <div style={{ width: "20px" }}></div>
-//               <button className="update" onClick={fun}>
-//                 NEXT
-//               </button>
-//             </div>
-//           </div>
-//         </form>
-//       </Container>
-//     </React.Fragment>
-//   );
-// };
-
-// export default CompanyMaster;

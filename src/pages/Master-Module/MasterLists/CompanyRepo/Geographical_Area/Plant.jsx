@@ -15,13 +15,13 @@ const plant = () => {
   const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  const { getData, data, isLoading } = useGet();
-  useEffect(() => {
-    fetch("http://localhost:3000/plant")
-      .then(response => response.json())
-      .then(data => setResponseData(data))
-      .catch(error => console.error("Error fetching users:", error));
-  }, []);
+  // const { getData, data, isLoading } = useGet();
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/plant")
+  //     .then(response => response.json())
+  //     .then(data => setResponseData(data))
+  //     .catch(error => console.error("Error fetching users:", error));
+  // }, []);
   
   const columns = useMemo(
     () => [
@@ -76,7 +76,7 @@ const plant = () => {
 
   return (
     <React.Fragment>
-    {isLoading ? (
+    {/* {isLoading ? (
       <div className="page-content">
         <Card>
           <div>
@@ -84,7 +84,7 @@ const plant = () => {
           </div>
         </Card>
       </div>
-    ) : (
+    ) : ( */}
       <div className="page-content">
         <div className="container-fluid">
           <Card>
@@ -247,7 +247,7 @@ const plant = () => {
           </Card>
         </div>
       </div>
-    )}
+    {/* )} */}
   </React.Fragment>
   );
 };
