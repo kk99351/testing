@@ -123,7 +123,7 @@ const Navbar = (props: any) => {
                       setdashoboard(!master);
                     }}
                   >
-                    <Icon name="file-text" /> <span>{props.t("MASTER")}</span>{" "}
+                    <Icon name="copy" /> <span>{props.t("MASTER")}</span>{" "}
                     <div className="arrow-down"></div>
                   </Link>
 
@@ -488,8 +488,8 @@ const Navbar = (props: any) => {
                     <Link to="/damaged_asset" className="dropdown-item">
                       {props.t("Damaged-Asset")}
                     </Link>
-                    <Link to="/Approve_damaged_asset" className="dropdown-item">
-                      {props.t("approve_damaged_asset")}
+                    <Link to="/approve_damaged_asset" className="dropdown-item">
+                      {props.t("Approve-Damaged-Asset")}
                     </Link>
                     
                   </div>

@@ -10,63 +10,71 @@ import {
 } from "react-table";
 
 const AllAsset = () => {
-    const demoData = [
-        {
-          invoiceNumber: "INV-001",
-          invoiceDate: "2024-03-04",
-          requestBy: "John Doe",
-          nmAsset: "Laptop",
-          vnName: "Vendor A",
-          qty: 5
-        },
-        {
-          invoiceNumber: "INV-002",
-          invoiceDate: "2024-03-05",
-          requestBy: "Jane Smith",
-          nmAsset: "Desktop",
-          vnName: "Vendor B",
-          qty: 3
-        },
-        {
-          invoiceNumber: "INV-003",
-          invoiceDate: "2024-03-06",
-          requestBy: "Alice Johnson",
-          nmAsset: "Printer",
-          vnName: "Vendor C",
-          qty: 2
-        },
-        {
-            invoiceNumber: "INV-003",
-            invoiceDate: "2024-03-06",
-            requestBy: "Alice Johnson",
-            nmAsset: "Printer",
-            vnName: "Vendor C",
-            qty: 2
-          }, {
-            invoiceNumber: "INV-003",
-            invoiceDate: "2024-03-06",
-            requestBy: "Alice Johnson",
-            nmAsset: "Printer",
-            vnName: "Vendor C",
-            qty: 2
-          },
-      ];
+  const demoData = [
+    {
+      slno: 1,
+      assetId: "A001",
+      assetName: "Laptop",
+      serialNumber: "SN001",
+      invoiceNumber: "INV-001",
+      status: "Active",
+      allocateTo: "John Doe",
+      type: "Electronic",
+    },
+    {
+      slno: 2,
+      assetId: "A002",
+      assetName: "Desktop",
+      serialNumber: "SN002",
+      invoiceNumber: "INV-002",
+      status: "Active",
+      allocateTo: "Jane Smith",
+      type: "Electronic",
+    },
+    {
+      slno: 3,
+      assetId: "A003",
+      assetName: "Printer",
+      serialNumber: "SN003",
+      invoiceNumber: "INV-003",
+      status: "Inactive",
+      allocateTo: "Alice Johnson",
+      type: "Peripheral",
+    },
+    {
+      slno: 4,
+      assetId: "A004",
+      assetName: "Monitor",
+      serialNumber: "SN004",
+      invoiceNumber: "INV-004",
+      status: "Active",
+      allocateTo: "Bob Smith",
+      type: "Peripheral",
+    },
+    {
+      slno: 4,
+      assetId: "A004",
+      assetName: "Monitor",
+      serialNumber: "SN004",
+      invoiceNumber: "INV-004",
+      status: "Active",
+      allocateTo: "Bob Smith",
+      type: "Peripheral",
+    },{
+      slno: 4,
+      assetId: "A004",
+      assetName: "Monitor",
+      serialNumber: "SN004",
+      invoiceNumber: "INV-004",
+      status: "Active",
+      allocateTo: "Bob Smith",
+      type: "Peripheral",
+    },
+  ];
       
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
-  
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/companygroup");
-  //   }
-  //   fetch();
-  // }, [getData]);
 
-  // useEffect(() => {
-  //   const updatedData = data.map((row, index) => ({ ...row, slno: index + 1 }));
-  //   setResponseData(updatedData);
-  // }, [data]);
   const columns = useMemo(
         () => [
           {
@@ -94,7 +102,7 @@ const AllAsset = () => {
             filterable: true,
           },{
             Header: "INVOICE NUMBER",
-            accessor: "InvoiceNumber",
+            accessor: "invoiceNumber",
             disableFilters: true,
             filterable: true,
           },{
@@ -202,18 +210,18 @@ const AllAsset = () => {
               </div>
             </div>
 
-            <div className="col-sm-7">
+            {/* <div className="col-sm-7">
               <div className="text-sm-end">
                 <button
                   type="button"
                   className="btn mb-2 me-2 btn btn-primary"
-                  onClick={() => navigate("/create_add_new_asset")}
+                  onClick={() => navigate("/create_all_asset")}
                 >
                   <i className="mdi mdi-plus-circle-outline me-1"></i>
                   Create New
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -257,7 +265,7 @@ const AllAsset = () => {
                           {row.cells.map(cell => (
                             <td key={cell.column.id} {...cell.getCellProps()}>
                               {cell.column.id !== "id"
-                                ?  <Link to={`/modify_add_new_asset/${row.original.id}`}>
+                                ?  <Link to={`/modify_all_asset/${row.original.id}`}>
                                      {cell.render("Cell")}
                                    </Link>
                                 : cell.render("Cell")}
