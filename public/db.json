@@ -1482,5 +1482,199 @@
       "nm_contact": "admin",
       "status": "Approved"
     }
+  ],
+  "billEntry": [
+    {
+      "id": "1",
+      "bill_no": "001",
+      "dt_bill": "05/03/2024",
+      "nm_ven": "JAMIPOL"
+    },
+    {
+      "id": "2",
+      "bill_no": "002",
+      "dt_bill": "05/03/2024",
+      "nm_ven": "BIOCON"
+    },
+    {
+      "id": "3",
+      "bill_no": "003",
+      "dt_bill": "05/03/2024",
+      "nm_ven": "TOYOTA"
+    },
+    {
+      "id": "4",
+      "bill_no": "004",
+      "dt_bill": "05/03/2024",
+      "nm_ven": "GEP"
+    },
+    {
+      "id": "5",
+      "bill_no": "005",
+      "dt_bill": "05/03/2024",
+      "nm_ven": "ICEWARP"
+    }
+  ],
+  "billEntryItems": [
+    {
+      "id": "1",
+      "no_order": "001",
+      "dt_po": "05/03/2024",
+      "id_loc": 1
+    }
+  ],
+  "location": [
+    {
+      "id": "1",
+      "nm_loc": "INDIA"
+    },
+    {
+      "id": "2",
+      "nm_loc": "US"
+    },
+    {
+      "id": "3",
+      "nm_loc": "UK"
+    }
+  ],
+  "sublocation": [
+    {
+      "id": "1",
+      "nm_sloc": "Karnataka"
+    },
+    {
+      "id": "2",
+      "nm_sloc": "UP"
+    },
+    {
+      "id": "3",
+      "nm_sloc": "MP"
+    }
+  ],
+  "building": [
+    {
+      "id": "1",
+      "nm_building": "GIGAPLEX-1"
+    },
+    {
+      "id": "2",
+      "nm_building": "GIGAPLEX-2"
+    },
+    {
+      "id": "3",
+      "nm_building": "GIGAPLEX-3"
+    }
+  ],
+  "floor": [
+    {
+      "id": "1",
+      "nm_floor": "1st"
+    },
+    {
+      "id": "2",
+      "nm_floor": "2nd"
+    },
+    {
+      "id": "3",
+      "nm_floor": "3rd"
+    }
+  ],
+  "vendor": [
+    {
+      "id": "1",
+      "nm_ven": "JAMIPOL"
+    },
+    {
+      "id": "2",
+      "nm_ven": "GEP"
+    },
+    {
+      "id": "3",
+      "nm_ven": "INFOSYS"
+    }
+  ],
+  "dept": [
+    {
+      "id": "1",
+      "nm_dept": "HR"
+    },
+    {
+      "id": "2",
+      "nm_dept": "Operation"
+    },
+    {
+      "id": "3",
+      "nm_dept": "DEV"
+    }
+  ],
+  "costcenter": [
+    {
+      "id": "1",
+      "nm_cc": "CC1"
+    },
+    {
+      "id": "2",
+      "nm_cc": "CC2"
+    },
+    {
+      "id": "3",
+      "nm_cc": "CC3"
+    }
+  ],
+  "viabill": [
+    {
+      "id": "1",
+      "bill_no": "001",
+      "dt_bill": "05/03/2024",
+      "no_zoho": "ZOHO001",
+      "nm_model": "Laptop",
+      "nm_ven": "JAMIPOL",
+      "qty": 10
+    },
+    {
+      "id": "2",
+      "bill_no": "002",
+      "dt_bill": "05/03/2024",
+      "no_zoho": "ZOHO001",
+      "nm_model": "Monitor",
+      "nm_ven": "BIOCON",
+      "qty": 10
+    },
+    {
+      "id": "3",
+      "bill_no": "003",
+      "dt_bill": "05/03/2024",
+      "no_zoho": "ZOHO001",
+      "nm_model": "Headset",
+      "nm_ven": "TOYOTA",
+      "qty": 10
+    },
+    {
+      "id": "4",
+      "bill_no": "004",
+      "dt_bill": "05/03/2024",
+      "no_zoho": "ZOHO001",
+      "nm_model": "Mobile",
+      "nm_ven": "GEP",
+      "qty": 10
+    },
+    {
+      "id": "5",
+      "bill_no": "005",
+      "dt_bill": "05/03/2024",
+      "no_zoho": "ZOHO001",
+      "nm_model": "Mouse",
+      "nm_ven": "ICEWARP",
+      "qty": 5
+    }
+  ],
+  "viabillEntryItems": [
+    {
+      "id": "1",
+      "no_order": "001",
+      "dt_po": "05/03/2024",
+      "id_loc": 1,
+      "qty": 10
+    }
   ]
 }
