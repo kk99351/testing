@@ -32,6 +32,12 @@ const AllAssetCreate = () => {
     leaseStartDate: "Lease Start Date",
     leaseStatus: "Lease Status",
     leaseEndDate: "Lease End Date",
+    license: "License ",
+  licenseStartDate: "License Start Date",
+  licenseEndDate: "License End Date",
+  policyNumber: "Policy Number",
+  providerName: "Provider Name",
+
   };
 
   const initialFormData = {
@@ -61,6 +67,12 @@ const AllAssetCreate = () => {
     additionalCost: "",
     totalUnitPrice: "",
     netValue: "",
+    license: "",
+  licenseStartDate: "",
+  licenseEndDate: "",
+  policyNumber: "",
+  providerName: "",
+    
   };
 
   const initialErrors = {};
@@ -73,6 +85,7 @@ const AllAssetCreate = () => {
   const [errors, setErrors] = useState(initialErrors);
   const [showAmcDates, setShowAmcDates] = useState(false);
   const [showLeaseDates, setShowLeaseDates] = useState(false);
+  const [showLicenseDropdown, setShowLicenseDropdown] = useState(false);
 
   const demoData = useMemo(
     () => [
@@ -232,7 +245,11 @@ const AllAssetCreate = () => {
     if (name === "leaseStatus") {
       setShowLeaseDates(value === "underlease");
     }
+    if (name === "license") {
+      setShowLicenseDropdown(value === "Yes");
+    }
   };
+
 
   const createHandle = async e => {
     e.preventDefault();
@@ -653,7 +670,106 @@ const AllAssetCreate = () => {
                         </>
                       )}
                       <hr className="mb-0 mt-3" />
+                      
                     </Row>
+                    <Row className="mb-2">
+  <Col md={12}>
+    <Label for="license">
+      LICENSE<font color="red">*</font>
+    </Label>
+    <Input
+      type="select"
+      name="license"
+      id="license"
+      value={formData.license}
+      onChange={handleLicenseDropdownChange}
+      invalid={!!errors.license}
+    >
+      <option value="">SELECT LICENSE</option>
+      <option value="Yes">YES</option>
+      <option value="No">NO</option>
+    </Input>
+    <span className="text-danger">
+      {errors.license}
+    </span>
+  </Col>
+  {showLeaseDates && formData.license === "Yes" && (
+    <>
+      <Col md={6}>
+        <hr className="mb-0 mt-3" />
+        <Label for="licenseStartDate">
+          LICENSE START DATE<font color="red">*</font>
+        </Label>
+        <Input
+          type="date"
+          name="licenseStartDate"
+          id="licenseStartDate"
+          value={formData.licenseStartDate}
+          onChange={handleInputChange}
+          invalid={!!errors.licenseStartDate}
+        />
+        <span className="text-danger">
+          {errors.licenseStartDate}
+        </span>
+      </Col>
+      <Col md={6}>
+        <hr className="mb-0 mt-3" />
+        <Label for="licenseEndDate">
+          LICENSE END DATE<font color="red">*</font>
+        </Label>
+        <Input
+          type="date"
+          name="licenseEndDate"
+          id="licenseEndDate"
+          value={formData.licenseEndDate}
+          onChange={handleInputChange}
+          invalid={!!errors.licenseEndDate}
+        />
+        <span className="text-danger">
+          {errors.licenseEndDate}
+        </span>
+      </Col>
+    </>  
+  )}
+  {showLeaseDates && formData.license === "Yes" && (
+    <>
+      <Col md={6}>
+        <hr className="mb-0 mt-3" />
+        <Label for="policyNumber">
+          POLICY NUMBER<font color="red">*</font>
+        </Label>
+        <Input
+          type="text"
+          name="policyNumber"
+          id="policyNumber"
+          value={formData.policyNumber}
+          onChange={handleInputChange}
+          invalid={!!errors.policyNumber}
+        />
+        <span className="text-danger">
+          {errors.policyNumber}
+        </span>
+      </Col>
+      <Col md={6}>
+        <hr className="mb-0 mt-3" />
+        <Label for="providerName">
+          PROVIDER NAME<font color="red">*</font>
+        </Label>
+        <Input
+          type="text"
+          name="providerName"
+          id="providerName"
+          value={formData.providerName}
+          onChange={handleInputChange}
+          invalid={!!errors.providerName}
+        />
+        <span className="text-danger">
+          {errors.providerName}
+        </span>
+      </Col>
+    </>
+  )}
+</Row>;
 
                     <Row className="mb-2">
                       <Col md={4}>
