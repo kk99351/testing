@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Button, Card, Input } from "reactstrap";
+import { Container,Button, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -11,26 +11,38 @@ import {
 import { useGet } from "src/API/useGet";
 
 const UserTypeMaster = () => {
-  const [responseData, setResponseData] = useState([]);
-  const navigate = useNavigate();
+    const demoData = [
+      { nmUsertype: "Group A" },
+      { nmUsertype: "group d" },
+      { nmUsertype: "Group C" },
+      { nmUsertype: "Group D" },
+      { nmUsertype: "Group E" },
+    ];
+    const [responseData, setResponseData] = useState(demoData);
+    const navigate = useNavigate();
+    // const { getData, data, isLoading } = useGet();
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getData("http://localhost:3000/usertypemaster");
+  //   }
+  //   fetch();
+  // }, [getData]);
 
-  const { getData, data, isLoading } = useGet();
-  useEffect(() => {
-    async function fetch() {
-      await getData("http://localhost:3000/usertypemaster");
-    }
-    fetch();
-  }, [getData]);
-
-  useEffect(() => {
-    setResponseData(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setResponseData(data);
+  // }, [data]);
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
 
   const columns = useMemo(
     () => [
       {
         Header: "SL NO",
-        accessor: (row, index) => index + 1,
+        accessor: "slno",
       },
       {
         Header: "USER TYPE",
@@ -56,12 +68,18 @@ const UserTypeMaster = () => {
     pageCount,
     gotoPage,
     setGlobalFilter,
-  } = useTable(
-    {
-      columns,
-      data: responseData,
-      initialState: { pageSize: 10 },
-    },
+  // } = useTable(
+  //   {
+  //     columns,
+  //     data: responseData,
+  //     initialState: { pageSize: 10 },
+  //   },
+} = useTable(
+  {
+    columns,
+    data: dataWithSlno,
+    initialState: { pageSize: 10 },
+  },
     useGlobalFilter,
     useSortBy,
     usePagination
@@ -73,7 +91,7 @@ const UserTypeMaster = () => {
 
   return (
     <React.Fragment>
-      {isLoading ? (
+      {/* {isLoading ? (
         <div className="page-content">
           <Card>
             <div>
@@ -81,10 +99,10 @@ const UserTypeMaster = () => {
             </div>
           </Card>
         </div>
-      ) : (
-        <div className="page-content">
-          <div className="container-fluid">
-            <Card>
+      ) : ( */}
+        <Container fluid>
+      <div className="page-content">
+      <Card>
               <div className="container pt-4">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
@@ -142,12 +160,11 @@ const UserTypeMaster = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                          <th
-                            key={column.id}
-                            {...column.getHeaderProps(
-                              column.getSortByToggleProps()
-                            )}
-                          >
+                         <th
+                         key={column.id}
+                         {...column.getHeaderProps(column.getSortByToggleProps())}
+                         style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
+                       >
                             <div className="d-flex justify-content-between">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
@@ -175,7 +192,7 @@ const UserTypeMaster = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/user_type/${row.original.id}`}
+                                    to={`/modify_user_type/${row.original.id}`}
                                   >
                                     {cell.render("Cell")}
                                   </Link>
@@ -244,9 +261,10 @@ const UserTypeMaster = () => {
                 </div>
               </div>
             </Card>
-          </div>
         </div>
-      )}
+      {/* )} */}
+      </Container>
+
     </React.Fragment>
   );
 };

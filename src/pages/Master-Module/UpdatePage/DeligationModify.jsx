@@ -101,7 +101,7 @@
                     <Row className="mb-2">
                       <Col md={6}>
                         <Label for="id_delgation_by">
-                          DELIGATION BY<font color="red">*</font>
+                          DELEGATION BY<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -121,7 +121,7 @@
                       </Col>
                       <Col md={6}>
                         <Label for="id_delgation_to">
-                          DELIGATION TO<font color="red">*</font>
+                          DELEGATION TO<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -183,7 +183,6 @@
                           REMARKS
                         </Label>
                         <textarea
-                        placeholder="REMARKS"
                           name="remarks"
                           id="remarks"
                           value={formData.remarks}

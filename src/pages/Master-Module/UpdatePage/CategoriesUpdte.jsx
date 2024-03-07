@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -29,9 +30,9 @@ const CategoriesUpdate = () => {
     },
 
     validationSchema: Yup.object({
-      categoryname: Yup.string().required("Category name is Required"),
-      categorycode: Yup.string().required("Category code is Required"),
-      categorydescription: Yup.string().required("category description is Required"),
+      categoryname: Yup.string().required("Material name is Required"),
+      categorycode: Yup.string().required("Material code is Required"),
+      categorydescription: Yup.string().required("Material description is Required"),
     }),
     onSubmit: values => {
       alert("form validated !");
@@ -41,29 +42,29 @@ const CategoriesUpdate = () => {
 
   return (
     <React.Fragment>
-      <Container fluid>
-        <div className="page-content">
-          <Card>
-            <CardHeader>
-              <h1 className="card-title" style={{ fontSize: "20px" }}>
-              CATEGORY DETAILS
-              </h1>
-            </CardHeader>
-
-            <CardBody>
+    <Container fluid>
+      <div className="page-content">
+        <Card className="mt-5">
+          <CardHeader>
+            <h1 className="card-title" style={{ fontSize: "20px" }}>
+              MATERIAL DETAILS
+            </h1>
+          </CardHeader>
+          <CardBody>
+            <Row className="justify-content-center">
+              <Col xl={10}>
               <Form
                 className="needs-validation"
                 onSubmit={validation.handleSubmit}
               >
-                <Row style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}>
-                  <Col md="6">
+                <Row className="mb-2">
+                      <Col md={12}>
                     <FormGroup className="mb-3">
                       <Label htmlFor="validationCustom01">
-                        CATEGORY NAME<font color="red">*</font>
+                      MATERIAL NAME<font color="red">*</font>
                       </Label>
                       <Input
                         name="companygroup"
-                        placeholder="Category group"
                         type="text"
                         className="form-control"
                         id="validationCustom01"
@@ -82,15 +83,16 @@ const CategoriesUpdate = () => {
                         </FormFeedback>
                       ) : null}
                     </FormGroup>
-                  </Col>
-                  <Col md="6">
+                    </Col>
+                    <hr className="mb-2" />
+
+                      <Col md={12}>
                     <FormGroup className="mb-3">
                       <Label htmlFor="validationCustom02">
-                        CATEGORY CODE<font color="red">*</font>
+                      MATERIAL CODE<font color="red">*</font>
                       </Label>
                       <Input
                         name="region"
-                        placeholder="Enter Category Code"
                         type="text"
                         className="form-control"
                         id="validationCustom02"
@@ -106,41 +108,64 @@ const CategoriesUpdate = () => {
                         </FormFeedback>
                       ) : null}
                     </FormGroup>
-                  </Col>
-                  <Col md="6">
+                    </Col>
+                    <hr className="mb-2" />
+
+                      <Col md={12}>
                     <FormGroup className="mb-3">
                       <Label htmlFor="validationCustom03">
-                        CATEGORY DESCRIPTION
+                      MATERIAL DESCRIPTION
                       </Label>
                       <Input
                         name="cityname"
-                        placeholder="Enter Description"
                         type="text"
                         className="form-control"
                         id="validationCustom03"
                         onChange={validation.handleChange}
-                        
+                        invalid={
+                          validation.touched.categorydescription && validation.errors.categorydescription
+                        }
                       />
-                      
+                      {validation.touched.categorydescription && validation.errors.categorydescription ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.categorydescription}
+                        </FormFeedback>
+                      ) : null}
                     </FormGroup>
+                     
                   </Col>
+                  <hr className="mb-3" />
+
                 </Row>  
 
             
 
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                  }}
-                >
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                        }}
+                      >
                   <Button
                     type="submit"
                     color="success-subtle"
-                    className="border border-success"
+                    className="btn btn-success-subtle border border-success"
+                    style={{
+                      paddingTop: "10px",
+                      height: "45px",
+                      width: "80px",
+                      marginRight: "30px",
+                    }}
                   >
-                    CREATE
+                    UPDATE
                   </Button>
                   <button
                     type="button"
@@ -157,7 +182,10 @@ const CategoriesUpdate = () => {
                     <Label>BACK</Label>
                   </button>
                 </div>
+                </div>
               </Form>
+              </Col>
+              </Row>
             </CardBody>
           </Card>
         </div>

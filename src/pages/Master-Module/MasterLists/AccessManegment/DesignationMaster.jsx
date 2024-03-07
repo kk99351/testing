@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Button, Card, Input } from "reactstrap";
+import { Container,Button, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -10,26 +10,33 @@ import {
 import { useGet } from "src/API/useGet";
 
 const DesignationMaster = () => {
-  const [responseData, setResponseData] = useState([]);
+  const demoData = [
+    { dname: "Group A" },
+    { dname: "group d" },
+    { dname: "Group C" },
+    { dname: "Group D" },
+    { dname: "Group E" },
+  ];
+  const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
+  
+  // const { getData, data, isLoading } = useGet();
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getData("http://localhost:3000/designationmaster");
+  //   }
+  //   fetch();
+  // }, [getData]);
 
-  const { getData, data, isLoading } = useGet();
-  useEffect(() => {
-    async function fetch() {
-      await getData("http://localhost:3000/designationmaster");
-    }
-    fetch();
-  }, [getData]);
-
-  useEffect(() => {
-    setResponseData(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setResponseData(data);
+  // }, [data]);
 
   const columns = useMemo(
     () => [
       {
         Header: "SL NO",
-        accessor: (row, index) => index + 1,
+        accessor: "slno",
       },
       {
         Header: "DESIGNATION NAME",
@@ -38,7 +45,13 @@ const DesignationMaster = () => {
     ],
     []
   );
-    
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -56,7 +69,7 @@ const DesignationMaster = () => {
   } = useTable(
     {
       columns,
-      data: responseData,
+      data: dataWithSlno,
       initialState: { pageSize: 10 },
     },
     useGlobalFilter,
@@ -64,9 +77,10 @@ const DesignationMaster = () => {
     usePagination
   );
 
+
   return (
     <React.Fragment>
-      {isLoading ? (
+      {/* {isLoading ? (
         <div className="page-content">
           <Card>
             <div>
@@ -74,10 +88,10 @@ const DesignationMaster = () => {
             </div>
           </Card>
         </div>
-      ) : (
-        <div className="page-content">
-          <div className="container-fluid">
-            <Card>
+      ) : ( */}
+    <Container fluid>
+      <div className="page-content">
+      <Card>
               <div className="container pt-4">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
@@ -135,12 +149,11 @@ const DesignationMaster = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                          <th
-                            key={column.id}
-                            {...column.getHeaderProps(
-                              column.getSortByToggleProps()
-                            )}
-                          >
+                           <th
+                           key={column.id}
+                           {...column.getHeaderProps(column.getSortByToggleProps())}
+                           style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
+                         >
                             <div className="d-flex justify-content-between">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
@@ -167,7 +180,7 @@ const DesignationMaster = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/designation/${row.original.id}`}>
+                                  <Link to={`/modify_designation/${row.original.id}`}>
                                     {cell.render("Cell")}
                                   </Link>
                                 ) : (
@@ -236,8 +249,10 @@ const DesignationMaster = () => {
               </div>
             </Card>
           </div>
-        </div>
-      )}
+        
+      {/* )} */}
+     
+      </Container>
     </React.Fragment>
   );
 };

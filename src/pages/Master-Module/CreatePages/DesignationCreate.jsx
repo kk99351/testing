@@ -50,19 +50,20 @@ const DesignationCreate = () => {
             </CardHeader>
 
             <CardBody>
+              <Row className="justify-content-center">
+              <Col xl={10}>
               <Form
                 className="needs-validation"
                 onSubmit={validation.handleSubmit}
               >
 
 
-                <Row style={{display:"flex", justifyContent:"center"}}>
-                  <Col md="6">
+<Row className="mb-2">
+                      <Col md={12}>
                     <FormGroup className="mb-3">
                       <Label htmlFor="validationCustom03">DESIGNATION NAME<font color="red">*</font></Label>
                       <Input
                         name="designationname"
-                        placeholder="Enter designation name"
                         type="text"
                         className="form-control"
                         id="validationCustom03"
@@ -80,14 +81,15 @@ const DesignationCreate = () => {
                         </FormFeedback>
                       ) : null}
                     </FormGroup>
-                  </Col>
-
-                  <Col md="6">
+                    </Col>
+                      <hr className="mb-2" />
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={12}>
                     <FormGroup className="mb-3">
                       <Label htmlFor="validationCustom03">DESIGNATION CODE<font color="red">*</font></Label>
                       <Input
                         name="designationcode"
-                        placeholder="Enter designation code"
                         type="text"
                         className="form-control"
                         id="validationCustom03"
@@ -108,17 +110,31 @@ const DesignationCreate = () => {
                   </Col>
                 </Row>
 
+                
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                  }}
-                >
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                        }}
+                      >
                   <Button
                     type="submit"
                     color="success-subtle"
                     className="border border-success"
+                    style={{
+                      paddingTop: "10px",
+                      height: "45px",
+                      width: "80px",
+                      marginRight: "30px",
+                    }}
                   >
                     CREATE
                   </Button>
@@ -137,7 +153,10 @@ const DesignationCreate = () => {
                     <Label>BACK</Label>
                   </button>
                 </div>
+                </div>
               </Form>
+              </Col>
+              </Row>
             </CardBody>
           </Card>
         </div>

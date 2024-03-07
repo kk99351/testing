@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Button, Card, Input } from "reactstrap";
+import { Button, Card,Container, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -10,20 +10,26 @@ import {
 import { useGet } from "src/API/useGet";
 
 const EmplyeeMaster = () => {
-  const [responseData, setResponseData] = useState([]);
+  const demoData = [
+    { employeename: "Group A" ,employeeid:"XYZ",officialmailid:"ABC",designation:"ABCD",status:"ACTIVE"},
+    { employeename: "group d" ,employeeid:"XYZ",officialmailid:"ABC",designation:"ABCD",status:"ACTIVE"},
+    { employeename: "Group C" ,employeeid:"XYZ",officialmailid:"ABC",designation:"ABCD",status:"ACTIVE"},
+    { employeename: "Group D" ,employeeid:"XYZ",officialmailid:"ABC",designation:"ABCD",status:"ACTIVE"},
+    { employeename: "Group E" ,employeeid:"XYZ",officialmailid:"ABC",designation:"ABCD",status:"ACTIVE"},
+  ];
+  const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
+  // const { getData, data, isLoading } = useGet();
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getData("http://localhost:3000/employeemaster");
+  //   }
+  //   fetch();
+  // }, [getData]);
 
-  const { getData, data, isLoading } = useGet();
-  useEffect(() => {
-    async function fetch() {
-      await getData("http://localhost:3000/employeemaster");
-    }
-    fetch();
-  }, [getData]);
-
-  useEffect(() => {
-    setResponseData(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setResponseData(data);
+  // }, [data]);
 
   const columns = useMemo(
     () => [
@@ -54,7 +60,13 @@ const EmplyeeMaster = () => {
     ],
     []
   );
-    
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -72,7 +84,7 @@ const EmplyeeMaster = () => {
   } = useTable(
     {
       columns,
-      data: responseData,
+      data: dataWithSlno,
       initialState: { pageSize: 10 },
     },
     useGlobalFilter,
@@ -82,7 +94,7 @@ const EmplyeeMaster = () => {
 
   return (
     <React.Fragment>
-      {isLoading ? (
+      {/* {isLoading ? (
         <div className="page-content">
           <Card>
             <div>
@@ -90,10 +102,10 @@ const EmplyeeMaster = () => {
             </div>
           </Card>
         </div>
-      ) : (
-        <div className="page-content">
-          <div className="container-fluid">
-            <Card>
+      ) : ( */}
+        <Container fluid>
+      <div className="page-content">
+      <Card>
               <div className="container pt-4">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
@@ -132,7 +144,7 @@ const EmplyeeMaster = () => {
                       <button
                         type="button"
                         className="btn mb-2 me-2 btn btn-primary"
-                        onClick={() => navigate("/c_emplyeemaster")}
+                        onClick={() => navigate("/create_emplyeemaster")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
                         Create New
@@ -151,12 +163,11 @@ const EmplyeeMaster = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                          <th
-                            key={column.id}
-                            {...column.getHeaderProps(
-                              column.getSortByToggleProps()
-                            )}
-                          >
+                           <th
+                           key={column.id}
+                           {...column.getHeaderProps(column.getSortByToggleProps())}
+                           style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
+                         >
                             <div className="d-flex justify-content-between">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
@@ -252,8 +263,8 @@ const EmplyeeMaster = () => {
               </div>
             </Card>
           </div>
-        </div>
-      )}
+      {/* )} */}
+      </Container>
     </React.Fragment>
   );
 };

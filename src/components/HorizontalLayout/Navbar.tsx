@@ -299,7 +299,7 @@ const Navbar = (props: any) => {
                           to="/deligation_master"
                           className="dropdown-item "
                         >
-                          {props.t("Dalegation-Master")}
+                          {props.t("Delegation-Master")}
                         </Link>
                         {/* <Link
                           to="/payment_method"
@@ -383,6 +383,9 @@ const Navbar = (props: any) => {
                         </Link>
                         <Link to="/unit" className="dropdown-item ">
                           {props.t("Uom-Master")}
+                        </Link>
+                        <Link to="/uom_conversion" className="dropdown-item ">
+                          {props.t("Uom-Conversion")}
                         </Link>
                       </div>
                     </div>
