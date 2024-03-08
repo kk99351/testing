@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
 import Icon from "@ailibs/feather-react-ts";
-import { Button, Card, Input } from "reactstrap";
+import { Container,Button, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -11,26 +11,39 @@ import {
 import { useGet } from "src/API/useGet";
 
 const LoginProvison =()=> {
-  const [responseData, setResponseData] = useState([]);
+  const demoData = [
+    { employeeName: "Group A",nmLogin:"XYZ",typeUser:"ABC",designation:"ACTIVE" },
+    { employeeName: "group d",nmLogin:"XYZ",typeUser:"ABC",designation:"ACTIVE" },
+    { employeeName: "Group C",nmLogin:"XYZ",typeUser:"ABC",designation:"ACTIVE" },
+    { employeeName: "Group D",nmLogin:"XYZ",typeUser:"ABC",designation:"ACTIVE" },
+    { employeeName: "Group E",nmLogin:"XYZ",typeUser:"ABC",designation:"ACTIVE" },
+  ];
+  const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
+  
+  // const { getData, data, isLoading } = useGet();
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getData("http://localhost:3000/loginprovision");
+  //   }
+  //   fetch();
+  // }, [getData]);
 
-  const { getData, data, isLoading } = useGet();
-  useEffect(() => {
-    async function fetch() {
-      await getData("http://localhost:3000/loginprovision");
-    }
-    fetch();
-  }, [getData]);
-
-  useEffect(() => {
-    setResponseData(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setResponseData(data);
+  // }, [data]);
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
 
   const columns = useMemo(
     () => [
       {
         Header: "SL NO",
-        accessor: (row, index) => index + 1,
+        accessor: "slno",
       },
       {
         Header: "EMPLOYEE NAME",
@@ -69,7 +82,7 @@ const LoginProvison =()=> {
   } = useTable(
     {
       columns,
-      data: responseData,
+      data: dataWithSlno,
       initialState: { pageSize: 10 },
     },
     useGlobalFilter,
@@ -81,7 +94,7 @@ const LoginProvison =()=> {
 
   return (
     <React.Fragment>
-    {isLoading ? (
+    {/* {isLoading ? (
       <div className="page-content">
         <Card>
           <div>
@@ -89,9 +102,9 @@ const LoginProvison =()=> {
           </div>
         </Card>
       </div>
-    ) : (
+    ) : ( */}
+        <Container fluid>
       <div className="page-content">
-        <div className="container-fluid">
           <Card>
             <div className="container pt-4">
               <div className="rmb-2 row">
@@ -150,12 +163,11 @@ const LoginProvison =()=> {
                       {...headerGroup.getHeaderGroupProps()}
                     >
                       {headerGroup.headers.map(column => (
-                        <th
-                          key={column.id}
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                        >
+                         <th
+                         key={column.id}
+                         {...column.getHeaderProps(column.getSortByToggleProps())}
+                         style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
+                       >
                           <div className="d-flex justify-content-between">
                             <span className="font-weight-bold">
                               {column.render("Header")}
@@ -251,8 +263,8 @@ const LoginProvison =()=> {
             </div>
           </Card>
         </div>
-      </div>
-    )}
+    {/* )} */}
+    </Container>
   </React.Fragment>
   );
 };

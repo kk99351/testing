@@ -191,6 +191,7 @@ import UnitOfMesurement from "src/pages/Master-Module/MasterLists/MaterialMaster
 /*MATERIAL-MASTER create Page*/
 import CreateUom from "src/pages/Master-Module/CreatePages/CreateUom";
 import CreateItemsCreate from "src/pages/Master-Module/CreatePages/CreateItemsCreate";
+import UOMConversion from "src/pages/Master-Module/MasterLists/MaterialMaster/UOMConversion";
 /*MATERIAL-MASTER Modify Page*/
 import UomModify from "src/pages/Master-Module/UpdatePage/UomModify";
 import CreateItemsModify from "src/pages/Master-Module/UpdatePage/CreateItemsModify";
@@ -201,7 +202,7 @@ import RegionCreate from "src/pages/Master-Module/CreatePages/RegionCreate";
 import RegionUpdate from "src/pages/Master-Module/UpdatePage/RegionUpdate";
 import DesignationMaster from "src/pages/Master-Module/MasterLists/AccessManegment/DesignationMaster";
 import Department from "src/pages/Master-Module/MasterLists/AccessManegment/Department";
-import EmplyeeMasterCreate from "src/pages/Master-Module/CreatePages/EmplyeeMaster";
+import EmplyeeMasterCreate from "src/pages/Master-Module/CreatePages/EmplyeeMasterCreate";
 import EmplyeeMasterUpdate from "src/pages/Master-Module/UpdatePage/EmplyeeMasterUpdate";
 import PlantCreate from "src/pages/Master-Module/CreatePages/PlantCreate";
 import CityCreate from "src/pages/Master-Module/CreatePages/CityCreate";
@@ -210,7 +211,7 @@ import BranchUpdate from "src/pages/Master-Module/UpdatePage/BranchUpdate";
 import BranchCreate from "src/pages/Master-Module/CreatePages/BranchCreate";
 import CreateCategories from "src/pages/Master-Module/MasterLists/MaterialMaster/CreateCategories";
 import SubCategories from "src/pages/Master-Module/MasterLists/MaterialMaster/SubCategories";
-import CategoryCreate from "src/pages/Master-Module/CreatePages/CategoryCreate";
+
 import SubCategoryCreate from "src/pages/Master-Module/CreatePages/SubCategoryCreate";
 import CategoriesUpdate from "src/pages/Master-Module/UpdatePage/CategoriesUpdte";
 import SubCategoriesUpdate from "src/pages/Master-Module/UpdatePage/SubCategoriesUpdate";
@@ -255,10 +256,18 @@ import DamagedAssets from "src/pages/Asset-Module/AssetLists/DamagedAssets";
 import ApproveDamagedAssets from "src/pages/Asset-Module/AssetLists/ApproveDamagedAssets";
 import AllAssetUpdate from "src/pages/Asset-Module/CreatePages/AllAssetUpdate";
 import AllAssetCreate from "src/pages/Asset-Module/CreatePages/AllAssetCreate";
-import BulkAssetCreate from "src/pages/Asset-Module/CreatePages/BulkAssetCreate";
 import BulkAssetUpdate from "src/pages/Asset-Module/UpdatePages/BulkAssetUpdate";
 import DisplayBillEntryDetails from "src/pages/Asset-Module/UpdatePages/BillEntryDetails";
 import DisplayViaBillEntryDetails from "src/pages/Asset-Module/UpdatePages/ViaBillEntryDetails";
+import DamagedAssetUpdate from "src/pages/Asset-Module/UpdatePages/DamagedAssetUpdate";
+import ApproveDamagedAssetsUpdate from "src/pages/Asset-Module/UpdatePages/ApproveDamagedAssetsUpdate";
+import UOMConversionCreate from "src/pages/Master-Module/CreatePages/UOMConversionCreate";
+import UOMConversionUpdate from "src/pages/Master-Module/UpdatePage/UOMConversionUpdate";
+import DesignationCreate from "src/pages/Master-Module/CreatePages/DesignationCreate";
+import DesignationUpdate from "src/pages/Master-Module/UpdatePage/DesignationUpdate";
+import CreateMaterial from "src/pages/Master-Module/CreatePages/CreateMaterial";
+import VendorMasterUpdate from "src/pages/Master-Module/UpdatePage/VendorMasterUpdate";
+import VendorMasterCreate from "src/pages/Master-Module/CreatePages/VendorMaster";
 
 interface RouteProps {
   path: string;
@@ -284,13 +293,13 @@ const userRoutes: Array<RouteProps> = [
   //ASSET MASTER CREATE PATH
   { path: "/create_add_new_asset", component: <AddNewAssetCreate /> },
   { path: "/create_all_asset", component: <AllAssetCreate /> },
-  { path: "/create_bulk_asset_allocate", component: <BulkAssetCreate /> },
 
   //ASSET MASTER MODIFY PATH
   { path: "/modify_add_new_asset/:id", component: <AddNewAssetUpdate /> },
   { path: "/modify_all_asset/:id", component: <AllAssetUpdate /> },
   { path: "/modify_bulk_asset_allocate/:id", component: <BulkAssetUpdate /> },
-
+  { path: "/modify_damaged_asset/:id", component: <DamagedAssetUpdate /> },
+  { path: "/modify_approve_damaged_asset/:id", component: <ApproveDamagedAssetsUpdate /> },
 
 
 
@@ -316,6 +325,8 @@ const userRoutes: Array<RouteProps> = [
   // { path: "/designation", component: <DesignationMaster/> },
   { path: "/designation", component: <DesignationMaster /> },
   { path: "/department", component: <Department /> },
+  { path: "/modify_categories/:id", component: <CategoriesUpdate /> },
+
   { path: "/user_type", component: <UserTypeMaster /> },
   { path: "/user_permission", component: <UserPermission /> },
   { path: "/user_login", component: <LoginProvision /> },
@@ -325,9 +336,18 @@ const userRoutes: Array<RouteProps> = [
   { path: "/ask_info", component: <AskForInfo /> },
   { path: "/create_subcatogries", component: <SubCategories /> },
   { path: "/create_catogries", component: <CreateCategories /> },
+  { path: "/uom_conversion", component: <UOMConversion /> },
+  { path: "/createdesignation", component: <DesignationCreate /> },
+  { path: "/modify_designation/:id", component: <DesignationUpdate /> },
+
   /*MATERIAL-MASTER*/
   { path: "/create_items", component: <CreateItem /> },
   { path: "/unit", component: <UnitOfMesurement /> },
+  { path: "/create_uom_conversion", component: <UOMConversionCreate /> },
+  { path: "/modify_uom_conversion/:id", component: <UOMConversionUpdate /> },
+  { path: "/vendor_master/:id", component: <VendorMasterUpdate /> },
+  { path: "/create_vendormaster/id", component: <VendorMasterCreate /> },
+
   /*CONFIGURATION MASTER PAGES PATH */
   { path: "/doa_master", component: <DoaMaster /> },
   { path: "/deligation_master", component: <DeligationMaster /> },
@@ -376,7 +396,7 @@ const userRoutes: Array<RouteProps> = [
   //update-page:-
   { path: "/createcompanygroup", component: <CompanyGroupCreate /> },
   { path: "/createregion", component: <RegionCreate /> },
-  { path: "/c_emplyeemaster", component: <EmplyeeMasterCreate /> },
+  { path: "/create_emplyeemaster", component: <EmplyeeMasterCreate /> },
   //update-page:-
   { path: "/company_group/:id", component: <CompanyGroupUpdate /> },
   { path: "/region/:id", component: <RegionUpdate /> },
@@ -399,7 +419,7 @@ const userRoutes: Array<RouteProps> = [
   { path: "/createbranch", component: <BranchCreate /> },
   { path: "/createplant", component: <PlantCreate /> },
   { path: "/c_emplyeemaster", component: <EmplyeeMasterCreate /> },
-  { path: "/createcategory", component: <CategoryCreate /> },
+  { path: "/createcategory", component: <CreateMaterial /> },
   { path: "/createsubcategory", component: <SubCategoryCreate /> },
   { path: "/usertypecreate", component: <UserTypeCreate /> },
   { path: "/createuserlogin", component: <UserLoginCreate /> },
@@ -410,11 +430,11 @@ const userRoutes: Array<RouteProps> = [
   { path: "/region/:id", component: <RegionUpdate /> },
   { path: "/branch/:id", component: <BranchUpdate /> },
   { path: "/emplyee_master/:id", component: <EmplyeeMasterUpdate /> },
-  { path: "/create_subcatogries/:id", component: <SubCategoriesUpdate /> },
+  { path: "/modify_subcatogries/:id", component: <SubCategoriesUpdate /> },
   { path: "/create_catogries/:id", component: <SubCategoriesUpdate /> },
-  { path: "/user_type/:id", component: <UserTypeUpdate /> },
+  { path: "/modify_user_type/:id", component: <UserTypeUpdate /> },
   { path: "/user_login/:id", component: <UserLoginUpdate /> },
-  { path: "/department/:id", component: <DepartmentUpdate /> },
+  { path: "/modify_department/:id", component: <DepartmentUpdate /> },
 
   //AssetsSraban
   { path: "/bill_entry/:id", component: <DisplayBillEntryDetails /> },

@@ -13,13 +13,13 @@ const Region = () => {
   const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
  
-  const { getData, data, isLoading } = useGet();
-  useEffect(() => {
-    fetch("http://localhost:3000/region")
-      .then(response => response.json())
-      .then(data => setResponseData(data))
-      .catch(error => console.error("Error fetching users:", error));
-  }, []);
+  // const { getData, data, isLoading } = useGet();
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/region")
+  //     .then(response => response.json())
+  //     .then(data => setResponseData(data))
+  //     .catch(error => console.error("Error fetching users:", error));
+  // }, []);
  
   const columns = useMemo(
     () => [
@@ -78,16 +78,16 @@ const Region = () => {
  
   return (
     <React.Fragment>
-
+{/* 
       {isLoading ? (
-        <div className="page-content">
-          <Card>
-            <div>
-              <h1>Loading...</h1>
-            </div>
-          </Card>
-        </div>
-      ) : (
+      //   <div className="page-content">
+      //     <Card>
+      //       <div>
+      //         <h1>Loading...</h1>
+      //       </div>
+      //     </Card>
+      //   </div>
+      // ) : ( */}
         <div className="page-content">
           <div className="container-fluid">
             <Card>
@@ -238,7 +238,7 @@ const Region = () => {
             </Card>
           </div>
         </div>
-      )}
+      {/* // )} */}
     </React.Fragment>
   );
 };

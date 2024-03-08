@@ -19,8 +19,8 @@ const CreateItemsModify = () => {
         item_name: "Item Name",
         item_code: "Item Code",
         item_type: "Item Type",
-        sub_category: "Sub Category",
-        category: "Category",
+        sub_category: "Sub Material",
+        category: "Material",
         uom: "Uom",
         model: "Make/Model",
         discription: "Discription",
@@ -95,7 +95,7 @@ const [errors, setErrors] = useState(initialErrors);
           <Card className="mt-5">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                DELIGATION DETAILS
+                IREM DETAILS
               </h1>
             </CardHeader>
             <CardBody>
@@ -125,7 +125,7 @@ const [errors, setErrors] = useState(initialErrors);
                       </Col>
                       <Col md={6}>
                         <Label for="category">
-                        CATEGORY<font color="red">*</font>
+                        MATERIAL<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -135,7 +135,7 @@ const [errors, setErrors] = useState(initialErrors);
                           onChange={handleDropdownChange}
                           invalid={!!errors.category}
                         >
-                          <option value="">SELECT CATEGORY</option>
+                          <option value="">SELECT MATERIAL</option>
                           <option value="group1">Group 1</option>
                           <option value="group2">Group 2</option>
                         </Input>
@@ -148,7 +148,7 @@ const [errors, setErrors] = useState(initialErrors);
                     <Row className="mb-2">
                     <Col md={6}>
                         <Label for="sub_category">
-                        SUB CATEGORY<font color="red">*</font>
+                        SUB MATERIAL<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -158,7 +158,7 @@ const [errors, setErrors] = useState(initialErrors);
                           onChange={handleDropdownChange}
                           invalid={!!errors.sub_category}
                         >
-                          <option value="">SELECT SUB CATEGORY</option>
+                          <option value="">SELECT SUB MATERIAL</option>
                           <option value="group1">Group 1</option>
                           <option value="group2">Group 2</option>
                         </Input>

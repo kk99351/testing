@@ -10,20 +10,56 @@ import {
 import { useGet } from "src/API/useGet";
 
 const CreatVendor = () => {
-  const [responseData, setResponseData] = useState([]);
+  const demoData = [
+    {
+      nm_ven: "Group A",
+      cd_ven: "udedv",
+      mailid: "gmail.com",
+      nm_contact: "987875565",
+      status: "active",
+    },
+    {
+      nm_ven: "group d",
+      cd_ven: "udedv",
+      mailid: "gmail.com",
+      nm_contact: "987875565",
+      status: "active",
+    },
+    {
+      nm_ven: "Group C",
+      cd_ven: "udedv",
+      mailid: "gmail.com",
+      nm_contact: "987875565",
+      status: "active",
+    },
+    {
+      nm_ven: "Group D",
+      cd_ven: "udedv",
+      mailid: "gmail.com",
+      nm_contact: "987875565",
+      status: "active",
+    },
+    {
+      nm_ven: "Group E",
+      cd_ven: "udedv",
+      mailid: "gmail.com",
+      nm_contact: "987875565",
+      status: "active",
+    },
+  ];
+  const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
+  // const { getData, data, isLoading } = useGet();
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getData("http://localhost:3000/vendormaster");
+  //   }
+  //   fetch();
+  // }, [getData]);
 
-  const { getData, data, isLoading } = useGet();
-  useEffect(() => {
-    async function fetch() {
-      await getData("http://localhost:3000/vendormaster");
-    }
-    fetch();
-  }, [getData]);
-
-  useEffect(() => {
-    setResponseData(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setResponseData(data);
+  // }, [data]);
 
   const columns = useMemo(
     () => [
@@ -82,7 +118,7 @@ const CreatVendor = () => {
 
   return (
     <React.Fragment>
-      {isLoading ? (
+      {/* {isLoading ? (
         <div className="page-content">
           <Card>
             <div>
@@ -90,7 +126,7 @@ const CreatVendor = () => {
             </div>
           </Card>
         </div>
-      ) : (
+      ) : ( */}
         <div className="page-content">
           <div className="container-fluid">
             <Card>
@@ -132,7 +168,7 @@ const CreatVendor = () => {
                       <button
                         type="button"
                         className="btn mb-2 me-2 btn btn-primary"
-                        onClick={() => navigate("/c_vendormaster")}
+                        onClick={() => navigate("/create_vendormaster")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
                         Create New
@@ -253,7 +289,7 @@ const CreatVendor = () => {
             </Card>
           </div>
         </div>
-      )}
+      {/* )} */}
     </React.Fragment>
   );
 };

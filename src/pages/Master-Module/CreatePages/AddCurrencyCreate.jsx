@@ -93,41 +93,52 @@ const [errors, setErrors] = useState(initialErrors);
               <Row className="justify-content-center">
                 <Col xl={10}>
                   <form className="needs-validation" noValidate>
-                    <Row className="mb-2">
-                      <Col md={12}>
+                  <Row className="mb-2">
+                    <Col md={12}>
                         <Label for="nmCurr">
-                          CURRENCY NAME<font color="red">*</font>
+                        CURRENCY NAME<font color="red">*</font>
                         </Label>
                         <Input
-                        placeholder="ENTER CURREMCY NAME"
+                          type="select"
                           name="nmCurr"
                           id="nmCurr"
                           value={formData.nmCurr}
-                          onChange={handleInputChange}
+                          onChange={handleDropdownChange}
                           invalid={!!errors.nmCurr}
-
-                        />
-                        <span className="text-danger">{errors.nmCurr}</span>
+                        >
+                          <option value="">SELECT CURRENCY NAME</option>
+                          <option value="group1">Group 1</option>
+                          <option value="group2">Group 2</option>
+                        </Input>
+                        <span className="text-danger">
+                          {errors.nmCurr}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
 
                     <Row className="mb-2">
-                      <Col md={12}>
+                    <Col md={12}>
                         <Label for="cdCurr">
-                         CURRENCY SYMBOL<font color="red">*</font>
+                        CURRENCY SYMBOL<font color="red">*</font>
                         </Label>
                         <Input
-                        placeholder="ENTER CURRENCY SYMBOL"
+                          type="select"
                           name="cdCurr"
                           id="cdCurr"
                           value={formData.cdCurr}
-                          onChange={handleInputChange}
+                          onChange={handleDropdownChange}
                           invalid={!!errors.cdCurr}
-
-                        />
-                        <span className="text-danger">{errors.cdCurr}</span>
+                        >
+                          <option value="">SELECT CURRENCY SYMBOL</option>
+                          <option value="group1">Group 1</option>
+                          <option value="group2">Group 2</option>
+                        </Input>
+                        <span className="text-danger">
+                          {errors.cdCurr}
+                        </span>
                       </Col>
+                      
                       <hr className="mb-0 mt-3" />
                     </Row>
                     <div

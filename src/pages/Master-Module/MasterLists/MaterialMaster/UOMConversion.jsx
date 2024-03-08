@@ -1,3 +1,4 @@
+
 import React, { useMemo, useEffect, useState, useCallback } from "react";
 import { Container,Button, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,21 +10,21 @@ import {
 } from "react-table";
 import { useGet } from "src/API/useGet";
 
-const UserPermission = () => {
+const UOMConversion = () => {
   const demoData = [
-    { userType: "Group A" },
-    { userType: "group d"},
-    { userType: "Group C"},
-    { userType: "Group D" },
-    { userType: "Group E"},
+    { material: "Group A",qyt:"9",uom:"XYZ",quality:"10" },
+    { material: "group d",qyt:"9",uom:"XYZ",quality:"10" },
+    { material: "Group C",qyt:"9",uom:"XYZ",quality:"10" },
+    { material: "Group D",qyt:"9",uom:"XYZ",quality:"10" },
+    { material: "Group E",qyt:"9",uom:"XYZ",quality:"10" },
   ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
-
+  
   // const { getData, data, isLoading } = useGet();
   // useEffect(() => {
   //   async function fetch() {
-  //     await getData("http://localhost:3000/userpermission");
+  //     await getData("http://localhost:3000/designationmaster");
   //   }
   //   fetch();
   // }, [getData]);
@@ -31,12 +32,6 @@ const UserPermission = () => {
   // useEffect(() => {
   //   setResponseData(data);
   // }, [data]);
-  const dataWithSlno = useMemo(() => {
-    return responseData.map((item, index) => ({
-      ...item,
-      slno: index + 1,
-    }));
-  }, [responseData]);
 
   const columns = useMemo(
     () => [
@@ -45,13 +40,31 @@ const UserPermission = () => {
         accessor: "slno",
       },
       {
-        Header: "USER TYPE",
-        accessor: "userType",
+        Header: "MATERIAL",
+        accessor: "material",
+      },
+      {
+        Header: "QUANTITY",
+        accessor: "qyt",
+      },
+      {
+        Header: "UOM",
+        accessor: "uom",
+      },
+      {
+        Header: "QUALITY",
+        accessor: "quality",
       },
     ],
     []
   );
-    
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -77,6 +90,7 @@ const UserPermission = () => {
     usePagination
   );
 
+
   return (
     <React.Fragment>
       {/* {isLoading ? (
@@ -88,9 +102,9 @@ const UserPermission = () => {
           </Card>
         </div>
       ) : ( */}
-          <Container fluid>
-        <div className="page-content">
-            <Card>
+    <Container fluid>
+      <div className="page-content">
+      <Card>
               <div className="container pt-4">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
@@ -129,7 +143,7 @@ const UserPermission = () => {
                       <button
                         type="button"
                         className="btn mb-2 me-2 btn btn-primary"
-                        onClick={() => navigate("/")}
+                        onClick={() => navigate("/create_uom_conversion")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
                         Create New
@@ -148,11 +162,11 @@ const UserPermission = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                          <th
-                          key={column.id}
-                          {...column.getHeaderProps(column.getSortByToggleProps())}
-                          style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
-                        >
+                           <th
+                           key={column.id}
+                           {...column.getHeaderProps(column.getSortByToggleProps())}
+                           style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
+                         >
                             <div className="d-flex justify-content-between">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
@@ -179,7 +193,7 @@ const UserPermission = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/user_permission/${row.original.id}`}>
+                                  <Link to={`/modify_uom_conversion/${row.original.id}`}>
                                     {cell.render("Cell")}
                                   </Link>
                                 ) : (
@@ -248,11 +262,12 @@ const UserPermission = () => {
               </div>
             </Card>
           </div>
+        
       {/* )} */}
+     
       </Container>
-
     </React.Fragment>
   );
 };
 
-export default UserPermission;
+export default UOMConversion;

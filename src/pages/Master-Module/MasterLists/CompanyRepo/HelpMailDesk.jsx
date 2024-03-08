@@ -1,55 +1,54 @@
 import { useState } from "react";
-import { Col, Input, Label, Row, Card, CardHeader, CardBody, Button } from "reactstrap";
-import styles from "../../../../assets/cssFiles/formPlaceholder.module.css"
-
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import {
+  Col,
+  Input,
+  Label,
+  Row,
+  Card,
+  CardHeader,
+  CardBody,
+  Button,
+  FormGroup,
+  FormFeedback,
+  Form,
+} from "reactstrap";
+ 
 const HelpMailDesk = () => {
-  const [formData, setFormData] = useState({
-    supportMail: "",
-    help_password: "",
-    help_mail: "",
-    help_port: "",
-    help_hostName: "",
+  const validation = useFormik({
+    enableReinitialize: true,
+ 
+    initialValues: {
+      helpMail: "",
+      helpPass: "",
+      helpHostNm: "",
+      helpPort: "",
+    },
+    validationSchema: Yup.object({
+      helpMail: Yup.string()
+      .email("Invalid email address")
+      .required("Email is Required"),
+      helpPass: Yup.string().required("Password is Required"),
+      helpHostNm: Yup.string().required("help Host Name is Required"),
+      helpPort: Yup.string().required("help Port is Required"),
+    }),
+ 
+    onSubmit: values => {
+      alert("Form validated!");
+      console.log("values", values);
+    },
   });
-
-  const handleChange = e => {
-    const { name, value } = e.target;
-    const upperCaseValue = value.toUpperCase();
-    setFormData({
-      ...formData,
-      [name]: upperCaseValue,
-    });
+ 
+  const handleChange = event => {
+    const fieldName = event.target.name;
+    const inputValue = event.target.value;
+    const uppercaseValue = inputValue ? inputValue.toUpperCase() : "";
+ 
+    validation.handleChange(event);
+    validation.setFieldValue(fieldName, uppercaseValue);
   };
-  const [errors, setErrors] = useState({});
-  const validateForm = () => {
-    let newErrors = {};
-    
-    if (!formData.help_password.trim()) {
-      newErrors.help_password = "help password is required";
-    }
-    if (!formData.help_mail.trim()) {
-      newErrors.help_mail = "Help Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.help_mail)) {
-      newErrors.help_mail = "Invalid email address";
-    }
-    if (!formData.help_port.trim()) {
-      newErrors.help_port = "help port is required";
-    }
-    if (!formData.help_hostName.trim()) {
-      newErrors.help_hostName = "help hostName is required";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = () => {
-    if (validateForm()) {
-      alert("Form Validated and submited");
-    } else {
-      alert("Please fill all the Details");
-    }
-  };
-
+ 
   return (
     <div>
       <Card>
@@ -59,105 +58,136 @@ const HelpMailDesk = () => {
           </h3>
         </CardHeader>
         <CardBody>
-          <Row>
-            <Col xl={6}>
-              <Row className="mb-4"
-              style={{ display: "flex", justifyContent: "center" }}
-              >
-                <Col md={8}  className={styles.inputContainer}>
+        <Row className="justify-content-center">
+                <Col xl={10}>
+          <Form className="needs-validation" onSubmit={validation.handleSubmit}>
+            <Row>
+              <Col md={6}>
+                <FormGroup className="mb-3">
+                  <Label htmlFor="validationCustom01">
+                    HELP EMAIL <font color="red">*</font>
+                  </Label>
                   <Input
-                    type="email"
-                    placeholder=""
-                    name="help_mail"
-                    value={formData.help_mail}
+                    placeholder="Enter Help Email"
+                    type="mail"
+                    name="helpMail"
+                    id="validationCustom01"
                     onChange={handleChange}
-                    className={`${styles.input} ${
-                      errors.help_mail ? "is-invalid" : ""
-                    }`}                  />
-                  <span className={styles["placeholder-label"]}
-                  >HELP EMAIL<font color="red">*</font></span>
-                  {errors.help_mail && (
-                    <div className="text-danger">{errors.help_mail}</div>
-                  )}
-                </Col>
-              </Row>
-              <Row className="mb-4"
-              style={{ display: "flex", justifyContent: "center" }}
-              >
-                <Col md={8}>
+                    value={validation.values.helpMail}
+                    onBlur={validation.handleBlur}
+                    invalid={
+                      validation.touched.helpMail && validation.errors.helpMail
+                    }
+                  />
+                  {validation.touched.helpMail && validation.errors.helpMail ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.helpMail}
+                    </FormFeedback>
+                  ) : null}
+                </FormGroup>
+              </Col>
+              <Col md={6}>
+                <FormGroup className="mb-3">
+                  <Label htmlFor="validationCustom01">
+                    HELP PASSSWORD <font color="red">*</font>
+                  </Label>
                   <Input
-                    type="text"
-                    placeholder=""
-                    name="help_hostName"
-                    value={formData.help_hostName}
-                    onChange={handleChange}
-                    className={`${styles.input} ${
-                      errors.help_hostName ? "is-invalid" : ""
-                    }`}                  />
-                  <span className={styles["placeholder-label"]}>HELP HOST NAME<font color="red">*</font></span>
-                  {errors.help_hostName && (
-                    <div className="text-danger">{errors.help_hostName}</div>
-                  )}
-                </Col>
-              </Row>
-            </Col>
-
-            {/* 2nd colunm */}
-
-            <div className="col-xl-6">
-              <Row className="mb-4"
-              style={{ display: "flex", justifyContent: "center" }}
-              >
-                <Col md={8}>
-                  <Input
+                    placeholder="Enter Help Email"
                     type="password"
-                    placeholder=""
-                    name="help_password"
-                    value={formData.help_password}
+                    name="helpPass"
+                    id="validationCustom01"
                     onChange={handleChange}
-                    className={`${styles.input} ${
-                      errors.help_password ? "is-invalid" : ""
-                    }`}                  />
-                  <span className={styles["placeholder-label"]}>HELP PASSWORD<font color="red">*</font></span>
-                  {errors.help_password && (
-                    <div className="text-danger">{errors.help_password}</div>
-                  )}
-                </Col>
-              </Row>
+                    value={validation.values.helpPass}
+                    onBlur={validation.handleBlur}
+                    invalid={
+                      validation.touched.helpPass && validation.errors.helpPass
+                    }
+                  />
+                  {validation.touched.helpPass && validation.errors.helpPass ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.helpPass}
+                    </FormFeedback>
+                  ) : null}
+                </FormGroup>
+              </Col>
+            </Row>
+            <hr className="mb-2 mt-0" />
 
-              <Row className="mb-4"
-              style={{ display: "flex", justifyContent: "center" }}
-              >
-                <Col md={8}>
+            <Row>
+              <Col md={6}>
+                <FormGroup className="mb-3">
+                  <Label htmlFor="validationCustom01">
+                    HELP HOST NAME <font color="red">*</font>
+                  </Label>
                   <Input
-                    type="number"
-                    placeholder=""
-                    name="help_port"
-                    value={formData.help_port}
+                    placeholder="Enter Help Host name"
+                    type="text"
+                    name="helpHostNm"
+                    id="validationCustom01"
                     onChange={handleChange}
-                    className={`${styles.input} ${
-                      errors.help_port ? "is-invalid" : ""
-                    }`}                  />
-                  <span className={styles["placeholder-label"]}>HELP PORT<font color="red">*</font></span>
-                  {errors.help_port && (
-                    <div className="text-danger">{errors.help_port}</div>
-                  )}
-                </Col>
-              </Row>
+                    value={validation.values.helpHostNm}
+                    onBlur={validation.handleBlur}
+                    invalid={
+                      validation.touched.helpHostNm &&
+                      validation.errors.helpHostNm
+                    }
+                  />
+                  {validation.touched.helpHostNm &&
+                  validation.errors.helpHostNm ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.helpHostNm}
+                    </FormFeedback>
+                  ) : null}
+                </FormGroup>
+              </Col>
+              <Col md={6}>
+                <FormGroup className="mb-3">
+                  <Label htmlFor="validationCustom01">
+                    HELP PORT <font color="red">*</font>
+                  </Label>
+                  <Input
+                    placeholder="Enter Help Email"
+                    type="text"
+                    name="helpPort"
+                    id="validationCustom01"
+                    onChange={handleChange}
+                    value={validation.values.helpPort}
+                    onBlur={validation.handleBlur}
+                    invalid={
+                      validation.touched.helpPort && validation.errors.helpPort
+                    }
+                  />
+                  {validation.touched.helpPort && validation.errors.helpPort ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.helpPort}
+                    </FormFeedback>
+                  ) : null}
+                </FormGroup>
+              </Col>
+            </Row>
+ 
+            <div className="justify-content-center d-flex align-items-center">
+              <Button
+                type="submit"
+                color="success-subtle"
+                className="border border-success"
+                style={{
+                  paddingTop: "10px",
+                  height: "45px",
+                  width: "100px",
+                  marginRight: "30px",
+                }}
+              >
+                UPDATE
+              </Button>
             </div>
+          </Form>
+          </Col>
           </Row>
-          <div className="justify-content-center d-flex align-items-center">
-            <Button
-              className="btn-lg btn-secondary-subtle border-primary"
-              onClick={handleSubmit}
-            >
-              UPDATE
-            </Button>
-          </div>
         </CardBody>
       </Card>
     </div>
   );
 };
-
+ 
 export default HelpMailDesk;

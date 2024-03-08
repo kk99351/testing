@@ -30,9 +30,9 @@ const SubCategoryCreate = () => {
     },
 
     validationSchema: Yup.object({
-      categoryname: Yup.string().required("Category name is Required"),
-      subcategoryname: Yup.string().required("Sub Category name is Required"),
-      subcategorycode: Yup.string().required("Sub Category code is Required"),
+      categoryname: Yup.string().required("Material name is Required"),
+      subcategoryname: Yup.string().required("Sub Material name is Required"),
+      subcategorycode: Yup.string().required("Sub Material code is Required"),
       assetprefix: Yup.string().required("Aset Prefix is Required"),
     }),
     onSubmit: values => {
@@ -45,34 +45,28 @@ const SubCategoryCreate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card>
+        <Card className="mt-5">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CATEGORY DETAILS
+               SUB-CATEGORY DETAILS
               </h1>
             </CardHeader>
 
             <CardBody>
+            <Row className="justify-content-center">
+                <Col xl={10}>
               <Form
                 className="needs-validation"
                 onSubmit={validation.handleSubmit}
               >
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Col md="6">
+                <Row className="mb-2">
+                      <Col md={6}>
                     <FormGroup className="mb-3">
                       <Label htmlFor="validationCustom01">
-                        CATEGORY NAME<font color="red">*</font>
+                        MATERIAL NAME<font color="red">*</font>
                       </Label>
                       <Input
                         name="companygroup"
-                        placeholder="Category group"
                         type="select"
                         className="form-control"
                         id="validationCustom01"
@@ -83,8 +77,8 @@ const SubCategoryCreate = () => {
                           validation.errors.categoryname
                         }
                       >
-                        <option value="" disabled>
-                          Select category name
+                        <option value="" >
+                          SELECT MATERIAL NAME
                         </option>
                         <option value="dept1">ROH</option>
                         <option value="dept2">HALB</option>
@@ -97,15 +91,14 @@ const SubCategoryCreate = () => {
                           </div>
                         )}
                     </FormGroup>
-                  </Col>
-                  <Col md="6">
+                    </Col>
+                      <Col md={6}>
                     <FormGroup className="mb-3">
                       <Label>
-                        SUB CATEGORY NAME<font color="red">*</font>
+                        SUB MATERIAL NAME<font color="red">*</font>
                       </Label>
                       <Input
                         name="subcategoryname"
-                        placeholder="Enter subcategory name"
                         type="text"
                         className="form-control"
                         onChange={validation.handleChange}
@@ -122,15 +115,17 @@ const SubCategoryCreate = () => {
                         </FormFeedback>
                       ) : null}
                     </FormGroup>
-                  </Col>
-                  <Col md="6">
+                    </Col>
+                      <hr className="mb-2" />
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={6}>
                     <FormGroup className="mb-3">
                       <Label>
-                        SUB CATEGORY CODE<font color="red">*</font>
+                        SUB MATERIAL CODE<font color="red">*</font>
                       </Label>
                       <Input
                         name="subcategorycode"
-                        placeholder="Enter subcategory code"
                         type="text"
                         className="form-control"
                         onChange={validation.handleChange}
@@ -147,15 +142,14 @@ const SubCategoryCreate = () => {
                         </FormFeedback>
                       ) : null}
                     </FormGroup>
-                  </Col>
-                  <Col md="6">
+                    </Col>
+                      <Col md={6}>
                     <FormGroup className="mb-3">
                       <Label>
-                        ASSET PRIFIX<font color="red">*</font>
+                        ASSET PREFIX<font color="red">*</font>
                       </Label>
                       <Input
                         name="assetprefix"
-                        placeholder="Enter assetprefix"
                         type="text"
                         className="form-control"
                         onChange={validation.handleChange}
@@ -176,16 +170,29 @@ const SubCategoryCreate = () => {
                 </Row>
 
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                  }}
-                >
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                        }}
+                      >
                   <Button
                     type="submit"
                     color="success-subtle"
-                    className="border border-success"
+                    className="btn btn-success-subtle border border-success"
+                    style={{
+                      paddingTop: "10px",
+                      height: "45px",
+                      width: "80px",
+                      marginRight: "30px",
+                    }}
                   >
                     CREATE
                   </Button>
@@ -204,7 +211,10 @@ const SubCategoryCreate = () => {
                     <Label>BACK</Label>
                   </button>
                 </div>
+                </div>
               </Form>
+              </Col>
+              </Row>
             </CardBody>
           </Card>
         </div>

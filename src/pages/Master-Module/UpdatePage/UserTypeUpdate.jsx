@@ -47,19 +47,20 @@ const UserTypeUpdate = () => {
             </CardHeader>
 
             <CardBody>
+            <Row className="justify-content-center">
+                <Col xl={10}>
               <Form
                 className="needs-validation"
                 onSubmit={validation.handleSubmit}
               >
 
 
-                <Row style={{display:"flex", justifyContent:"center"}}>
-                  <Col md="6">
+<Row className="mb-2">
+                      <Col md={12}>
                     <FormGroup className="mb-3">
                       <Label htmlFor="validationCustom03">USER TYPE NAME<font color="red">*</font></Label>
                       <Input
                         name="usertypename"
-                        placeholder="Enter user type name"
                         type="text"
                         className="form-control"
                         id="validationCustom03"
@@ -77,21 +78,36 @@ const UserTypeUpdate = () => {
                         </FormFeedback>
                       ) : null}
                     </FormGroup>
-                  </Col>
-                </Row>
+                    </Col>
+                      <hr className="mb-0 mt-3" />
+                    </Row>
 
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                  }}
-                >
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                        }}
+                      >
                   <Button
                     type="submit"
                     color="success-subtle"
                     className="border border-success"
+                    style={{
+                      paddingTop: "10px",
+                      height: "45px",
+                      width: "80px",
+                      marginRight: "30px",
+                    }}
                   >
+                  
                     UPDATE
                   </Button>
                   <button
@@ -109,7 +125,10 @@ const UserTypeUpdate = () => {
                     <Label>BACK</Label>
                   </button>
                 </div>
+                </div>
               </Form>
+              </Col>
+              </Row>
             </CardBody>
           </Card>
         </div>

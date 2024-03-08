@@ -100,7 +100,7 @@ const [errors, setErrors] = useState(initialErrors);
                     <Row className="mb-2">
                       <Col md={6}>
                         <Label for="id_delgation_by">
-                          DELIGATION BY<font color="red">*</font>
+                        DELEGATION BY<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -120,7 +120,7 @@ const [errors, setErrors] = useState(initialErrors);
                       </Col>
                       <Col md={6}>
                         <Label for="id_delgation_to">
-                          DELIGATION TO<font color="red">*</font>
+                          DELEGATION BY<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -177,7 +177,6 @@ const [errors, setErrors] = useState(initialErrors);
                           REMARKS
                         </Label>
                         <textarea
-                        placeholder="REMARKS"
                           name="remarks"
                           id="remarks"
                           value={formData.remarks}

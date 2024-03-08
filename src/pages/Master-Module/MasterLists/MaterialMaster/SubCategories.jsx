@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Button, Card, Input } from "reactstrap";
+import { Container,Button, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -11,37 +11,50 @@ import { useGet } from "src/API/useGet";
 
 function SubCategories() {
 
-  const [responseData, setResponseData] = useState([]);
+  const demoData = [
+    { subcategory: "Group A",subcategorycode:"xyz" },
+    { subcategory: "group d",subcategorycode:"xyz" },
+    { subcategory: "Group C",subcategorycode:"xyz" },
+    { subcategory: "Group D",subcategorycode:"xyz" },
+    { subcategory: "Group E",subcategorycode:"xyz" },
+  ];
+  const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
+  
+  // const { getData, data, isLoading } = useGet();
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getData("http://localhost:3000/createsubcategories");
+  //   }
+  //   fetch();
+  // }, [getData]);
 
-  const { getData, data, isLoading } = useGet();
-  useEffect(() => {
-    async function fetch() {
-      await getData("http://localhost:3000/createsubcategories");
-    }
-    fetch();
-  }, [getData]);
-
-  useEffect(() => {
-    setResponseData(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setResponseData(data);
+  // }, [data]);
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
 
   const columns = useMemo(
     () => [
       {
         Header: "SL NO",
-        accessor: (row, index) => index + 1,
+        accessor:"slno",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "SUB-CATEGOGRY",
+        Header: "SUB-MATERIAL",
         accessor: "subcategory",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "SUB-CATEGORY CODE",
+        Header: "SUB-MATERIAL CODE",
         accessor: "subcategorycode",
         disableFilters: true,
         filterable: true,
@@ -68,7 +81,7 @@ function SubCategories() {
   } = useTable(
     {
       columns,
-      data: responseData,
+      data: dataWithSlno,
       initialState: { pageSize: 10 },
     },
     useGlobalFilter,
@@ -83,9 +96,9 @@ function SubCategories() {
 
   return (
     <React.Fragment>
-       <div className="page-content">
-        <div className="container-fluid">
-          <Card>
+      <Container fluid>
+      <div className="page-content">
+      <Card>
             <div className="container pt-4">
               <div className="rmb-2 row">
                 <div className="col-md-1">
@@ -144,11 +157,10 @@ function SubCategories() {
                     >
                       {headerGroup.headers.map(column => (
                         <th
-                          key={column.id}
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                        >
+                        key={column.id}
+                        {...column.getHeaderProps(column.getSortByToggleProps())}
+                        style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
+                      >
                           <div className="d-flex justify-content-between">
                             <span className="font-weight-bold">
                               {column.render("Header")}
@@ -178,7 +190,7 @@ function SubCategories() {
                         {row.cells.map(cell => (
                           <td key={cell.column.id} {...cell.getCellProps()}>
                             {cell.column.id !== "SL NO" ? (
-                              <Link to={`/create_subcatogries/${row.original.id}`}>
+                              <Link to={`/modify_subcatogries/${row.original.id}`}>
                                 {cell.render("Cell")}
                               </Link>
                             ) : (
@@ -236,7 +248,7 @@ function SubCategories() {
             </div>
           </Card>
         </div>
-      </div>
+        </Container>
     </React.Fragment>
   )
 }

@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const EmplyeeMasterUpdate = () => {
+const EmplyeeMasterCreate = () => {
   const navigate = useNavigate();
   const validation = useFormik({
     enableReinitialize: true,
@@ -419,7 +419,7 @@ const EmplyeeMasterUpdate = () => {
                         width: "80px",
                         marginRight: "30px",
                       }}>
-                        UPDATE
+                        CREATE
                       </Button>
                       <Button
                         color="secondary"
@@ -449,4 +449,4 @@ const EmplyeeMasterUpdate = () => {
   );
 };
 
-export default EmplyeeMasterUpdate;
+export default EmplyeeMasterCreate;

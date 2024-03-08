@@ -1,6 +1,7 @@
 import React from "react";
 import MetaTags from "react-meta-tags";
-import { useState } from "react";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 import {
   Col,
   Input,
@@ -9,274 +10,255 @@ import {
   CardHeader,
   CardBody,
   Button,
+  Label,
+  FormGroup,
+  FormFeedback,
+  Form,
 } from "reactstrap";
-import styles from "../../../../assets/cssFiles/formPlaceholder.module.css";
 
-const MailConfiguration = (props) => {
-  const {fun}={...props}
-  const [formData, setFormData] = useState({
-    mailId: "",
-    mailPwd: "",
-    conMailPwd: "",
-    nmHost: "",
-    noPort: "",
-    warrantyDay: "",
-    supportMail:""
+const MailConfiguration = props => {
+  const { fun } = { ...props };
+
+  const validation = useFormik({
+    enableReinitialize: true,
+
+    initialValues: {
+      mailId: "",
+      mailPwd: "",
+      conMailPwd: "",
+      nmHost: "",
+      noPort: "",
+      warrantyDay: "",
+      supportMail: "",
+    },
+    validationSchema: Yup.object({
+      mailId: Yup.string()
+        .email("Invalid email address")
+        .required("Email is Required"),
+      mailPwd: Yup.string().required("Mail Password is Required"),
+      conMailPwd: Yup.string().required("Confirm mail password"),
+      nmHost: Yup.string().required("Name of Host is Required"),
+      noPort: Yup.string().required("PORT required "),
+    }),
+
+    onSubmit: values => {
+      alert("Form validated!");
+      console.log("values", values);
+    },
   });
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    const upperCaseValue = value.toUpperCase();
-    setFormData({
-      ...formData,
-      [name]: upperCaseValue,
-    });
-  };
-  const [errors, setErrors] = useState({});
-  const validateForm = () => {
-    let newErrors = {};
+  const handleChange = event => {
+    const fieldName = event.target.name;
+    const inputValue = event.target.value;
+    const uppercaseValue = inputValue ? inputValue.toUpperCase() : "";
 
-    if (!formData.mail.trim()) {
-      newErrors.mail = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.mail)) {
-      newErrors.email = "Invalid email address";
-    }
-    if (!formData.password.trim()) {
-      newErrors.password = "pasword is required";
-    }
-    if (!formData.portNo.trim()) {
-      newErrors.portNo = "port is required";
-    }
-    if (!formData.hostName.trim()) {
-      newErrors.hostName = "hostName is required";
-    }
-    if (!formData.confirmPassword.trim()) {
-      newErrors.confirmPassword = "confirmPassword  is required";
-    } else if (formData.confirmPassword.trim() !== formData.password.trim()) {
-      newErrors.confirmPassword = "pasword not matched ";
-    }
-    if (!formData.warrantyDay.trim()) {
-      newErrors.warrantyDay = "warrantyDay is required";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = () => {
-    if (validateForm()) {
-      alert("Form Validated and submited");
-    } else {
-      alert("Please fill all the Details");
-    }
+    validation.handleChange(event);
+    validation.setFieldValue(fieldName, uppercaseValue);
   };
 
   return (
     <React.Fragment>
-        <MetaTags>
-          <title>HCS Technology Private Limited</title>
-        </MetaTags>
+      <MetaTags>
+        <title>HCS Technology Private Limited</title>
+      </MetaTags>
 
-          <Card>
-            <CardHeader>
-              <h3 className="d-flex justify-content-center">
-                Mail Configuration
-              </h3>
-            </CardHeader>
-            <CardBody
-            className="border"
-            style={{ boxShadow: "1px 1px 8px 1px gray" }}
-            >
-              <Row>
-                <Col xl={6}>
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
+      <Card>
+        <CardHeader>
+          <h3 className="d-flex justify-content-center">Mail Configuration</h3>
+        </CardHeader>
+        <CardBody
+          className="border"
+          style={{ boxShadow: "1px 1px 8px 1px gray" }}
+        >
+          <Row className="justify-content-center">
+            <Col xl={10}>
+              <Form
+                className="needs-validation"
+                onSubmit={validation.handleSubmit}
+              >
+                <Row>
+                  <Col md="6">
+                    <FormGroup className="mb-3">
+                      <Label htmlFor="validationCustom01">
+                        EMAIL ID<font color="red">*</font>
+                      </Label>
                       <Input
+                        placeholder="Enter Email"
                         type="email"
                         name="mailId"
-                        placeholder=""
-                        value={formData.mailId}
+                        id="validationCustom01"
+                        value={validation.values.mailId}
                         onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.mail ? "is-invalid" : ""
-                        }`}
+                        onBlur={validation.handleBlur}
+                        invalid={
+                          validation.touched.mailId && validation.errors.mailId
+                        }
                       />
-                      <span className={styles["placeholder-label"]}>
-                        EMAIL ID<font color="red">*</font>
-                      </span>
-                      {errors.mail && (
-                        <div className="text-danger">{errors.mail}</div>
-                      )}
-                    </Col>
-                  </Row>
-
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="password"
-                        placeholder=""
-                        name="conMailPwd"
-                        value={formData.conMailPwd}
-                        onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.confirmPassword ? "is-invalid" : ""
-                        }`}
-                      />
-                      <span className={styles["placeholder-label"]}>
-                        CONFIRM PASSWORD<font color="red">*</font>
-                      </span>
-                      {errors.confirmPassword && (
-                        <div className="text-danger">
-                          {errors.confirmPassword}
-                        </div>
-                      )}
-                    </Col>
-                  </Row>
-
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="number"
-                        placeholder=""
-                        name="noPort"
-                        value={formData.noPort}
-                        onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.portNo ? "is-invalid" : ""
-                        }`}
-                      />
-                      <span className={styles["placeholder-label"]}>
-                        PORT NUMBER<font color="red">*</font>
-                      </span>
-                      {errors.portNo && (
-                        <div className="text-danger">{errors.portNo}</div>
-                      )}
-                    </Col>
-                  </Row>
-
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="email"
-                        placeholder=""
-                        name="supportMail"
-                        value={formData.supportMail}
-                        onChange={handleChange}
-                        className={styles.input}
-                      />
-                      <span className={styles["placeholder-label"]}>
-                        SUPPORT EMAIL
-                      </span>
-                    </Col>
-                  </Row>
-                </Col>
-
-                {/* 2nd colunm */}
-
-                <div className="col-xl-6">
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
-                      <Input
-                        type="password"
-                        placeholder=""
-                        name="mailPwd"
-                        value={formData.mailPwd}
-                        onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.password ? "is-invalid" : ""
-                        }`}
-                      />
-                      <span className={styles["placeholder-label"]}>
+                      {validation.touched.mailId && validation.errors.mailId ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.mailId}
+                        </FormFeedback>
+                      ) : null}
+                    </FormGroup>
+                  </Col>
+                  <Col md="6">
+                    <FormGroup className="mb-3">
+                      <Label htmlFor="validationCustom02">
                         PASSWORD<font color="red">*</font>
-                      </span>
-                      {errors.password && (
-                        <div className="text-danger">{errors.password}</div>
-                      )}
-                    </Col>
-                  </Row>
+                      </Label>
+                      <Input
+                        type="password"
+                        name="mailPwd"
+                        id="validationCustom02"
+                        onChange={handleChange}
+                        value={validation.values.mailPwd}
+                        onBlur={validation.handleBlur}
+                        invalid={
+                          validation.touched.mailPwd &&
+                          validation.errors.mailPwd
+                        }
+                      />
+                      {validation.touched.mailPwd &&
+                      validation.errors.mailPwd ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.mailPwd}
+                        </FormFeedback>
+                      ) : null}
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <hr className="mb-2 mt-0" />
 
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
+                <Row>
+                  <Col md="6">
+                    <FormGroup className="mb-3">
+                      <Label htmlFor="validationCustom01">
+                        CONFIRM PASSWORD<font color="red">*</font>
+                      </Label>
+                      <Input
+                        placeholder="Enter Password"
+                        type="password"
+                        name="conMailPwd"
+                        id="validationCustom01"
+                        onChange={handleChange}
+                        value={validation.values.conMailPwd}
+                        onBlur={validation.handleBlur}
+                        invalid={
+                          validation.touched.conMailPwd &&
+                          validation.errors.conMailPwd
+                        }
+                      />
+                      {validation.touched.conMailPwd &&
+                      validation.errors.conMailPwd ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.conMailPwd}
+                        </FormFeedback>
+                      ) : null}
+                    </FormGroup>
+                  </Col>
+                  <Col md="6">
+                    <FormGroup className="mb-3">
+                      <Label htmlFor="validationCustom02">
+                        HOST NAME<font color="red">*</font>
+                      </Label>
                       <Input
                         type="text"
-                        placeholder=""
                         name="nmHost"
-                        value={formData.nmHost}
+                        placeholder="Enter Host Name"
+                        id="validationCustom02"
                         onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.hostName ? "is-invalid" : ""
-                        }`}
+                        value={validation.values.nmHost}
+                        onBlur={validation.handleBlur}
+                        invalid={
+                          validation.touched.nmHost && validation.errors.nmHost
+                        }
                       />
-                      <span className={styles["placeholder-label"]}>
-                        HOST NAME<font color="red">*</font>
-                      </span>
-                      {errors.hostName && (
-                        <div className="text-danger">{errors.hostName}</div>
-                      )}
-                    </Col>
-                  </Row>
+                      {validation.touched.nmHost && validation.errors.nmHost ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.nmHost}
+                        </FormFeedback>
+                      ) : null}
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <hr className="mb-2 mt-0" />
 
-                  <Row
-                    className="mb-4"
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <Col md={8} className={styles.inputContainer}>
+                <Row>
+                  <Col md="12">
+                    <FormGroup className="mb-3">
+                      <Label htmlFor="validationCustom01">
+                        PORT NO<font color="red">*</font>
+                      </Label>
                       <Input
-                        type="number"
-                        placeholder=""
-                        name="warrantyDay"
-                        value={formData.warrantyDay}
+                        type="text"
+                        name="noPort"
+                        placeholder="Enter PORT"
+                        id="validationCustom01"
                         onChange={handleChange}
-                        className={`${styles.input} ${
-                          errors.warrantyDay ? "is-invalid" : ""
-                        }`}
+                        value={validation.values.noPort}
+                        onBlur={validation.handleBlur}
+                        invalid={
+                          validation.touched.noPort && validation.errors.noPort
+                        }
                       />
-                      <span className={styles["placeholder-label"]}>
-                        DAYS PRIOR TO AMC/WARRANTY END<font color="red">*</font>
-                      </span>
-                      {errors.warrantyDay && (
-                        <div className="text-danger">{errors.warrantyDay}</div>
-                      )}
-                    </Col>
-                  </Row>
-                </div>
-              </Row>
-            </CardBody>
-          </Card>
+                      {validation.touched.noPort && validation.errors.noPort ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.noPort}
+                        </FormFeedback>
+                      ) : null}
+                    </FormGroup>
+                  </Col>
+                </Row>
 
-          <div className="justify-content-center d-flex align-items-center justify-content-around mb-4">
-            <Button
-              className="btn-lg border-primary"
-              onClick={handleSubmit}
-            >
-              UPDATE
-            </Button>
-            <Button
-              className="btn-lg border-primary"
-              style={{ float: "right" }}
-              onClick={fun}
-            >
-              NEXT
-            </Button>
-          </div>
+                <hr className="mb-3 mt-3" />
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    {" "}
+                    <Button
+                      type="submit"
+                      color="success-subtle"
+                      className="border border-success"
+                      style={{
+                        paddingTop: "10px",
+                        height: "45px",
+                        width: "100px",
+                        marginRight: "30px",
+                      }}
+                    >
+                      CREATE
+                    </Button>
+                    <button
+                      type="button"
+                      className="btn btn-secondary-subtle border border-secondary"
+                      style={{
+                        paddingTop: "10px",
+                        width: "100px",
+                        height: "45px",
+                      }}
+                      onClick={fun}
+                    >
+                      <Label>NEXT</Label>
+                    </button>
+                  </div>
+                </div>
+              </Form>
+            </Col>
+          </Row>
+        </CardBody>
+      </Card>
     </React.Fragment>
   );
 };

@@ -105,7 +105,6 @@ const [errors, setErrors] = useState(initialErrors);
                           TAX 1 NAME<font color="red">*</font>
                         </Label>
                         <Input
-                        placeholder="ENTER TAX 1 NAME"
                           type="text"
                           name="nmTax1"
                           id="nmTax1"
@@ -120,7 +119,6 @@ const [errors, setErrors] = useState(initialErrors);
                           TAX 2 NAME<font color="red">*</font>
                         </Label>
                         <Input
-                        placeholder="ENTER TAX 2 NAME"
                           type="text"
                           name="nmTax2"
                           id="nmTax2"
@@ -138,7 +136,6 @@ const [errors, setErrors] = useState(initialErrors);
                           TAX 1 PERCENTAGE<font color="red">*</font>
                         </Label>
                         <Input
-                        placeholder="ENTER TAX 1 PERCENTAGE"
                           type="text"
                           name="perTax1"
                           id="perTax1"
@@ -153,7 +150,6 @@ const [errors, setErrors] = useState(initialErrors);
                           TAX 2 PERCENTAGE<font color="red">*</font>
                         </Label>
                         <Input
-                        placeholder="ENTER TAX 2 PERCENTAGE"
                           type="text"
                           name="perTax2"
                           id="perTax2"
@@ -171,7 +167,6 @@ const [errors, setErrors] = useState(initialErrors);
                           TAX CODE
                         </Label>
                         <Input
-                        placeholder="ENTER TAX CODE"
                           type="text"
                           name="taxCode"
                           id="taxCode"
@@ -186,7 +181,6 @@ const [errors, setErrors] = useState(initialErrors);
                           TOTAL TAX PERCENTAGE<font color="red">*</font>
                         </Label>
                         <Input
-                        placeholder="ENTER TOTAL TAX PERCENTAGE"
                           type="text"
                           name="totalTaxPer"
                           id="totalTaxPer"

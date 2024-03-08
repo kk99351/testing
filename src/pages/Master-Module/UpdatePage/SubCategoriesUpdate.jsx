@@ -17,7 +17,7 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
-const SubCategoriesUpdate = () => {
+const SubCategoryUpdate = () => {
   const navigate = useNavigate();
   const validation = useFormik({
     enableReinitialize: true,
@@ -30,9 +30,9 @@ const SubCategoriesUpdate = () => {
     },
 
     validationSchema: Yup.object({
-      categoryname: Yup.string().required("Category name is Required"),
-      subcategoryname: Yup.string().required("Sub Category name is Required"),
-      subcategorycode: Yup.string().required("Sub Category code is Required"),
+      categoryname: Yup.string().required("Material name is Required"),
+      subcategoryname: Yup.string().required("Sub Material name is Required"),
+      subcategorycode: Yup.string().required("Sub Material code is Required"),
       assetprefix: Yup.string().required("Aset Prefix is Required"),
     }),
     onSubmit: values => {
@@ -45,36 +45,31 @@ const SubCategoriesUpdate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card>
+        <Card className="mt-5">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CATEGORY DETAILS
+               SUB-CATEGORY DETAILS
               </h1>
             </CardHeader>
 
             <CardBody>
+            <Row className="justify-content-center">
+                <Col xl={10}>
               <Form
                 className="needs-validation"
                 onSubmit={validation.handleSubmit}
               >
-                <Row
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Col md="6">
+                <Row className="mb-2">
+                      <Col md={6}>
                     <FormGroup className="mb-3">
-                      <Label>
-                        CATEGORY NAME<font color="red">*</font>
+                      <Label htmlFor="validationCustom01">
+                        MATERIAL NAME<font color="red">*</font>
                       </Label>
                       <Input
-                        name="categoryname"
-                        placeholder="Category group"
+                        name="companygroup"
                         type="select"
                         className="form-control"
+                        id="validationCustom01"
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         invalid={
@@ -82,32 +77,30 @@ const SubCategoriesUpdate = () => {
                           validation.errors.categoryname
                         }
                       >
-                        <option value="" disabled>
-                          Select category name
+                        <option value="" >
+                          SELECT MATERIAL NAME
                         </option>
                         <option value="dept1">ROH</option>
                         <option value="dept2">HALB</option>
                         <option value="dept3">ABFB</option>
                       </Input>
                       {validation.touched.categoryname &&
-                      validation.errors.categoryname ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.categoryname}
-                        </FormFeedback>
-                      ) : null}
+                        validation.errors.categoryname && (
+                          <div className="text-danger">
+                            {validation.errors.categoryname}
+                          </div>
+                        )}
                     </FormGroup>
-                  </Col>
-                  <Col md="6">
+                    </Col>
+                      <Col md={6}>
                     <FormGroup className="mb-3">
                       <Label>
-                        SUB CATEGORY NAME<font color="red">*</font>
+                        SUB MATERIAL NAME<font color="red">*</font>
                       </Label>
                       <Input
                         name="subcategoryname"
-                        placeholder="Enter subcategory name"
                         type="text"
                         className="form-control"
-                        id="validationCustom02"
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         invalid={
@@ -116,21 +109,23 @@ const SubCategoriesUpdate = () => {
                         }
                       />
                       {validation.touched.subcategoryname &&
-                        validation.errors.subcategoryname && (
-                          <div className="text-danger">
-                            {validation.errors.subcategoryname}
-                          </div>
-                        )}
+                      validation.errors.subcategoryname ? (
+                        <FormFeedback type="invalid">
+                          {validation.errors.subcategoryname}
+                        </FormFeedback>
+                      ) : null}
                     </FormGroup>
-                  </Col>
-                  <Col md="6">
+                    </Col>
+                      <hr className="mb-2" />
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={6}>
                     <FormGroup className="mb-3">
                       <Label>
-                        SUB CATEGORY CODE<font color="red">*</font>
+                        SUB MATERIAL CODE<font color="red">*</font>
                       </Label>
                       <Input
                         name="subcategorycode"
-                        placeholder="Enter subcategory code"
                         type="text"
                         className="form-control"
                         onChange={validation.handleChange}
@@ -147,15 +142,14 @@ const SubCategoriesUpdate = () => {
                         </FormFeedback>
                       ) : null}
                     </FormGroup>
-                  </Col>
-                  <Col md="6">
+                    </Col>
+                      <Col md={6}>
                     <FormGroup className="mb-3">
                       <Label>
-                        ASSET PRIFIX<font color="red">*</font>
+                        ASSET PREFIX<font color="red">*</font>
                       </Label>
                       <Input
                         name="assetprefix"
-                        placeholder="Enter assetprefix"
                         type="text"
                         className="form-control"
                         onChange={validation.handleChange}
@@ -176,18 +170,31 @@ const SubCategoriesUpdate = () => {
                 </Row>
 
                 <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                  }}
-                >
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                        }}
+                      >
                   <Button
                     type="submit"
                     color="success-subtle"
-                    className="border border-success"
+                    className="btn btn-success-subtle border border-success"
+                    style={{
+                      paddingTop: "10px",
+                      height: "45px",
+                      width: "80px",
+                      marginRight: "30px",
+                    }}
                   >
-                    CREATE
+                    UPDATE
                   </Button>
                   <button
                     type="button"
@@ -204,7 +211,10 @@ const SubCategoriesUpdate = () => {
                     <Label>BACK</Label>
                   </button>
                 </div>
+                </div>
               </Form>
+              </Col>
+              </Row>
             </CardBody>
           </Card>
         </div>
@@ -213,4 +223,4 @@ const SubCategoriesUpdate = () => {
   );
 };
 
-export default SubCategoriesUpdate;
+export default SubCategoryUpdate;

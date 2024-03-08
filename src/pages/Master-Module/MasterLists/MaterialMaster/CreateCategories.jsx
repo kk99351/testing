@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Button, Card, Input } from "reactstrap";
+import { Button, Card, Input,Container } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -11,37 +11,50 @@ import { useGet } from "src/API/useGet";
 
 function CreateCategories() {
 
-  const [responseData, setResponseData] = useState([]);
+  const demoData = [
+    { category: "Group A",categoryCode:"1f-90" },
+    { category: "group d",categoryCode:"1f-90" },
+    { category: "Group C",categoryCode:"1f-90" },
+    { category: "Group D",categoryCode:"1f-90" },
+    { category: "Group E",categoryCode:"1f-90" },
+  ];
+  const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
+  
+  // const { getData, data, isLoading } = useGet();
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getData("http://localhost:3000/createcategory");
+  //   }
+  //   fetch();
+  // }, [getData]);
 
-  const { getData, data, isLoading } = useGet();
-  useEffect(() => {
-    async function fetch() {
-      await getData("http://localhost:3000/createcategory");
-    }
-    fetch();
-  }, [getData]);
-
-  useEffect(() => {
-    setResponseData(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setResponseData(data);
+  // }, [data]);
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
 
   const columns = useMemo(
     () => [
       {
         Header: "SL NO",
-        accessor: (row, index) => index + 1,
+        accessor: "slno",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "CATEGOGRY",
+        Header: "MATERIAL",
         accessor: "category",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "CATEGORY CODE",
+        Header: "MATERIAL CODE",
         accessor: "categoryCode",
         disableFilters: true,
         filterable: true,
@@ -68,7 +81,7 @@ function CreateCategories() {
   } = useTable(
     {
       columns,
-      data: responseData,
+      data: dataWithSlno,
       initialState: { pageSize: 10 },
     },
     useGlobalFilter,
@@ -83,9 +96,9 @@ function CreateCategories() {
 
   return (
     <React.Fragment>
-       <div className="page-content">
-        <div className="container-fluid">
-          <Card>
+      <Container fluid>
+      <div className="page-content">
+      <Card>
             <div className="container pt-4">
               <div className="rmb-2 row">
                 <div className="col-md-1">
@@ -144,12 +157,11 @@ function CreateCategories() {
                     >
                       {headerGroup.headers.map(column => (
                         <th
-                          key={column.id}
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                        >
-                          <div className="d-flex justify-content-between">
+                        key={column.id}
+                        {...column.getHeaderProps(column.getSortByToggleProps())}
+                        style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
+                      >
+                        <div className="d-flex justify-content-between">
                             <span className="font-weight-bold">
                               {column.render("Header")}
                             </span>
@@ -178,7 +190,7 @@ function CreateCategories() {
                         {row.cells.map(cell => (
                           <td key={cell.column.id} {...cell.getCellProps()}>
                             {cell.column.id !== "SL NO" ? (
-                              <Link to={`/create_catogries/${row.original.id}`}>
+                              <Link to={`/modify_categories/${row.original.id}`}>
                                 {cell.render("Cell")}
                               </Link>
                             ) : (
@@ -236,7 +248,7 @@ function CreateCategories() {
             </div>
           </Card>
         </div>
-      </div>
+        </Container>
     </React.Fragment>
   )
 }

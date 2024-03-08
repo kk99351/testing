@@ -1,12 +1,3 @@
-// import React from 'react'
-
-// function CreateUom() {
-//   return (
-//     <div>CreateUom</div>
-//   )
-// }
-
-// export default CreateUom
 
 import React, { useState } from "react";
 import {
@@ -100,7 +91,7 @@ const [errors, setErrors] = useState(initialErrors);
           <Card className="mt-5">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                PAYMENT METHOD DETAILS
+              UNIT OF MEASUREMENT DETAILS
               </h1>
             </CardHeader>
             <CardBody>
@@ -113,7 +104,6 @@ const [errors, setErrors] = useState(initialErrors);
                          UOM NAME<font color="red">*</font>
                         </Label>
                         <Input
-                        placeholder="ENTER UOM NAME"
                           name="uom_name"
                           id="uom_name"
                           value={formData.uom_name}
@@ -133,7 +123,6 @@ const [errors, setErrors] = useState(initialErrors);
                           UOM CODE<font color="red">*</font>
                         </Label>
                         <Input
-                         placeholder="ENTER UOM CODE"
                           name="uom_code"
                           id="uom_code"
                           value={formData.uom_code}

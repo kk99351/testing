@@ -20,7 +20,11 @@ const TermAndConditionCreate = () => {
     termAndCond:"Terms and Conditions",
 
   };
-  const initialFormData = {};
+  const initialFormData = {
+    termAndCond:"",
+    descriptionterms:"",
+    fileName:"",
+  };
   const initialErrors = {};
   Object.keys(requiredFields).forEach(key => {
     initialFormData[key] = "";
@@ -131,7 +135,24 @@ const TermAndConditionCreate = () => {
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
-
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <Label for="descriptionterms">
+                          TERMS & CONDITIONS DESCRIPTION
+                        </Label>
+                        <Input
+                          type="textarea"
+                          name="descriptionterms"
+                          id="descriptionterms"
+                          onChange={handleInputChange}
+                          className={`form-control ${
+                            errors.fileName ? "is-invalid" : ""
+                          }`}
+                        />
+                        <span className="text-danger">{errors.descriptionterms}</span>
+                      </Col>
+                      <hr className="mb-0 mt-3" />
+                    </Row>
                     <div
                       style={{
                         display: "flex",

@@ -179,7 +179,13 @@ const Navbar = (props: any) => {
                               to="/region"
                               className="dropdown-item "
                             >
-                              {props.t("Region")}
+                              {props.t("Country")}
+                            </Link>
+                            <Link
+                              to="/region"
+                              className="dropdown-item "
+                            >
+                              {props.t("State")}
                             </Link>
                             <Link to="/city" className="dropdown-item ">
                               {props.t("City")}
@@ -188,13 +194,19 @@ const Navbar = (props: any) => {
                               to="/branch"
                               className="dropdown-item"
                             >
-                              {props.t("Branch")}
+                              {props.t("Location")}
                             </Link>
                             <Link
                               to="/plant"
                               className="dropdown-item"
                             >
-                              {props.t("Plant")}
+                              {props.t("Building")}
+                            </Link>
+                            <Link
+                              to="/plant"
+                              className="dropdown-item"
+                            >
+                              {props.t("Floor")}
                             </Link>
                           </div>
                         </div>
@@ -218,17 +230,23 @@ const Navbar = (props: any) => {
                           show: accessmangement,
                         })}
                       >
+                          <Link
+                          to="/department"
+                          className="dropdown-item "
+                        >
+                          {props.t("Department")}
+                        </Link>
+                        <Link
+                          to="/designation"
+                          className="dropdown-item "
+                        >
+                          {props.t("Designation")}
+                        </Link>
                         <Link
                           to="/emplyee_master"
                           className="dropdown-item "
                         >
                           {props.t("Employee-Master")}
-                        </Link>
-                        <Link
-                          to="/user_login"
-                          className="dropdown-item"
-                        >
-                          {props.t("User-Login")}
                         </Link>
                         <Link
                           to="/user_type"
@@ -243,17 +261,14 @@ const Navbar = (props: any) => {
                           {props.t("User-Permission")}
                         </Link>
                         <Link
-                          to="/department"
-                          className="dropdown-item "
+                          to="/user_login"
+                          className="dropdown-item"
                         >
-                          {props.t("Department")}
+                          {props.t("User-Login")}
                         </Link>
-                        <Link
-                          to="/designation"
-                          className="dropdown-item "
-                        >
-                          {props.t("Designation")}
-                        </Link>
+                        
+                       
+                      
                       </div>
                     </div>
 
@@ -274,19 +289,19 @@ const Navbar = (props: any) => {
                           show: configuration,
                         })}
                       >
-                        <Link
+                        {/* <Link
                           to="/doa_master"
                           className="dropdown-item "
                         >
                           {props.t("DOA-Master")}
-                        </Link>
+                        </Link> */}
                         <Link
                           to="/deligation_master"
                           className="dropdown-item "
                         >
-                          {props.t("Daligation-Master")}
+                          {props.t("Delegation-Master")}
                         </Link>
-                        <Link
+                        {/* <Link
                           to="/payment_method"
                           className="dropdown-item "
                         >
@@ -303,7 +318,7 @@ const Navbar = (props: any) => {
                           className="dropdown-item "
                         >
                           {props.t("Bank-Master")}
-                        </Link>
+                        </Link> */}
                         <Link
                           to="/tax_details"
                           className="dropdown-item "
@@ -368,6 +383,9 @@ const Navbar = (props: any) => {
                         </Link>
                         <Link to="/unit" className="dropdown-item ">
                           {props.t("Uom-Master")}
+                        </Link>
+                        <Link to="/uom_conversion" className="dropdown-item ">
+                          {props.t("Uom-Conversion")}
                         </Link>
                       </div>
                     </div>
@@ -488,8 +506,8 @@ const Navbar = (props: any) => {
                     <Link to="/damaged_asset" className="dropdown-item">
                       {props.t("Damaged Asset")}
                     </Link>
-                    <Link to="/Approve_damaged_asset" className="dropdown-item">
-                      {props.t("approve_damaged_asset")}
+                    <Link to="/approve_damaged_asset" className="dropdown-item">
+                      {props.t("Approve_Damaged_Asset")}
                     </Link>
                     
                   </div>

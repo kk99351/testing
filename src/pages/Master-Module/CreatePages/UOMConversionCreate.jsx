@@ -13,18 +13,21 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const TermAndConditionModify = () => {
+const UOMConversionCreate = () => {
   const navigate = useNavigate();
   const requiredFields = {
-    // fileName:"",
-    termAndCond:"Terms and Conditions",
-
+    material: "Material",
+    qyt: "Quantity",
+    uom: "Unit of measurement",
+    quality: "Quality",
+    uomconverted: "Uom Convertion",
   };
   const initialFormData = {
-    termAndCond:"",
-    descriptionterms:"",
-    fileName:"",
-
+    material: "",
+    qyt: "",
+    uom: "",
+    quality: "",
+    uomconverted: "",
   };
   const initialErrors = {};
   Object.keys(requiredFields).forEach(key => {
@@ -59,7 +62,7 @@ const TermAndConditionModify = () => {
     }));
   };
 
-  const UpdateHandle = async e => {
+  const CreateHandle = async e => {
     e.preventDefault();
     let isValid = true;
 
@@ -91,7 +94,7 @@ const TermAndConditionModify = () => {
           <Card className="mt-5">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                TERMS AND CONDITIONS DETAILS
+                UOM CONVERTION DETAILS
               </h1>
             </CardHeader>
             <CardBody>
@@ -99,58 +102,100 @@ const TermAndConditionModify = () => {
                 <Col xl={10}>
                   <form className="needs-validation" noValidate>
                     <Row className="mb-2">
-                      <Col md={12}>
-                        <Label for="termAndCond">
-                         TERMS AND CONDITIONS<font color="red">*</font>
+                      <Col md={6}>
+                        <Label for="material">
+                          MATERIAL<font color="red">*</font>
                         </Label>
                         <Input
-                        placeholder="ENTER TERMS AND CONDITIONS"
-                          name="termAndCond"
-                          id="termAndCond"
-                          value={formData.termAndCond}
-                          onChange={handleInputChange}
-                          className={`form-control ${
-                            errors.termAndCond ? "is-invalid" : ""
-                          }`}
-                        />
-                        <span className="text-danger">{errors.termAndCond}</span>
+                          type="select"
+                          name="material"
+                          id="material"
+                          value={formData.material}
+                          onChange={handleDropdownChange}
+                          invalid={!!errors.material}
+                        >
+                          <option value="">SELECT MATERIAL</option>
+                          <option value="group1">Group 1</option>
+                          <option value="group2">Group 2</option>
+                        </Input>
+                        <span className="text-danger">{errors.material}</span>
+                      </Col>
+                      <Col md={6}>
+                        <Label for="qyt">
+                          QUANTITY<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="select"
+                          name="qyt"
+                          id="qyt"
+                          value={formData.qyt}
+                          onChange={handleDropdownChange}
+                          invalid={!!errors.qyt}
+                        >
+                          <option value="">SELECT QUANTITY</option>
+                          <option value="group1">Group 1</option>
+                          <option value="group2">Group 2</option>
+                        </Input>
+                        <span className="text-danger">{errors.qyt}</span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
-
                     <Row className="mb-2">
-                      <Col md={12}>
-                        <Label for="fileName">
-                          UPLOAD FILE
+                      <Col md={6}>
+                        <Label for="uom">
+                          UOM<font color="red">*</font>
                         </Label>
                         <Input
-                          type="file"
-                          name="fileName"
-                          id="fileName"
-                          onChange={handleInputChange}
-                          className={`form-control ${
-                            errors.fileName ? "is-invalid" : ""
-                          }`}
-                        />
-                        <span className="text-danger">{errors.fileName}</span>
+                          type="select"
+                          name="uom"
+                          id="uom"
+                          value={formData.uom}
+                          onChange={handleDropdownChange}
+                          invalid={!!errors.uom}
+                        >
+                          <option value="">SELECT UOM</option>
+                          <option value="group1">Group 1</option>
+                          <option value="group2">Group 2</option>
+                        </Input>
+                        <span className="text-danger">{errors.uom}</span>
+                      </Col>
+                      <Col md={6}>
+                        <Label for="quality">
+                          QUALITY<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="select"
+                          name="quality"
+                          id="quality"
+                          value={formData.quality}
+                          onChange={handleDropdownChange}
+                          invalid={!!errors.quality}
+                        >
+                          <option value="">SELECT QUALITY</option>
+                          <option value="group1">Group 1</option>
+                          <option value="group2">Group 2</option>
+                        </Input>
+                        <span className="text-danger">{errors.quality}</span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
                     <Row className="mb-2">
                       <Col md={12}>
-                        <Label for="descriptionterms">
-                          TERMS & CONDITIONS DESCRIPTION
+                        <Label for="uomconverted">
+                          UOM CONVERSION<font color="red">*</font>
                         </Label>
-                        <Input
-                          type="textarea"
-                          name="descriptionterms"
-                          id="descriptionterms"
+                        <input
+                          name="uomconverted"
+                          id="uomconverted"
+                          value={formData.uomconverted}
                           onChange={handleInputChange}
                           className={`form-control ${
-                            errors.fileName ? "is-invalid" : ""
+                            errors.uomconverted ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="text-danger">{errors.descriptionterms}</span>
+                        <span className="text-danger">
+                          {errors.uomconverted}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
@@ -171,7 +216,7 @@ const TermAndConditionModify = () => {
                         <button
                           type="button"
                           className="btn btn-success-subtle border border-success"
-                          onClick={UpdateHandle}
+                          onClick={CreateHandle}
                           style={{
                             paddingTop: "10px",
                             height: "45px",
@@ -179,13 +224,13 @@ const TermAndConditionModify = () => {
                             marginRight: "30px",
                           }}
                         >
-                          <Label>UPDATE</Label>
+                          <Label>CREATE</Label>
                         </button>
                         <button
                           type="button"
                           className="btn btn-secondary-subtle border border-secondary"
                           onClick={() => {
-                            navigate("/terms_and_condition");
+                            navigate("/uom_conversion");
                           }}
                           style={{
                             paddingTop: "10px",
@@ -208,4 +253,4 @@ const TermAndConditionModify = () => {
   );
 };
 
-export default TermAndConditionModify;
+export default UOMConversionCreate;
