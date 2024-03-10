@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
 import Icon from "@ailibs/feather-react-ts";
-import { Button, Card, Input } from "reactstrap";
+import { Container,Button, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -11,43 +11,50 @@ import {
 import { useGet } from "src/API/useGet";
 
 const Branch = () => {
-  const [responseData, setResponseData] = useState([]);
+  const demoData = [
+    { "slno": 1, "branch": "Headquarters", "city": "New York", "region": "New York", "companygroup": "Group A" },
+    { "slno": 2, "branch": "Downtown Office", "city": "Los Angeles", "region": "California", "companygroup": "Group B" },
+    { "slno": 3, "branch": "Midtown Office", "city": "Chicago", "region": "Illinois", "companygroup": "Group A" },
+    { "slno": 4, "branch": "Uptown Office", "city": "Houston", "region": "Texas", "companygroup": "Group C" },
+    { "slno": 5, "branch": "Suburb Office", "city": "Miami", "region": "Florida", "companygroup": "Group B" }
+   ];
+  const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
+  
+  // const { getData, data, isLoading } = useGet();
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getData("http://localhost:3000/branch");
+  //   }
+  //   fetch();
+  // }, [getData]);
 
-  const { getData, data, isLoading } = useGet();
-  useEffect(() => {
-    async function fetch() {
-      await getData("http://localhost:3000/branch");
-    }
-    fetch();
-  }, [getData]);
-
-  useEffect(() => {
-    setResponseData(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setResponseData(data);
+  // }, [data]);
 
   const columns = useMemo(
     () => [
       {
         Header: "SL NO",
-        accessor: (row, index) => index + 1,
+        accessor: "slno",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "BRANCH",
+        Header: "LOCATION NAME",
         accessor: "branch",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "CITY",
+        Header: "CITY NAME",
         accessor: "city",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "REGION",
+        Header: "STATE NAME",
         accessor: "region",
         disableFilters: true,
         filterable: true,
@@ -61,7 +68,14 @@ const Branch = () => {
     ],
     []
   );
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
 
+  
   const {
     getTableProps,
     getTableBodyProps,
@@ -79,7 +93,7 @@ const Branch = () => {
   } = useTable(
     {
       columns,
-      data: responseData,
+      data: dataWithSlno,
       initialState: { pageSize: 10 },
     },
     useGlobalFilter,
@@ -93,16 +107,16 @@ const Branch = () => {
 
   return (
     <React.Fragment>
-      {isLoading ? (
+      {/* {isLoading ? (
         <div className="page-content">
           <Card>
             <div><h1>Loading...</h1></div>
           </Card>
         </div>
-      ) : (
-        <div className="page-content">
-          <div className="container-fluid">
-          <Card>
+      ) : ( */}
+        <Container fluid>
+      <div className="page-content">
+      <Card>
             <div className="container pt-4">
               <div className="rmb-2 row">
                 <div className="col-md-1">
@@ -161,11 +175,10 @@ const Branch = () => {
                     >
                       {headerGroup.headers.map(column => (
                         <th
-                          key={column.id}
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                        >
+                        key={column.id}
+                        {...column.getHeaderProps(column.getSortByToggleProps())}
+                        style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
+                      >
                           <div className="d-flex justify-content-between">
                             <span className="font-weight-bold">
                               {column.render("Header")}
@@ -252,8 +265,9 @@ const Branch = () => {
             </div>
           </Card>
           </div>
-        </div>
-      )}
+      {/* )} */}
+      </Container>
+
     </React.Fragment>
   );
 };

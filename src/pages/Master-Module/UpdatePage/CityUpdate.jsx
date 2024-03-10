@@ -30,11 +30,11 @@ const CityUpdate = () => {
 
     validationSchema: Yup.object({
       companygroup: Yup.string().required("company group is Required"),
-      region: Yup.string().required("company group is Required"),
-      cityname: Yup.string().required("company group is Required"),
+      region: Yup.string().required("State Name is Required"),
+      cityname: Yup.string().required("City Name is Required"),
     }),
     onSubmit: values => {
-      alert("form validated !")
+      alert("form validated !");
       //console.log("values", values);
     },
   });
@@ -43,7 +43,7 @@ const CityUpdate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 CITY DETAILS
@@ -51,99 +51,137 @@ const CityUpdate = () => {
             </CardHeader>
 
             <CardBody>
+            <Row className="justify-content-center">
+                <Col xl={10}>
               <Form
                 className="needs-validation"
                 onSubmit={validation.handleSubmit}
               >
-                <Row>
-                  <Col md="6">
-                    <FormGroup className="mb-3">
-                      <Label htmlFor="validationCustom01">COMPANY GROUP<font color="red">*</font></Label>
-                      <Input
-                        name="companygroup"
-                        placeholder="Company Group"
-                        type="text"
-                        className="form-control"
-                        id="validationCustom01"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.companygroup &&
-                          validation.errors.companygroup
-                        }
-                      />
-                      {validation.touched.companygroup &&
-                      validation.errors.companygroup ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.companygroup}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                  <Col md="6">
-                    <FormGroup className="mb-3">
-                      <Label htmlFor="validationCustom02">REGION<font color="red">*</font></Label>
-                      <Input
-                        name="region"
-                        placeholder="Region"
-                        type="text"
-                        className="form-control"
-                        id="validationCustom02"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.region && validation.errors.region
-                        }
-                      />
-                      {validation.touched.region && validation.errors.region ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.region}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                </Row>
+                <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="companygroup">
+                            COMPANY GROUP/COUNTRY <font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            name="companygroup"
+                            id="companygroup"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.companygroup &&
+                              validation.errors.companygroup
+                            }
+                          >
+                            <option value="">
+                              Select Company Group/Country
+                            </option>
+                            <option value="group1">Company Group 1</option>
+                            <option value="group2">Company Group 2</option>
+                          </Input>
+                          {validation.touched.companygroup &&
+                          validation.errors.companygroup ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.companygroup}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                        </Col>
+                      <hr className="mb-2" />
+                    </Row>     
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="region">
+                          STATE NAME <font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            name="region"
+                            id="region"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.region &&
+                              validation.errors.region
+                            }
+                          >
+                            <option value="">
+                              Select Region
+                            </option>
+                            <option value="group1">Company Group 1</option>
+                            <option value="group2">Company Group 2</option>
+                          </Input>
+                          {validation.touched.region &&
+                          validation.errors.region ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.region}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                        </Col>
+                      <hr className="mb-2" />
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="cityname">
+                           CITY NAME<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="cityname"
+                            type="text"
+                            className="form-control"
+                            id="cityname"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.cityname &&
+                              validation.errors.cityname
+                            }
+                          />
+                          {validation.touched.cityname &&
+                          validation.errors.cityname ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.cityname}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </Row>
 
-                <Row>
-                  <Col md="6">
-                    <FormGroup className="mb-3">
-                      <Label htmlFor="validationCustom03">CITY NAME<font color="red">*</font></Label>
-                      <Input
-                        name="cityname"
-                        placeholder="City Name"
-                        type="text"
-                        className="form-control"
-                        id="validationCustom03"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.cityname &&
-                          validation.errors.cityname
-                        }
-                      />
-                      {validation.touched.cityname &&
-                      validation.errors.cityname ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.cityname}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                </Row>
 
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                  }}
-                >
+            
+
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                        }}
+                      >
                   <Button
                     type="submit"
                     color="success-subtle"
-                    className="border border-success"
+                    className="btn btn-success-subtle border border-success"
+                    style={{
+                      paddingTop: "10px",
+                      height: "45px",
+                      width: "80px",
+                      marginRight: "30px",
+                    }}
                   >
-                    CREATE
+                    UPDATE
                   </Button>
                   <button
                     type="button"
@@ -160,7 +198,10 @@ const CityUpdate = () => {
                     <Label>BACK</Label>
                   </button>
                 </div>
+                </div>
               </Form>
+              </Col>
+              </Row>
             </CardBody>
           </Card>
         </div>

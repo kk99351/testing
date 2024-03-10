@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Button, Input, Card } from "reactstrap";
+import { Container, Button, Input, Card } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -9,10 +9,15 @@ import {
 } from "react-table";
 import { useGet } from "src/API/useGet";
 
-
 const plant = () => {
-
-  const [responseData, setResponseData] = useState([]);
+  const demoData = [
+    { "slno": 1, "companygroup": "Group A", "region": "New York", "city": "New York City", "branch": "Headquarters", "building": "Empire State Building" },
+    { "slno": 2, "companygroup": "Group B", "region": "California", "city": "Los Angeles", "branch": "Downtown Office", "building": "Los Angeles Tower" },
+    { "slno": 3, "companygroup": "Group A", "region": "Illinois", "city": "Chicago", "branch": "Midtown Office", "building": "Chicago Plaza" },
+    { "slno": 4, "companygroup": "Group C", "region": "Texas", "city": "Houston", "branch": "Uptown Office", "building": "Houston Tower" },
+    { "slno": 5, "companygroup": "Group B", "region": "Florida", "city": "Miami", "branch": "Suburb Office", "building": "Miami Center" }
+  ];
+  const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
 
   // const { getData, data, isLoading } = useGet();
@@ -22,31 +27,54 @@ const plant = () => {
   //     .then(data => setResponseData(data))
   //     .catch(error => console.error("Error fetching users:", error));
   // }, []);
-  
+
   const columns = useMemo(
     () => [
       {
         Header: "SL NO",
-        accessor: (row, index) => index + 1,
+        accessor: "slno",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "PLANT NAME",
-        accessor: "plantname",
+        Header: "COMPANY GROUP",
+        accessor: "companygroup",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "PLANT CODE",
-        accessor: "plantcode",
+        Header: "STATE NAME",
+        accessor: "region",
         disableFilters: true,
         filterable: true,
       },
-     
+      {
+        Header: "CITY NAME",
+        accessor: "city",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "LOCATION NAME",
+        accessor: "branch",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "BUILDING NAME",
+        accessor: "building",
+        disableFilters: true,
+        filterable: true,
+      },
     ],
     []
   );
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
 
   const {
     getTableProps,
@@ -65,7 +93,7 @@ const plant = () => {
   } = useTable(
     {
       columns,
-      data: responseData,
+      data: dataWithSlno,
       initialState: { pageSize: 10 },
     },
     useGlobalFilter,
@@ -73,10 +101,9 @@ const plant = () => {
     usePagination
   );
 
-
   return (
     <React.Fragment>
-    {/* {isLoading ? (
+      {/* {isLoading ? (
       <div className="page-content">
         <Card>
           <div>
@@ -85,8 +112,8 @@ const plant = () => {
         </Card>
       </div>
     ) : ( */}
-      <div className="page-content">
-        <div className="container-fluid">
+      <Container fluid>
+        <div className="page-content">
           <Card>
             <div className="container pt-4">
               <div className="rmb-2 row">
@@ -150,6 +177,11 @@ const plant = () => {
                           {...column.getHeaderProps(
                             column.getSortByToggleProps()
                           )}
+                          style={
+                            column.id === "slno"
+                              ? { width: "6%" }
+                              : { backgroundColor: "" }
+                          }
                         >
                           <div className="d-flex justify-content-between">
                             <span className="font-weight-bold">
@@ -177,7 +209,7 @@ const plant = () => {
                           {row.cells.map(cell => (
                             <td key={cell.column.id} {...cell.getCellProps()}>
                               {cell.column.id !== "SL NO" ? (
-                                <Link to={`/branch/${row.original.id}`}>
+                                <Link to={`/updateplant/${row.original.id}`}>
                                   {cell.render("Cell")}
                                 </Link>
                               ) : (
@@ -246,9 +278,9 @@ const plant = () => {
             </div>
           </Card>
         </div>
-      </div>
-    {/* )} */}
-  </React.Fragment>
+      </Container>
+      {/* )} */}
+    </React.Fragment>
   );
 };
 

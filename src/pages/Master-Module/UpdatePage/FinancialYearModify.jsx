@@ -1,3 +1,264 @@
+// import React, { useState } from "react";
+// import {
+//   Col,
+//   Row,
+//   CardBody,
+//   CardHeader,
+//   Card,
+//   Label,
+//   Input,
+//   Button,
+//   Container,
+// } from "reactstrap";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+
+// const FinancialYearModify = () => {
+//   const navigate = useNavigate();
+//   const requiredFields = {
+//     stDate: "Start Date",
+//     // endDate: "",
+//     // halfstDate: "",
+//     // halfendDate: "",
+//     // secStDate: "",
+//     // secEndDate: "",
+//   };
+//   const initialFormData = {};
+//   const initialErrors = {};
+//   Object.keys(requiredFields).forEach(key => {
+//     initialFormData[key] = "";
+//     initialErrors[key] = "";
+//   });
+
+//   const [formData, setFormData] = useState(initialFormData);
+//   const [errors, setErrors] = useState(initialErrors);
+
+//   const handleInputChange = e => {
+//     const { name, value } = e.target;
+//     setFormData(prevData => ({
+//       ...prevData,
+//       [name]: value,
+//     }));
+//     setErrors(prevErrors => ({
+//       ...prevErrors,
+//       [name]: "",
+//     }));
+//   };
+
+//   const handleDropdownChange = e => {
+//     const { name, value } = e.target;
+//     setFormData(prevData => ({
+//       ...prevData,
+//       [name]: value,
+//     }));
+//     setErrors(prevErrors => ({
+//       ...prevErrors,
+//       [name]: "",
+//     }));
+//   };
+
+//   const UpdateHandle = async e => {
+//     e.preventDefault();
+//     let isValid = true;
+
+//     Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
+//       if (!formData[fieldName].trim()) {
+//         setErrors(prevErrors => ({
+//           ...prevErrors,
+//           [fieldName]: `${fieldLabel} is required`,
+//         }));
+//         isValid = false;
+//       }
+//     });
+
+//     if (isValid) {
+//       try {
+//         // await axios.post(`http://localhost:3000/region/`, formData);
+//         // navigate("/company_group");
+//         console.log("Form submitted successfully");
+//       } catch (error) {
+//         console.log("error in creating group data" + error);
+//       }
+//     }
+//   };
+
+//   return (
+//     <React.Fragment>
+//       <Container fluid>
+//         <div className="page-content">
+//           <Card className="mt-5">
+//             <CardHeader>
+//               <h1 className="card-title" style={{ fontSize: "20px" }}>
+//                 FINANCIAL YEAR DETAILS
+//               </h1>
+//             </CardHeader>
+//             <CardBody>
+//               <Row className="justify-content-center">
+//                 <Col xl={10}>
+//                   <h1 className="card-title" style={{ fontSize: "20px" }}>
+//                     FINANCIAL YEAR
+//                   </h1>
+//                   <hr className="mb-0 mt-2" />
+
+//                   <form className="needs-validation" noValidate>
+//                     <Row className="mb-2">
+//                       <Col md={6}>
+//                         <Label for="stDate">
+//                           START DATE<font color="red">*</font>
+//                         </Label>
+//                         <Input
+//                           type="date"
+//                           name="stDate"
+//                           id="stDate"
+//                           value={formData.nmTax1}
+//                           onChange={handleInputChange}
+//                           invalid={!!errors.stDate}
+//                         />
+//                         <span className="text-danger">{errors.stDate}</span>
+//                       </Col>
+//                       <Col md={6}>
+//                         <Label for="endDate">
+//                           END DATE
+//                         </Label>
+//                         <Input
+//                           type="date"
+//                           name="endDate"
+//                           id="endDate"
+//                           value={formData.endDate}
+//                           onChange={handleInputChange}
+//                           invalid={!!errors.endDate}
+//                         />
+//                         <span className="text-danger">{errors.endDate}</span>
+//                       </Col>
+//                     </Row>
+//                     <hr className="mb-0 mt-3 mb-2" />
+//                     <h1 className="card-title" style={{ fontSize: "20px" }}>
+//                       FIRST HALF YEAR
+//                     </h1>
+//                     <hr className="mb-0 mt-2" />
+//                     <Row className="mb-2">
+//                       <Col md={6}>
+//                         <Label for="halfstDate">
+//                           START DATE
+//                         </Label>
+//                         <Input
+//                           type="date"
+//                           name="halfstDate"
+//                           id="halfstDate"
+//                           value={formData.halfstDate}
+//                           onChange={handleInputChange}
+//                           invalid={!!errors.halfstDate}
+//                         />
+//                         <span className="text-danger">{errors.halfstDate}</span>
+//                       </Col>
+//                       <Col md={6}>
+//                         <Label for="halfendDate">
+//                           END DATE
+//                         </Label>
+//                         <Input
+//                           type="date"
+//                           name="halfendDate"
+//                           id="halfendDate"
+//                           value={formData.halfendDate}
+//                           onChange={handleInputChange}
+//                           invalid={!!errors.halfendDate}
+//                         />
+//                         <span className="text-danger">{errors.halfendDate}</span>
+//                       </Col>
+//                     </Row>
+//                     <hr className="mb-0 mt-3 mb-2" />
+//                     <h1 className="card-title" style={{ fontSize: "20px" }}>
+//                       SECOND HALF YEAR
+//                     </h1>{" "}
+//                     <hr className="mb-0 mt-2" />
+//                     <Row className="mb-2">
+//                       <Col md={6}>
+//                         <Label for="secStDate">
+//                           START DATE
+//                         </Label>
+//                         <Input
+//                           type="date"
+//                           name="secStDate"
+//                           id="secStDate"
+//                           value={formData.secStDate}
+//                           onChange={handleInputChange}
+//                           invalid={!!errors.secStDate}
+//                         />
+//                         <span className="text-danger">{errors.secStDate}</span>
+//                       </Col>
+//                       <Col md={6}>
+//                         <Label for="secEndDate">
+//                           END DATE
+//                         </Label>
+//                         <Input
+//                           type="date"
+//                           name="secEndDate"
+//                           id="secEndDate"
+//                           value={formData.secEndDate}
+//                           onChange={handleInputChange}
+//                           invalid={!!errors.secEndDate}
+//                         />
+//                         <span className="text-danger">
+//                           {errors.secEndDate}
+//                         </span>
+//                       </Col>
+//                       <hr className="mb-0 mt-3 mb-2" />
+//                     </Row>
+//                     <div
+//                       style={{
+//                         display: "flex",
+//                         justifyContent: "center",
+//                         marginBottom: "20px",
+//                       }}
+//                     >
+//                       <div
+//                         style={{
+//                           display: "flex",
+//                           alignItems: "center",
+//                           justifyContent: "space-around",
+//                         }}
+//                       >
+//                         <button
+//                           type="button"
+//                           className="btn btn-success-subtle border border-success"
+//                           onClick={UpdateHandle}
+//                           style={{
+//                             paddingTop: "10px",
+//                             height: "45px",
+//                             width: "80px",
+//                             marginRight: "30px",
+//                           }}
+//                         >
+//                           <Label>UPDATE</Label>
+//                         </button>
+//                         <button
+//                           type="button"
+//                           className="btn btn-secondary-subtle border border-secondary"
+//                           onClick={() => {
+//                             navigate("/financial_year");
+//                           }}
+//                           style={{
+//                             paddingTop: "10px",
+//                             width: "80px",
+//                             height: "45px",
+//                           }}
+//                         >
+//                           <Label>BACK</Label>
+//                         </button>
+//                       </div>
+//                     </div>
+//                   </form>
+//                 </Col>
+//               </Row>
+//             </CardBody>
+//           </Card>
+//         </div>
+//       </Container>
+//     </React.Fragment>
+//   );
+// };
+
+// export default FinancialYearModify;
 import React, { useState } from "react";
 import {
   Col,
@@ -17,11 +278,6 @@ const FinancialYearModify = () => {
   const navigate = useNavigate();
   const requiredFields = {
     stDate: "Start Date",
-    // endDate: "",
-    // halfstDate: "",
-    // halfendDate: "",
-    // secStDate: "",
-    // secEndDate: "",
   };
   const initialFormData = {};
   const initialErrors = {};
@@ -33,6 +289,8 @@ const FinancialYearModify = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
 
+  
+  
   const handleInputChange = e => {
     const { name, value } = e.target;
     setFormData(prevData => ({
@@ -43,19 +301,45 @@ const FinancialYearModify = () => {
       ...prevErrors,
       [name]: "",
     }));
+
+    if (name === "stDate") {
+      const startDate = new Date(value);
+      const endDate = new Date(startDate.getFullYear() + 1, 2, 31); // March 31st of the next year
+      const firstHalfEndDate = new Date(startDate.getFullYear(), 8, 30); // September 30th of the same year
+      const secondHalfStartDate = new Date(startDate.getFullYear(), 9, 1); // October 1st of the same year
+
+      setFormData(prevData => ({
+        ...prevData,
+        endDate: formatDate(endDate),
+        halfstDate: formatDate(startDate),
+        halfendDate: formatDate(firstHalfEndDate),
+        secStDate: formatDate(secondHalfStartDate),
+        secEndDate: formatDate(endDate),
+      }));
+    } else if (name === "pstDate") {
+      const parentStartDate = new Date(value);
+      const parentEndDate = new Date(parentStartDate.getFullYear() + 1, 2, 31); // March 31st of the next year
+      const parentFirstHalfEndDate = new Date(parentStartDate.getFullYear(), 8, 30); // September 30th of the same year
+      const parentSecondHalfStartDate = new Date(parentStartDate.getFullYear(), 9, 1); // October 1st of the same year
+
+      setFormData(prevData => ({
+        ...prevData,
+        pstDate: formatDate(parentStartDate),
+        pendDate: formatDate(parentEndDate),
+        phalfstDate: formatDate(parentStartDate),
+        phalfendDate: formatDate(parentFirstHalfEndDate),
+        psecStDate: formatDate(parentSecondHalfStartDate),
+        psecEndDate: formatDate(parentEndDate),
+      }));
+    }
   };
 
-  const handleDropdownChange = e => {
-    const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value,
-    }));
-    setErrors(prevErrors => ({
-      ...prevErrors,
-      [name]: "",
-    }));
+  const formatDate = date => {
+    return date.toISOString().split("T")[0];
   };
+
+
+
 
   const UpdateHandle = async e => {
     e.preventDefault();
@@ -110,16 +394,14 @@ const FinancialYearModify = () => {
                           type="date"
                           name="stDate"
                           id="stDate"
-                          value={formData.nmTax1}
+                          value={formData.stDate}
                           onChange={handleInputChange}
                           invalid={!!errors.stDate}
                         />
                         <span className="text-danger">{errors.stDate}</span>
                       </Col>
                       <Col md={6}>
-                        <Label for="endDate">
-                          END DATE
-                        </Label>
+                        <Label for="endDate">END DATE</Label>
                         <Input
                           type="date"
                           name="endDate"
@@ -138,9 +420,7 @@ const FinancialYearModify = () => {
                     <hr className="mb-0 mt-2" />
                     <Row className="mb-2">
                       <Col md={6}>
-                        <Label for="halfstDate">
-                          START DATE
-                        </Label>
+                        <Label for="halfstDate">START DATE</Label>
                         <Input
                           type="date"
                           name="halfstDate"
@@ -152,9 +432,7 @@ const FinancialYearModify = () => {
                         <span className="text-danger">{errors.halfstDate}</span>
                       </Col>
                       <Col md={6}>
-                        <Label for="halfendDate">
-                          END DATE
-                        </Label>
+                        <Label for="halfendDate">END DATE</Label>
                         <Input
                           type="date"
                           name="halfendDate"
@@ -163,7 +441,9 @@ const FinancialYearModify = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.halfendDate}
                         />
-                        <span className="text-danger">{errors.halfendDate}</span>
+                        <span className="text-danger">
+                          {errors.halfendDate}
+                        </span>
                       </Col>
                     </Row>
                     <hr className="mb-0 mt-3 mb-2" />
@@ -173,9 +453,7 @@ const FinancialYearModify = () => {
                     <hr className="mb-0 mt-2" />
                     <Row className="mb-2">
                       <Col md={6}>
-                        <Label for="secStDate">
-                          START DATE
-                        </Label>
+                        <Label for="secStDate">START DATE</Label>
                         <Input
                           type="date"
                           name="secStDate"
@@ -187,9 +465,7 @@ const FinancialYearModify = () => {
                         <span className="text-danger">{errors.secStDate}</span>
                       </Col>
                       <Col md={6}>
-                        <Label for="secEndDate">
-                          END DATE
-                        </Label>
+                        <Label for="secEndDate">END DATE</Label>
                         <Input
                           type="date"
                           name="secEndDate"
@@ -198,8 +474,107 @@ const FinancialYearModify = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.secEndDate}
                         />
+                        <span className="text-danger">{errors.secEndDate}</span>
+                      </Col>
+                      <hr className="mb-0 mt-3 mb-2" />
+                    </Row>
+                    <h1 className="card-title" style={{ fontSize: "20px" }}>
+                      PARENT FINANCIAL YEAR
+                    </h1>
+                    <hr className="mb-0 mt-2" />
+                    <Row className="mb-2">
+                      <Col md={6}>
+                        <Label for="pstDate">
+                          START DATE<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="date"
+                          name="pstDate"
+                          id="pstDate"
+                          value={formData.pstDate}
+                          onChange={handleInputChange}
+                          invalid={!!errors.pstDate}
+                        />
+                        <span className="text-danger">{errors.pstDate}</span>
+                      </Col>
+                      <Col md={6}>
+                        <Label for="pendDate">END DATE</Label>
+                        <Input
+                          type="date"
+                          name="pendDate"
+                          id="pendDate"
+                          value={formData.pendDate}
+                          onChange={handleInputChange}
+                          invalid={!!errors.pendDate}
+                        />
+                        <span className="text-danger">{errors.pendDate}</span>
+                      </Col>
+                    </Row>
+                    <hr className="mb-0 mt-3 mb-2" />
+                    <h1 className="card-title" style={{ fontSize: "20px" }}>
+                      PARENT FIRST HALF YEAR
+                    </h1>
+                    <hr className="mb-0 mt-2" />
+                    <Row className="mb-2">
+                      <Col md={6}>
+                        <Label for="phalfstDate">START DATE</Label>
+                        <Input
+                          type="date"
+                          name="phalfstDate"
+                          id="phalfstDate"
+                          value={formData.phalfstDate}
+                          onChange={handleInputChange}
+                          invalid={!!errors.phalfstDate}
+                        />
                         <span className="text-danger">
-                          {errors.secEndDate}
+                          {errors.phalfstDate}
+                        </span>
+                      </Col>
+                      <Col md={6}>
+                        <Label for="phalfendDate">END DATE</Label>
+                        <Input
+                          type="date"
+                          name="phalfendDate"
+                          id="phalfendDate"
+                          value={formData.phalfendDate}
+                          onChange={handleInputChange}
+                          invalid={!!errors.phalfendDate}
+                        />
+                        <span className="text-danger">
+                          {errors.phalfendDate}
+                        </span>
+                      </Col>
+                    </Row>
+                    <hr className="mb-0 mt-3 mb-2" />
+                    <h1 className="card-title" style={{ fontSize: "20px" }}>
+                      SECOND HALF YEAR
+                    </h1>{" "}
+                    <hr className="mb-0 mt-2" />
+                    <Row className="mb-2">
+                      <Col md={6}>
+                        <Label for="psecStDate">START DATE</Label>
+                        <Input
+                          type="date"
+                          name="psecStDate"
+                          id="psecStDate"
+                          value={formData.psecStDate}
+                          onChange={handleInputChange}
+                          invalid={!!errors.psecStDate}
+                        />
+                        <span className="text-danger">{errors.psecStDate}</span>
+                      </Col>
+                      <Col md={6}>
+                        <Label for="psecEndDate">END DATE</Label>
+                        <Input
+                          type="date"
+                          name="psecEndDate"
+                          id="psecEndDate"
+                          value={formData.psecEndDate}
+                          onChange={handleInputChange}
+                          invalid={!!errors.psecEndDate}
+                        />
+                        <span className="text-danger">
+                          {errors.psecEndDate}
                         </span>
                       </Col>
                       <hr className="mb-0 mt-3 mb-2" />
@@ -218,7 +593,7 @@ const FinancialYearModify = () => {
                           justifyContent: "space-around",
                         }}
                       >
-                        <button
+                        <Button
                           type="button"
                           className="btn btn-success-subtle border border-success"
                           onClick={UpdateHandle}
@@ -229,9 +604,9 @@ const FinancialYearModify = () => {
                             marginRight: "30px",
                           }}
                         >
-                          <Label>UPDATE</Label>
-                        </button>
-                        <button
+                          UPDATE
+                        </Button>
+                        <Button
                           type="button"
                           className="btn btn-secondary-subtle border border-secondary"
                           onClick={() => {
@@ -243,8 +618,8 @@ const FinancialYearModify = () => {
                             height: "45px",
                           }}
                         >
-                          <Label>BACK</Label>
-                        </button>
+                          BACK
+                        </Button>
                       </div>
                     </div>
                   </form>

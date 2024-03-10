@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Button, Input, Card } from "reactstrap";
+import { Button,Container, Input, Card } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -10,9 +10,16 @@ import {
 import { useGet } from "src/API/useGet";
  
 const Region = () => {
-  const [responseData, setResponseData] = useState([]);
+  const demoData = [
+    { "company_group": "Group A", "slno": 1, "region_name": "California", "region_code": "CA" },
+  { "company_group": "Group B", "slno": 2, "region_name": "New York", "region_code": "NY" },
+  { "company_group": "Group C", "slno": 3, "region_name": "Texas", "region_code": "TX" },
+  { "company_group": "Group D", "slno": 4, "region_name": "Florida", "region_code": "FL" }
+
+  ];
+  const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
- 
+  
   // const { getData, data, isLoading } = useGet();
   // useEffect(() => {
   //   fetch("http://localhost:3000/region")
@@ -23,21 +30,10 @@ const Region = () => {
  
   const columns = useMemo(
     () => [
+     
       {
         Header: "SL NO",
-        accessor: (row, index) => index + 1,
-        disableFilters: true,
-        filterable: true,
-      },
-      {
-        Header: "REGION NAME",
-        accessor: "region_name",
-        disableFilters: true,
-        filterable: true,
-      },
-      {
-        Header: "REGION CODE",
-        accessor: "region_code",
+        accessor: "slno",
         disableFilters: true,
         filterable: true,
       },
@@ -47,10 +43,29 @@ const Region = () => {
         disableFilters: true,
         filterable: true,
       },
+      {
+        Header: "STATE NAME",
+        accessor: "region_name",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "STATE CODE",
+        accessor: "region_code",
+        disableFilters: true,
+        filterable: true,
+      },
+      
     ],
     []
   );
- 
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -68,7 +83,7 @@ const Region = () => {
   } = useTable(
     {
       columns,
-      data: responseData,
+      data: dataWithSlno,
       initialState: { pageSize: 10 },
     },
     useGlobalFilter,
@@ -88,9 +103,9 @@ const Region = () => {
       //     </Card>
       //   </div>
       // ) : ( */}
-        <div className="page-content">
-          <div className="container-fluid">
-            <Card>
+      <Container fluid>
+      <div className="page-content">
+      <Card>
               <div className="container pt-4">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
@@ -149,11 +164,10 @@ const Region = () => {
                       >
                         {headerGroup.headers.map(column => (
                           <th
-                            key={column.id}
-                            {...column.getHeaderProps(
-                              column.getSortByToggleProps()
-                            )}
-                          >
+                          key={column.id}
+                          {...column.getHeaderProps(column.getSortByToggleProps())}
+                          style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
+                        >
                             <div className="d-flex justify-content-between">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
@@ -237,7 +251,7 @@ const Region = () => {
               </div>
             </Card>
           </div>
-        </div>
+          </Container>
       {/* // )} */}
     </React.Fragment>
   );

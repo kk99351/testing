@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -23,23 +24,31 @@ const BranchUpdate = () => {
     enableReinitialize: true,
 
     initialValues: {
+      statename: "",
+      cityname: "",
       companygroup: "",
-      region: "",
-      city: "",
-      branchname: "",
+      plantname: "",
     },
-
+    // validationSchema: Yup.object({
+    //   companyGroup: Yup.string().required("Company Group is Required"),
+    //   companyGroupCode: Yup.string().required("Company Group Code is Required"),
+    // }),.
     validationSchema: Yup.object({
-      companygroup: Yup.string().required("Company group is Required"),
-      region: Yup.string().required("Region is Required"),
-      city: Yup.string().required("City is Required"),
-      branchname: Yup.string().required("Branch name is Required"),
+      statename: Yup.string().required("State name is required"),
+      cityname: Yup.string().required("City Name is required"),
+      companygroup: Yup.string().required("Company name is required"),
+      plantname: Yup.string().required("Location Name is required"),
     }),
-    onSubmit: values => {
-      if (validation.isValid) {
-        alert("Form validated!");
-        // Additional actions can be performed here
-      }
+
+    onSubmit: async values => {
+      // console.log(values)
+      alert("validated !");
+      // try {
+      //   await axios.post(`http://localhost:3000/companygroup/`, values);
+      //   navigate("/companygroup");
+      // } catch (error) {
+      //   console.log("error in creating companygroup data: " + error);
+      // }
     },
   });
 
@@ -50,168 +59,192 @@ const BranchUpdate = () => {
           <Card className="mt-5">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                BRANCH DETAILS
+                LOCATION DETAILS
               </h1>
             </CardHeader>
 
             <CardBody>
-              <Form
-                className="needs-validation"
-                onSubmit={validation.handleSubmit}
-              >
-                <Row>
-                  <Col md="6">
-                    <FormGroup className="mb-3">
-                      <Label htmlFor="validationCustom01">
-                        COMPANY GROUP<font color="red">*</font>
-                      </Label>
-                      <Input
-                        type="select"
-                        name="companygroup"
-                        id="validationCustom01"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.companygroup &&
-                          validation.errors.companygroup
-                        }
-                      >
-                        <option value="" disabled>
-                          Select Company Group
-                        </option>
-                        <option value="group1">AUSTRALIA</option>
-                        <option value="group2">ENGLAND</option>
-                        <option value="group3">INDIA</option>
-                      </Input>
-                      {validation.touched.companygroup &&
-                      validation.errors.companygroup ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.companygroup}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                  <Col md="6">
-                    <FormGroup className="mb-3">
-                      <Label htmlFor="validationCustom02">
-                        REGION<font color="red">*</font>
-                      </Label>
-                      <Input
-                        type="select"
-                        name="region"
-                        id="validationCustom02"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.region && validation.errors.region
-                        }
-                      >
-                        <option value="" disabled>
-                          Select Region
-                        </option>
-                        <option value="north">Karnatka</option>
-                        <option value="south">Bihar</option>
-                        <option value="east">jharkhand</option>
-                        <option value="west">Delhi</option>
-                      </Input>
-
-                      {validation.touched.region && validation.errors.region ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.region}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                </Row>
-
-                <Row>
-                  <Col md="6">
-                    <FormGroup className="mb-3">
-                      <Label htmlFor="validationCustom03">
-                        CITY<font color="red">*</font>
-                      </Label>
-                      <Input
-                        type="select"
-                        name="city"
-                        id="validationCustom03"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.city && validation.errors.city
-                        }
-                      >
-                        <option value="" disabled>
-                          Select City
-                        </option>
-                        <option value="city1">Benglore</option>
-                        <option value="city2">Patna</option>
-                        <option value="city3">Delhi</option>
-                      </Input>
-                      {validation.touched.city && validation.errors.city ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.city}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                  <Col md="6">
-                    <FormGroup className="mb-3">
-                      <Label htmlFor="validationCustom04">
-                        BRANCH NAME<font color="red">*</font>
-                      </Label>
-                      <Input
-                        name="branchname"
-                        placeholder="Branch Name"
-                        type="text"
-                        className="form-control"
-                        id="validationCustom04"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.branchname &&
-                          validation.errors.branchname
-                        }
-                      />
-                      {validation.touched.branchname &&
-                      validation.errors.branchname ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.branchname}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                </Row>
-
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Button
-                    type="submit"
-                    color="success-subtle"
-                    className="border border-success"
+              <Row className="justify-content-center">
+                <Col xl={10}>
+                  <Form
+                    className="needs-validation"
+                    onSubmit={validation.handleSubmit}
                   >
-                    CREATE
-                  </Button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary-subtle border border-secondary"
-                    onClick={() => {
-                      navigate("/branch");
-                    }}
-                    style={{
-                      paddingTop: "10px",
-                      width: "80px",
-                      height: "45px",
-                    }}
-                  >
-                    BACK
-                  </button>
-                </div>
-              </Form>
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="companygroup">
+                            COMPANY GROUP/COUNTRY <font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            name="companygroup"
+                            id="companygroup"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.companygroup &&
+                              validation.errors.companygroup
+                            }
+                          >
+                            <option value="">
+                              Select Company Group/Country
+                            </option>
+                            <option value="group1">Company Group 1</option>
+                            <option value="group2">Company Group 2</option>
+                          </Input>
+                          {validation.touched.companygroup &&
+                          validation.errors.companygroup ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.companygroup}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+
+                      <hr className="mb-2" />
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="statename">
+                            STATE NAME <font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            name="statename"
+                            id="statename"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.statename &&
+                              validation.errors.statename
+                            }
+                          >
+                            <option value="">Select State Name</option>
+                            <option value="group1">Company Group 1</option>
+                            <option value="group2">Company Group 2</option>
+                          </Input>
+                          {validation.touched.statename &&
+                          validation.errors.statename ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.statename}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+
+                      <hr className="mb-2" />
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="cityname">
+                            CIRY NAME <font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            name="cityname"
+                            id="cityname"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.cityname &&
+                              validation.errors.cityname
+                            }
+                          >
+                            <option value="">Select City Name</option>
+                            <option value="group1">Company Group 1</option>
+                            <option value="group2">Company Group 2</option>
+                          </Input>
+                          {validation.touched.cityname &&
+                          validation.errors.cityname ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.cityname}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+
+                      <hr className="mb-2" />
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="plantname">
+                           LOCATION NAME<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="plantname"
+                            type="text"
+                            className="form-control"
+                            id="plantname"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.plantname &&
+                              validation.errors.plantname
+                            }
+                          />
+                          {validation.touched.plantname &&
+                          validation.errors.plantname ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.plantname}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                        }}
+                      >
+                        <Button
+                          type="submit"
+                          color="success-subtle"
+                          className="btn btn-success-subtle border border-success"
+                          style={{
+                            paddingTop: "10px",
+                            height: "45px",
+                            width: "80px",
+                            marginRight: "30px",
+                          }}
+                        >
+                          UPDATE
+                        </Button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary-subtle border border-secondary"
+                          onClick={() => {
+                            navigate("/branch");
+                          }}
+                          style={{
+                            paddingTop: "10px",
+                            width: "80px",
+                            height: "45px",
+                          }}
+                        >
+                          <Label>BACK</Label>
+                        </button>
+                      </div>
+                    </div>
+                  </Form>
+                </Col>
+              </Row>
             </CardBody>
           </Card>
         </div>
