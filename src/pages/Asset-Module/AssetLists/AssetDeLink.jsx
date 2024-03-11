@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
-const DeAllocate = () => {
+const AssetDeLink = () => {
   const [responseData, setResponseData] = useState([
     {
       slno: 1,
@@ -115,14 +115,14 @@ const DeAllocate = () => {
       <div className="page-content">
         <Card className="mt-3">
           <CardHeader>
-            <h1 className="card-title" style={{ fontSize: "20px" }}>
-              DE ALLOCATION DETAILS
+            <h1 className="card-title " style={{ fontSize: "20px" }}>
+              DE-LINK SOFTWARE/ACCESSORIES DETAILS
             </h1>
           </CardHeader>
           <CardBody>
             <div className="container pt-1">
               <div className="rmb-2 row">
-                <div className="col-md-1">
+                {/* <div className="col-md-1">
                   <select className="form-select">
                     <option value="10">Show 10</option>
                     <option value="20">Show 20</option>
@@ -130,7 +130,7 @@ const DeAllocate = () => {
                     <option value="40">Show 40</option>
                     <option value="50">Show 50</option>
                   </select>
-                </div>
+                </div> */}
 
                 <div className="col-md-4">
                   <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
@@ -153,7 +153,7 @@ const DeAllocate = () => {
                   </div>
                 </div>
 
-                <div className="col-sm-7">
+                <div className="col-sm-8">
                   <div className="text-sm-end">
                     <button
                       type="button"
@@ -168,51 +168,18 @@ const DeAllocate = () => {
               </div>
             </div>
 
-            {/* <div className="col-md-4">
-              <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
-                <div className="position-relative">
-                    <label htmlFor="search-bar-0" className="search-label">
-                      <span id="search-bar-0-label" className="sr-only">
-                        Search this table
-                      </span>
-                      <input
-                        id="search-bar-0"
-                        type="text"
-                        className="form-control"
-                        placeholder="Search..."
-                        value={searchValue}
-                        onChange={handleInputChange}
-                      />
-                      <i className="bx bx-search-alt search-icon"></i>
-                    </label>
-                  </div>
-                </div>
-                </div>
-
-                   <div className="col-sm-7">
-              <div className="text-sm-end">
-              <utton color="danger" onClick={handleDeallocate}>
-                  DEALLOCATE
-                </button>
-              </div>
-            </div>
-                */}
-
             <div className="table-responsive">
               <Table className="table table-bordered table-hover">
                 <thead>
                   <tr>
                     <th>SL NO</th>
-                    <th>ASSET ID</th>
-                    <th>ASSET NAME</th>
+                    <th>ACCESSORIES ID</th>
                     <th>SERIAL NUMBER</th>
-                    <th>EMPLOYEE NAME</th>
-                    <th>CLIENT</th>
-                    <th>ALLOCATED DATE</th>
+                    <th>ASSET NAME</th>
+                    <th>ASSET ID</th>
+                    <th>LINKED DATE</th>
                     <th>ASSET REMARKS</th>
-
-                    <th>DEALLOCATION DATE</th>
-                    <th>ASSET STATUS</th>
+                    <th>DE-LINK DATE</th>
                     <th>CHECK/UNCHECK</th>
                   </tr>
                 </thead>
@@ -220,12 +187,11 @@ const DeAllocate = () => {
                   {filteredData.map((row, index) => (
                     <tr key={index}>
                       <td>{row.slno}</td>
-                      <td>{row.assetId}</td>
-                      <td>{row.assetName}</td>
+                      <td>{row.accessoriestId}</td>
                       <td>{row.serialNumber}</td>
-                      <td>{row.employeename}</td>
-                      <td>{row.client}</td>
-                      <td>{row.allocatedDate}</td>
+                      <td>{row.assetName}</td>
+                      <td>{row.assetId}</td>
+                      <td>{row.linkeddDate}</td>
                       <td>
                         <Input
                           className="form-control"
@@ -244,17 +210,7 @@ const DeAllocate = () => {
                           onChange={e => handleDeallocationDateChange(e, index)}
                         />
                       </td>
-                      <td>
-                        <select
-                          className="form-control"
-                          value={row.assetStatus}
-                          onChange={e => handleAssetStatusChange(e, index)}
-                        >
-                          <option value="select">Select</option>
-                          <option value="Active">Active</option>
-                          <option value="Inactive">Inactive</option>
-                        </select>
-                      </td>
+                      
                       <td
                         style={{
                           display: "flex",
@@ -281,4 +237,4 @@ const DeAllocate = () => {
   );
 };
 
-export default DeAllocate;
+export default AssetDeLink;
