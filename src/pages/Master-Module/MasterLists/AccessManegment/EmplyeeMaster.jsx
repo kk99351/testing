@@ -35,7 +35,7 @@ const EmplyeeMaster = () => {
     () => [
       {
         Header: "SL NO",
-        accessor: (row, index) => index + 1,
+        accessor:"slno",
       },
       {
         Header: "EMPLOYEE NAME",

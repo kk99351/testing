@@ -17,7 +17,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 const DisplayBillEntryDetails = () => {
-  
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -38,16 +37,23 @@ const DisplayBillEntryDetails = () => {
     id_ven: Yup.string().required("Vendor is required"),
     id_dept: Yup.string().required("Department is required"),
     id_cc: Yup.string().required("Cost Center/Project is required"),
-    
+
     lineItems: Yup.array().of(
       Yup.object().shape({
         id_prod: Yup.string().required("Model/Item is required"),
         typ_asst: Yup.string().required("Assets/Model Type is required"),
         id_grp: Yup.string().required("Category is required"),
         id_sgrp: Yup.string().required("Sub Category is required"),
-        qty: Yup.number().required("Quantity is required").positive("Quantity must be positive").integer("Quantity must be an integer"),
-        un_prc: Yup.number().required("Unit Price is required").positive("Unit Price must be positive"),
-        gr_tot: Yup.number().required("Grand Total is required").positive("Grand Total must be positive"),
+        qty: Yup.number()
+          .required("Quantity is required")
+          .positive("Quantity must be positive")
+          .integer("Quantity must be an integer"),
+        un_prc: Yup.number()
+          .required("Unit Price is required")
+          .positive("Unit Price must be positive"),
+        gr_tot: Yup.number()
+          .required("Grand Total is required")
+          .positive("Grand Total must be positive"),
       })
     ),
   });
@@ -132,7 +138,6 @@ const DisplayBillEntryDetails = () => {
       setSubmitting(false);
     }
   };
-  
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -142,9 +147,33 @@ const DisplayBillEntryDetails = () => {
     }));
   };
   const [lineItems, setLineItems] = useState([
-    { id_prod: "", typ_asst: "", id_grp: "",id_sgrp: "", qty: "", un_prc: "",gr_tot: ""},
-    { id_prod: "", typ_asst: "", id_grp: "",id_sgrp: "", qty: "", un_prc: "",gr_tot: "" },
-    { id_prod: "", typ_asst: "", id_grp: "",id_sgrp: "", qty: "", un_prc: "",gr_tot: "" },
+    {
+      id_prod: "",
+      typ_asst: "",
+      id_grp: "",
+      id_sgrp: "",
+      qty: "",
+      un_prc: "",
+      gr_tot: "",
+    },
+    {
+      id_prod: "",
+      typ_asst: "",
+      id_grp: "",
+      id_sgrp: "",
+      qty: "",
+      un_prc: "",
+      gr_tot: "",
+    },
+    {
+      id_prod: "",
+      typ_asst: "",
+      id_grp: "",
+      id_sgrp: "",
+      qty: "",
+      un_prc: "",
+      gr_tot: "",
+    },
   ]);
   const handleLineItemChange = (index, field, value) => {
     const updatedLineItems = [...lineItems];
@@ -154,261 +183,235 @@ const DisplayBillEntryDetails = () => {
   const renderLineItemFields = () => {
     return (
       <div>
-      <h4 style={{ backgroundColor: '#f2f2f2' }}><center>Line Item Details</center></h4>
-      <table className="table table-bordered" style={{ width: '-webkit-fill-available' }}>
-        <thead>
-          <tr>
-          <th style={{ backgroundColor: '#f2f2f2' }}>Model/Item</th>
-<th style={{ backgroundColor: '#f2f2f2' }}>Assets/Model Type</th>
-<th style={{ backgroundColor: '#f2f2f2' }}>Category</th>
-<th style={{ backgroundColor: '#f2f2f2' }}>Sub Category</th>
-<th style={{ backgroundColor: '#f2f2f2' }}>Quantity</th>
-<th style={{ backgroundColor: '#f2f2f2' }}>Unit Price</th>
-<th style={{ backgroundColor: '#f2f2f2' }}>Grand Total</th>
-          </tr>
-        </thead>
-        <tbody>
-  {lineItems.map((item, index) => (
-    <tr key={index}>
-      <td>
-        <Input
-          type="text"
-          id={`id_prod${index}`}
-          name={`id_prod${index}`}
-          value={item.id_prod}
-          onChange={(e) =>
-            handleLineItemChange(index, "id_prod", e.target.value)
-          }
-        />
-        <ErrorMessage
-                  name={`id_prod${index}`}
-                  component="div"
-                  className="text-danger"
+        <h4 style={{ backgroundColor: "#f2f2f2" }}>
+          <center>Line Item Details</center>
+        </h4>
+        <table
+          className="table table-bordered"
+          style={{ width: "-webkit-fill-available" }}
+        >
+          <thead>
+            <tr>
+              <th style={{ backgroundColor: "#f2f2f2" }}>Model/Item</th>
+              <th style={{ backgroundColor: "#f2f2f2" }}>Assets/Model Type</th>
+              <th style={{ backgroundColor: "#f2f2f2" }}>Category</th>
+              <th style={{ backgroundColor: "#f2f2f2" }}>Sub Category</th>
+              <th style={{ backgroundColor: "#f2f2f2" }}>Quantity</th>
+              <th style={{ backgroundColor: "#f2f2f2" }}>Unit Price</th>
+              <th style={{ backgroundColor: "#f2f2f2" }}>Grand Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {lineItems.map((item, index) => (
+              <tr key={index}>
+                <td>
+                  <Input
+                    type="text"
+                    id={`id_prod${index}`}
+                    name={`id_prod${index}`}
+                    value={item.id_prod}
+                    onChange={e =>
+                      handleLineItemChange(index, "id_prod", e.target.value)
+                    }
+                  />
+                  <ErrorMessage
+                    name={`id_prod${index}`}
+                    component="div"
+                    className="text-danger"
+                  />
+                </td>
+                <td>
+                  <Input
+                    type="text"
+                    id={`typ_asst${index}`}
+                    name={`typ_asst${index}`}
+                    value={item.typ_asst}
+                    onChange={e =>
+                      handleLineItemChange(index, "typ_asst", e.target.value)
+                    }
+                  />
+                  <ErrorMessage
+                    name={`typ_asst${index}`}
+                    component="div"
+                    className="text-danger"
+                  />
+                </td>
+                <td>
+                  <Input
+                    type="text"
+                    id={`id_grp${index}`}
+                    name={`id_grp${index}`}
+                    value={item.id_grp}
+                    onChange={e =>
+                      handleLineItemChange(index, "id_grp", e.target.value)
+                    }
+                  />
+                  <ErrorMessage
+                    name={`id_grp${index}`}
+                    component="div"
+                    className="text-danger"
+                  />
+                </td>
+                <td>
+                  <Input
+                    type="text"
+                    id={`id_sgrp${index}`}
+                    name={`id_sgrp${index}`}
+                    value={item.id_sgrp}
+                    onChange={e =>
+                      handleLineItemChange(index, "id_sgrp", e.target.value)
+                    }
+                  />
+                  <ErrorMessage
+                    name={`id_sgrp${index}`}
+                    component="div"
+                    className="text-danger"
+                  />
+                </td>
+                <td>
+                  <Input
+                    type="number"
+                    id={`qty${index}`}
+                    name={`qty${index}`}
+                    value={item.qty}
+                    onChange={e =>
+                      handleLineItemChange(index, "qty", e.target.value)
+                    }
+                  />
+                  <ErrorMessage
+                    name={`qty${index}`}
+                    component="div"
+                    className="text-danger"
+                  />
+                </td>
+                <td>
+                  <Input
+                    type="number"
+                    id={`un_prc${index}`}
+                    name={`un_prc${index}`}
+                    value={item.un_prc}
+                    onChange={e =>
+                      handleLineItemChange(index, "un_prc", e.target.value)
+                    }
+                  />
+                  <ErrorMessage
+                    name={`un_prc${index}`}
+                    component="div"
+                    className="text-danger"
+                  />
+                </td>
+                <td>
+                  <Input
+                    type="number"
+                    id={`gr_tot${index}`}
+                    name={`gr_tot${index}`}
+                    value={item.gr_tot}
+                    onChange={e =>
+                      handleLineItemChange(index, "gr_tot", e.target.value)
+                    }
+                  />
+                </td>
+              </tr>
+            ))}
+            <tr>
+              <td></td>
+              <td>Total Basic Price</td>
+              <td>Tax 1</td>
+              <td>Tax 2</td>
+              <td>Tax 1 Value</td>
+              <td>Tax 2 Value</td>
+              <td>Total Price</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <Input
+                  type="number"
+                  name="basic_price"
+                  id="basic_price"
+                  readOnly
                 />
-      </td>
-      <td>
-        <Input
-          type="text"
-          id={`typ_asst${index}`}
-          name={`typ_asst${index}`}
-          value={item.typ_asst}
-          onChange={(e) =>
-            handleLineItemChange(index, "typ_asst", e.target.value)
-          }
-        />
-        <ErrorMessage
-                  name={`typ_asst${index}`}
-                  component="div"
-                  className="text-danger"
+              </td>
+              <td>
+                <Input
+                  type="select"
+                  name="id_tax1"
+                  id="id_tax1"
+                  onChange={e => setTax1Value(e.target.value)}
+                >
+                  <option value="">Select Tax 1</option>
+                  <option value="GST">GST</option>
+                  <option value="VAT">VAT</option>
+                  <option value="Service Tax">Service Tax</option>
+                  {/* Add more tax options as needed */}
+                </Input>
+              </td>
+              <td>
+                <Input
+                  type="select"
+                  name="id_tax2"
+                  id="id_tax2"
+                  onChange={e => setTax2Value(e.target.value)}
+                >
+                  <option value="">Select Tax 2</option>
+                  <option value="GST">GST</option>
+                  <option value="VAT">VAT</option>
+                  <option value="Service Tax">Service Tax</option>
+                  {/* Add more tax options as needed */}
+                </Input>
+              </td>
+              <td>
+                <Input type="number" name="tax_val1" id="tax_val1" readOnly />
+              </td>
+              <td>
+                <Input type="number" name="tax_val2" id="tax_val2" readOnly />
+              </td>
+              <td>
+                <Input
+                  type="number"
+                  name="basic_price_tax"
+                  id="basic_price_tax"
+                  readOnly
                 />
-      </td>
-      <td>
-        <Input
-          type="text"
-          id={`id_grp${index}`}
-          name={`id_grp${index}`}
-          value={item.id_grp}
-          onChange={(e) =>
-            handleLineItemChange(index, "id_grp", e.target.value)
-          }
-        />
-        <ErrorMessage
-                  name={`id_grp${index}`}
-                  component="div"
-                  className="text-danger"
-                />
-      </td>
-      <td>
-        <Input
-          type="text"
-          id={`id_sgrp${index}`}
-          name={`id_sgrp${index}`}
-          value={item.id_sgrp}
-          onChange={(e) =>
-            handleLineItemChange(index, "id_sgrp", e.target.value)
-          }
-        />
-        <ErrorMessage
-                  name={`id_sgrp${index}`}
-                  component="div"
-                  className="text-danger"
-                />
-      </td>
-      <td>
-        <Input
-          type="number"
-          id={`qty${index}`}
-          name={`qty${index}`}
-          value={item.qty}
-          onChange={(e) =>
-            handleLineItemChange(index, "qty", e.target.value)
-          }
-        />
-        <ErrorMessage
-                  name={`qty${index}`}
-                  component="div"
-                  className="text-danger"
-                />
-      </td>
-      <td>
-        <Input
-          type="number"
-          id={`un_prc${index}`}
-          name={`un_prc${index}`}
-          value={item.un_prc}
-          onChange={(e) =>
-            handleLineItemChange(index, "un_prc", e.target.value)
-          }
-        />
-        <ErrorMessage
-                  name={`un_prc${index}`}
-                  component="div"
-                  className="text-danger"
-                />
-      </td>
-      <td>
-        <Input
-          type="number"
-          id={`gr_tot${index}`}
-          name={`gr_tot${index}`}
-          value={item.gr_tot}
-          onChange={(e) =>
-            handleLineItemChange(index, "gr_tot", e.target.value)
-          }
-        />
-      </td>
-    </tr>
-  ))}
-  <tr>
-  <td></td>
-  <td>Total Basic Price</td>
-  <td>Tax 1</td>
-  <td>Tax 2</td>
-  <td>Tax 1 Value</td>
-  <td>Tax 2 Value</td>
-  <td>Total Price</td>
-</tr>
-<tr>
-<td></td>
-  <td>
-    <Input
-      type="number"
-      name="basic_price"
-      id="basic_price"
-      readOnly
-    />
-  </td>
-  <td>
-    <Input
-      type="select"
-      name="id_tax1"
-      id="id_tax1"
-      onChange={(e) => setTax1Value(e.target.value)}
-    >
-      <option value="">Select Tax 1</option>
-      <option value="GST">GST</option>
-      <option value="VAT">VAT</option>
-      <option value="Service Tax">Service Tax</option>
-      {/* Add more tax options as needed */}
-    </Input>
-  </td>
-  <td>
-    <Input
-      type="select"
-      name="id_tax2"
-      id="id_tax2"
-      onChange={(e) => setTax2Value(e.target.value)}
-    >
-      <option value="">Select Tax 2</option>
-      <option value="GST">GST</option>
-      <option value="VAT">VAT</option>
-      <option value="Service Tax">Service Tax</option>
-      {/* Add more tax options as needed */}
-    </Input>
-  </td>
-  <td>
-    <Input
-      type="number"
-      name="tax_val1"
-      id="tax_val1"
-      readOnly
-    />
-  </td>
-  <td>
-    <Input
-      type="number"
-      name="tax_val2"
-      id="tax_val2"
-      readOnly
-    />
-  </td>
-  <td>
-    <Input
-      type="number"
-      name="basic_price_tax"
-      id="basic_price_tax"
-      readOnly
-    />
-  </td>
-</tr>
-<tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td>
-    <Input
-      type="text"
-      name="oter_text"
-      id="oter_text"
-      readOnly
-    />
-  </td>
-  <td>
-    <Input
-      type="number"
-      name="frt_text"
-      id="frt_text"
-      readOnly
-    />
-  </td>
-</tr>
-<tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td>Discount</td>
-  <td>
-    <Input
-      type="number"
-      name="discount"
-      id="discount"
-      readOnly
-    />
-  </td>
-</tr>
-<tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td>Grand Total</td>
-  <td>
-    <Input
-      type="number"
-      name="tot"
-      id="tot"
-      readOnly
-    />
-  </td>
-</tr>
-</tbody>
-
-      </table>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <Input type="text" name="oter_text" id="oter_text" readOnly />
+              </td>
+              <td>
+                <Input type="number" name="frt_text" id="frt_text" readOnly />
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Discount</td>
+              <td>
+                <Input type="number" name="discount" id="discount" readOnly />
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>Grand Total</td>
+              <td>
+                <Input type="number" name="tot" id="tot" readOnly />
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     );
   };
@@ -514,7 +517,10 @@ const DisplayBillEntryDetails = () => {
                               >
                                 <option value="">Select Location</option>
                                 {locations.map(locations => (
-                                  <option key={locations.id} value={locations.id}>
+                                  <option
+                                    key={locations.id}
+                                    value={locations.id}
+                                  >
                                     {locations.nm_loc}
                                   </option>
                                 ))}
@@ -584,7 +590,7 @@ const DisplayBillEntryDetails = () => {
                                 name="id_ven"
                                 id="id_ven"
                                 className="form-control"
-                                >
+                              >
                                 <option value="">Select Vendor</option>
                                 {vendors.map(vendors => (
                                   <option key={vendors.id} value={vendors.id}>
@@ -607,7 +613,7 @@ const DisplayBillEntryDetails = () => {
                                 name="id_dept"
                                 id="id_dept"
                                 className="form-control"
-                                >
+                              >
                                 <option value="">Select Department</option>
                                 {Depts.map(Depts => (
                                   <option key={Depts.id} value={Depts.id}>
@@ -630,10 +636,13 @@ const DisplayBillEntryDetails = () => {
                                 name="id_cc"
                                 id="id_cc"
                                 className="form-control"
-                                >
+                              >
                                 <option value="">Select Cost Center</option>
                                 {CostCenters.map(CostCenters => (
-                                  <option key={CostCenters.id} value={CostCenters.id}>
+                                  <option
+                                    key={CostCenters.id}
+                                    value={CostCenters.id}
+                                  >
                                     {CostCenters.nm_cc}
                                   </option>
                                 ))}
@@ -646,49 +655,49 @@ const DisplayBillEntryDetails = () => {
                             </Col>
                           </Row>
                           <Row className="mb-2">
-    <Col md={12}>{renderLineItemFields()}</Col>
-  </Row>
-  <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        marginBottom: "20px",
-                      }}
-                    >
-  <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-around",
-                        }}
-                      >
-                            <Button
-                              type="submit"
-                              className="btn btn-success-subtle border border-success"
-                              disabled={isSubmitting}
+                            <Col md={12}>{renderLineItemFields()}</Col>
+                          </Row>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              marginBottom: "20px",
+                            }}
+                          >
+                            <div
                               style={{
-                                paddingTop: "10px",
-                                height: "45px",
-                                width: "80px",
-                                marginRight: "30px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-around",
                               }}
                             >
-                              {isSubmitting ? "Updating..." : "Update"}
-                            </Button>
-                            <Button
-                              type="button"
-                              color="secondary"
-                              onClick={() => navigate("/bills_entry")}
-                              disabled={isSubmitting}
-                              style={{
-                                paddingTop: "10px",
-                                width: "80px",
-                                height: "45px",
-                              }}
-                            >
-                              Back
-                            </Button>
-                          </div>
+                              <Button
+                                type="submit"
+                                className="btn btn-success-subtle border border-success"
+                                disabled={isSubmitting}
+                                style={{
+                                  paddingTop: "10px",
+                                  height: "45px",
+                                  width: "80px",
+                                  marginRight: "30px",
+                                }}
+                              >
+                                {isSubmitting ? "Updating..." : "Update"}
+                              </Button>
+                              <Button
+                                type="button"
+                                color="secondary"
+                                onClick={() => navigate("/bills_entry")}
+                                disabled={isSubmitting}
+                                style={{
+                                  paddingTop: "10px",
+                                  width: "80px",
+                                  height: "45px",
+                                }}
+                              >
+                                Back
+                              </Button>
+                            </div>
                           </div>
                         </Form>
                       )}
