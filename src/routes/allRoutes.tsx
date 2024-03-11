@@ -273,6 +273,8 @@ import Floor from "src/pages/Master-Module/MasterLists/CompanyRepo/Geographical_
 import FlooeCreate from "src/pages/Master-Module/CreatePages/FloorCreate";
 import FloorUpdate from "src/pages/Master-Module/UpdatePage/FloorUpdate";
 import FloorCreate from "src/pages/Master-Module/CreatePages/FloorCreate";
+import AssetLink from "src/pages/Asset-Module/AssetLists/AssetLink";
+import AssetDeLink from "src/pages/Asset-Module/AssetLists/AssetDeLink";
 
 interface RouteProps {
   path: string;
@@ -295,6 +297,9 @@ const userRoutes: Array<RouteProps> = [
   { path: "/deallocate", component: <DeAllocate /> },
   { path: "/damaged_asset", component: <DamagedAssets /> },
   { path: "/approve_damaged_asset", component: <ApproveDamagedAssets /> },
+  { path: "/link", component: <AssetLink /> },
+  { path: "/delink", component: <AssetDeLink /> },
+
   //ASSET MASTER CREATE PATH
   { path: "/create_add_new_asset", component: <AddNewAssetCreate /> },
   { path: "/create_all_asset", component: <AllAssetCreate /> },

@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from "react";
 import {
   Col,
@@ -13,7 +14,7 @@ import {
 } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 
-const BulkAssetAllocate = () => {
+const AssetLink = () => {
   const [responseData, setResponseData] = useState([
     {
       slno: 1,
@@ -69,13 +70,13 @@ const BulkAssetAllocate = () => {
     }));
   }, [responseData]);
   const requiredFields = {
-    assignTo: "Assign To",
-    flr: "Floor",
+    linkTo: "Link to ",
+    assetId: "Asset ID",
   };
   const initialFormData = {
-    assignTo: "",
-    flr: "",
-    alocationDate: "",
+    linkTo: "",
+    assetId: "",
+    linkDate: "",
   };
   const initialErrors = {};
   Object.keys(requiredFields).forEach(key => {
@@ -159,62 +160,63 @@ const BulkAssetAllocate = () => {
           <Card className="mt-3">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                BULK ASSET ALOCATION DETAILS
+                LINK SOFTWARE/ACCESSORIES DETAILS
               </h1>
             </CardHeader>
             <CardBody>
               {/* <Row className="justify-content-center">
                 <Col xl={10}> */}
                   <form className="needs-validation" noValidate>
+                    
                     <Row className="mb-2">
                       <Col md={4}>
-                        <Label for="assignTo">
-                          ASSIGN TO<font color="red">*</font>
+                        <Label for="linkTo">
+                          LINK TO<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
-                          name="assignTo"
-                          id="assignTo"
-                          value={formData.assignTo}
+                          name="linkTo"
+                          id="linkTo"
+                          value={formData.linkTo}
                           onChange={handleDropdownChange}
-                          invalid={!!errors.assignTo}
+                          invalid={!!errors.linkTo}
                         >
-                          <option value="">SELECT ASSIGN TO</option>
+                          <option value="">SELECT LINK TO</option>
                           <option value="group1">Group 1</option>
                           <option value="group2">Group 2</option>
                         </Input>
-                        <span className="text-danger">{errors.assignTo}</span>
+                        <span className="text-danger">{errors.linkTo}</span>
                       </Col>
                       <Col md={4}>
-                        <Label for="flr">
-                          FLOOR<font color="red">*</font>
+                        <Label for="assetId">
+                          ASSET-ID<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
-                          name="flr"
-                          id="flr"
-                          value={formData.flr}
+                          name="assetId"
+                          id="assetId"
+                          value={formData.assetId}
                           onChange={handleDropdownChange}
-                          invalid={!!errors.flr}
+                          invalid={!!errors.assetId}
                         >
-                          <option value="">SELECT FLOOR</option>
+                          <option value="">SELECT ASSET-ID</option>
                           <option value="group1">Group 1</option>
                           <option value="group2">Group 2</option>
                         </Input>
-                        <span className="text-danger">{errors.flr}</span>
+                        <span className="text-danger">{errors.assetId}</span>
                       </Col>
                       <Col md={4}>
-                        <Label for="alocationDate">ALLOCATE DATE</Label>
+                        <Label for="linkDate">LINK DATE</Label>
                         <Input
                           type="date"
-                          name="alocationDate"
-                          id="alocationDate"
-                          value={formData.alocationDate}
+                          name="linkDate"
+                          id="linkDate"
+                          value={formData.linkDate}
                           onChange={handleInputChange}
-                          invalid={!!errors.alocationDate}
+                          invalid={!!errors.linkDate}
                         />
                         <span className="text-danger">
-                          {errors.alocationDate}
+                          {errors.linkDate}
                         </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
@@ -244,7 +246,7 @@ const BulkAssetAllocate = () => {
                             marginRight: "30px",
                           }}
                         >
-                          <Label>ALLOCATE</Label>
+                          <Label>LINK</Label>
                         </button>
                         {/* <button
                           type="button"
@@ -269,11 +271,10 @@ const BulkAssetAllocate = () => {
                       <thead>
                         <tr>
                           <th>SL NO</th>
-                          <th>ASSET ID</th>
-                          <th>ASSET NAME</th>
+                          <th>ACCESSORIES ID</th>
+                          <th>ACCESSORIES NAME</th>
                           <th>SERIAL NUMBER</th>
-                          <th>ASSET REMARKS</th>
-                          <th>ALLOCATE TYPE</th>
+                          <th>ACCESSORIES REMARKS</th>
                           <th>CHECK/UNCHECK</th>
                         </tr>
                       </thead>
@@ -292,19 +293,7 @@ const BulkAssetAllocate = () => {
                                 onChange={e => handleRemarkChange(e, index)}
                               />
                             </td>
-                            <td>
-                              <select
-                                className="form-control"
-                                value={row.allocateType}
-                                onChange={e =>
-                                  handleAllocateTypeChange(e, index)
-                                }
-                              >
-                                <option value="select">Select</option>
-                                <option value="Active">PERMANENT</option>
-                                <option value="Inactive">TEMPORORY</option>
-                              </select>
-                            </td>
+
                             <td
                               style={{
                                 display: "flex",
@@ -342,4 +331,4 @@ const BulkAssetAllocate = () => {
   );
 };
 
-export default BulkAssetAllocate;
+export default AssetLink;

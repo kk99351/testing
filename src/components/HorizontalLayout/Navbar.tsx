@@ -509,7 +509,13 @@ const Navbar = (props: any) => {
                     <Link to="/approve_damaged_asset" className="dropdown-item">
                       {props.t("Approve_Damaged_Asset")}
                     </Link>
-                    
+                    <Link to="/link" className="dropdown-item">
+                      {props.t("Link Software/Accessories")}
+                    </Link> <Link to="/delink" className="dropdown-item">
+                      {props.t("De-Link Software/Accessories")}
+                    </Link> <Link to="/approve_damaged_asset" className="dropdown-item">
+                      {props.t("Asset Maintenance")}
+                    </Link>
                   </div>
                   
                   
