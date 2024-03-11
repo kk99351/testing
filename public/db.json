@@ -1676,5 +1676,23 @@
       "id_loc": 1,
       "qty": 10
     }
+  ],
+  "items": [
+    {
+      "id": "1",
+      "name": "Laptop"
+    },
+    {
+      "id": "2",
+      "name": "Mouse"
+    },
+    {
+      "id": "3",
+      "name": "Monitor"
+    },
+    {
+      "id": "4",
+      "name": "Keyboard"
+    }
   ]
 }

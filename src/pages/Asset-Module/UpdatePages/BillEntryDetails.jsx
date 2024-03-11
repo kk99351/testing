@@ -422,7 +422,7 @@ const DisplayBillEntryDetails = () => {
             <Card>
               <CardHeader>
                 <h1 className="card-title" style={{ fontSize: "20px" }}>
-                  Vendor Details
+                  Bill Details
                 </h1>
               </CardHeader>
               <CardBody>

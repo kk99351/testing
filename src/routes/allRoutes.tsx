@@ -275,8 +275,12 @@ const userRoutes: Array<RouteProps> = [
   { path: "/all_asset", component: <AllAsset /> },
   { path: "/bills_entry", component: <BillsEntry /> },
   { path: "/via_bills", component: <ViaBill /> },
-  { path: "/barcode", component: <Barcode /> },
-  { path: "/qr_code", component: <QrCode /> },
+  { path: "/barcode", component: <Barcode toggleCheckbox={function (...args: any[]) {
+    throw new Error("Function not implemented.");
+  } } /> },
+  { path: "/qr_code", component: <QrCode toggleCheckbox={function (...args: any[]) {
+    throw new Error("Function not implemented.");
+  } } /> },
   { path: "/bulk_asset_allocate", component: <BulkAssetAllocate /> },
   { path: "/deallocate", component: <DeAllocate /> },
   { path: "/damaged_asset", component: <DamagedAssets /> },
