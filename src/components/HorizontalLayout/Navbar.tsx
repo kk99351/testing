@@ -179,14 +179,14 @@ const Navbar = (props: any) => {
                               to="/region"
                               className="dropdown-item "
                             >
-                              {props.t("Country")}
+                              {props.t("State")}
                             </Link>
-                            <Link
+                            {/* <Link
                               to="/region"
                               className="dropdown-item "
                             >
                               {props.t("State")}
-                            </Link>
+                            </Link> */}
                             <Link to="/city" className="dropdown-item ">
                               {props.t("City")}
                             </Link>
@@ -203,7 +203,7 @@ const Navbar = (props: any) => {
                               {props.t("Building")}
                             </Link>
                             <Link
-                              to="/plant"
+                              to="/floor"
                               className="dropdown-item"
                             >
                               {props.t("Floor")}

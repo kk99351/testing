@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Button, Card, Input } from "reactstrap";
+import { Container,Button, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -10,26 +10,34 @@ import {
 import { useGet } from "src/API/useGet";
 
 const City = () => {
-  const [responseData, setResponseData] = useState([]);
-  const navigate = useNavigate();
+  const demoData = [
 
-  const { getData, data, isLoading } = useGet();
-  useEffect(() => {
-    async function fetch() {
-      await getData("http://localhost:3000/city");
-    }
-    fetch();
-  }, [getData]);
+  { "slno": 1, "cityname": "New York", "region": "Northeast", "companygroup": "Group A" },
+  { "slno": 2, "cityname": "Los Angeles", "region": "West", "companygroup": "Group B" },
+  { "slno": 3, "cityname": "Chicago", "region": "Midwest", "companygroup": "Group A" },
+  { "slno": 4, "cityname": "Houston", "region": "South", "companygroup": "Group C" },
+  { "slno": 5, "cityname": "Miami", "region": "South", "companygroup": "Group B" }
+];
+const [responseData, setResponseData] = useState(demoData);
+const navigate = useNavigate();
 
-  useEffect(() => {
-    setResponseData(data);
-  }, [data]);
+  // const { getData, data, isLoading } = useGet();
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getData("http://localhost:3000/city");
+  //   }
+  //   fetch();
+  // }, [getData]);
+
+  // useEffect(() => {
+  //   setResponseData(data);
+  // }, [data]);
 
   const columns = useMemo(
     () => [
       {
-        Header: "ID",
-        accessor: "id",
+        Header: "SL NO",
+        accessor: "slno",
         disableFilters: true,
         filterable: true,
       },
@@ -40,7 +48,7 @@ const City = () => {
         filterable: true,
       },
       {
-        Header: "REGION",
+        Header: "STATE NAME",
         accessor: "region",
         disableFilters: true,
         filterable: true,
@@ -54,7 +62,14 @@ const City = () => {
     ],
     []
   );
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
 
+  
   const {
     getTableProps,
     getTableBodyProps,
@@ -72,7 +87,7 @@ const City = () => {
   } = useTable(
     {
       columns,
-      data: responseData,
+      data: dataWithSlno,
       initialState: { pageSize: 10 },
     },
     useGlobalFilter,
@@ -86,119 +101,9 @@ const City = () => {
 
   return (
     <React.Fragment>
-      {/* <div>
-      <Create event={() => navigate("/createcity")}/>
-
-        <div className="container">
-          <div className="d-flex justify-content-end align-items-center">
-            <Icon name="search" className="icon-lg" />
-            <Input
-              type="text"
-              placeholder="Search..."
-              value={globalFilter || ""}
-              className="w-25 m-2 border-secondary"
-              onChange={e => setGlobalFilter(e.target.value)}
-            />
-          </div>
-          <table
-            {...getTableProps()}
-            className="table table-bordered table-hover"
-            style={{border:'1px solid black'}}
-          >
-            <thead>
-              {headerGroups.map(headerGroup => (
-                <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map(column => (
-                    <th
-                      key={column.id}
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                      style={{ backgroundColor: "rgb(189,249,211)" }}
-                    >
-                      <td className="d-flex justify-content-between">
-                        <span style={{ color: "black" }}>{column.render("Header")}</span>
-                        <span>
-                          {column.isSorted
-                            ? column.isSortedDesc
-                              ? " 🔽"
-                              : " 🔼"
-                            : ""}
-                        </span>
-                      </td>
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {page.map(row => {
-                prepareRow(row);
-                return (
-                  <tr
-                    key={row.id}
-                    {...row.getRowProps()}
-                    onClick={() => handleRowClick(row)}
-                  >
-                    {row.cells.map(cell => (
-                      <td key={cell.column.id} {...cell.getCellProps()}>
-                        {
-                        cell.column.id === "companygroup" ||
-                        cell.column.id === "cityname" ||
-                        cell.column.id === "region" ? (
-                          <Link to={`/city/${row.original.id}`}>
-                            {cell.render("Cell")}
-                          </Link>
-                        ) : (
-                          cell.render("Cell")
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="d-flex justify-content-center">
-          <div className="w-25 d-flex justify-content-between">
-            <button
-              className="btn btn-info"
-              disabled={pageIndex === 0}
-              onClick={() => gotoPage(0)}
-            >
-              FIRST
-            </button>
-            <button
-              className="btn btn-primary"
-              disabled={!canPreviousPage}
-              onClick={previousPage}
-            >
-              PRE
-            </button>
-            <span className="btn btn-light">
-              {pageIndex + 1} of {pageCount}
-            </span>
-            <button
-              className="btn btn-primary"
-              disabled={!canNextPage}
-              onClick={nextPage}
-            >
-              NEXT
-            </button>
-            <button
-              className="btn btn-info"
-              disabled={pageIndex >= pageCount - 1}
-              onClick={() => gotoPage(pageCount - 1)}
-            >
-              LAST
-            </button>
-          </div>
-        </div>
-      </div> */}
-
+    <Container fluid>
       <div className="page-content">
-        <div className="container-fluid">
-          <Card>
+      <Card>
             <div className="container pt-4">
               <div className="rmb-2 row">
                 <div className="col-md-1">
@@ -256,12 +161,11 @@ const City = () => {
                       {...headerGroup.getHeaderGroupProps()}
                     >
                       {headerGroup.headers.map(column => (
-                        <th
-                          key={column.id}
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                        >
+                       <th
+                       key={column.id}
+                       {...column.getHeaderProps(column.getSortByToggleProps())}
+                       style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
+                     >
                           <div className="d-flex justify-content-between">
                             <span className="font-weight-bold">
                               {column.render("Header")}
@@ -349,7 +253,7 @@ const City = () => {
             </div>
           </Card>
         </div>
-      </div>
+        </Container>
     </React.Fragment>
   );
 };

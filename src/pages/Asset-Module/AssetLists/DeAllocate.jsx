@@ -1,9 +1,226 @@
-import React from 'react'
+import React, { useState, useMemo } from "react";
+import {
+  Col,
+  Row,
+  CardBody,
+  CardHeader,
+  Card,
+  Label,
+  Input,
+  Container,
+  Table,
+} from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
-function DeAllocate() {
+const DeAllocate = () => {
+  const [responseData, setResponseData] = useState([
+    {
+      slno: 1,
+      assetId: "A001",
+      assetName: "Laptop",
+      serialNumber: "SN001",
+      assetRemarks: "Good condition",
+      allocateType: "Active",
+      checked: false,
+      employeename: "John Doe",
+      client: "ABC Corp",
+      allocatedDate: "2023-01-15",
+    },
+    {
+      slno: 2,
+      assetId: "A002",
+      assetName: "Desktop",
+      serialNumber: "SN002",
+      assetRemarks: "Minor scratches on the back",
+      checked: false,
+      employeename: "Jane Smith",
+      client: "XYZ Inc",
+      allocatedDate: "2023-02-20",
+    },
+    {
+      slno: 3,
+      assetId: "A003",
+      assetName: "Printer",
+      serialNumber: "SN003",
+      assetRemarks: "Needs toner replacement",
+      allocateType: "Inactive",
+      checked: false,
+      employeename: "Michael Johnson",
+      client: "DEF Ltd",
+      allocatedDate: "2023-03-10",
+    },
+    {
+      slno: 4,
+      assetId: "A004",
+      assetName: "Monitor",
+      serialNumber: "SN004",
+      assetRemarks: "No issues",
+      allocateType: "Active",
+      checked: false,
+      employeename: "Emily Brown",
+      client: "GHI Corp",
+      allocatedDate: "2023-04-05",
+    },
+    {
+      slno: 5,
+      assetId: "A005",
+      assetName: "Keyboard",
+      serialNumber: "SN005",
+      assetRemarks: "Missing key",
+      allocateType: "Inactive",
+      checked: false,
+      employeename: "David Lee",
+      client: "JKL Ltd",
+      allocatedDate: "2023-05-12",
+    },
+  ]);
+  
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
+
+  const filteredData = useMemo(() => {
+    if (!searchValue) return responseData;
+    return responseData.filter((item) => {
+      return Object.values(item).some((value) =>
+        String(value).toLowerCase().includes(searchValue.toLowerCase())
+      );
+    });
+  }, [responseData, searchValue]);
+
+  const handleInputChange = (e) => {
+    setSearchValue(e.target.value);
+  };
+  const handleCheckboxChange = (index) => {
+    const updatedData = [...responseData];
+    updatedData[index].checked = !updatedData[index].checked;
+    setResponseData(updatedData);
+  };
+  const handleDeallocationDateChange = (e, index) => {
+    const updatedData = [...responseData];
+    updatedData[index].deallocationDate = e.target.value;
+    setResponseData(updatedData);
+  };
+
+  const handleAssetStatusChange = (e, index) => {
+    const updatedData = [...responseData];
+    updatedData[index].assetStatus = e.target.value;
+    setResponseData(updatedData);
+  };
+
   return (
-    <div>DeAllocate</div>
-  )
-}
+    <Container fluid>
+      <div className="page-content">
+        <Card className="mt-5">
+          <CardHeader>
+            <h1 className="card-title" style={{ fontSize: "20px" }}>
+              DE ALLOCATION DETAILS
+            </h1>
+          </CardHeader>
+          <CardBody>
+            
+          <div className="col-md-4">
+              <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+                <div className="position-relative">
+                    <label htmlFor="search-bar-0" className="search-label">
+                      <span id="search-bar-0-label" className="sr-only">
+                        Search this table
+                      </span>
+                      <input
+                        id="search-bar-0"
+                        type="text"
+                        className="form-control"
+                        placeholder="Search..."
+                        value={searchValue}
+                        onChange={handleInputChange}
+                      />
+                      <i className="bx bx-search-alt search-icon"></i>
+                    </label>
+                  </div>
+                </div>
+                </div>
+             
+            <div className="table-responsive">
+              <Table className="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>SL NO</th>
+                    <th>ASSET ID</th>
+                    <th>ASSET NAME</th>
+                    <th>SERIAL NUMBER</th>
+                    <th>EMPLOYEE NAME</th>
+                    <th>CLIENT</th>
+                    <th>ALLOCATED DATE</th>
+                    <th>ASSET REMARKS</th>
 
-export default DeAllocate
+                    <th>DEALLOCATION DATE</th>
+                    <th>ASSET STATUS</th>
+                    <th>CHECK/UNCHECK</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredData.map((row, index) => (
+                    <tr key={index}>
+                      <td>{row.slno}</td>
+                      <td>{row.assetId}</td>
+                      <td>{row.assetName}</td>
+                      <td>{row.serialNumber}</td>
+                     <td>{row.employeename}</td>
+                     <td>{row.client}
+                      </td>
+                      <td>{row.allocatedDate}</td>
+                      <td>
+                        <Input
+                          className="form-control"
+                          type="text"
+                          value={row.assetRemarks}
+                          onChange={(e) => {
+                            // handleAllocatedDateChange(e, index);
+                          }}
+                        />
+                      </td>
+                      <td>
+                        <Input
+                          className="form-control"
+                          type="date"
+                          value={row.deallocationDate}
+                          onChange={(e) => handleDeallocationDateChange(e, index)}
+                        />
+                      </td>
+                      <td>
+                        <select
+                          className="form-control"
+                          value={row.assetStatus}
+                          onChange={(e) => handleAssetStatusChange(e, index)}
+                        >
+                          <option value="select">Select</option>
+                          <option value="Active">Active</option>
+                          <option value="Inactive">Inactive</option>
+                        </select>
+                      </td>
+                      <td
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          marginBottom: "20px",
+                        }}
+                      >
+                       <Input
+  type="checkbox"
+  checked={row.checked}
+  onChange={() => handleCheckboxChange(index)}
+/>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              {filteredData.length === 0 && <div>No data found</div>}
+            </div>
+          </CardBody>
+        </Card>
+      </div>
+    </Container>
+  );
+};
+
+export default DeAllocate;

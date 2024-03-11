@@ -34,7 +34,7 @@ const CompanyGroupCreate = () => {
     }),
     onSubmit: async values => {
       // console.log(values)
-      alert("validated !")
+      alert("validated !");
       // try {
       //   await axios.post(`http://localhost:3000/companygroup/`, values);
       //   navigate("/companygroup");
@@ -51,96 +51,119 @@ const CompanyGroupCreate = () => {
           <Card className="mt-5">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                COMPANY GROUP DETAILS
+                COMPANY GROUP/COUNTRY DETAILS
               </h1>
             </CardHeader>
 
             <CardBody>
-              <Form
-                className="needs-validation"
-                onSubmit={validation.handleSubmit}
-              >
-                <Row>
-                  <Col md="6">
-                    <FormGroup className="mb-3">
-                      <Label htmlFor="validationCustom01">COMPANY GROUP<font color="red">*</font></Label>
-                      <Input
-                        name="companyGroup"
-                        placeholder="Company Group"
-                        type="text"
-                        className="form-control"
-                        id="validationCustom01"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.companyGroup &&
-                          validation.errors.companyGroup
-                        }
-                      />
-                      {validation.touched.companyGroup &&
-                      validation.errors.companyGroup ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.companyGroup}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                  <Col md="6">
-                    <FormGroup className="mb-3">
-                      <Label htmlFor="validationCustom02">COMPANY GROUP CODE<font color="red">*</font></Label>
-                      <Input
-                        name="companyGroupCode"
-                        placeholder="Company Group Code"
-                        type="text"
-                        className="form-control"
-                        id="validationCustom02"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.companyGroupCode &&
-                          validation.errors.companyGroupCode
-                        }
-                      />
-                      {validation.touched.companyGroupCode &&
-                      validation.errors.companyGroupCode ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.companyGroupCode}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                </Row>
+              <Row className="justify-content-center">
+                <Col xl={10}>
+                  <Form
+                    className="needs-validation"
+                    onSubmit={validation.handleSubmit}
+                  >
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="validationCustom01">
+                            COMPANY GROUP/COUNTRY <font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="companyGroup"
+                            type="text"
+                            className="form-control"
+                            id="validationCustom01"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.companyGroup &&
+                              validation.errors.companyGroup
+                            }
+                          />
+                          {validation.touched.companyGroup &&
+                          validation.errors.companyGroup ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.companyGroup}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                      <hr className="mb-2" />
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="validationCustom02">
+                            COMPANY GROUP/COUNTRY CODE<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="companyGroupCode"
+                            type="text"
+                            className="form-control"
+                            id="validationCustom02"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.companyGroupCode &&
+                              validation.errors.companyGroupCode
+                            }
+                          />
+                          {validation.touched.companyGroupCode &&
+                          validation.errors.companyGroupCode ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.companyGroupCode}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </Row>
 
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <Button
-                    type="submit"
-                    color="success-subtle"
-                    className="border border-success"
-                  >
-                    CREATE
-                  </Button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary-subtle border border-secondary"
-                    onClick={() => {
-                      navigate("/company_group");
-                    }}
-                    style={{
-                      paddingTop: "10px",
-                      width: "80px",
-                      height: "45px",
-                    }}
-                  >
-                    <Label>BACK</Label>
-                  </button>
-                </div>
-              </Form>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-around",
+                        }}
+                      >
+                      <Button
+                        type="submit"
+                        color="success-subtle"
+                        className="btn btn-success-subtle border border-success"
+                        style={{
+                          paddingTop: "10px",
+                          height: "45px",
+                          width: "80px",
+                          marginRight: "30px",
+                        }}
+                      >
+                        CREATE
+                      </Button>
+                      <button
+                        type="button"
+                        className="btn btn-secondary-subtle border border-secondary"
+                        onClick={() => {
+                          navigate("/company_group");
+                        }}
+                        style={{
+                          paddingTop: "10px",
+                          width: "80px",
+                          height: "45px",
+                        }}
+                      >
+                        <Label>BACK</Label>
+                      </button>
+                    </div>
+                    </div>
+                  </Form>
+                </Col>
+              </Row>
             </CardBody>
           </Card>
         </div>

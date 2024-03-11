@@ -1,39 +1,55 @@
-import React, { useMemo, useEffect, useState, useCallback } from "react";
-import Icon from "@ailibs/feather-react-ts";
-import { Card,Container, Input } from "reactstrap";
+
+import React, { useEffect, useMemo, useState } from "react";
+import { Container, Button, Input, Card } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
-  useGlobalFilter,
   useSortBy,
   usePagination,
+  useGlobalFilter,
 } from "react-table";
-import Create from "src/pages/Buttons/Create";
 import { useGet } from "src/API/useGet";
 
-const CompanyGroup = () => {
-
+const Floor = () => {
   const demoData = [
-
-  { "companyGroup": "Group A", "companyGroupCode": "GA001" },
-  { "companyGroup": "Group B", "companyGroupCode": "GB002" },
-  { "companyGroup": "Group C", "companyGroupCode": "GC003" },
-  { "companyGroup": "Group D", "companyGroupCode": "GD004" }
-];
-const [responseData, setResponseData] = useState(demoData);
-const navigate = useNavigate();
+  
+        {
+          "slno": 1,
+          "branch": "Main Office",
+          "building": "Headquarters",
+          "floor": "3rd",
+          "door": "301",
+          "pincode": "12345"
+        },
+        {
+          "slno": 2,
+          "branch": "Branch Office",
+          "building": "Downtown Tower",
+          "floor": "15th",
+          "door": "1502",
+          "pincode": "67890"
+        },
+        {
+          "slno": 3,
+          "branch": "Regional Office",
+          "building": "City Center Plaza",
+          "floor": "7th",
+          "door": "701",
+          "pincode": "54321"
+        }
+      ]
+      
+  const [responseData, setResponseData] = useState(demoData);
+  const navigate = useNavigate();
 
   // const { getData, data, isLoading } = useGet();
   // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/companygroup");
-  //   }
-  //   fetch();
-  // }, [getData]);
+  //   fetch("http://localhost:3000/plant")
+  //     .then(response => response.json())
+  //     .then(data => setResponseData(data))
+  //     .catch(error => console.error("Error fetching users:", error));
+  // }, []);
 
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
   const columns = useMemo(
     () => [
       {
@@ -43,14 +59,32 @@ const navigate = useNavigate();
         filterable: true,
       },
       {
-        Header: "COMPANY GROUP",
-        accessor: "companyGroup",
+        Header: "LOCATION NAME",
+        accessor: "branch",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "COMPANY CODE",
-        accessor: "companyGroupCode",
+        Header: "BUILDING NAME",
+        accessor: "building",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "FLOOR NUMBER",
+        accessor: "floor",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "DOOR NUMBER",
+        accessor: "door",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "PINCODE",
+        accessor: "pincode",
         disableFilters: true,
         filterable: true,
       },
@@ -64,7 +98,6 @@ const navigate = useNavigate();
     }));
   }, [responseData]);
 
-  
   const {
     getTableProps,
     getTableBodyProps,
@@ -90,13 +123,20 @@ const navigate = useNavigate();
     usePagination
   );
 
-
   return (
     <React.Fragment>
-
-    <Container fluid>
+      {/* {isLoading ? (
       <div className="page-content">
-      <Card>
+        <Card>
+          <div>
+            <h1>Loading...</h1>
+          </div>
+        </Card>
+      </div>
+    ) : ( */}
+      <Container fluid>
+        <div className="page-content">
+          <Card>
             <div className="container pt-4">
               <div className="rmb-2 row">
                 <div className="col-md-1">
@@ -135,7 +175,7 @@ const navigate = useNavigate();
                     <button
                       type="button"
                       className="btn mb-2 me-2 btn btn-primary"
-                      onClick={() => navigate("/createcompanygroup")}
+                      onClick={() => navigate("/createfloor")}
                     >
                       <i className="mdi mdi-plus-circle-outline me-1"></i>
                       Create New
@@ -155,10 +195,16 @@ const navigate = useNavigate();
                     >
                       {headerGroup.headers.map(column => (
                         <th
-                        key={column.id}
-                        {...column.getHeaderProps(column.getSortByToggleProps())}
-                        style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
-                      >
+                          key={column.id}
+                          {...column.getHeaderProps(
+                            column.getSortByToggleProps()
+                          )}
+                          style={
+                            column.id === "slno"
+                              ? { width: "6%" }
+                              : { backgroundColor: "" }
+                          }
+                        >
                           <div className="d-flex justify-content-between">
                             <span className="font-weight-bold">
                               {column.render("Header")}
@@ -177,24 +223,36 @@ const navigate = useNavigate();
                   ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                  {page.map(row => {
-                    prepareRow(row);
-                    return (
-                      <tr key={row.id} {...row.getRowProps()}>
-                        {row.cells.map(cell => (
-                          <td key={cell.column.id} {...cell.getCellProps()}>
-                            {cell.column.id !== "SL NO" ? (
-                              <Link to={`/company_group/${row.original.id}`}>
-                                {cell.render("Cell")}
-                              </Link>
-                            ) : (
-                              cell.render("Cell")
-                            )}
-                          </td>
-                        ))}
-                      </tr>
-                    );
-                  })}
+                  {page.length > 0 ? (
+                    page.map(row => {
+                      prepareRow(row);
+                      return (
+                        <tr key={row.id} {...row.getRowProps()}>
+                          {row.cells.map(cell => (
+                            <td key={cell.column.id} {...cell.getCellProps()}>
+                              {cell.column.id !== "SL NO" ? (
+                                <Link to={`/updatefloor/${row.original.id}`}>
+                                  {cell.render("Cell")}
+                                </Link>
+                              ) : (
+                                cell.render("Cell")
+                              )}
+                            </td>
+                          ))}
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan={headerGroups[0].headers.length}
+                        style={{ textAlign: "center" }}
+                      >
+                        {" "}
+                        No search results found.
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -242,9 +300,10 @@ const navigate = useNavigate();
             </div>
           </Card>
         </div>
-        </Container>
+      </Container>
+      {/* )} */}
     </React.Fragment>
   );
 };
 
-export default CompanyGroup;
+export default Floor;

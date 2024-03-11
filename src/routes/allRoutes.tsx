@@ -268,6 +268,11 @@ import DesignationUpdate from "src/pages/Master-Module/UpdatePage/DesignationUpd
 import CreateMaterial from "src/pages/Master-Module/CreatePages/CreateMaterial";
 import VendorMasterUpdate from "src/pages/Master-Module/UpdatePage/VendorMasterUpdate";
 import VendorMasterCreate from "src/pages/Master-Module/CreatePages/VendorMaster";
+import  PlantUpdate  from "src/pages/Master-Module/UpdatePage/PlantUpdate";
+import Floor from "src/pages/Master-Module/MasterLists/CompanyRepo/Geographical_Area/Floor";
+import FlooeCreate from "src/pages/Master-Module/CreatePages/FloorCreate";
+import FloorUpdate from "src/pages/Master-Module/UpdatePage/FloorUpdate";
+import FloorCreate from "src/pages/Master-Module/CreatePages/FloorCreate";
 
 interface RouteProps {
   path: string;
@@ -415,6 +420,13 @@ const userRoutes: Array<RouteProps> = [
   { path: "/deligation_create", component: <DeligationCreate /> },
   { path: "/createcompanygroup", component: <CompanyGroupCreate /> },
   { path: "/createregion", component: <RegionCreate /> },
+  { path: "/floor", component: <Floor /> },
+
+  { path: "/createfloor", component: <FloorCreate /> },
+
+  { path: "/updatefloor/:id", component: <FloorUpdate /> },
+
+  { path: "/updateplant/:id", component: <PlantUpdate /> },
   { path: "/createcity", component: <CityCreate /> },
   { path: "/createbranch", component: <BranchCreate /> },
   { path: "/createplant", component: <PlantCreate /> },

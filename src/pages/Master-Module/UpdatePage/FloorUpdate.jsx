@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
@@ -18,7 +19,7 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
-const BranchCreate = () => {
+const FloorUpdate = () => {
   const navigate = useNavigate();
   const validation = useFormik({
     enableReinitialize: true,
@@ -28,6 +29,10 @@ const BranchCreate = () => {
       cityname: "",
       companygroup: "",
       plantname: "",
+      building:"",
+      floor:"",
+      pincode:"",
+      doornumber:""
     },
     // validationSchema: Yup.object({
     //   companyGroup: Yup.string().required("Company Group is Required"),
@@ -38,6 +43,11 @@ const BranchCreate = () => {
       cityname: Yup.string().required("City Name is required"),
       companygroup: Yup.string().required("Company name is required"),
       plantname: Yup.string().required("Location Name is required"),
+      building: Yup.string().required("Building Name is required"),
+      floor: Yup.string().required("Floor Name is required"),
+      pincode: Yup.string().required("PINCODE is required"),
+      doornumber: Yup.string().required("Door Number is required"),
+
     }),
 
     onSubmit: async values => {
@@ -59,7 +69,7 @@ const BranchCreate = () => {
           <Card className="mt-5">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                LOCATION DETAILS
+                FLOOR DETAILS
               </h1>
             </CardHeader>
 
@@ -71,7 +81,7 @@ const BranchCreate = () => {
                     onSubmit={validation.handleSubmit}
                   >
                     <Row className="mb-2">
-                      <Col md={12}>
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="companygroup">
                             COMPANY GROUP/COUNTRY <font color="red">*</font>
@@ -102,11 +112,7 @@ const BranchCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-
-                      <hr className="mb-2" />
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={12}>
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="statename">
                             STATE NAME <font color="red">*</font>
@@ -135,14 +141,13 @@ const BranchCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-
                       <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
-                      <Col md={12}>
+                    <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="cityname">
-                            CIRY NAME <font color="red">*</font>
+                            CITY NAME <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -168,27 +173,29 @@ const BranchCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-
-                      <hr className="mb-2" />
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={12}>
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="plantname">
-                           LOCATION NAME<font color="red">*</font>
+                            LOCATION NAME <font color="red">*</font>
                           </Label>
                           <Input
+                            type="select"
                             name="plantname"
-                            type="text"
-                            className="form-control"
                             id="plantname"
+                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.plantname &&
                               validation.errors.plantname
                             }
-                          />
+                          >
+                            <option value="">
+                              Select Loaction Name
+                            </option>
+                            <option value="group1">Company Group 1</option>
+                            <option value="group2">Company Group 2</option>
+                          </Input>
                           {validation.touched.plantname &&
                           validation.errors.plantname ? (
                             <FormFeedback type="invalid">
@@ -197,8 +204,123 @@ const BranchCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
+                      <hr className="mb-2" />
                     </Row>
-
+                    <Row className="mb-2">
+                    <Col md={6}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="building">
+                            BUILDING NAME <font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            name="building"
+                            id="building"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.building &&
+                              validation.errors.building
+                            }
+                          >
+                            <option value="">
+                              Select Building Name
+                            </option>
+                            <option value="group1">Company Group 1</option>
+                            <option value="group2">Company Group 2</option>
+                          </Input>
+                          {validation.touched.building &&
+                          validation.errors.building ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.building}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="floor">
+                           FLOOR NUMBER<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="floor"
+                            type="text"
+                            className="form-control"
+                            id="floor"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.floor &&
+                              validation.errors.floor
+                            }
+                          />
+                          {validation.touched.floor &&
+                          validation.errors.floor ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.floor}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                      <hr className="mb-2" />
+                    </Row>
+                    <Row className="mb-2">
+                    <Col md={6}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="doornumber">
+                           DOOR NUMBER<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="doornumber"
+                            type="text"
+                            className="form-control"
+                            id="doornumber"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.doornumber &&
+                              validation.errors.doornumber
+                            }
+                          />
+                          {validation.touched.doornumber &&
+                          validation.errors.doornumber ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.doornumber}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    <Col md={6}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="pincode">
+                           PINCODE<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="pincode"
+                            type="text"
+                            className="form-control"
+                            id="pincode"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.pincode &&
+                              validation.errors.pincode
+                            }
+                          />
+                          {validation.touched.pincode &&
+                          validation.errors.pincode ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.pincode}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                      
+                      <hr className="mb-2" />
+                    </Row>
+                   
+                    
                     <div
                       style={{
                         display: "flex",
@@ -224,13 +346,13 @@ const BranchCreate = () => {
                             marginRight: "30px",
                           }}
                         >
-                          CREATE
+                          UPDATE
                         </Button>
                         <button
                           type="button"
                           className="btn btn-secondary-subtle border border-secondary"
                           onClick={() => {
-                            navigate("/branch");
+                            navigate("/floor");
                           }}
                           style={{
                             paddingTop: "10px",
@@ -253,4 +375,4 @@ const BranchCreate = () => {
   );
 };
 
-export default BranchCreate;
+export default FloorUpdate;
