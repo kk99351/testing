@@ -278,6 +278,16 @@ import AssetDeLink from "src/pages/Asset-Module/AssetLists/AssetDeLink";
 import AssetMaintance from "src/pages/Asset-Module/AssetLists/AssetMaintenance";
 import AssetMaintenance from "src/pages/Asset-Module/AssetLists/AssetMaintenance";
 import AssetMaintainancenext from "src/pages/Asset-Module/AssetLists/AssetMaintainancenext";
+import InterTarnsferReq from "src/pages/Transfer/InterTransfer.jsx/InterTarnsferReq";
+import InterTransferApprove from "src/pages/Transfer/InterTransfer.jsx/InterTransferApprove";
+import InterTransfer from "src/pages/Transfer/InterTransfer.jsx/InterTransfer";
+import PrintGatePass from "src/pages/Transfer/InterTransfer.jsx/PrintGatePass";
+import ReceiveAssets from "src/pages/Transfer/InterTransfer.jsx/ReceiveAssets";
+import ReturnAknow from "src/pages/Transfer/InterTransfer.jsx/ReturnAknow";
+import IntraTransferRequest from "src/pages/Transfer/IntraTransfer.jsx/IntraTransferRequest";
+import IntraTransferApproval from "src/pages/Transfer/IntraTransfer.jsx/IntraTransferApproval";
+import IntraTransfer from "src/pages/Transfer/IntraTransfer.jsx/IntraTransfer";
+import IntraRecieveAssets from "src/pages/Transfer/IntraTransfer.jsx/IntraRecieveAssets";
 
 interface RouteProps {
   path: string;
@@ -301,12 +311,9 @@ const userRoutes: Array<RouteProps> = [
   //   throw new Error("Function not implemented.");
   // } } /> },
   { path: "/barcode", component: <Barcode /> },
-
   { path: "/qr_code", component: <QrCode /> },
-
   { path: "/asset_maintenance", component: <AssetMaintenance /> },
   { path: "/asset_maintenance_next", component: <AssetMaintainancenext /> },
-
   { path: "/bulk_asset_allocate", component: <BulkAssetAllocate /> },
   { path: "/deallocate", component: <DeAllocate /> },
   { path: "/damaged_asset", component: <DamagedAssets /> },
@@ -328,8 +335,18 @@ const userRoutes: Array<RouteProps> = [
 
 
 
+  //TRANSFER MASTER PAGES PATH
+  { path: "/inter_transfer_request", component: <InterTarnsferReq /> },
+  { path: "/inter_transfer_approval", component: <InterTransferApprove /> },
+  { path: "/inter_transfer", component: <InterTransfer /> },
+  { path: "/print_gate_pass", component: <PrintGatePass /> },
+  { path: "/inter_recieve_assets", component: <ReceiveAssets /> },
+  { path: "/inter_return_acknowledge", component: <ReturnAknow /> },
 
-
+  { path: "/intra_transfer_request", component: <IntraTransferRequest /> },
+  { path: "/intra_transfer_approval", component: <IntraTransferApproval /> },
+  { path: "/intra_transfer", component: <IntraTransfer /> },
+  { path: "/intra_recieve_assets", component: <IntraRecieveAssets /> },
 
 
 

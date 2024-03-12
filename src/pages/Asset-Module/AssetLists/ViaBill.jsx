@@ -299,7 +299,7 @@ const ViaBill = () => {
     () => [
       {
         Header: "SL NO",
-        accessor: (row, index) => index + 1,
+        accessor: "slno",
       },
       {
         Header: "Bill Number",
@@ -328,7 +328,13 @@ const ViaBill = () => {
     ],
     []
   );
-    
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -346,7 +352,7 @@ const ViaBill = () => {
   } = useTable(
     {
       columns,
-      data: responseData,
+      data: dataWithSlno,
       initialState: { pageSize: 10 },
     },
     useGlobalFilter,
@@ -403,12 +409,11 @@ const ViaBill = () => {
                       {...headerGroup.getHeaderGroupProps()}
                     >
                       {headerGroup.headers.map(column => (
-                        <th
-                          key={column.id}
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                        >
+                         <th
+                         key={column.id}
+                         {...column.getHeaderProps(column.getSortByToggleProps())}
+                         style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
+                       >
                           <div className="d-flex justify-content-between">
                             <span className="font-weight-bold">
                               {column.render("Header")}

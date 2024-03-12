@@ -160,7 +160,7 @@ const DeAllocate = () => {
                       className="btn mb-2 me-2 btn btn-primary"
                       onClick={handleDeallocate}
                     >
-                  <i className="mdi mdi-minus-circle-outline me-1"></i>
+                      <i className="mdi mdi-minus-circle-outline me-1"></i>
                       Deallocate
                     </button>
                   </div>
@@ -272,7 +272,11 @@ const DeAllocate = () => {
                   ))}
                 </tbody>
               </Table>
-              {filteredData.length === 0 && <div>No data found</div>}
+              <div className="text-center">
+                {filteredData.length === 0 && (
+                  <div>No search results found</div>
+                )}
+              </div>
             </div>
           </CardBody>
         </Card>

@@ -157,10 +157,10 @@ const AssetDeLink = () => {
                   <div className="text-sm-end">
                     <button
                       type="button"
-                      className="btn mb-2 ms-2 btn btn-danger"
+                      className="btn mb-2 me-2 btn btn-primary"
                       onClick={handleDeallocate}
                     >
-                      <i className="mdi mdi-delete me-1"></i>
+                  <i className="mdi mdi-minus-circle-outline me-1"></i>
                       Deallocate
                     </button>
                   </div>
@@ -228,8 +228,11 @@ const AssetDeLink = () => {
                   ))}
                 </tbody>
               </Table>
-              {filteredData.length === 0 && <div>No data found</div>}
-            </div>
+              <div className="text-center">
+                {filteredData.length === 0 && (
+                  <div>No search results found</div>
+                )}
+              </div>            </div>
           </CardBody>
         </Card>
       </div>

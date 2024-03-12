@@ -11,7 +11,6 @@
 // // } from "react-table";
 // // import JsBarcode from "jsbarcode";
 
-
 // // const Barcode = () => {
 
 // //   const demoData = [
@@ -229,20 +228,20 @@
 // //   const generateBarcodes = () => {
 // //     // Open a new tab for displaying barcodes
 // //     const newTab = window.open("", "_blank");
-  
+
 // //     // Check if there are selected IDs
 // //     if (selectedIds.length > 0) {
 // //       // Iterate over each selected ID
 // //       selectedIds.forEach((id) => {
 // //         // Create a <div> element for the barcode
 // //         const barcodeDiv = newTab.document.createElement("div");
-        
+
 // //         // Generate barcode for the ID inside the <div> element
 // //         JsBarcode(barcodeDiv, id);
-  
+
 // //         // Append the barcode <div> to the new tab
 // //         newTab.document.body.appendChild(barcodeDiv);
-  
+
 // //         // Optionally, you can also display the ID below the barcode
 // //         const idElement = newTab.document.createElement("div");
 // //         idElement.textContent = id;
@@ -252,11 +251,11 @@
 // //       // If no IDs are selected, display a message in the new tab
 // //       newTab.document.write("<div>No IDs selected</div>");
 // //     }
-  
+
 // //     // Close the document for writing
 // //     newTab.document.close();
 // //   };
-  
+
 // //   // const { getData, data, isLoading } = useGet();
 // //   // useEffect(() => {
 // //   //   async function fetch() {
@@ -487,7 +486,7 @@
 // //                                         cell.render("Cell")
 // //                                       : cell.render("Cell")}
 // //                                   </td>
-                                  
+
 // //                                 ))}
 // //                               </tr>
 // //                             );
@@ -914,8 +913,8 @@
 //                         <th>ASSET ID</th>
 //                         <th>ASSET REF.NO</th>
 //                         <th>SERIAL NUMBER</th>
-//                         <th>SUB MATERIAL</th>                        
-                        
+//                         <th>SUB MATERIAL</th>
+
 //                         <th>CHECK/UNCHECK</th>
 //                       </tr>
 //                     </thead>
@@ -978,13 +977,13 @@ import {
   Table,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import Barcode from "react-barcode"; 
+import Barcode from "react-barcode";
 
 const BarcodePage = () => {
   const navigate = useNavigate();
-  const [submitted, setSubmitted] = useState(false); 
+  const [submitted, setSubmitted] = useState(false);
   const [barcodeData, setBarcodeData] = useState(null);
-  const [selectedRows, setSelectedRows] = useState([]); 
+  const [selectedRows, setSelectedRows] = useState([]);
 
   const validation = useFormik({
     enableReinitialize: true,
@@ -1002,9 +1001,9 @@ const BarcodePage = () => {
       invoiceNo: Yup.string().required("Invoice Number is required"),
     }),
 
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       console.log("Form submitted successfully!");
-      setSubmitted(true); 
+      setSubmitted(true);
     },
   });
   const [responseData, setResponseData] = useState([
@@ -1038,7 +1037,7 @@ const BarcodePage = () => {
   const handleDeallocate = () => {
     console.log("Deallocate button clicked");
     if (selectedRows.length > 0) {
-      setBarcodeData(selectedRows[0]);
+      setBarcodeData(selectedRows); // Set selectedRows instead of selectedRows[0]
     }
   };
 
@@ -1046,25 +1045,25 @@ const BarcodePage = () => {
 
   const filteredData = useMemo(() => {
     if (!searchValue) return responseData;
-    return responseData.filter((item) => {
-      return Object.values(item).some((value) =>
+    return responseData.filter(item => {
+      return Object.values(item).some(value =>
         String(value).toLowerCase().includes(searchValue.toLowerCase())
       );
     });
   }, [responseData, searchValue]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     setSearchValue(e.target.value);
   };
 
-  const handleCheckboxChange = (index) => {
+  const handleCheckboxChange = index => {
     const updatedData = [...responseData];
     updatedData[index].checked = !updatedData[index].checked;
     setResponseData(updatedData);
 
     const selectedRow = responseData[index];
     const selectedIndex = selectedRows.findIndex(
-      (row) => row.assetId === selectedRow.assetId
+      row => row.assetId === selectedRow.assetId
     );
 
     if (selectedIndex > -1) {
@@ -1109,16 +1108,14 @@ const BarcodePage = () => {
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.cat &&
-                              validation.errors.cat
+                              validation.touched.cat && validation.errors.cat
                             }
                           >
                             <option value="">Select Material</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
-                          {validation.touched.cat &&
-                          validation.errors.cat ? (
+                          {validation.touched.cat && validation.errors.cat ? (
                             <FormFeedback type="invalid">
                               {validation.errors.cat}
                             </FormFeedback>
@@ -1172,16 +1169,14 @@ const BarcodePage = () => {
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.poNo &&
-                              validation.errors.poNo
+                              validation.touched.poNo && validation.errors.poNo
                             }
                           >
                             <option value="">Select Asset</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
-                          {validation.touched.poNo &&
-                          validation.errors.poNo ? (
+                          {validation.touched.poNo && validation.errors.poNo ? (
                             <FormFeedback type="invalid">
                               {validation.errors.poNo}
                             </FormFeedback>
@@ -1249,7 +1244,6 @@ const BarcodePage = () => {
                         >
                           NEXT
                         </Button>
-                       
                       </div>
                     </div>
                   </Form>
@@ -1272,10 +1266,7 @@ const BarcodePage = () => {
                               htmlFor="search-bar-0"
                               className="search-label"
                             >
-                              <span
-                                id="search-bar-0-label"
-                                className="sr-only"
-                              >
+                              <span id="search-bar-0-label" className="sr-only">
                                 Search this table
                               </span>
                               <input
@@ -1344,7 +1335,9 @@ const BarcodePage = () => {
                         ))}
                       </tbody>
                     </Table>
-                    {filteredData.length === 0 && <div>No data found</div>}
+                    {filteredData.length === 0 && (
+                      <div className="text-center">No data found</div>
+                    )}
                   </div>
                 </div>
               </CardBody>
@@ -1352,19 +1345,21 @@ const BarcodePage = () => {
           )}
 
           {barcodeData && (
-            <Card className="mt-3 text-center">
-              <CardBody>
-                <h3>Generated Barcode </h3>
-                <p>Location: BANGLORE</p>
-                <p>Asset ID: {barcodeData.assetId}</p>
-                <p>Serial No: {barcodeData.serialNumber}</p>
-                <p>Model No: E BLOCK EQUIPMENT (POSITIVO)</p>
-                <p>
-                  *{barcodeData.assetId}* {/* Format for the barcode */}
-                </p>
-                <Barcode value={barcodeData.assetId} />
-              </CardBody>
-            </Card>
+            <React.Fragment>
+              {barcodeData.map((data, index) => (
+                <Card key={index} className="mt-3 text-center">
+                  <CardBody>
+                    <h3>Generated Barcode {index + 1}</h3>
+                    <p>Location: BANGLORE</p>
+                    <p>Asset ID: {data.assetId}</p>
+                    <p>Serial No: {data.serialNumber}</p>
+                    <p>Model No: E BLOCK EQUIPMENT (POSITIVO)</p>
+                    <p>*{data.assetId}*</p>
+                    <Barcode value={data.assetId} />
+                  </CardBody>
+                </Card>
+              ))}
+            </React.Fragment>
           )}
         </div>
       </Container>

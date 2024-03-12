@@ -155,45 +155,52 @@ const Region = () => {
               </div>
  
               <div className="table-responsive react-table">
-                <table className="table table-bordered table-hover">
-                  <thead className="table-light table-nowrap">
-                    {headerGroups.map(headerGroup => (
-                      <tr
-                        key={headerGroup.id}
-                        {...headerGroup.getHeaderGroupProps()}
-                      >
-                        {headerGroup.headers.map(column => (
-                          <th
+              <table className="table table-bordered table-hover">
+                <thead className="table-light table-nowrap">
+                  {headerGroups.map(headerGroup => (
+                    <tr
+                      key={headerGroup.id}
+                      {...headerGroup.getHeaderGroupProps()}
+                    >
+                      {headerGroup.headers.map(column => (
+                        <th
                           key={column.id}
-                          {...column.getHeaderProps(column.getSortByToggleProps())}
-                          style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
+                          {...column.getHeaderProps(
+                            column.getSortByToggleProps()
+                          )}
+                          style={
+                            column.id === "slno"
+                              ? { width: "6%" }
+                              : { backgroundColor: "" }
+                          }
                         >
-                            <div className="d-flex justify-content-between">
-                              <span className="font-weight-bold">
-                                {column.render("Header")}
-                              </span>
-                              <span>
-                                {column.isSorted
-                                  ? column.isSortedDesc
-                                    ? " 🔽"
-                                    : " 🔼"
-                                  : ""}
-                              </span>
-                            </div>
-                          </th>
-                        ))}
-                      </tr>
-                    ))}
-                  </thead>
-                  <tbody {...getTableBodyProps()}>
-                    {page.map(row => {
+                          <div className="d-flex justify-content-between">
+                            <span className="font-weight-bold">
+                              {column.render("Header")}
+                            </span>
+                            <span>
+                              {column.isSorted
+                                ? column.isSortedDesc
+                                  ? " 🔽"
+                                  : " 🔼"
+                                : ""}
+                            </span>
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                  {page.length > 0 ? (
+                    page.map(row => {
                       prepareRow(row);
                       return (
                         <tr key={row.id} {...row.getRowProps()}>
                           {row.cells.map(cell => (
                             <td key={cell.column.id} {...cell.getCellProps()}>
                               {cell.column.id !== "SL NO" ? (
-                                <Link to={`/region/${row.original.id}`}>
+                                <Link to={`/updatefloor/${row.original.id}`}>
                                   {cell.render("Cell")}
                                 </Link>
                               ) : (
@@ -203,10 +210,21 @@ const Region = () => {
                           ))}
                         </tr>
                       );
-                    })}
-                  </tbody>
-                </table>
-              </div>
+                    })
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan={headerGroups[0].headers.length}
+                        style={{ textAlign: "center" }}
+                      >
+                        {" "}
+                        No search results found.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
  
               <div className="row">
                 <div className="col-sm-6">
