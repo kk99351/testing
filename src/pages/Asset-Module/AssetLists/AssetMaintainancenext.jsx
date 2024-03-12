@@ -18,30 +18,27 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
-const BranchCreate = () => {
+const AssetMaintainancenext = () => {
   const navigate = useNavigate();
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      statename: "",
-      cityname: "",
-      companygroup: "",
-      plantname: "",
+      assetId: "",
+      assetName: "",
+      AssetDiscription: "",
+      Maintainancedate: new Date().toISOString().substr(0, 10), // Set initial value to current date
+      ammount: "",
+      remarkss: "",
     },
-    // validationSchema: Yup.object({
-    //   companyGroup: Yup.string().required("Company Group is Required"),
-    //   companyGroupCode: Yup.string().required("Company Group Code is Required"),
-    // }),.
     validationSchema: Yup.object({
-      statename: Yup.string().required("State name is required"),
-      cityname: Yup.string().required("City Name is required"),
-      companygroup: Yup.string().required("Company name is required"),
-      plantname: Yup.string().required("Location Name is required"),
+      assetId: Yup.string().required("Asset ID is required"),
+      Maintainancedate: Yup.string().required("Maintenance Date required"),
+      ammount: Yup.string().required("Amount Maintenance is required"),
+      remarkss: Yup.string().required("Maintenance Remarks is required"),
     }),
 
-    onSubmit: async values => {
-      // console.log(values)
+    onSubmit: async (values) => {
       alert("validated !");
       // try {
       //   await axios.post(`http://localhost:3000/companygroup/`, values);
@@ -52,6 +49,10 @@ const BranchCreate = () => {
     },
   });
 
+  const handleBack = () => {
+    navigate("/asset_maintenance");
+  };
+
   return (
     <React.Fragment>
       <Container fluid>
@@ -59,7 +60,7 @@ const BranchCreate = () => {
           <Card className="mt-5">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                LOCATION DETAILS
+                ASSET MAINTENANCE DETAILS
               </h1>
             </CardHeader>
 
@@ -73,132 +74,157 @@ const BranchCreate = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="companygroup">
-                            COMPANY GROUP/COUNTRY <font color="red">*</font>
+                          <Label htmlFor="assetId">
+                            ASSET ID
                           </Label>
                           <Input
-                            type="select"
-                            name="companygroup"
-                            id="companygroup"
-                            className="form-control"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.companygroup &&
-                              validation.errors.companygroup
-                            }
-                          >
-                            <option value="">
-                              Select Company Group/Country
-                            </option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
-                          </Input>
-                          {validation.touched.companygroup &&
-                          validation.errors.companygroup ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.companygroup}
-                            </FormFeedback>
-                          ) : null}
-                        </FormGroup>
-                      </Col>
-
-                      <hr className="mb-2" />
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={12}>
-                        <FormGroup className="mb-3">
-                          <Label htmlFor="statename">
-                            STATE NAME <font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            name="statename"
-                            id="statename"
-                            className="form-control"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.statename &&
-                              validation.errors.statename
-                            }
-                          >
-                            <option value="">Select State Name</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
-                          </Input>
-                          {validation.touched.statename &&
-                          validation.errors.statename ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.statename}
-                            </FormFeedback>
-                          ) : null}
-                        </FormGroup>
-                      </Col>
-
-                      <hr className="mb-2" />
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={12}>
-                        <FormGroup className="mb-3">
-                          <Label htmlFor="cityname">
-                            CITY NAME <font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            name="cityname"
-                            id="cityname"
-                            className="form-control"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.cityname &&
-                              validation.errors.cityname
-                            }
-                          >
-                            <option value="">Select City Name</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
-                          </Input>
-                          {validation.touched.cityname &&
-                          validation.errors.cityname ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.cityname}
-                            </FormFeedback>
-                          ) : null}
-                        </FormGroup>
-                      </Col>
-
-                      <hr className="mb-2" />
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={12}>
-                        <FormGroup className="mb-3">
-                          <Label htmlFor="plantname">
-                           LOCATION NAME<font color="red">*</font>
-                          </Label>
-                          <Input
-                            name="plantname"
+                            name="assetId"
                             type="text"
                             className="form-control"
-                            id="plantname"
+                            id="assetId"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="assetName">
+                            ASSET NAME
+                          </Label>
+                          <Input
+                            name="assetName"
+                            type="text"
+                            className="form-control"
+                            id="assetName"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.plantname &&
-                              validation.errors.plantname
+                              validation.touched.assetName &&
+                              validation.errors.assetName
                             }
                           />
-                          {validation.touched.plantname &&
-                          validation.errors.plantname ? (
+                          {validation.touched.assetName &&
+                          validation.errors.assetName ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.plantname}
+                              {validation.errors.assetName}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
                       </Col>
                     </Row>
-
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="AssetDiscription">
+                            ASSET DESCRIPTION
+                          </Label>
+                          <Input
+                            name="AssetDiscription"
+                            type="text"
+                            className="form-control"
+                            id="AssetDiscription"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.AssetDiscription &&
+                              validation.errors.AssetDiscription
+                            }
+                          />
+                          {validation.touched.AssetDiscription &&
+                          validation.errors.AssetDiscription ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.AssetDiscription}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="Maintainancedate">
+                            MAINTENANCE DATE<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="Maintainancedate"
+                            type="date"
+                            className="form-control"
+                            id="Maintainancedate"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.Maintainancedate &&
+                              validation.errors.Maintainancedate
+                            }
+                            value={validation.values.Maintainancedate}
+                          />
+                          {validation.touched.Maintainancedate &&
+                          validation.errors.Maintainancedate ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.Maintainancedate}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="ammount">
+                            AMOUNT MAINTENANCE<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="ammount"
+                            type="text"
+                            className="form-control"
+                            id="ammount"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.ammount &&
+                              validation.errors.ammount
+                            }
+                          />
+                          {validation.touched.ammount &&
+                          validation.errors.ammount ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.ammount}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="remarkss">
+                            MAINTENANCE REMARKS<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="remarkss"
+                            type="text"
+                            className="form-control"
+                            id="remarkss"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.remarkss &&
+                              validation.errors.remarkss
+                            }
+                          />
+                          {validation.touched.remarkss &&
+                          validation.errors.remarkss ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.remarkss}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </Row>
                     <div
                       style={{
                         display: "flex",
@@ -224,22 +250,21 @@ const BranchCreate = () => {
                             marginRight: "30px",
                           }}
                         >
-                          CREATE
+                          SAVE
                         </Button>
-                        <button
+                        <Button
                           type="button"
+                          color="secondary-subtle"
                           className="btn btn-secondary-subtle border border-secondary"
-                          onClick={() => {
-                            navigate("/branch");
-                          }}
                           style={{
                             paddingTop: "10px",
                             width: "80px",
                             height: "45px",
                           }}
+                          onClick={handleBack}
                         >
-                          <Label>BACK</Label>
-                        </button>
+                          BACK
+                        </Button>
                       </div>
                     </div>
                   </Form>
@@ -253,4 +278,7 @@ const BranchCreate = () => {
   );
 };
 
-export default BranchCreate;
+export default AssetMaintainancenext;
+
+
+

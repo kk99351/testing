@@ -18,37 +18,28 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
-const BranchCreate = () => {
+const AssetMaintenance = () => {
   const navigate = useNavigate();
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      statename: "",
-      cityname: "",
-      companygroup: "",
-      plantname: "",
+      assetMaterial: "",
+      assetSubMaterial: "",
+      asset: "",
+      assetId:"",
     },
-    // validationSchema: Yup.object({
-    //   companyGroup: Yup.string().required("Company Group is Required"),
-    //   companyGroupCode: Yup.string().required("Company Group Code is Required"),
-    // }),.
     validationSchema: Yup.object({
-      statename: Yup.string().required("State name is required"),
-      cityname: Yup.string().required("City Name is required"),
-      companygroup: Yup.string().required("Company name is required"),
-      plantname: Yup.string().required("Location Name is required"),
+      assetMaterial: Yup.string().required("Asset Material is required"),
+      assetSubMaterial: Yup.string().required("Asset Sub-Material is required"),
+      asset: Yup.string().required("Asset is required"),
+      assetId: Yup.string().required("Asset  ID is required"),
+
     }),
 
-    onSubmit: async values => {
-      // console.log(values)
-      alert("validated !");
-      // try {
-      //   await axios.post(`http://localhost:3000/companygroup/`, values);
-      //   navigate("/companygroup");
-      // } catch (error) {
-      //   console.log("error in creating companygroup data: " + error);
-      // }
+    onSubmit: async (values) => {
+      console.log("Form submitted successfully!");
+      navigate("/asset_maintenance_next");
     },
   });
 
@@ -59,7 +50,7 @@ const BranchCreate = () => {
           <Card className="mt-5">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                LOCATION DETAILS
+                ASSET MAINTENANCE DETAILS
               </h1>
             </CardHeader>
 
@@ -73,31 +64,29 @@ const BranchCreate = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="companygroup">
-                            COMPANY GROUP/COUNTRY <font color="red">*</font>
+                          <Label htmlFor="assetMaterial">
+                            ASSET MATERIAL <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="companygroup"
-                            id="companygroup"
+                            name="assetMaterial"
+                            id="assetMaterial"
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.companygroup &&
-                              validation.errors.companygroup
+                              validation.touched.assetMaterial &&
+                              validation.errors.assetMaterial
                             }
                           >
-                            <option value="">
-                              Select Company Group/Country
-                            </option>
+                            <option value="">Select Asset Material</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
-                          {validation.touched.companygroup &&
-                          validation.errors.companygroup ? (
+                          {validation.touched.assetMaterial &&
+                          validation.errors.assetMaterial ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.companygroup}
+                              {validation.errors.assetMaterial}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
@@ -108,29 +97,29 @@ const BranchCreate = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="statename">
-                            STATE NAME <font color="red">*</font>
+                          <Label htmlFor="assetSubMaterial">
+                            ASSET SUB-MATERIAL <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="statename"
-                            id="statename"
+                            name="assetSubMaterial"
+                            id="assetSubMaterial"
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.statename &&
-                              validation.errors.statename
+                              validation.touched.assetSubMaterial &&
+                              validation.errors.assetSubMaterial
                             }
                           >
-                            <option value="">Select State Name</option>
+                            <option value="">Select Asset sub  Material</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
-                          {validation.touched.statename &&
-                          validation.errors.statename ? (
+                          {validation.touched.assetSubMaterial &&
+                          validation.errors.assetSubMaterial ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.statename}
+                              {validation.errors.assetSubMaterial}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
@@ -141,29 +130,29 @@ const BranchCreate = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="cityname">
-                            CITY NAME <font color="red">*</font>
+                          <Label htmlFor="asset">
+                            ASSET <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="cityname"
-                            id="cityname"
+                            name="asset"
+                            id="asset"
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.cityname &&
-                              validation.errors.cityname
+                              validation.touched.asset &&
+                              validation.errors.asset
                             }
                           >
-                            <option value="">Select City Name</option>
+                            <option value="">Select Asset</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
-                          {validation.touched.cityname &&
-                          validation.errors.cityname ? (
+                          {validation.touched.asset &&
+                          validation.errors.asset ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.cityname}
+                              {validation.errors.asset}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
@@ -174,29 +163,35 @@ const BranchCreate = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="plantname">
-                           LOCATION NAME<font color="red">*</font>
+                          <Label htmlFor="assetId">
+                            Asset ID <font color="red">*</font>
                           </Label>
                           <Input
-                            name="plantname"
-                            type="text"
+                            type="select"
+                            name="assetId"
+                            id="assetId"
                             className="form-control"
-                            id="plantname"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.plantname &&
-                              validation.errors.plantname
+                              validation.touched.assetId &&
+                              validation.errors.assetId
                             }
-                          />
-                          {validation.touched.plantname &&
-                          validation.errors.plantname ? (
+                          >
+                            <option value="">Select Asset ID</option>
+                            <option value="group1">Company Group 1</option>
+                            <option value="group2">Company Group 2</option>
+                          </Input>
+                          {validation.touched.assetId &&
+                          validation.errors.assetId ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.plantname}
+                              {validation.errors.assetId}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
                       </Col>
+
+                      <hr className="mb-2" />
                     </Row>
 
                     <div
@@ -224,22 +219,8 @@ const BranchCreate = () => {
                             marginRight: "30px",
                           }}
                         >
-                          CREATE
+                          NEXT
                         </Button>
-                        <button
-                          type="button"
-                          className="btn btn-secondary-subtle border border-secondary"
-                          onClick={() => {
-                            navigate("/branch");
-                          }}
-                          style={{
-                            paddingTop: "10px",
-                            width: "80px",
-                            height: "45px",
-                          }}
-                        >
-                          <Label>BACK</Label>
-                        </button>
                       </div>
                     </div>
                   </Form>
@@ -253,4 +234,6 @@ const BranchCreate = () => {
   );
 };
 
-export default BranchCreate;
+export default AssetMaintenance;
+
+

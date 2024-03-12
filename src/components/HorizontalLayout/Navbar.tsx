@@ -490,7 +490,7 @@ const Navbar = (props: any) => {
                           {props.t("Barcode")}
                         </Link>
                         <Link to="/qr_code" className="dropdown-item">
-                          {props.t("OR-Code")}
+                          {props.t("QR-Code")}
                         </Link>
                       </div>
                     </div>
@@ -513,7 +513,7 @@ const Navbar = (props: any) => {
                       {props.t("Link Software/Accessories")}
                     </Link> <Link to="/delink" className="dropdown-item">
                       {props.t("De-Link Software/Accessories")}
-                    </Link> <Link to="/approve_damaged_asset" className="dropdown-item">
+                    </Link> <Link to="/asset_maintenance" className="dropdown-item">
                       {props.t("Asset Maintenance")}
                     </Link>
                   </div>

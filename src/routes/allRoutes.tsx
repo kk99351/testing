@@ -275,6 +275,9 @@ import FloorUpdate from "src/pages/Master-Module/UpdatePage/FloorUpdate";
 import FloorCreate from "src/pages/Master-Module/CreatePages/FloorCreate";
 import AssetLink from "src/pages/Asset-Module/AssetLists/AssetLink";
 import AssetDeLink from "src/pages/Asset-Module/AssetLists/AssetDeLink";
+import AssetMaintance from "src/pages/Asset-Module/AssetLists/AssetMaintenance";
+import AssetMaintenance from "src/pages/Asset-Module/AssetLists/AssetMaintenance";
+import AssetMaintainancenext from "src/pages/Asset-Module/AssetLists/AssetMaintainancenext";
 
 interface RouteProps {
   path: string;
@@ -291,12 +294,19 @@ const userRoutes: Array<RouteProps> = [
   { path: "/all_asset", component: <AllAsset /> },
   { path: "/bills_entry", component: <BillsEntry /> },
   { path: "/via_bills", component: <ViaBill /> },
-  { path: "/barcode", component: <Barcode toggleCheckbox={function (...args: any[]) {
-    throw new Error("Function not implemented.");
-  } } /> },
-  { path: "/qr_code", component: <QrCode toggleCheckbox={function (...args: any[]) {
-    throw new Error("Function not implemented.");
-  } } /> },
+  // { path: "/barcode", component: <Barcode toggleCheckbox={function (...args: any[]) {
+  //   throw new Error("Function not implemented.");
+  // } } /> },
+  // { path: "/qr_code", component: <QrCode toggleCheckbox={function (...args: any[]) {
+  //   throw new Error("Function not implemented.");
+  // } } /> },
+  { path: "/barcode", component: <Barcode /> },
+
+  { path: "/qr_code", component: <QrCode /> },
+
+  { path: "/asset_maintenance", component: <AssetMaintenance /> },
+  { path: "/asset_maintenance_next", component: <AssetMaintainancenext /> },
+
   { path: "/bulk_asset_allocate", component: <BulkAssetAllocate /> },
   { path: "/deallocate", component: <DeAllocate /> },
   { path: "/damaged_asset", component: <DamagedAssets /> },
