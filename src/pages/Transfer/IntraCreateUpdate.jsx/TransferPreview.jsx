@@ -151,6 +151,70 @@ const TransferPreview = () => {
     ],
     []
   );
+  const requiredFields = {
+    tDate: "TRANSFER DATE",
+  };
+
+  const initialFormData = {
+    tDate: "",
+  };
+
+  const initialErrors = {};
+  Object.keys(requiredFields).forEach(key => {
+    initialFormData[key] = "";
+    initialErrors[key] = "";
+  });
+
+  const [formData, setFormData] = useState(initialFormData);
+  const [errors, setErrors] = useState(initialErrors);
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
+
+  const handleDropdownChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
+
+  const createHandle = async e => {
+    e.preventDefault();
+    let isValid = true;
+
+    Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
+      if (!formData[fieldName].trim()) {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          [fieldName]: `${fieldLabel} IS REQUIRED`,
+        }));
+        isValid = false;
+      }
+    });
+
+    if (isValid) {
+      try {
+        // await axios.post(`http://localhost:3000/region/`, formData);
+        // navigate("/company_group");
+        console.log("Form submitted successfully");
+      } catch (error) {
+        console.log("error in creating group data" + error);
+      }
+    }
+  };
 
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
@@ -199,9 +263,10 @@ const TransferPreview = () => {
                 INTRA TRANSFER DETAILS
               </h1>
             </CardHeader>
+
             <CardBody>
               <div className="container pt-0">
-                <div className="rmb-2 row">
+                <div className="row">
                   <div className="col-md-1">
                     <select className="form-select" style={{ width: "88PX" }}>
                       <option value="10">SHOW 10</option>
@@ -223,7 +288,7 @@ const TransferPreview = () => {
                             id="search-bar-0"
                             type="text"
                             className="form-control"
-                            placeholder="SEARCH..."
+                            placeholder="SEARCH...."
                             value={globalFilter || ""}
                             onChange={e => setGlobalFilter(e.target.value)}
                           />
@@ -236,6 +301,7 @@ const TransferPreview = () => {
                   <div className="col-sm-7 mb-2">
                     <div className="text-sm-end">
                       <Button
+                        onClick={createHandle}
                         className="btn btn-success-subtle border border-success"
                         style={{
                           paddingTop: "5px",
@@ -262,26 +328,32 @@ const TransferPreview = () => {
                   </div>
                 </div>
               </div>
-              <hr className=" mb-2 mt-2" />
-              <div>
-                <Row className="mb-2">
-                  <Col md={12}>
-                    <FormGroup className="mb-3">
-                      <Label htmlFor="companygroup">
-                        TRANSFER DATE <font color="red">*</font>
-                      </Label>
-                      <Input
-                        type="date"
-                        name="companygroup"
-                        id="companygroup"
-                        // className="form-control"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                      ></Input>
-                    </FormGroup>
-                  </Col>
-                </Row>
-              </div>
+              <hr className="md-2 mt-2" />
+              <Row className="justify-content-center">
+                <Col xl={12}>
+                  <form className="needs-validation" noValidate>
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <Label for="tDate">
+                          TRANSFER DATE<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="date"
+                          name="tDate"
+                          id="tDate"
+                          value={formData.tDate}
+                          onChange={handleInputChange}
+                          invalid={!!errors.tDate}
+                        />
+                        <span className="text-danger">{errors.tDate}</span>
+                      </Col>
+
+                      <hr className="mb-0 mt-3" />
+                    </Row>
+                  </form>
+                </Col>
+              </Row>
+
               <div className="table-responsive react-table">
                 <table
                   className="table table-bordered table-hover text-center"
@@ -329,16 +401,16 @@ const TransferPreview = () => {
                         prepareRow(row);
                         return (
                           <tr key={row.id} {...row.getRowProps()}>
-                            {row.cells.map(cell => {
-                              return (
-                                <td
-                                  key={cell.column.id}
-                                  {...cell.getCellProps()}
-                                >
-                                  {cell.render("Cell")}
-                                </td>
-                              );
-                            })}
+                            {row.cells.map(cell => (
+                              <td key={cell.column.id} {...cell.getCellProps()}>
+                                {cell.column.id !== "id"
+                                  ? // <Link to={`/modify_all_asset/${row.original.id}`}>
+                                    //      {cell.render("Cell")}
+                                    //    </Link>
+                                    cell.render("Cell")
+                                  : cell.render("Cell")}
+                              </td>
+                            ))}
                           </tr>
                         );
                       })
@@ -349,14 +421,13 @@ const TransferPreview = () => {
                           style={{ textAlign: "center" }}
                         >
                           {" "}
-                          No search results found.
+                          NO SEARCH RESULT FOUND{" "}
                         </td>
                       </tr>
                     )}
                   </tbody>
                 </table>
               </div>
-
               <div className="row">
                 <div className="col-sm-6">
                   <p className="ps-2">

@@ -164,7 +164,7 @@ const TransferApprovalPreview = () => {
           <Card className="mt-4">
           <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-              INTRA  TRANSFER REQUEST DETAILS
+              INTRA  TRANSFER APPROVE DETAILS
               </h1>
             </CardHeader>
             <div className="container pt-3">

@@ -85,7 +85,7 @@ const IntraTransfer = () => {
         accessor: "assetName",
       },
       {
-        Header: "REQUEST BY",
+        Header: "APPROVE BY",
         accessor: "allocateTo",
       },
       {
@@ -149,7 +149,6 @@ const IntraTransfer = () => {
                 INTRA TRANSFER DETAILS
               </h1>
             </CardHeader>
-            
             <div className="container pt-3">
               <div className="rmb-2 row">
                 <div className="col-md-1">
