@@ -85,7 +85,7 @@ const IntraTransfer = () => {
         accessor: "assetName",
       },
       {
-        Header: "APPROVE BY",
+        Header: "APPROVED BY",
         accessor: "allocateTo",
       },
       {
