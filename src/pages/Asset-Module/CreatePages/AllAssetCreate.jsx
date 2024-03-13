@@ -33,11 +33,10 @@ const AllAssetCreate = () => {
     leaseStatus: "Lease Status",
     leaseEndDate: "Lease End Date",
     license: "License ",
-  licenseStartDate: "License Start Date",
-  licenseEndDate: "License End Date",
-  policyNumber: "Policy Number",
-  providerName: "Provider Name",
-
+    licenseStartDate: "License Start Date",
+    licenseEndDate: "License End Date",
+    policyNumber: "Policy Number",
+    providerName: "Provider Name",
   };
 
   const initialFormData = {
@@ -68,11 +67,10 @@ const AllAssetCreate = () => {
     totalUnitPrice: "",
     netValue: "",
     license: "",
-  licenseStartDate: "",
-  licenseEndDate: "",
-  policyNumber: "",
-  providerName: "",
-    
+    licenseStartDate: "",
+    licenseEndDate: "",
+    policyNumber: "",
+    providerName: "",
   };
 
   const initialErrors = {};
@@ -140,7 +138,7 @@ const AllAssetCreate = () => {
     ],
     []
   );
-  
+
   const columns = useMemo(
     () => [
       {
@@ -249,7 +247,6 @@ const AllAssetCreate = () => {
       setShowLicenseDropdown(value === "Yes");
     }
   };
-
 
   const createHandle = async e => {
     e.preventDefault();
@@ -375,7 +372,6 @@ const AllAssetCreate = () => {
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
-
                     <Row className="mb-2">
                       <Col md={4}>
                         <Label for="assetRef">ASSET RFQ NUMBER</Label>
@@ -419,7 +415,6 @@ const AllAssetCreate = () => {
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
-
                     <Row className="mb-2">
                       <Col md={4}>
                         <Label for="storageType">STORAGE TYPE</Label>
@@ -670,107 +665,104 @@ const AllAssetCreate = () => {
                         </>
                       )}
                       <hr className="mb-0 mt-3" />
-                      
                     </Row>
                     <Row className="mb-2">
-  <Col md={12}>
-    <Label for="license">
-      LICENSE<font color="red">*</font>
-    </Label>
-    <Input
-      type="select"
-      name="license"
-      id="license"
-      value={formData.license}
-      onChange={handleLicenseDropdownChange}
-      invalid={!!errors.license}
-    >
-      <option value="">SELECT LICENSE</option>
-      <option value="Yes">YES</option>
-      <option value="No">NO</option>
-    </Input>
-    <span className="text-danger">
-      {errors.license}
-    </span>
-  </Col>
-  {showLeaseDates && formData.license === "Yes" && (
-    <>
-      <Col md={6}>
-        <hr className="mb-0 mt-3" />
-        <Label for="licenseStartDate">
-          LICENSE START DATE<font color="red">*</font>
-        </Label>
-        <Input
-          type="date"
-          name="licenseStartDate"
-          id="licenseStartDate"
-          value={formData.licenseStartDate}
-          onChange={handleInputChange}
-          invalid={!!errors.licenseStartDate}
-        />
-        <span className="text-danger">
-          {errors.licenseStartDate}
-        </span>
-      </Col>
-      <Col md={6}>
-        <hr className="mb-0 mt-3" />
-        <Label for="licenseEndDate">
-          LICENSE END DATE<font color="red">*</font>
-        </Label>
-        <Input
-          type="date"
-          name="licenseEndDate"
-          id="licenseEndDate"
-          value={formData.licenseEndDate}
-          onChange={handleInputChange}
-          invalid={!!errors.licenseEndDate}
-        />
-        <span className="text-danger">
-          {errors.licenseEndDate}
-        </span>
-      </Col>
-    </>  
-  )}
-  {showLeaseDates && formData.license === "Yes" && (
-    <>
-      <Col md={6}>
-        <hr className="mb-0 mt-3" />
-        <Label for="policyNumber">
-          POLICY NUMBER<font color="red">*</font>
-        </Label>
-        <Input
-          type="text"
-          name="policyNumber"
-          id="policyNumber"
-          value={formData.policyNumber}
-          onChange={handleInputChange}
-          invalid={!!errors.policyNumber}
-        />
-        <span className="text-danger">
-          {errors.policyNumber}
-        </span>
-      </Col>
-      <Col md={6}>
-        <hr className="mb-0 mt-3" />
-        <Label for="providerName">
-          PROVIDER NAME<font color="red">*</font>
-        </Label>
-        <Input
-          type="text"
-          name="providerName"
-          id="providerName"
-          value={formData.providerName}
-          onChange={handleInputChange}
-          invalid={!!errors.providerName}
-        />
-        <span className="text-danger">
-          {errors.providerName}
-        </span>
-      </Col>
-    </>
-  )}
-</Row>;
-
+                      <Col md={12}>
+                        <Label for="license">
+                          LICENSE<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="select"
+                          name="license"
+                          id="license"
+                          value={formData.license}
+                          onChange={handleLicenseDropdownChange}
+                          invalid={!!errors.license}
+                        >
+                          <option value="">SELECT LICENSE</option>
+                          <option value="Yes">YES</option>
+                          <option value="No">NO</option>
+                        </Input>
+                        <span className="text-danger">{errors.license}</span>
+                      </Col>
+                      {showLeaseDates && formData.license === "Yes" && (
+                        <>
+                          <Col md={6}>
+                            <hr className="mb-0 mt-3" />
+                            <Label for="licenseStartDate">
+                              LICENSE START DATE<font color="red">*</font>
+                            </Label>
+                            <Input
+                              type="date"
+                              name="licenseStartDate"
+                              id="licenseStartDate"
+                              value={formData.licenseStartDate}
+                              onChange={handleInputChange}
+                              invalid={!!errors.licenseStartDate}
+                            />
+                            <span className="text-danger">
+                              {errors.licenseStartDate}
+                            </span>
+                          </Col>
+                          <Col md={6}>
+                            <hr className="mb-0 mt-3" />
+                            <Label for="licenseEndDate">
+                              LICENSE END DATE<font color="red">*</font>
+                            </Label>
+                            <Input
+                              type="date"
+                              name="licenseEndDate"
+                              id="licenseEndDate"
+                              value={formData.licenseEndDate}
+                              onChange={handleInputChange}
+                              invalid={!!errors.licenseEndDate}
+                            />
+                            <span className="text-danger">
+                              {errors.licenseEndDate}
+                            </span>
+                          </Col>
+                        </>
+                      )}
+                      {showLeaseDates && formData.license === "Yes" && (
+                        <>
+                          <Col md={6}>
+                            <hr className="mb-0 mt-3" />
+                            <Label for="policyNumber">
+                              POLICY NUMBER<font color="red">*</font>
+                            </Label>
+                            <Input
+                              type="text"
+                              name="policyNumber"
+                              id="policyNumber"
+                              value={formData.policyNumber}
+                              onChange={handleInputChange}
+                              invalid={!!errors.policyNumber}
+                            />
+                            <span className="text-danger">
+                              {errors.policyNumber}
+                            </span>
+                          </Col>
+                          <Col md={6}>
+                            <hr className="mb-0 mt-3" />
+                            <Label for="providerName">
+                              PROVIDER NAME<font color="red">*</font>
+                            </Label>
+                            <Input
+                              type="text"
+                              name="providerName"
+                              id="providerName"
+                              value={formData.providerName}
+                              onChange={handleInputChange}
+                              invalid={!!errors.providerName}
+                            />
+                            <span className="text-danger">
+                              {errors.providerName}
+                            </span>
+                          </Col>
+                        </>
+                      )}
+                    </Row>
+                    ;
                     <Row className="mb-2">
                       <Col md={4}>
                         <Label for="additionalCost">ADDITIONAL COST</Label>
@@ -814,7 +806,6 @@ const AllAssetCreate = () => {
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
-
                     <div
                       style={{
                         display: "flex",
@@ -940,45 +931,45 @@ const AllAssetCreate = () => {
                     </table>
                   </div>
                   <div className="row">
-          <div className="col-sm-6">
-            <p className="ps-2">
-              Showing {pageIndex + 1} of {pageCount} pages
-            </p>
-          </div>
-          <div className="col-sm-6">
-            <div className="pagination justify-content-end pb-2 pe-2">
-              <button
-                className="btn btn-info"
-                disabled={pageIndex === 0}
-                onClick={() => gotoPage(0)}
-              >
-                FIRST
-              </button>
-              <button
-                className="btn btn-primary"
-                disabled={!canPreviousPage}
-                onClick={previousPage}
-              >
-                PRE
-              </button>
-              <span className="btn btn-light">{pageIndex + 1}</span>
-              <button
-                className="btn btn-primary"
-                disabled={!canNextPage}
-                onClick={nextPage}
-              >
-                NEXT
-              </button>
-              <button
-                className="btn btn-info"
-                disabled={pageIndex >= pageCount - 1}
-                onClick={() => gotoPage(pageCount - 1)}
-              >
-                LAST
-              </button>
-            </div>
-          </div>
-        </div>
+                    <div className="col-sm-6">
+                      <p className="ps-2">
+                        Showing {pageIndex + 1} of {pageCount} pages
+                      </p>
+                    </div>
+                    <div className="col-sm-6">
+                      <div className="pagination justify-content-end pb-2 pe-2">
+                        <button
+                          className="btn btn-info"
+                          disabled={pageIndex === 0}
+                          onClick={() => gotoPage(0)}
+                        >
+                          FIRST
+                        </button>
+                        <button
+                          className="btn btn-primary"
+                          disabled={!canPreviousPage}
+                          onClick={previousPage}
+                        >
+                          PRE
+                        </button>
+                        <span className="btn btn-light">{pageIndex + 1}</span>
+                        <button
+                          className="btn btn-primary"
+                          disabled={!canNextPage}
+                          onClick={nextPage}
+                        >
+                          NEXT
+                        </button>
+                        <button
+                          className="btn btn-info"
+                          disabled={pageIndex >= pageCount - 1}
+                          onClick={() => gotoPage(pageCount - 1)}
+                        >
+                          LAST
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </Col>
               </Row>
             </CardBody>

@@ -1037,7 +1037,7 @@ const BarcodePage = () => {
   const handleDeallocate = () => {
     console.log("Deallocate button clicked");
     if (selectedRows.length > 0) {
-      setBarcodeData(selectedRows); // Set selectedRows instead of selectedRows[0]
+      setBarcodeData(selectedRows); 
     }
   };
 
@@ -1335,9 +1335,11 @@ const BarcodePage = () => {
                         ))}
                       </tbody>
                     </Table>
-                    {filteredData.length === 0 && (
-                      <div className="text-center">No data found</div>
-                    )}
+                    <div className="text-center">
+                {filteredData.length === 0 && (
+                  <div>No search results found</div>
+                )}
+              </div>
                   </div>
                 </div>
               </CardBody>

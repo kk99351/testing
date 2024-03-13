@@ -1,19 +1,15 @@
-import React, { useMemo, useState } from "react";
-import { Container, Card, CardHeader, Button } from "reactstrap";
+import React, { useMemo, useEffect, useState } from "react";
+import { Container,CardHeader, Button, Card } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-
 import {
   useTable,
   useGlobalFilter,
   useSortBy,
   usePagination,
 } from "react-table";
+import PropTypes from "prop-types"; // Import PropTypes
 
-const IntraTransfer = () => {
-  IntraTransfer.propTypes = {
-    row: PropTypes.object.isRequired,
-  };
+const TransferApprovalPreview = () => {
   const demoData = [
     {
       slno: 1,
@@ -26,48 +22,58 @@ const IntraTransfer = () => {
       type: "Electronic",
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
+      slno: 2,
+      assetId: "A002",
+      assetName: "Desktop",
+      serialNumber: "SN002",
+      invoiceNumber: "INV-002",
       status: "Active",
-      allocateTo: "John Doe",
+      allocateTo: "Jane Smith",
       type: "Electronic",
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      slno: 3,
+      assetId: "A003",
+      assetName: "Printer",
+      serialNumber: "SN003",
+      invoiceNumber: "INV-003",
+      status: "Inactive",
+      allocateTo: "Alice Johnson",
+      type: "Peripheral",
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
+      slno: 4,
+      assetId: "A004",
+      assetName: "Monitor",
+      serialNumber: "SN004",
+      invoiceNumber: "INV-004",
       status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      allocateTo: "Bob Smith",
+      type: "Peripheral",
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
+      slno: 4,
+      assetId: "A004",
+      assetName: "Monitor",
+      serialNumber: "SN004",
+      invoiceNumber: "INV-004",
       status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      allocateTo: "Bob Smith",
+      type: "Peripheral",
+    },
+    {
+      slno: 4,
+      assetId: "A004",
+      assetName: "Monitor",
+      serialNumber: "SN004",
+      invoiceNumber: "INV-004",
+      status: "Active",
+      allocateTo: "Bob Smith",
+      type: "Peripheral",
     },
   ];
 
-  const [responseData] = useState(demoData);
+  const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
 
   const columns = useMemo(
@@ -75,31 +81,39 @@ const IntraTransfer = () => {
       {
         Header: "SL NO",
         accessor: "slno",
+        disableFilters: true,
+        filterable: true,
       },
       {
-        Header: "REQUEST NUMBER",
+        Header: "ASSET ID",
         accessor: "assetId",
+        disableFilters: true,
+        filterable: true,
       },
       {
-        Header: "REQUEST DATE",
+        Header: "ASSET NAME",
         accessor: "assetName",
+        disableFilters: true,
+        filterable: true,
       },
       {
-        Header: "REQUEST BY",
-        accessor: "allocateTo",
+        Header: "SERIAL NUMBER",
+        accessor: "serialNumber",
+        disableFilters: true,
+        filterable: true,
       },
       {
-        Header: "TRANSFER",
+        Header: "ASSET DISCRIPTION",
         accessor: "invoiceNumber",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "CHECK/UNCHECK",
+        id: "checkbox",
+        accessor: "",
         Cell: ({ row }) => (
-          <Link to={`/intra_transfer_preview/${row.original.assetId}`}>
-            {/* <Button
-              size="MD"
-              className="btn btn-success-subtle border border-success"
-            > */}
-            TRANSFER
-            {/* </Button> */}
-          </Link>
+          <input type="checkbox" checked={row.isSelected} onChange={() => {}} />
         ),
       },
     ],
@@ -123,10 +137,11 @@ const IntraTransfer = () => {
     previousPage,
     canPreviousPage,
     canNextPage,
-    state: { pageIndex, globalFilter },
+    state: { pageIndex, globalFilter, selectedRowIds },
     pageCount,
     gotoPage,
     setGlobalFilter,
+    setSelectedRows, // Add setSelectedRows to destructuring
   } = useTable(
     {
       columns,
@@ -138,23 +153,24 @@ const IntraTransfer = () => {
     usePagination
   );
 
+  useEffect(() => {
+    console.log("Selected Row Ids:", selectedRowIds);
+  }, [selectedRowIds]);
+
   return (
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card>
-            {" "}
-            <CardHeader>
+          <Card className="mt-4">
+          <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                INTRA TRANSFER DETAILS
+              INTRA  TRANSFER REQUEST DETAILS
               </h1>
             </CardHeader>
-            
             <div className="container pt-3">
               <div className="rmb-2 row">
                 <div className="col-md-1">
                   <select className="form-select" style={{ width: "88PX" }}>
-                    {" "}
                     <option value="10">SHOW 10</option>
                     <option value="20">SHOW 20</option>
                     <option value="30">SHOW 30</option>
@@ -181,6 +197,45 @@ const IntraTransfer = () => {
                         <i className="bx bx-search-alt search-icon"></i>
                       </label>
                     </div>
+                  </div>
+                </div>
+
+                <div className="col-sm-7 mb-2">
+                  <div className="text-sm-end">
+                    <Button
+                      className="btn btn-success-subtle border border-success"
+                      style={{
+                        paddingTop: "5px",
+                        width: "90px",
+                        height: "35px",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      APPROVE{" "}
+                    </Button>
+                    <Button
+                      className="btn btn-secondary-subtle border border-secondary"
+                      onClick={() => navigate("/intra_transfer_approval")}
+                      style={{
+                        paddingTop: "5px",
+                        width: "80px",
+                        height: "35px",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      CANCEL{" "}
+                    </Button>
+                    <Button
+                      className="btn btn-success-subtle border border-success"
+                      style={{
+                        paddingTop: "5px",
+                        width: "80px",
+                        height: "35px",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      REJECT{" "}
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -232,11 +287,13 @@ const IntraTransfer = () => {
                       prepareRow(row);
                       return (
                         <tr key={row.id} {...row.getRowProps()}>
-                          {row.cells.map(cell => (
-                            <td key={cell.column.id} {...cell.getCellProps()}>
-                              {cell.render("Cell")}
-                            </td>
-                          ))}
+                          {row.cells.map(cell => {
+                            return (
+                              <td key={cell.column.id} {...cell.getCellProps()}>
+                                {cell.render("Cell")}
+                              </td>
+                            );
+                          })}
                         </tr>
                       );
                     })
@@ -246,13 +303,15 @@ const IntraTransfer = () => {
                         colSpan={headerGroups[0].headers.length}
                         style={{ textAlign: "center" }}
                       >
-                        NO SEARCH REASULT FOUND
+                        {" "}
+                        No search results found.
                       </td>
                     </tr>
                   )}
                 </tbody>
               </table>
             </div>
+
             <div className="row">
               <div className="col-sm-6">
                 <p className="ps-2">
@@ -300,4 +359,12 @@ const IntraTransfer = () => {
   );
 };
 
-export default IntraTransfer;
+TransferApprovalPreview.propTypes = {
+  row: PropTypes.object, // Add prop validation for row object
+};
+
+TransferApprovalPreview.defaultProps = {
+  row: {}, // Set default value for row object
+};
+
+export default TransferApprovalPreview;

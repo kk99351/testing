@@ -8,7 +8,7 @@ const Footer = () => {
       <footer className="footer">
         <Container fluid={true}>
           <Row>
-            <Col md={6}>{"eZATLAS Copyright © "+new Date().getFullYear()}</Col>
+            <Col md={6}>{"ezAtlas Copyright © "+new Date().getFullYear()}</Col>
             <Col md={6}>
               <div className="text-sm-end d-none d-sm-block">
               HOLKAR CONSULTANCY SERVICE TECHNOLOGIES PVT LTD  <Link to="https://ezatlas.com/" target="_blank" rel="noreferrer" className="text-reset">All rights reserved.</Link>

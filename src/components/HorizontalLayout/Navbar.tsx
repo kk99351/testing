@@ -376,11 +376,7 @@ const Navbar = (props: any) => {
                   </div>
                 </li>
 
-
-
-
-
-  {/* ASSET MASTER */}
+                {/* ASSET MASTER */}
                 <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle arrow-none"
@@ -476,11 +472,7 @@ const Navbar = (props: any) => {
                   </div>
                 </li>
 
-
-
-
-
-{/* TRANSFER REQUEST */}
+                {/* TRANSFER REQUEST */}
 
                 <li className="nav-item dropdown">
                   <Link
@@ -491,7 +483,7 @@ const Navbar = (props: any) => {
                       settransfer(!transfer);
                     }}
                   >
-                    <Icon name="database" /> <span>{props.t("TRANSFER")}</span>
+                    <Icon name="repeat" /> <span>{props.t("TRANSFER")}</span>
                     <div className="arrow-down"></div>
                   </Link>
 
@@ -513,17 +505,26 @@ const Navbar = (props: any) => {
                           show: addtostore,
                         })}
                       >
-                        <Link to="/intra_transfer_request" className="dropdown-item">
+                        <Link
+                          to="/intra_transfer_request"
+                          className="dropdown-item"
+                        >
                           {props.t("Transfer-Request")}
                         </Link>
-                        <Link to="/intra_transfer_approval" className="dropdown-item">
+                        <Link
+                          to="/intra_transfer_approval"
+                          className="dropdown-item"
+                        >
                           {props.t("Transfer-Approval")}
                         </Link>
                         <Link to="/intra_transfer" className="dropdown-item">
                           {props.t("Transfer")}
                         </Link>
-                        <Link to="/intra_recieve_assets" className="dropdown-item">
-                          {props.t("Receive-Assets")}
+                        <Link
+                          to="/intra_recieve_assets"
+                          className="dropdown-item"
+                        >
+                          {props.t("Intra-Receive-Assets")}
                         </Link>
                       </div>
                     </div>
@@ -542,10 +543,16 @@ const Navbar = (props: any) => {
                       <div
                         className={classname("dropdown-menu", { show: tag })}
                       >
-                        <Link to="/inter_transfer_request" className="dropdown-item">
+                        <Link
+                          to="/inter_transfer_request"
+                          className="dropdown-item"
+                        >
                           {props.t("Transfer-Request")}
                         </Link>
-                        <Link to="/inter_transfer_approval" className="dropdown-item">
+                        <Link
+                          to="/inter_transfer_approval"
+                          className="dropdown-item"
+                        >
                           {props.t("Transfer-Approval")}
                         </Link>
                         <Link to="/inter_transfer" className="dropdown-item">
@@ -554,10 +561,16 @@ const Navbar = (props: any) => {
                         <Link to="/print_gate_pass" className="dropdown-item">
                           {props.t("Print-Gate-Pass")}
                         </Link>
-                        <Link to="/inter_recieve_assets" className="dropdown-item">
-                          {props.t("Receive-Assets")}
+                        <Link
+                          to="/inter_recieve_assets"
+                          className="dropdown-item"
+                        >
+                          {props.t("Inter-Receive-Assets")}
                         </Link>
-                        <Link to="/inter_return_acknowledge" className="dropdown-item">
+                        <Link
+                          to="/inter_return_acknowledge"
+                          className="dropdown-item"
+                        >
                           {props.t("Return-Acknowledge")}
                         </Link>
                       </div>

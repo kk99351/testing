@@ -288,6 +288,9 @@ import IntraTransferRequest from "src/pages/Transfer/IntraTransfer.jsx/IntraTran
 import IntraTransferApproval from "src/pages/Transfer/IntraTransfer.jsx/IntraTransferApproval";
 import IntraTransfer from "src/pages/Transfer/IntraTransfer.jsx/IntraTransfer";
 import IntraRecieveAssets from "src/pages/Transfer/IntraTransfer.jsx/IntraRecieveAssets";
+import TransferApprovalPreview from "src/pages/Transfer/IntraCreateUpdate.jsx/TransferApprovalPreview";
+import TransferPreview from "src/pages/Transfer/IntraCreateUpdate.jsx/TransferPreview";
+import RecieveAssetPreview from "src/pages/Transfer/IntraCreateUpdate.jsx/RecieveAssetPreview";
 
 interface RouteProps {
   path: string;
@@ -348,6 +351,9 @@ const userRoutes: Array<RouteProps> = [
   { path: "/intra_transfer", component: <IntraTransfer /> },
   { path: "/intra_recieve_assets", component: <IntraRecieveAssets /> },
 
+  { path: "/intra_transfer_approval_preview/:id", component: <TransferApprovalPreview /> },
+  { path: "/intra_transfer_preview/:id", component: <TransferPreview /> },
+  { path: "/intra_recieve_asset_preview/:id", component: <RecieveAssetPreview /> },
 
 
 
