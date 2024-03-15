@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Container, Card, CardHeader, Button } from "reactstrap";
+import { Container, Card, CardHeader, Button, CardBody } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -149,6 +149,7 @@ const IntraTransfer = () => {
                 INTRA TRANSFER DETAILS
               </h1>
             </CardHeader>
+            <CardBody>
             <div className="container pt-3">
               <div className="rmb-2 row">
                 <div className="col-md-1">
@@ -292,6 +293,7 @@ const IntraTransfer = () => {
                 </div>
               </div>
             </div>
+            </CardBody>
           </Card>
         </div>
       </Container>

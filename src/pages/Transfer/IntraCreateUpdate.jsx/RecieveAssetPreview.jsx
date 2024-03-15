@@ -747,7 +747,7 @@ const TransferPreview = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.rDate}
                         />
-                        <span className="text-danger">{errors.rDate}</span>
+                        <span className="invalid-feedback">{errors.rDate}</span>
                       </Col>
 
                       <hr className="mb-0 mt-3" />

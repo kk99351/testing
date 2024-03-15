@@ -1233,7 +1233,7 @@ const  IntraTransferRequest= () => {
                           <option value="amgroup2c">GROUP 1</option>
                           <option value="wargrpop3renty">GROUP 1</option>
                         </Input>
-                        <span className="text-danger">{errors.floor}</span>
+                        <span className="invalid-feedback">{errors.floor}</span>
                       </Col>
 
                       <hr className="mb-0 mt-3" />
