@@ -75,6 +75,7 @@ const IntraTransfer = () => {
       {
         Header: "SL NO",
         accessor: "slno",
+        width: "6%", // Set the width to 6%
       },
       {
         Header: "REQUEST NUMBER",
@@ -93,18 +94,14 @@ const IntraTransfer = () => {
         accessor: "invoiceNumber",
         Cell: ({ row }) => (
           <Link to={`/intra_transfer_preview/${row.original.assetId}`}>
-            {/* <Button
-              size="MD"
-              className="btn btn-success-subtle border border-success"
-            > */}
             TRANSFER
-            {/* </Button> */}
           </Link>
         ),
       },
     ],
     []
   );
+  
 
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
@@ -197,18 +194,8 @@ const IntraTransfer = () => {
                       {...headerGroup.getHeaderGroupProps()}
                     >
                       {headerGroup.headers.map(column => (
-                        <th
-                          key={column.id}
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                          style={
-                            column.id === "slno"
-                              ? { width: "6%" }
-                              : { backgroundColor: "" }
-                          }
-                          className="text-center"
-                        >
+                         <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
+
                           <div className="d-flex justify-content-center">
                             <span className="font-weight-bold">
                               {column.render("Header")}

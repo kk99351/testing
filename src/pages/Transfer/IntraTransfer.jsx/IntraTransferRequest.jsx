@@ -691,7 +691,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 
-const  IntraTransferRequest= () => {
+const IntraTransferRequest = () => {
   const [showTable, setShowTable] = useState(false);
   const navigate = useNavigate();
 
@@ -739,6 +739,7 @@ const  IntraTransferRequest= () => {
       {
         Header: "SL NO",
         accessor: "slno",
+        width:"6%",
         disableFilters: true,
         filterable: true,
       },
@@ -1259,12 +1260,7 @@ const  IntraTransferRequest= () => {
                             {...column.getHeaderProps(
                               column.getSortByToggleProps()
                             )}
-                            style={
-                              column.id === "slno"
-                                ? { width: "6%" }
-                                : { backgroundColor: "" }
-                            }
-                            className="text-center"
+                            style={{ width: column.width }}
                           >
                             <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">

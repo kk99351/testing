@@ -291,6 +291,10 @@ import IntraRecieveAssets from "src/pages/Transfer/IntraTransfer.jsx/IntraReciev
 import TransferApprovalPreview from "src/pages/Transfer/IntraCreateUpdate.jsx/TransferApprovalPreview";
 import TransferPreview from "src/pages/Transfer/IntraCreateUpdate.jsx/TransferPreview";
 import RecieveAssetPreview from "src/pages/Transfer/IntraCreateUpdate.jsx/RecieveAssetPreview";
+import InterTransferApprovePreview from "src/pages/Transfer/InterCreateUpdate.jsx/InterTransferApprovePreview";
+import InterTransferPreview from "src/pages/Transfer/InterCreateUpdate.jsx/InterTransferPreview";
+import InterRecieveAssetsPreview from "src/pages/Transfer/InterCreateUpdate.jsx/InterRecieveAssetsPreview";
+import ReturnAknowPreview from "src/pages/Transfer/InterCreateUpdate.jsx/ReturnAknowPreview";
 
 interface RouteProps {
   path: string;
@@ -345,6 +349,12 @@ const userRoutes: Array<RouteProps> = [
   { path: "/print_gate_pass", component: <PrintGatePass /> },
   { path: "/inter_recieve_assets", component: <ReceiveAssets /> },
   { path: "/inter_return_acknowledge", component: <ReturnAknow /> },
+
+  { path: "/inter_transfer_approval_preview/:id", component: <InterTransferApprovePreview /> },
+  { path: "/inter_transfer_preview/:id", component: <InterTransferPreview /> },
+  { path: "/inter_recieve_asset_preview/:id", component: <InterRecieveAssetsPreview /> },
+  { path: "/inter_return_acknowledge_preview/:id", component: <ReturnAknowPreview /> },
+
 
   { path: "/intra_transfer_request", component: <IntraTransferRequest /> },
   { path: "/intra_transfer_approval", component: <IntraTransferApproval /> },

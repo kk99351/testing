@@ -75,6 +75,7 @@ const IntraTransferApproval = () => {
       {
         Header: "SL NO",
         accessor: "slno",
+        width:"6%",
       },
       {
         Header: "REQUEST NUMBER",
@@ -196,18 +197,7 @@ const IntraTransferApproval = () => {
                       {...headerGroup.getHeaderGroupProps()}
                     >
                       {headerGroup.headers.map(column => (
-                        <th
-                          key={column.id}
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                          style={
-                            column.id === "slno"
-                              ? { width: "6%" }
-                              : { backgroundColor: "" }
-                          }
-                          className="text-center"
-                        >
+                          <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
                           <div className="d-flex justify-content-center">
                             <span className="font-weight-bold">
                               {column.render("Header")}
