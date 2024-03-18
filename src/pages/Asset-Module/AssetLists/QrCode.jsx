@@ -688,7 +688,7 @@ const QrCode = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-3">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 QR CODE DETAILS
@@ -697,7 +697,7 @@ const QrCode = () => {
 
             <CardBody>
               <Row className="justify-content-center">
-                <Col xl={12}>
+                <Col xl={10}>
                   <Form
                     className="needs-validation"
                     onSubmit={validation.handleSubmit}
@@ -706,20 +706,19 @@ const QrCode = () => {
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="cat">
-                            MATERIAL <font color="red">*</font>
+                            MATERIAL GROUP <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
                             name="cat"
                             id="cat"
-                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.cat && validation.errors.cat
                             }
                           >
-                            <option value="">Select Material</option>
+                            <option value="">SELECT MATERIAL GROUP</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
@@ -734,13 +733,12 @@ const QrCode = () => {
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="subCat">
-                            SUB-MATERIAL <font color="red">*</font>
+                            MATERIAL SUB GROUP <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
                             name="subCat"
                             id="subCat"
-                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -748,7 +746,7 @@ const QrCode = () => {
                               validation.errors.subCat
                             }
                           >
-                            <option value="">Select Sub Material</option>
+                            <option value="">SELECT MATERIAL SUB GROUP</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
@@ -760,8 +758,6 @@ const QrCode = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-
-                      <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
                       <Col md={6}>
@@ -773,14 +769,13 @@ const QrCode = () => {
                             type="select"
                             name="poNo"
                             id="poNo"
-                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.poNo && validation.errors.poNo
                             }
                           >
-                            <option value="">Select Asset</option>
+                            <option value="">SELECT PO.NUMBER</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
@@ -801,7 +796,6 @@ const QrCode = () => {
                             type="select"
                             name="invoiceNo"
                             id="invoiceNo"
-                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -809,7 +803,7 @@ const QrCode = () => {
                               validation.errors.invoiceNo
                             }
                           >
-                            <option value="">Select Invoice Number</option>
+                            <option value="">SELECT INVOICE NUMBER</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
@@ -864,86 +858,93 @@ const QrCode = () => {
             <Card className="mt-3">
               <CardBody>
                 <div>
-                  <div className="container pt-1">
-                    <div className="row">
-                      <div className="col-md-4">
-                        <div className="search-box me-2 my-3 my-md-0 d-inline-block">
-                          <div className="position-relative">
-                            <label
-                              htmlFor="search-bar-0"
-                              className="search-label"
-                            >
-                              <span id="search-bar-0-label" className="sr-only">
-                                Search this table
-                              </span>
-                              <input
-                                id="search-bar-0"
-                                type="text"
-                                className="form-control"
-                                placeholder="Search..."
-                                value={searchValue}
-                                onChange={handleInputChange}
-                              />
-                              <i className="bx bx-search-alt search-icon"></i>
-                            </label>
+                  <Row className="justify-content-center">
+                    <Col xl={10}>
+                      <div className="container pt-1">
+                        <div className="row">
+                          <div className="col-md-4">
+                            <div className="search-box me-2 my-3 my-md-0 d-inline-block">
+                              <div className="position-relative">
+                                <label
+                                  htmlFor="search-bar-0"
+                                  className="search-label"
+                                >
+                                  <span
+                                    id="search-bar-0-label"
+                                    className="sr-only"
+                                  >
+                                    Search this table
+                                  </span>
+                                  <input
+                                    id="search-bar-0"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Search..."
+                                    value={searchValue}
+                                    onChange={handleInputChange}
+                                  />
+                                  <i className="bx bx-search-alt search-icon"></i>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="col-sm-8">
+                            <div className="text-sm-end">
+                              <button
+                                type="button"
+                                className="btn btn-success-subtle border border-success"
+                                onClick={handleGenerateQR}
+                              >
+                                <i className="mdi me-1"></i>
+                                PREVIEW
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
 
-                      <div className="col-sm-8">
-                        <div className="text-sm-end">
-                          <button
-                            type="button"
-                            className="btn btn-success-subtle border border-success"
-                            onClick={handleGenerateQR}
-                          >
-                            <i className="mdi me-1"></i>
-                            PREVIEW
-                          </button>
-                        </div>
+                      <div className="table-responsive">
+                        <Table className="table table-bordered table-hover text-center">
+                          <thead>
+                            <tr>
+                              <th>SL NO</th>
+                              <th>ASSET ID</th>
+                              <th>ASSET REF.NO</th>
+                              <th>SERIAL NUMBER</th>
+                              <th>SUB MATERIAL</th>
+                              <th>CHECK/UNCHECK</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {filteredData.map((row, index) => (
+                              <tr key={index}>
+                                <td>{row.slno}</td>
+                                <td>{row.assetId}</td>
+                                <td>{row.assetName}</td>
+                                <td>{row.serialNumber}</td>
+                                <td>{row.assetName}</td>
+                                <td
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    marginBottom: "20px",
+                                  }}
+                                >
+                                  <Input
+                                    type="checkbox"
+                                    checked={row.checked}
+                                    onChange={() => handleCheckboxChange(index)}
+                                  />
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </Table>
+                        {filteredData.length === 0 && <div>No data found</div>}
                       </div>
-                    </div>
-                  </div>
-
-                  <div className="table-responsive">
-                    <Table className="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>SL NO</th>
-                          <th>ASSET ID</th>
-                          <th>ASSET REF.NO</th>
-                          <th>SERIAL NUMBER</th>
-                          <th>SUB MATERIAL</th>
-                          <th>CHECK/UNCHECK</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {filteredData.map((row, index) => (
-                          <tr key={index}>
-                            <td>{row.slno}</td>
-                            <td>{row.assetId}</td>
-                            <td>{row.assetName}</td>
-                            <td>{row.serialNumber}</td>
-                            <td>{row.assetName}</td>
-                            <td
-                              style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                marginBottom: "20px",
-                              }}
-                            >
-                              <Input
-                                type="checkbox"
-                                checked={row.checked}
-                                onChange={() => handleCheckboxChange(index)}
-                              />
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </Table>
-                    {filteredData.length === 0 && <div>No data found</div>}
-                  </div>
+                    </Col>
+                  </Row>
                 </div>
               </CardBody>
             </Card>

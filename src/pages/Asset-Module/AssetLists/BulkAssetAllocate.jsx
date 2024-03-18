@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Col,
   Row,
@@ -12,8 +12,19 @@ import {
   Table,
 } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+
+import {
+  useTable,
+  useGlobalFilter,
+  useSortBy,
+  usePagination,
+} from "react-table";
 
 const BulkAssetAllocate = () => {
+  BulkAssetAllocate.propTypes = {
+    row: PropTypes.object.isRequired,
+  };
   const [responseData, setResponseData] = useState([
     {
       slno: 1,
@@ -30,6 +41,23 @@ const BulkAssetAllocate = () => {
       assetName: "Desktop",
       serialNumber: "SN002",
       assetRemarks: "INV-002",
+      checked: false,
+    },
+    {
+      slno: 3,
+      assetId: "A003",
+      assetName: "Printer",
+      serialNumber: "SN003",
+      assetRemarks: "INV-003",
+      allocateType: "Inactive",
+      checked: false,
+    },{
+      slno: 3,
+      assetId: "A003",
+      assetName: "Printer",
+      serialNumber: "SN003",
+      assetRemarks: "INV-003",
+      allocateType: "Inactive",
       checked: false,
     },
     {
@@ -69,8 +97,8 @@ const BulkAssetAllocate = () => {
     }));
   }, [responseData]);
   const requiredFields = {
-    assignTo: "Assign To",
-    flr: "Floor",
+    assignTo: "ASSIGN TO",
+    flr: "FLOOR",
   };
   const initialFormData = {
     assignTo: "",
@@ -82,7 +110,61 @@ const BulkAssetAllocate = () => {
     initialFormData[key] = "";
     initialErrors[key] = "";
   });
-
+  const columns = useMemo(
+    () => [
+      {
+        Header: "SL NO",
+        accessor: "slno",
+        width: "6%", // Set the width to 6%
+      },
+      {
+        Header: "ASSET ID",
+        accessor: "assetId",
+      },
+      {
+        Header: "ASSET NAME",
+        accessor: "assetName",
+      },
+      {
+        Header: "SERIAL NUMBER",
+        accessor: "allocateTo",
+      },
+      {
+        Header: "ASSET REMARKS",
+        accessor: "assetRemarks",
+        Cell: ({ row }) => (
+          <Input
+            type="text"
+            value={row.original.assetRemarks}
+            onChange={(e) => handleAssetRemarkChange(row.index, e.target.value)}
+          />
+        ),
+      },
+      {
+        Header: "ALLOCATION TYPE",
+        accessor: "allocateType",
+        Cell: ({ row }) => (
+          <Input
+            type="select"
+            value={row.original.allocateType}
+            onChange={(e) => handleAllocationTypeChange(row.index, e.target.value)}
+          >
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </Input>
+        ),
+      },
+      {
+        Header: "CHECK/UNCHECK",
+        id: "checkbox",
+        accessor: "",
+        Cell: ({ row }) => (
+          <input type="checkbox" checked={row.isSelected} onChange={() => {}} />
+        ),
+      },
+    ],
+    []
+  );
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
 
@@ -109,7 +191,53 @@ const BulkAssetAllocate = () => {
       [name]: "",
     }));
   };
-
+  const handleAssetRemarkChange = (index, value) => {
+    setResponseData(prevData => {
+      const newData = [...prevData];
+      newData[index] = {
+        ...newData[index],
+        assetRemarks: value
+      };
+      return newData;
+    });
+  };
+  
+  const handleAllocationTypeChange = (index, value) => {
+    setResponseData(prevData => {
+      const newData = [...prevData];
+      newData[index] = {
+        ...newData[index],
+        allocateType: value
+      };
+      return newData;
+    });
+  };
+  
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    nextPage,
+    previousPage,
+    canPreviousPage,
+    canNextPage,
+    state: { pageIndex, globalFilter, selectedRowIds },
+    pageCount,
+    gotoPage,
+    setSelectedRows, 
+    setGlobalFilter,
+  } = useTable(
+    {
+      columns,
+      data: dataWithSlno,
+      initialState: { pageSize: 5 },
+    },
+    useGlobalFilter,
+    useSortBy,
+    usePagination
+  );
   const AllocateHandle = async e => {
     e.preventDefault();
     let isValid = true;
@@ -118,7 +246,7 @@ const BulkAssetAllocate = () => {
       if (!formData[fieldName].trim()) {
         setErrors(prevErrors => ({
           ...prevErrors,
-          [fieldName]: `${fieldLabel} is required`,
+          [fieldName]: `${fieldLabel} IS REQUIRED`,
         }));
         isValid = false;
       }
@@ -134,29 +262,15 @@ const BulkAssetAllocate = () => {
       }
     }
   };
-
-  const handleCheckboxChange = index => {
-    const updatedData = [...responseData];
-    updatedData[index].checked = !updatedData[index].checked;
-    setResponseData(updatedData);
-  };
-  const handleRemarkChange = (e, index) => {
-    const updatedData = [...responseData];
-    updatedData[index].assetRemarks = e.target.value;
-    setResponseData(updatedData);
-  };
-
-  const handleAllocateTypeChange = (e, index) => {
-    const updatedData = [...responseData];
-    updatedData[index].allocateType = e.target.value;
-    setResponseData(updatedData);
-  };
+  useEffect(() => {
+    console.log("Selected Row Ids:", selectedRowIds);
+  }, [selectedRowIds]);
 
   return (
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-3">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 BULK ASSET ALOCATION DETAILS
@@ -165,88 +279,86 @@ const BulkAssetAllocate = () => {
             <CardBody>
               {/* <Row className="justify-content-center">
                 <Col xl={10}> */}
-                  <form className="needs-validation" noValidate>
-                    <Row className="mb-2">
-                      <Col md={4}>
-                        <Label for="assignTo">
-                          ASSIGN TO<font color="red">*</font>
-                        </Label>
-                        <Input
-                          type="select"
-                          name="assignTo"
-                          id="assignTo"
-                          value={formData.assignTo}
-                          onChange={handleDropdownChange}
-                          invalid={!!errors.assignTo}
-                        >
-                          <option value="">SELECT ASSIGN TO</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
-                        </Input>
-                        <span className="text-danger">{errors.assignTo}</span>
-                      </Col>
-                      <Col md={4}>
-                        <Label for="flr">
-                          FLOOR<font color="red">*</font>
-                        </Label>
-                        <Input
-                          type="select"
-                          name="flr"
-                          id="flr"
-                          value={formData.flr}
-                          onChange={handleDropdownChange}
-                          invalid={!!errors.flr}
-                        >
-                          <option value="">SELECT FLOOR</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
-                        </Input>
-                        <span className="text-danger">{errors.flr}</span>
-                      </Col>
-                      <Col md={4}>
-                        <Label for="alocationDate">ALLOCATE DATE</Label>
-                        <Input
-                          type="date"
-                          name="alocationDate"
-                          id="alocationDate"
-                          value={formData.alocationDate}
-                          onChange={handleInputChange}
-                          invalid={!!errors.alocationDate}
-                        />
-                        <span className="text-danger">
-                          {errors.alocationDate}
-                        </span>
-                      </Col>
-                      <hr className="mb-0 mt-3" />
-                    </Row>
-                    <div
+              <form className="needs-validation" noValidate>
+                <Row className="mb-2">
+                  <Col md={4}>
+                    <Label for="assignTo">
+                      ASSIGN TO<font color="red">*</font>
+                    </Label>
+                    <Input
+                      type="select"
+                      name="assignTo"
+                      id="assignTo"
+                      value={formData.assignTo}
+                      onChange={handleDropdownChange}
+                      invalid={!!errors.assignTo}
+                    >
+                      <option value="">SELECT ASSIGN TO</option>
+                      <option value="group1">Group 1</option>
+                      <option value="group2">Group 2</option>
+                    </Input>
+                    <span className="invalid-feedback">{errors.assignTo}</span>
+                  </Col>
+                  <Col md={4}>
+                    <Label for="flr">
+                      FLOOR<font color="red">*</font>
+                    </Label>
+                    <Input
+                      type="select"
+                      name="flr"
+                      id="flr"
+                      value={formData.flr}
+                      onChange={handleDropdownChange}
+                      invalid={!!errors.flr}
+                    >
+                      <option value="">SELECT FLOOR</option>
+                      <option value="group1">Group 1</option>
+                      <option value="group2">Group 2</option>
+                    </Input>
+                    <span className="invalid-feedback">{errors.flr}</span>
+                  </Col>
+                  <Col md={4}>
+                    <Label for="alocationDate">ALLOCATE DATE</Label>
+                    <Input
+                      type="date"
+                      name="alocationDate"
+                      id="alocationDate"
+                      value={formData.alocationDate}
+                      onChange={handleInputChange}
+                      invalid={!!errors.alocationDate}
+                    />
+                    <span className="invalid-feedback">{errors.alocationDate}</span>
+                  </Col>
+                  <hr className="mb-0 mt-3" />
+                </Row>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <button
+                      type="button"
+                      className="btn btn-success-subtle border border-success"
+                      onClick={AllocateHandle}
                       style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        marginBottom: "20px",
+                        paddingTop: "10px",
+                        height: "45px",
+                        width: "100px",
+                        marginRight: "30px",
                       }}
                     >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-around",
-                        }}
-                      >
-                        <button
-                          type="button"
-                          className="btn btn-success-subtle border border-success"
-                          onClick={AllocateHandle}
-                          style={{
-                            paddingTop: "10px",
-                            height: "45px",
-                            width: "100px",
-                            marginRight: "30px",
-                          }}
-                        >
-                          <Label>ALLOCATE</Label>
-                        </button>
-                        {/* <button
+                      <Label>ALLOCATE</Label>
+                    </button>
+                    {/* <button
                           type="button"
                           className="btn btn-secondary-subtle border border-secondary"
                           onClick={() => {
@@ -260,70 +372,149 @@ const BulkAssetAllocate = () => {
                         >
                           <Label>BACK</Label>
                         </button> */}
+                  </div>
+                </div>
+              </form>
+
+              <div className="container pt-3">
+                <div className="rmb-2 row">
+                  <div className="col-md-1">
+                    <select className="form-select" style={{ width: "88PX" }}>
+                      {" "}
+                      <option value="10">SHOW 10</option>
+                      <option value="20">SHOW 20</option>
+                      <option value="30">SHOW 30</option>
+                      <option value="40">SHOW 40</option>
+                      <option value="50">SHOW 50</option>
+                    </select>
+                  </div>
+
+                  <div className="col-md-4">
+                    <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+                      <div className="position-relative">
+                        <label htmlFor="search-bar-0" className="search-label">
+                          <span id="search-bar-0-label" className="sr-only">
+                            Search this table
+                          </span>
+                          <input
+                            id="search-bar-0"
+                            type="text"
+                            className="form-control"
+                            placeholder="SEARCH..."
+                            value={globalFilter || ""}
+                            onChange={e => setGlobalFilter(e.target.value)}
+                          />
+                          <i className="bx bx-search-alt search-icon"></i>
+                        </label>
                       </div>
                     </div>
-                  </form>
-
-                  <div className="table-responsive">
-                    <Table className="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>SL NO</th>
-                          <th>ASSET ID</th>
-                          <th>ASSET NAME</th>
-                          <th>SERIAL NUMBER</th>
-                          <th>ASSET REMARKS</th>
-                          <th>ALLOCATE TYPE</th>
-                          <th>CHECK/UNCHECK</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {responseData.map((row, index) => (
-                          <tr key={index}>
-                            <td>{row.slno}</td>
-                            <td>{row.assetId}</td>
-                            <td>{row.assetName}</td>
-                            <td>{row.serialNumber}</td>
-                            <td>
-                              <Input
-                                className="form-control"
-                                type="text"
-                                value={row.assetRemarks}
-                                onChange={e => handleRemarkChange(e, index)}
-                              />
-                            </td>
-                            <td>
-                              <select
-                                className="form-control"
-                                value={row.allocateType}
-                                onChange={e =>
-                                  handleAllocateTypeChange(e, index)
-                                }
-                              >
-                                <option value="select">Select</option>
-                                <option value="Active">PERMANENT</option>
-                                <option value="Inactive">TEMPORORY</option>
-                              </select>
-                            </td>
-                            <td
-                              style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                marginBottom: "20px",
-                              }}
-                            >
-                              <Input
-                                type="checkbox"
-                                checked={row.checked}
-                                onChange={() => handleCheckboxChange(index)}
-                              />
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </Table>
                   </div>
-                  {/* <div className="row">
+                </div>
+              </div>
+              <div className="table-responsive react-table">
+                <table
+                  className="table table-bordered table-hover text-center"
+                  {...getTableProps()}
+                >
+                  <thead className="table-light table-nowrap">
+                    {headerGroups.map(headerGroup => (
+                      <tr
+                        key={headerGroup.id}
+                        {...headerGroup.getHeaderGroupProps()}
+                      >
+                        {headerGroup.headers.map(column => (
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
+                            <div className="d-flex justify-content-center">
+                              <span className="font-weight-bold">
+                                {column.render("Header")}
+                              </span>
+                              <span>
+                                {column.isSorted
+                                  ? column.isSortedDesc
+                                    ? " 🔽"
+                                    : " 🔼"
+                                  : ""}
+                              </span>
+                            </div>
+                          </th>
+                        ))}
+                      </tr>
+                    ))}
+                  </thead>
+                  <tbody {...getTableBodyProps()}>
+                    {page.length > 0 ? (
+                      page.map(row => {
+                        prepareRow(row);
+                        return (
+                          <tr key={row.id} {...row.getRowProps()}>
+                            {row.cells.map(cell => (
+                              <td key={cell.column.id} {...cell.getCellProps()}>
+                                {cell.render("Cell")}
+                              </td>
+                            ))}
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan={headerGroups[0].headers.length}
+                          style={{ textAlign: "center" }}
+                        >
+                          NO SEARCH REASULT FOUND
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+              <div className="row">
+                <div className="col-sm-6">
+                  <p className="ps-2">
+                    Showing {pageIndex + 1} of {pageCount} pages
+                  </p>
+                </div>
+                <div className="col-sm-6">
+                  <div className="pagination justify-content-end pb-2 pe-2">
+                    <button
+                      className="btn btn-info"
+                      disabled={pageIndex === 0}
+                      onClick={() => gotoPage(0)}
+                    >
+                      FIRST
+                    </button>
+                    <button
+                      className="btn btn-primary"
+                      disabled={!canPreviousPage}
+                      onClick={previousPage}
+                    >
+                      PRE
+                    </button>
+                    <span className="btn btn-light">{pageIndex + 1}</span>
+                    <button
+                      className="btn btn-primary"
+                      disabled={!canNextPage}
+                      onClick={nextPage}
+                    >
+                      NEXT
+                    </button>
+                    <button
+                      className="btn btn-info"
+                      disabled={pageIndex >= pageCount - 1}
+                      onClick={() => gotoPage(pageCount - 1)}
+                    >
+                      LAST
+                    </button>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="row">
                     <div className="col-sm-6">
                       <p className="ps-2">Showing 1 of 1 pages</p>
                     </div>
@@ -332,7 +523,7 @@ const BulkAssetAllocate = () => {
                       </div>
                     </div>
                   </div> */}
-                {/* </Col>
+              {/* </Col>
               </Row> */}
             </CardBody>
           </Card>

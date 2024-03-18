@@ -32,13 +32,13 @@ const AssetMaintainancenext = () => {
       remarkss: "",
     },
     validationSchema: Yup.object({
-      assetId: Yup.string().required("Asset ID is required"),
-      Maintainancedate: Yup.string().required("Maintenance Date required"),
-      ammount: Yup.string().required("Amount Maintenance is required"),
-      remarkss: Yup.string().required("Maintenance Remarks is required"),
+      assetId: Yup.string().required("ASSET ID IS REQUIRED"),
+      assetName: Yup.string().required("MAINTAINANCE DATE IS REQUIRED"),
+      ammount: Yup.string().required("AMMOUNT MAINTAINANCE IS REQUIRED"),
+      remarkss: Yup.string().required("MAINTAINANCE REMARKS IS REQUIRED"),
     }),
 
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       alert("validated !");
       // try {
       //   await axios.post(`http://localhost:3000/companygroup/`, values);
@@ -57,7 +57,7 @@ const AssetMaintainancenext = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-3">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 ASSET MAINTENANCE DETAILS
@@ -74,17 +74,26 @@ const AssetMaintainancenext = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="assetId">
-                            ASSET ID
-                          </Label>
+                          <Label htmlFor="assetId">ASSET ID<font color="red">*</font></Label>
                           <Input
                             name="assetId"
+                            placeholder="ENTER ASSET ID"
                             type="text"
                             className="form-control"
                             id="assetId"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.assetId &&
+                              validation.errors.assetId
+                            }
                           />
+                          {validation.touched.assetId &&
+                          validation.errors.assetId ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.assetId}
+                            </FormFeedback>
+                          ) : null}
                         </FormGroup>
                       </Col>
                     </Row>
@@ -92,12 +101,11 @@ const AssetMaintainancenext = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="assetName">
-                            ASSET NAME
-                          </Label>
+                          <Label htmlFor="assetName">ASSET NAME<font color="red">*</font></Label>
                           <Input
                             name="assetName"
                             type="text"
+                            placeholder="ENTER ASSET NAME"
                             className="form-control"
                             id="assetName"
                             onChange={validation.handleChange}
@@ -125,6 +133,7 @@ const AssetMaintainancenext = () => {
                           <Input
                             name="AssetDiscription"
                             type="text"
+                            placeholder="ENTER ASSET DESCRIPTION"
                             className="form-control"
                             id="AssetDiscription"
                             onChange={validation.handleChange}
@@ -147,11 +156,12 @@ const AssetMaintainancenext = () => {
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="Maintainancedate">
-                            MAINTENANCE DATE<font color="red">*</font>
+                            MAINTENANCE DATE
                           </Label>
                           <Input
                             name="Maintainancedate"
                             type="date"
+                            placeholder="ENTER MAINTENANCE DATE"
                             className="form-control"
                             id="Maintainancedate"
                             onChange={validation.handleChange}
@@ -179,6 +189,7 @@ const AssetMaintainancenext = () => {
                           </Label>
                           <Input
                             name="ammount"
+                            placeholder="ENTER AMOUNT MAINTENANCE"
                             type="text"
                             className="form-control"
                             id="ammount"
@@ -207,6 +218,7 @@ const AssetMaintainancenext = () => {
                           <Input
                             name="remarkss"
                             type="text"
+                            placeholder="ENTER  MAINTENANCE REMARKS"
                             className="form-control"
                             id="remarkss"
                             onChange={validation.handleChange}
@@ -279,6 +291,3 @@ const AssetMaintainancenext = () => {
 };
 
 export default AssetMaintainancenext;
-
-
-

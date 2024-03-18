@@ -23,20 +23,20 @@ import { useNavigate } from "react-router-dom";
 const AllAssetUpdate = () => {
   const navigate = useNavigate();
   const requiredFields = {
-    assetId: "Asset ID",
-    taggable: "Tagable",
-    typeOfProc: "Type Of Procurement",
-    leaseStatus: "Lease Status",
-    amcStartDate: "AMC/Warranty Start Date",
-    amcEndDate: "AMC/Warranty End Date",
-    leaseStartDate: "Lease Start Date",
-    leaseStatus: "Lease Status",
-    leaseEndDate: "Lease End Date",
-    license: "License ",
-    licenseStartDate: "License Start Date",
-    licenseEndDate: "License End Date",
-    policyNumber: "Policy Number",
-    providerName: "Provider Name",
+    assetId: "ASSET ID",
+    taggable: "TAGGABLE",
+    typeOfProc: "TYPE OF PROCUREMENT",
+    leaseStatus: "LEASE STATUS",
+    amcStartDate: "AMC/WARRENTY START DATE ",
+    amcEndDate: "AMC/WARRENTY END DATE",
+    leaseStartDate: "LEASE START DATE",
+    leaseStatus: "LEASE STATUS",
+    leaseEndDate: "LEASE START DATE",
+    license: "LICENSE ",
+    licenseStartDate: "LICENSE START DATE",
+    licenseEndDate: "LICENSE END DATE",
+    policyNumber: "POLICY NUMBER",
+    providerName: "PROVIDER NAME",
   };
 
   const initialFormData = {
@@ -256,7 +256,7 @@ const AllAssetUpdate = () => {
       if (!formData[fieldName].trim()) {
         setErrors(prevErrors => ({
           ...prevErrors,
-          [fieldName]: `${fieldLabel} is required`,
+          [fieldName]: `${fieldLabel} IS REQUIRED`,
         }));
         isValid = false;
       }
@@ -299,7 +299,9 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.assetId}
                         />
-                        <span className="text-danger">{errors.assetId}</span>
+                        <span className="invalid-feedback">
+                          {errors.assetId}
+                        </span>
                       </Col>
                       <Col md={4}>
                         <Label for="invoiceNumber">INVOICE NUMBER</Label>
@@ -311,7 +313,7 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.invoiceNumber}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.invoiceNumber}
                         </span>
                       </Col>
@@ -325,7 +327,7 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.invoiceDate}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.invoiceDate}
                         </span>
                       </Col>
@@ -342,7 +344,9 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.poNumber}
                         />
-                        <span className="text-danger">{errors.poNumber}</span>
+                        <span className="invalid-feedback">
+                          {errors.poNumber}
+                        </span>
                       </Col>
                       <Col md={4}>
                         <Label for="poDate">PO DATE</Label>
@@ -354,7 +358,9 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.poDate}
                         />
-                        <span className="text-danger">{errors.poDate}</span>
+                        <span className="invalid-feedback">
+                          {errors.poDate}
+                        </span>
                       </Col>
                       <Col md={4}>
                         <Label for="serialNumber">SERIAL NUMBER</Label>
@@ -366,7 +372,7 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.serialNumber}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.serialNumber}
                         </span>
                       </Col>
@@ -384,7 +390,9 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.assetRef}
                         />
-                        <span className="text-danger">{errors.assetRef}</span>
+                        <span className="invalid-feedback">
+                          {errors.assetRef}
+                        </span>
                       </Col>
                       <Col md={4}>
                         <Label for="diviceStatus">DIVICE STATUS</Label>
@@ -396,7 +404,7 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.diviceStatus}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.diviceStatus}
                         </span>
                       </Col>
@@ -410,7 +418,7 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.processType}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.processType}
                         </span>
                       </Col>
@@ -428,7 +436,7 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.storageType}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.storageType}
                         </span>
                       </Col>
@@ -442,7 +450,9 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.ramType}
                         />
-                        <span className="text-danger">{errors.ramType}</span>
+                        <span className="invalid-feedback">
+                          {errors.ramType}
+                        </span>
                       </Col>
                       <Col md={4}>
                         <Label for="assetName">ASSET NAME</Label>
@@ -454,7 +464,9 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.assetName}
                         />
-                        <span className="text-danger">{errors.assetName}</span>
+                        <span className="invalid-feedback">
+                          {errors.assetName}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
@@ -469,7 +481,7 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.assetRemarks}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.assetRemarks}
                         </span>
                       </Col>
@@ -488,7 +500,7 @@ const AllAssetUpdate = () => {
                           <option value="amgroup2c">GROUP 1</option>
                           <option value="wargrpop3renty">GROUP 1</option>
                         </Input>
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.serviceVendor}
                         </span>
                       </Col>
@@ -502,7 +514,7 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.assetDescription}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.assetDescription}
                         </span>
                       </Col>
@@ -525,7 +537,9 @@ const AllAssetUpdate = () => {
                           <option value="group1">YES</option>
                           <option value="group2">NO</option>
                         </Input>
-                        <span className="text-danger">{errors.taggable}</span>
+                        <span className="invalid-feedback">
+                          {errors.taggable}
+                        </span>
                       </Col>
                       <Col md={4}>
                         <Label for="typeOfProc">
@@ -544,7 +558,9 @@ const AllAssetUpdate = () => {
                           <option value="group2">LOAN BASIC</option>
                           <option value="group3">ADD-ON</option>
                         </Input>
-                        <span className="text-danger">{errors.typeOfProc}</span>
+                        <span className="invalid-feedback">
+                          {errors.typeOfProc}
+                        </span>
                       </Col>
                       <Col md={4}>
                         <Label for="amc">AMC/WARRENTY</Label>
@@ -561,7 +577,7 @@ const AllAssetUpdate = () => {
                           <option value="amc">AMC</option>
                           <option value="warrenty">WARRENTY</option>
                         </Input>
-                        <span className="text-danger">{errors.amc}</span>
+                        <span className="invalid-feedback">{errors.amc}</span>
                       </Col>
                       <Col md={6}>
                         {showAmcDates && (
@@ -578,7 +594,7 @@ const AllAssetUpdate = () => {
                               onChange={handleInputChange}
                               invalid={!!errors.amcStartDate}
                             />
-                            <span className="text-danger">
+                            <span className="invalid-feedback">
                               {errors.amcStartDate}
                             </span>
                           </>
@@ -599,7 +615,7 @@ const AllAssetUpdate = () => {
                               onChange={handleInputChange}
                               invalid={!!errors.amcEndDate}
                             />
-                            <span className="text-danger">
+                            <span className="invalid-feedback">
                               {errors.amcEndDate}
                             </span>
                           </>
@@ -624,7 +640,7 @@ const AllAssetUpdate = () => {
                           <option value="Notunderlease">NOT UNDER LEASE</option>
                           <option value="underlease">UNDER LEASE</option>
                         </Input>
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.leaseStatus}
                         </span>
                       </Col>
@@ -643,7 +659,7 @@ const AllAssetUpdate = () => {
                               onChange={handleInputChange}
                               invalid={!!errors.leaseStartDate}
                             />
-                            <span className="text-danger">
+                            <span className="invalid-feedback">
                               {errors.leaseStartDate}
                             </span>
                           </Col>
@@ -660,7 +676,7 @@ const AllAssetUpdate = () => {
                               onChange={handleInputChange}
                               invalid={!!errors.leaseEndDate}
                             />
-                            <span className="text-danger">
+                            <span className="invalid-feedback">
                               {errors.leaseEndDate}
                             </span>
                           </Col>
@@ -683,7 +699,9 @@ const AllAssetUpdate = () => {
                           <option value="Yes">YES</option>
                           <option value="No">NO</option>
                         </Input>
-                        <span className="text-danger">{errors.license}</span>
+                        <span className="invalid-feedback">
+                          {errors.license}
+                        </span>
                       </Col>
                       {showLicenseDropdown && formData.license === "Yes" && (
                         <>
@@ -700,7 +718,7 @@ const AllAssetUpdate = () => {
                               onChange={handleInputChange}
                               invalid={!!errors.licenseStartDate}
                             />
-                            <span className="text-danger">
+                            <span className="invalid-feedback">
                               {errors.licenseStartDate}
                             </span>
                           </Col>
@@ -717,7 +735,7 @@ const AllAssetUpdate = () => {
                               onChange={handleInputChange}
                               invalid={!!errors.licenseEndDate}
                             />
-                            <span className="text-danger">
+                            <span className="invalid-feedback">
                               {errors.licenseEndDate}
                             </span>
                           </Col>
@@ -734,7 +752,7 @@ const AllAssetUpdate = () => {
                               onChange={handleInputChange}
                               invalid={!!errors.policyNumber}
                             />
-                            <span className="text-danger">
+                            <span className="invalid-feedback">
                               {errors.policyNumber}
                             </span>
                           </Col>
@@ -751,7 +769,7 @@ const AllAssetUpdate = () => {
                               onChange={handleInputChange}
                               invalid={!!errors.providerName}
                             />
-                            <span className="text-danger">
+                            <span className="invalid-feedback">
                               {errors.providerName}
                             </span>
                           </Col>
@@ -770,7 +788,7 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.additionalCost}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.additionalCost}
                         </span>
                       </Col>
@@ -784,7 +802,7 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.totalUnitPrice}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.totalUnitPrice}
                         </span>
                       </Col>
@@ -798,7 +816,9 @@ const AllAssetUpdate = () => {
                           onChange={handleInputChange}
                           invalid={!!errors.netValue}
                         />
-                        <span className="text-danger">{errors.netValue}</span>
+                        <span className="invalid-feedback">
+                          {errors.netValue}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
@@ -851,9 +871,47 @@ const AllAssetUpdate = () => {
               </Row>
               <Row className="justify-content-center">
                 <Col xl={10}>
+                <div className="container pt-0">
+                  <div className="row">
+                    <div className="col-md-1">
+                      <select className="form-select" style={{ width: "84PX" }}>
+                        <option value="10">SHOW 10</option>
+                        <option value="20">SHOW 20</option>
+                        <option value="30">SHOW 30</option>
+                        <option value="40">SHOW 40</option>
+                        <option value="50">SHOW 50</option>
+                      </select>
+                    </div>
+
+                    <div className="col-md-11 d-flex justify-content-end">
+                      <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+                        <div className="position-relative">
+                          <label
+                            htmlFor="search-bar-0"
+                            className="search-label"
+                          >
+                            <span id="search-bar-0-label" className="sr-only">
+                              Search this table
+                            </span>
+                            <input
+                              id="search-bar-0"
+                              type="text"
+                              className="form-control"
+                              placeholder="SEARCH...."
+                              value={globalFilter || ""}
+                              onChange={e => setGlobalFilter(e.target.value)}
+                            />
+                            <i className="bx bx-search-alt search-icon"></i>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                   <div className="table-responsive react-table">
                     <table
-                      className="table table-bordered table-hover"
+                      className="table table-bordered table-hover text-center"
                       {...getTableProps()}
                     >
                       <thead className="table-light table-nowrap">
@@ -868,13 +926,9 @@ const AllAssetUpdate = () => {
                                 {...column.getHeaderProps(
                                   column.getSortByToggleProps()
                                 )}
-                                style={
-                                  column.id === "slno"
-                                    ? { width: "6%" }
-                                    : { backgroundColor: "" }
-                                }
+                                style={{ width: column.width }}
                               >
-                                <div className="d-flex justify-content-between">
+                                <div className="d-flex justify-content-center">
                                   <span className="font-weight-bold">
                                     {column.render("Header")}
                                   </span>
@@ -920,7 +974,7 @@ const AllAssetUpdate = () => {
                               style={{ textAlign: "center" }}
                             >
                               {" "}
-                              No search results found.
+                              NO SEARCH RESULTS FOUND
                             </td>
                           </tr>
                         )}

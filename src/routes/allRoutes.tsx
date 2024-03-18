@@ -254,8 +254,8 @@ import BulkAssetAllocate from "src/pages/Asset-Module/AssetLists/BulkAssetAlloca
 import DeAllocate from "src/pages/Asset-Module/AssetLists/DeAllocate";
 import DamagedAssets from "src/pages/Asset-Module/AssetLists/DamagedAssets";
 import ApproveDamagedAssets from "src/pages/Asset-Module/AssetLists/ApproveDamagedAssets";
-import AllAssetUpdate from "src/pages/Asset-Module/CreatePages/AllAssetUpdate";
-import AllAssetCreate from "src/pages/Asset-Module/CreatePages/AllAssetCreate";
+import AllAssetUpdate from "src/pages/Asset-Module/UpdatePages/AllAssetUpdate";
+import AllAssetCreate from "src/pages/Asset-Module/UpdatePages/AllAssetUpdate";
 import BulkAssetUpdate from "src/pages/Asset-Module/UpdatePages/BulkAssetUpdate";
 import DisplayBillEntryDetails from "src/pages/Asset-Module/UpdatePages/BillEntryDetails";
 import DisplayViaBillEntryDetails from "src/pages/Asset-Module/UpdatePages/ViaBillEntryDetails";
@@ -295,6 +295,7 @@ import InterTransferApprovePreview from "src/pages/Transfer/InterCreateUpdate.js
 import InterTransferPreview from "src/pages/Transfer/InterCreateUpdate.jsx/InterTransferPreview";
 import InterRecieveAssetsPreview from "src/pages/Transfer/InterCreateUpdate.jsx/InterRecieveAssetsPreview";
 import ReturnAknowPreview from "src/pages/Transfer/InterCreateUpdate.jsx/ReturnAknowPreview";
+import PrintGatePassPreview from "src/pages/Transfer/InterCreateUpdate.jsx/PrintGatePassPreview";
 
 interface RouteProps {
   path: string;
@@ -354,7 +355,7 @@ const userRoutes: Array<RouteProps> = [
   { path: "/inter_transfer_preview/:id", component: <InterTransferPreview /> },
   { path: "/inter_recieve_asset_preview/:id", component: <InterRecieveAssetsPreview /> },
   { path: "/inter_return_acknowledge_preview/:id", component: <ReturnAknowPreview /> },
-
+  {path:"/print_gate_pass_preview/:id", component:< PrintGatePassPreview/>},
 
   { path: "/intra_transfer_request", component: <IntraTransferRequest /> },
   { path: "/intra_transfer_approval", component: <IntraTransferApproval /> },

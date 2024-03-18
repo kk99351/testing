@@ -995,10 +995,10 @@ const BarcodePage = () => {
       invoiceNo: "",
     },
     validationSchema: Yup.object({
-      cat: Yup.string().required("Material is required"),
-      subCat: Yup.string().required("Sub-Material is required"),
-      poNo: Yup.string().required("PO.Number is required"),
-      invoiceNo: Yup.string().required("Invoice Number is required"),
+      cat: Yup.string().required("MATERIAL-GROUP  IS REQUIRED"),
+      subCat: Yup.string().required("SUB-MATERIALIS REQUIRED"),
+      poNo: Yup.string().required("PO.NUMBER IS REQUIRED"),
+      invoiceNo: Yup.string().required("INVOICE NUMBER IS REQUIRED"),
     }),
 
     onSubmit: async values => {
@@ -1037,7 +1037,7 @@ const BarcodePage = () => {
   const handleDeallocate = () => {
     console.log("Deallocate button clicked");
     if (selectedRows.length > 0) {
-      setBarcodeData(selectedRows); 
+      setBarcodeData(selectedRows);
     }
   };
 
@@ -1080,7 +1080,7 @@ const BarcodePage = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-3">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 BARCODE DETAILS
@@ -1089,7 +1089,7 @@ const BarcodePage = () => {
 
             <CardBody>
               <Row className="justify-content-center">
-                <Col xl={12}>
+                <Col xl={10}>
                   <Form
                     className="needs-validation"
                     onSubmit={validation.handleSubmit}
@@ -1098,20 +1098,19 @@ const BarcodePage = () => {
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="cat">
-                            MATERIAL <font color="red">*</font>
+                            MATERIAL-GROUP <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
                             name="cat"
                             id="cat"
-                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.cat && validation.errors.cat
                             }
                           >
-                            <option value="">Select Material</option>
+                            <option value="">SELECT MATERIAL GROUP</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
@@ -1126,13 +1125,12 @@ const BarcodePage = () => {
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="subCat">
-                            SUB-MATERIAL <font color="red">*</font>
+                            MATERIAL SUB GROUP <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
                             name="subCat"
                             id="subCat"
-                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -1140,7 +1138,7 @@ const BarcodePage = () => {
                               validation.errors.subCat
                             }
                           >
-                            <option value="">Select Sub Material</option>
+                            <option value="">SELECT  MATERIAL SUB GROUP  </option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
@@ -1153,7 +1151,6 @@ const BarcodePage = () => {
                         </FormGroup>
                       </Col>
 
-                      <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
                       <Col md={6}>
@@ -1165,14 +1162,13 @@ const BarcodePage = () => {
                             type="select"
                             name="poNo"
                             id="poNo"
-                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.poNo && validation.errors.poNo
                             }
                           >
-                            <option value="">Select Asset</option>
+                            <option value="">SELECT PO.NUMBER</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
@@ -1193,7 +1189,6 @@ const BarcodePage = () => {
                             type="select"
                             name="invoiceNo"
                             id="invoiceNo"
-                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -1201,7 +1196,7 @@ const BarcodePage = () => {
                               validation.errors.invoiceNo
                             }
                           >
-                            <option value="">Select Invoice Number</option>
+                            <option value="">SELECT INVOICE NUMBER</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
@@ -1257,6 +1252,8 @@ const BarcodePage = () => {
               <CardBody>
                 {/* Replace this with your table component */}
                 <div>
+                <Row className="justify-content-center">
+                <Col xl={10}>
                   <div className="container pt-1">
                     <div className="row">
                       <div className="col-md-4">
@@ -1299,8 +1296,7 @@ const BarcodePage = () => {
                   </div>
 
                   <div className="table-responsive">
-                    <Table className="table table-bordered table-hover">
-                      <thead>
+                  <Table className="table table-bordered table-hover text-center">                      <thead>
                         <tr>
                           <th>SL NO</th>
                           <th>ASSET ID</th>
@@ -1336,11 +1332,13 @@ const BarcodePage = () => {
                       </tbody>
                     </Table>
                     <div className="text-center">
-                {filteredData.length === 0 && (
-                  <div>No search results found</div>
-                )}
-              </div>
+                      {filteredData.length === 0 && (
+                        <div>No search results found</div>
+                      )}
+                    </div>
                   </div>
+                  </Col>
+                  </Row>
                 </div>
               </CardBody>
             </Card>

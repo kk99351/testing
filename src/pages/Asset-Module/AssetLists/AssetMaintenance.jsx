@@ -27,17 +27,18 @@ const AssetMaintenance = () => {
       assetMaterial: "",
       assetSubMaterial: "",
       asset: "",
-      assetId:"",
+      assetId: "",
     },
     validationSchema: Yup.object({
-      assetMaterial: Yup.string().required("Asset Material is required"),
-      assetSubMaterial: Yup.string().required("Asset Sub-Material is required"),
-      asset: Yup.string().required("Asset is required"),
-      assetId: Yup.string().required("Asset  ID is required"),
-
+      assetMaterial: Yup.string().required("ASSET MATERIAL GROUP IS REQUIRED"),
+      assetSubMaterial: Yup.string().required(
+        "ASSET MATERIAL SUB GROUP IS REQUIRED"
+      ),
+      asset: Yup.string().required("ASSET IS REQUIRED"),
+      assetId: Yup.string().required("ASSET ID IS REQUIRED"),
     }),
 
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       console.log("Form submitted successfully!");
       navigate("/asset_maintenance_next");
     },
@@ -47,7 +48,7 @@ const AssetMaintenance = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 ASSET MAINTENANCE DETAILS
@@ -71,7 +72,6 @@ const AssetMaintenance = () => {
                             type="select"
                             name="assetMaterial"
                             id="assetMaterial"
-                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -79,7 +79,7 @@ const AssetMaintenance = () => {
                               validation.errors.assetMaterial
                             }
                           >
-                            <option value="">Select Asset Material</option>
+                            <option value="">SELECT ASSET MATERIAL GROUP</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
@@ -91,8 +91,6 @@ const AssetMaintenance = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-
-                      <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
                       <Col md={12}>
@@ -104,7 +102,6 @@ const AssetMaintenance = () => {
                             type="select"
                             name="assetSubMaterial"
                             id="assetSubMaterial"
-                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -112,7 +109,7 @@ const AssetMaintenance = () => {
                               validation.errors.assetSubMaterial
                             }
                           >
-                            <option value="">Select Asset sub  Material</option>
+                            <option value="">SELECT ASSET MATERIAL SUB GROUP</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
@@ -124,8 +121,6 @@ const AssetMaintenance = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-
-                      <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
                       <Col md={12}>
@@ -137,7 +132,6 @@ const AssetMaintenance = () => {
                             type="select"
                             name="asset"
                             id="asset"
-                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -145,7 +139,7 @@ const AssetMaintenance = () => {
                               validation.errors.asset
                             }
                           >
-                            <option value="">Select Asset</option>
+                            <option value="">SELECT ASSET</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
@@ -157,8 +151,6 @@ const AssetMaintenance = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-
-                      <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
                       <Col md={12}>
@@ -170,7 +162,6 @@ const AssetMaintenance = () => {
                             type="select"
                             name="assetId"
                             id="assetId"
-                            className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -178,7 +169,7 @@ const AssetMaintenance = () => {
                               validation.errors.assetId
                             }
                           >
-                            <option value="">Select Asset ID</option>
+                            <option value="">SELECT ASSET ID</option>
                             <option value="group1">Company Group 1</option>
                             <option value="group2">Company Group 2</option>
                           </Input>
@@ -190,8 +181,6 @@ const AssetMaintenance = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-
-                      <hr className="mb-2" />
                     </Row>
 
                     <div
@@ -235,5 +224,3 @@ const AssetMaintenance = () => {
 };
 
 export default AssetMaintenance;
-
-

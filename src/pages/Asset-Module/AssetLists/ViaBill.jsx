@@ -253,7 +253,7 @@
 
 // export default ViaBill;
 import React, { useMemo, useEffect, useState } from "react";
-import { Button, Card, Input } from "reactstrap";
+import { Button,CardHeader, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -300,29 +300,30 @@ const ViaBill = () => {
       {
         Header: "SL NO",
         accessor: "slno",
+        width:"6%",
       },
       {
-        Header: "Bill Number",
+        Header: "BILL NUMBER",
         accessor: "bill_no",
       },
       {
-        Header: "Bill Date",
+        Header: "BILL DATE",
         accessor: "dt_bill",
       },
       {
-        Header: "Zoho Bill No.",
+        Header: "ZOHO BILL NUMBER",
         accessor: "no_zoho",
       },
       {
-        Header: "Item name",
+        Header: "ITEM NAME",
         accessor: "nm_model",
       },
       {
-        Header: "Vendor Name",
+        Header: "VENDOR NAME",
         accessor: "nm_ven",
       },
       {
-        Header: "Total Qty",
+        Header: "TOTAL QTY",
         accessor: "qty",
       }
     ],
@@ -365,6 +366,11 @@ const ViaBill = () => {
       <div className="page-content">
         <div className="container-fluid">
           <Card>
+          <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+                VIA-BILL DETAILS
+              </h1>
+            </CardHeader>
             <div className="container pt-4">
               <div className="rmb-2 row">
                 <div className="col-md-2">
@@ -401,7 +407,7 @@ const ViaBill = () => {
             </div>
 
             <div className="table-responsive react-table">
-              <table className="table table-bordered table-hover">
+              <table className="table table-bordered table-hover text-center">
                 <thead className="table-light table-nowrap">
                   {headerGroups.map(headerGroup => (
                     <tr
@@ -409,13 +415,10 @@ const ViaBill = () => {
                       {...headerGroup.getHeaderGroupProps()}
                     >
                       {headerGroup.headers.map(column => (
-                         <th
-                         key={column.id}
-                         {...column.getHeaderProps(column.getSortByToggleProps())}
-                         style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
-                       >
-                          <div className="d-flex justify-content-between">
-                            <span className="font-weight-bold">
+                          <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
+
+                          <div className="d-flex justify-content-center">
+                                <span className="font-weight-bold">
                               {column.render("Header")}
                             </span>
                             <span>
@@ -458,7 +461,7 @@ const ViaBill = () => {
                         style={{ textAlign: "center" }}
                       >
                         {" "}
-                        No search results found.
+                        NO SEARCH RESULTS FOUND
                       </td>
                     </tr>
                   )}
