@@ -175,10 +175,16 @@ const Branch = () => {
                     >
                       {headerGroup.headers.map(column => (
                         <th
-                        key={column.id}
-                        {...column.getHeaderProps(column.getSortByToggleProps())}
-                        style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
-                      >
+                          key={column.id}
+                          {...column.getHeaderProps(
+                            column.getSortByToggleProps()
+                          )}
+                          style={
+                            column.id === "slno"
+                              ? { width: "6%" }
+                              : { backgroundColor: "" }
+                          }
+                        >
                           <div className="d-flex justify-content-between">
                             <span className="font-weight-bold">
                               {column.render("Header")}
@@ -197,27 +203,36 @@ const Branch = () => {
                   ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                  {page.map(row => {
-                    prepareRow(row);
-                    return (
-                      <tr
-                        key={row.id}
-                        {...row.getRowProps()}
+                  {page.length > 0 ? (
+                    page.map(row => {
+                      prepareRow(row);
+                      return (
+                        <tr key={row.id} {...row.getRowProps()}>
+                          {row.cells.map(cell => (
+                            <td key={cell.column.id} {...cell.getCellProps()}>
+                              {cell.column.id !== "SL NO" ? (
+                                <Link to={`/updatefloor/${row.original.id}`}>
+                                  {cell.render("Cell")}
+                                </Link>
+                              ) : (
+                                cell.render("Cell")
+                              )}
+                            </td>
+                          ))}
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan={headerGroups[0].headers.length}
+                        style={{ textAlign: "center" }}
                       >
-                        {row.cells.map(cell => (
-                          <td key={cell.column.id} {...cell.getCellProps()}>
-                            {cell.column.id !== "SL NO" ? (
-                              <Link to={`/branch/${row.original.id}`}>
-                                {cell.render("Cell")}
-                              </Link>
-                            ) : (
-                              cell.render("Cell")
-                            )}
-                          </td>
-                        ))}
-                      </tr>
-                    );
-                  })}
+                        {" "}
+                        No search results found.
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

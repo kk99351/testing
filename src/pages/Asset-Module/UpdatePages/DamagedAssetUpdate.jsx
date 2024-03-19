@@ -125,10 +125,10 @@ const DamagedAssetUpdate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-3">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                DELIGATION DETAILS
+                DAMAGED-ASSETS DETAILS
               </h1>
             </CardHeader>
             <CardBody>

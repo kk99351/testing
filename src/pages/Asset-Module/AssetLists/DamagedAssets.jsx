@@ -8,7 +8,7 @@
 
 // export default DamagedAssets
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Container, Button, Card, Input } from "reactstrap";
+import { Container,CardHeader, Button, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -75,8 +75,7 @@ const DamagedAssets = () => {
       {
         Header: "SL NO",
         accessor: "slno",
-        disableFilters: true,
-        filterable: true,
+        width:'6%',
       },
       {
         Header: "ASSET ID",
@@ -91,7 +90,7 @@ const DamagedAssets = () => {
         filterable: true,
       },
       {
-        Header: "Asset NAME",
+        Header: "ASSET NAME",
         accessor: "assetName",
         disableFilters: true,
         filterable: true,
@@ -154,15 +153,20 @@ const DamagedAssets = () => {
       <Container fluid>
         <div className="page-content">
           <Card>
+          <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+                DAMAGED ASSETS DETAILS
+              </h1>
+            </CardHeader>
             <div className="container pt-4">
               <div className="rmb-2 row">
                 <div className="col-md-1">
-                  <select className="form-select">
-                    <option value="10">Show 10</option>
-                    <option value="20">Show 20</option>
-                    <option value="30">Show 30</option>
-                    <option value="40">Show 40</option>
-                    <option value="50">Show 50</option>
+                <select className="form-select" style={{ width: "88PX" }}>
+                    <option value="10">SHOW 10</option>
+                    <option value="20">SHOW 20</option>
+                    <option value="30">SHOW 30</option>
+                    <option value="40">SHOW 40</option>
+                    <option value="50">SHOW 50</option>
                   </select>
                 </div>
 
@@ -177,7 +181,7 @@ const DamagedAssets = () => {
                           id="search-bar-0"
                           type="text"
                           className="form-control"
-                          placeholder="search ..."
+                          placeholder="SEARCH ..."
                           value={globalFilter || ""}
                           onChange={e => setGlobalFilter(e.target.value)}
                         />
@@ -203,8 +207,8 @@ const DamagedAssets = () => {
             </div>
 
             <div className="table-responsive react-table">
-              <table
-                className="table table-bordered table-hover"
+            <table
+                className="table table-bordered table-hover text-center"
                 {...getTableProps()}
               >
                 <thead className="table-light table-nowrap">
@@ -214,18 +218,9 @@ const DamagedAssets = () => {
                       {...headerGroup.getHeaderGroupProps()}
                     >
                       {headerGroup.headers.map(column => (
-                        <th
-                          key={column.id}
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                          style={
-                            column.id === "slno"
-                              ? { width: "6%" }
-                              : { backgroundColor: "" }
-                          }
-                        >
-                          <div className="d-flex justify-content-between">
+                      <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
+
+                      <div className="d-flex justify-content-center">
                             <span className="font-weight-bold">
                               {column.render("Header")}
                             </span>

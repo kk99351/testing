@@ -34,69 +34,69 @@ const AddNewAsset = () => {
 
 // Function to handle suggestion selection
 
-  useEffect(() => {
-    // Fetch item data and set loading state
-    const fetchItems = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/items");
-        setItemOptions(response);
-        setLoading(false)
-      } catch (error) {
-        console.error("Error fetching items:", error);
-      }
-    };
-    const fetchLocations = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/location");
-        debugger;
-        console.log("Location Data:", response);
-        setLocations(response || []);
-      } catch (error) {
-        console.error("Error fetching locations:", error);
-      }
-    };
+  // useEffect(() => {
+  //   // Fetch item data and set loading state
+  //   const fetchItems = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/items");
+  //       setItemOptions(response);
+  //       setLoading(false)
+  //     } catch (error) {
+  //       console.error("Error fetching items:", error);
+  //     }
+  //   };
+  //   const fetchLocations = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/location");
+  //       debugger;
+  //       console.log("Location Data:", response);
+  //       setLocations(response || []);
+  //     } catch (error) {
+  //       console.error("Error fetching locations:", error);
+  //     }
+  //   };
 
-    const fetchVendor = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/vendor");
-        debugger;
-        console.log("Location Data:", response);
-        setVendors(response || []);
-      } catch (error) {
-        console.error("Error fetching locations:", error);
-      }
-    };
+  //   const fetchVendor = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/vendor");
+  //       debugger;
+  //       console.log("Location Data:", response);
+  //       setVendors(response || []);
+  //     } catch (error) {
+  //       console.error("Error fetching locations:", error);
+  //     }
+  //   };
 
-    const fetchDept = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/dept");
-        debugger;
-        console.log("Location Data:", response);
-        setDepts(response || []);
-      } catch (error) {
-        console.error("Error fetching locations:", error);
-      }
-    };
+  //   const fetchDept = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/dept");
+  //       debugger;
+  //       console.log("Location Data:", response);
+  //       setDepts(response || []);
+  //     } catch (error) {
+  //       console.error("Error fetching locations:", error);
+  //     }
+  //   };
 
-    const fetchCostCenter = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/costcenter");
-        debugger;
-        console.log("costcenter Data:", response);
-        setCostCenters(response || []);
-      } catch (error) {
-        console.error("Error fetching locations:", error);
-      }
-    };
+  //   const fetchCostCenter = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/costcenter");
+  //       debugger;
+  //       console.log("costcenter Data:", response);
+  //       setCostCenters(response || []);
+  //     } catch (error) {
+  //       console.error("Error fetching locations:", error);
+  //     }
+  //   };
 
-    fetchItems();
-    fetchLocations();
-    fetchVendor();
-    fetchDept();
-    fetchCostCenter();
+  //   fetchItems();
+  //   fetchLocations();
+  //   fetchVendor();
+  //   fetchDept();
+  //   fetchCostCenter();
 
     
-  }, []);
+  // }, []);
 
   const getSuggestions = (value) => {
     const inputValue = value.trim().toLowerCase();
@@ -164,9 +164,9 @@ const AddNewAsset = () => {
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
-          {loading ? (
+          {/* {loading ? (
             <div>Loading...</div>
-          ) : (
+          ) : ( */}
             <Card>
               <CardHeader>
                 <h1 className="card-title" style={{ fontSize: "20px" }}>
@@ -530,7 +530,7 @@ const AddNewAsset = () => {
                 </Row>
               </CardBody>
             </Card>
-          )}
+          {/* )} */}
         </Container>
       </div>
     </React.Fragment>

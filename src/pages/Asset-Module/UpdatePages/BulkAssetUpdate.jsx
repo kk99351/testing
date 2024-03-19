@@ -522,7 +522,7 @@
 
 // export default BulkAssetUpdate;
 
-import React, { useState ,useMemo} from "react";
+import React, { useState, useMemo } from "react";
 import {
   Col,
   Row,
@@ -586,8 +586,7 @@ const BulkAssetUpdate = () => {
   ]);
   const navigate = useNavigate();
 
-
-    const dataWithSlno = useMemo(() => {
+  const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
@@ -678,7 +677,7 @@ const BulkAssetUpdate = () => {
   };
 
   return (
-       <React.Fragment>
+    <React.Fragment>
       <Container fluid>
         <div className="page-content">
           <Card className="mt-5">
@@ -729,9 +728,7 @@ const BulkAssetUpdate = () => {
                         <span className="text-danger">{errors.flr}</span>
                       </Col>
                       <Col md={4}>
-                        <Label for="alocationDate">
-                          ALLOCATE DATE
-                        </Label>
+                        <Label for="alocationDate">ALLOCATE DATE</Label>
                         <Input
                           type="date"
                           name="alocationDate"
@@ -790,7 +787,7 @@ const BulkAssetUpdate = () => {
                       </div>
                     </div>
                   </form>
-                
+
                   <div className="table-responsive">
                     <Table className="table table-bordered table-hover">
                       <thead>
@@ -832,13 +829,13 @@ const BulkAssetUpdate = () => {
                                 <option value="Inactive">TEMPORORY</option>
                               </select>
                             </td>
-                            <td  style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        marginBottom: "20px",
-                      }}
-                    >
-                              
+                            <td
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                marginBottom: "20px",
+                              }}
+                            >
                               <Input
                                 type="checkbox"
                                 checked={row.checked}

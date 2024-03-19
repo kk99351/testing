@@ -142,7 +142,7 @@ const BranchCreate = () => {
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="cityname">
-                            CIRY NAME <font color="red">*</font>
+                            CITY NAME <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"

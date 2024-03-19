@@ -254,8 +254,8 @@ import BulkAssetAllocate from "src/pages/Asset-Module/AssetLists/BulkAssetAlloca
 import DeAllocate from "src/pages/Asset-Module/AssetLists/DeAllocate";
 import DamagedAssets from "src/pages/Asset-Module/AssetLists/DamagedAssets";
 import ApproveDamagedAssets from "src/pages/Asset-Module/AssetLists/ApproveDamagedAssets";
-import AllAssetUpdate from "src/pages/Asset-Module/CreatePages/AllAssetUpdate";
-import AllAssetCreate from "src/pages/Asset-Module/CreatePages/AllAssetCreate";
+import AllAssetUpdate from "src/pages/Asset-Module/UpdatePages/AllAssetUpdate";
+import AllAssetCreate from "src/pages/Asset-Module/UpdatePages/AllAssetUpdate";
 import BulkAssetUpdate from "src/pages/Asset-Module/UpdatePages/BulkAssetUpdate";
 import DisplayBillEntryDetails from "src/pages/Asset-Module/UpdatePages/BillEntryDetails";
 import DisplayViaBillEntryDetails from "src/pages/Asset-Module/UpdatePages/ViaBillEntryDetails";
@@ -275,6 +275,27 @@ import FloorUpdate from "src/pages/Master-Module/UpdatePage/FloorUpdate";
 import FloorCreate from "src/pages/Master-Module/CreatePages/FloorCreate";
 import AssetLink from "src/pages/Asset-Module/AssetLists/AssetLink";
 import AssetDeLink from "src/pages/Asset-Module/AssetLists/AssetDeLink";
+import AssetMaintance from "src/pages/Asset-Module/AssetLists/AssetMaintenance";
+import AssetMaintenance from "src/pages/Asset-Module/AssetLists/AssetMaintenance";
+import AssetMaintainancenext from "src/pages/Asset-Module/AssetLists/AssetMaintainancenext";
+import InterTarnsferReq from "src/pages/Transfer/InterTransfer.jsx/InterTarnsferReq";
+import InterTransferApprove from "src/pages/Transfer/InterTransfer.jsx/InterTransferApprove";
+import InterTransfer from "src/pages/Transfer/InterTransfer.jsx/InterTransfer";
+import PrintGatePass from "src/pages/Transfer/InterTransfer.jsx/PrintGatePass";
+import ReceiveAssets from "src/pages/Transfer/InterTransfer.jsx/ReceiveAssets";
+import ReturnAknow from "src/pages/Transfer/InterTransfer.jsx/ReturnAknow";
+import IntraTransferRequest from "src/pages/Transfer/IntraTransfer.jsx/IntraTransferRequest";
+import IntraTransferApproval from "src/pages/Transfer/IntraTransfer.jsx/IntraTransferApproval";
+import IntraTransfer from "src/pages/Transfer/IntraTransfer.jsx/IntraTransfer";
+import IntraRecieveAssets from "src/pages/Transfer/IntraTransfer.jsx/IntraRecieveAssets";
+import TransferApprovalPreview from "src/pages/Transfer/IntraCreateUpdate.jsx/TransferApprovalPreview";
+import TransferPreview from "src/pages/Transfer/IntraCreateUpdate.jsx/TransferPreview";
+import RecieveAssetPreview from "src/pages/Transfer/IntraCreateUpdate.jsx/RecieveAssetPreview";
+import InterTransferApprovePreview from "src/pages/Transfer/InterCreateUpdate.jsx/InterTransferApprovePreview";
+import InterTransferPreview from "src/pages/Transfer/InterCreateUpdate.jsx/InterTransferPreview";
+import InterRecieveAssetsPreview from "src/pages/Transfer/InterCreateUpdate.jsx/InterRecieveAssetsPreview";
+import ReturnAknowPreview from "src/pages/Transfer/InterCreateUpdate.jsx/ReturnAknowPreview";
+import PrintGatePassPreview from "src/pages/Transfer/InterCreateUpdate.jsx/PrintGatePassPreview";
 
 interface RouteProps {
   path: string;
@@ -291,12 +312,16 @@ const userRoutes: Array<RouteProps> = [
   { path: "/all_asset", component: <AllAsset /> },
   { path: "/bills_entry", component: <BillsEntry /> },
   { path: "/via_bills", component: <ViaBill /> },
-  { path: "/barcode", component: <Barcode toggleCheckbox={function (...args: any[]) {
-    throw new Error("Function not implemented.");
-  } } /> },
-  { path: "/qr_code", component: <QrCode toggleCheckbox={function (...args: any[]) {
-    throw new Error("Function not implemented.");
-  } } /> },
+  // { path: "/barcode", component: <Barcode toggleCheckbox={function (...args: any[]) {
+  //   throw new Error("Function not implemented.");
+  // } } /> },
+  // { path: "/qr_code", component: <QrCode toggleCheckbox={function (...args: any[]) {
+  //   throw new Error("Function not implemented.");
+  // } } /> },
+  { path: "/barcode", component: <Barcode /> },
+  { path: "/qr_code", component: <QrCode /> },
+  { path: "/asset_maintenance", component: <AssetMaintenance /> },
+  { path: "/asset_maintenance_next", component: <AssetMaintainancenext /> },
   { path: "/bulk_asset_allocate", component: <BulkAssetAllocate /> },
   { path: "/deallocate", component: <DeAllocate /> },
   { path: "/damaged_asset", component: <DamagedAssets /> },
@@ -318,9 +343,28 @@ const userRoutes: Array<RouteProps> = [
 
 
 
+  //TRANSFER MASTER PAGES PATH
+  { path: "/inter_transfer_request", component: <InterTarnsferReq /> },
+  { path: "/inter_transfer_approval", component: <InterTransferApprove /> },
+  { path: "/inter_transfer", component: <InterTransfer /> },
+  { path: "/print_gate_pass", component: <PrintGatePass /> },
+  { path: "/inter_recieve_assets", component: <ReceiveAssets /> },
+  { path: "/inter_return_acknowledge", component: <ReturnAknow /> },
 
+  { path: "/inter_transfer_approval_preview/:id", component: <InterTransferApprovePreview /> },
+  { path: "/inter_transfer_preview/:id", component: <InterTransferPreview /> },
+  { path: "/inter_recieve_asset_preview/:id", component: <InterRecieveAssetsPreview /> },
+  { path: "/inter_return_acknowledge_preview/:id", component: <ReturnAknowPreview /> },
+  {path:"/print_gate_pass_preview/:id", component:< PrintGatePassPreview/>},
 
+  { path: "/intra_transfer_request", component: <IntraTransferRequest /> },
+  { path: "/intra_transfer_approval", component: <IntraTransferApproval /> },
+  { path: "/intra_transfer", component: <IntraTransfer /> },
+  { path: "/intra_recieve_assets", component: <IntraRecieveAssets /> },
 
+  { path: "/intra_transfer_approval_preview/:id", component: <TransferApprovalPreview /> },
+  { path: "/intra_transfer_preview/:id", component: <TransferPreview /> },
+  { path: "/intra_recieve_asset_preview/:id", component: <RecieveAssetPreview /> },
 
 
 

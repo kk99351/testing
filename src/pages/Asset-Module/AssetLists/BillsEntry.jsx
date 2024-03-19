@@ -50,17 +50,18 @@ const BillsEntry = () => {
       {
         Header: "SL NO",
         accessor: "slno",
+        width:"6%",
       },
       {
-        Header: "Bill Number",
+        Header: "BILL NUMBER",
         accessor: "bill_no",
       },
       {
-        Header: "Bill Date",
+        Header: "BILL DATE",
         accessor: "dt_bill",
       },
       {
-        Header: "Vendor Name",
+        Header: "VENDOR NAME",
         accessor: "nm_ven",
       },
     ],
@@ -162,13 +163,13 @@ const BillsEntry = () => {
                   color="primary"
                   onClick={handleSearch}
                 >
-                  Search
+                 SEARCH
                 </Button>
               </Col>
             </Row>
 
             <div className="table-responsive">
-              <Table className="table table-bordered table-hover">
+              <Table className="table table-bordered table-hover text-center">
                 <thead className="table-light table-nowrap">
                   {headerGroups.map(headerGroup => (
                     <tr
@@ -176,12 +177,9 @@ const BillsEntry = () => {
                       {...headerGroup.getHeaderGroupProps()}
                     >
                       {headerGroup.headers.map(column => (
-                       <th
-                       key={column.id}
-                       {...column.getHeaderProps(column.getSortByToggleProps())}
-                       style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
-                     >
-                          <div className="d-flex justify-content-between">
+                       <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
+
+                       <div className="d-flex justify-content-center">
                             <span className="font-weight-bold">
                               {column.render("Header")}
                             </span>
@@ -225,7 +223,7 @@ const BillsEntry = () => {
                         style={{ textAlign: "center" }}
                       >
                         {" "}
-                        No record(s) is available.
+                       NO SEARCH RESULTS AVAILABLE
                       </td>
                     </tr>
                   )}
