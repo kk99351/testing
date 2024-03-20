@@ -1156,14 +1156,14 @@ const IntraTransferRequest = () => {
             </CardBody>
           </Card>
         ) : (
-          <Card className="mt-4">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 INTRA TRANSFER REQUEST DETAILS
               </h1>
             </CardHeader>
             <CardBody>
-              <div className="container pt-2">
+              <div className="container pt-0">
                 <div className="row">
                   <div className="col-md-1">
                     <select className="form-select" style={{ width: "88PX" }}>

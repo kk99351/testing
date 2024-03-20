@@ -1248,7 +1248,7 @@ const BarcodePage = () => {
           </Card>
 
           {submitted && (
-            <Card className="mt-3">
+            <Card className="mt-0">
               <CardBody>
                 {/* Replace this with your table component */}
                 <div>

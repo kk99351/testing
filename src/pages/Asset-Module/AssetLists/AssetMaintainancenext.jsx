@@ -57,7 +57,7 @@ const AssetMaintainancenext = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-3">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 ASSET MAINTENANCE DETAILS

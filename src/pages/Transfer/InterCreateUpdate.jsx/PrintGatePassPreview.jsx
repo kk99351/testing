@@ -25,11 +25,10 @@ const PrintGatePassPreview = () => {
     requestDate: "",
     approvedBy: "",
     requestNumber: "",
-    tableData: [], // Added table data
+    tableData: [],
   });
 
   useEffect(() => {
-    // Simulating backend API call to fetch data
     axios
       .get("api/table_data")
       .then(response => {
@@ -98,7 +97,7 @@ const PrintGatePassPreview = () => {
           <Button
             onClick={handlePrint}
             color="secondary"
-            className="d-print-none"
+            className="btn btn-secondary-subtle border border-secondary d-print-none"
           >
             CLICK HERE TO PRINT GATE PASS
           </Button>
@@ -116,11 +115,12 @@ const PrintGatePassPreview = () => {
           </CardHeader>
           <CardBody>
             <Row>
-              <Col sm="6">
+              <Col sm="3">
                 <div className="text-center">
-                  <p style={{ fontSize: "25px" }}>
-                    <strong>From:</strong>
+                  <p style={{ fontSize: "20px" }}>
+                    <strong>:FROM:</strong>
                   </p>
+                  <div className="justify-contend-end">
                   <p>{formData.companyGroup}</p>
                   <p>{formData.state}</p>
                   <p>{formData.city}</p>
@@ -128,12 +128,14 @@ const PrintGatePassPreview = () => {
                   <p>{formData.building}</p>
                   <p>{formData.floor}</p>
                   <p>{formData.department}</p>
+                  </div>
                 </div>
               </Col>
-              <Col sm="6">
+              <Col sm="3"></Col> <Col sm="3"></Col>
+              <Col sm="3">
                 <div className="text-center">
-                  <p style={{ fontSize: "25px" }}>
-                    <strong>To:</strong>
+                  <p style={{ fontSize: "20px" }}>
+                    <strong>:TO:</strong>
                   </p>
                   <p>{formData.companyGroup}</p>
                   <p>{formData.state}</p>

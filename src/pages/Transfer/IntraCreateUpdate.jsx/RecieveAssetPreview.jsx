@@ -660,7 +660,7 @@ const TransferPreview = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-4">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
               INTRA RECIEVE ASSETS DETAILS

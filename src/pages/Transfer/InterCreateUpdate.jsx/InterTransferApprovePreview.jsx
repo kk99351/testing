@@ -162,14 +162,14 @@ const InterTransferApprovePreview = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-4">
+          <Card className="mt-0">
           <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
               INTER  TRANSFER APPROVE DETAILS
               </h1>
             </CardHeader>
             <CardBody>
-            <div className="container pt-3">
+            <div className="container pt-0">
               <div className="rmb-2 row">
                 <div className="col-md-1">
                   <select className="form-select" style={{ width: "88PX" }}>

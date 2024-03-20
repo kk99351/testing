@@ -1,109 +1,114 @@
-// import React from 'react'
-
-// function DamagedAssets() {
-//   return (
-//     <div>DamagedAssets</div>
-//   )
-// }
-
-// export default DamagedAssets
-import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Container,CardBody,CardHeader, Button, Card, Input } from "reactstrap";
+import React, { useEffect, useMemo, useState } from "react";
+import { Container, Button, Input, Card, CardHeader } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
-
 import {
   useTable,
-  useGlobalFilter,
   useSortBy,
   usePagination,
+  useGlobalFilter,
 } from "react-table";
+import { useGet } from "src/API/useGet";
+import { saveAs } from "file-saver";
+import { CSVLink } from "react-csv";
+import { PDFDownloadLink, Document, Page, Text } from "@react-pdf/renderer";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { FaCopy, FaFilePdf, FaFileExcel } from "react-icons/fa";
 
-const DamagedAssets = () => {
+const LeaseReportView = () => {
   const demoData = [
     {
-      slno: 1,
-      assetId: "A001",
-      modelNo: "SN001",
-      assetName: "Laptop",
-      serialNumber: "INV-001",
-    },
-    {
-      slno: 2,
-      assetId: "A002",
-      modelNo: "SN002",
-      assetName: "Desktop",
-      serialNumber: "INV-002",
-    },
-    {
-      slno: 3,
-      assetId: "A003",
-      modelNo: "SN003",
-      assetName: "Printer",
-      serialNumber: "INV-003",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      modelNo: "SN004",
-      assetName: "Monitor",
-
-      serialNumber: "INV-004",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      modelNo: "SN004",
-      assetName: "Monitor",
-
-      serialNumber: "INV-004",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      modelNo: "SN004",
-      assetName: "Monitor",
-
-      serialNumber: "INV-004",
-    },
+        "slno": 1,
+        "asset_id": "ASSET001",
+        "asset_name": "Laptop",
+        "emp_name": "John Doe",
+        "client_name": "Company XYZ",
+        "serial_num": "SN123456",
+        "ass_dis": "Dell Latitude 7400",
+        "vendor_name": "Dell",
+        "cmpny_group": "Tech Division",
+        "status": "Active",
+        "city": "New York",
+        "location": "Headquarters",
+        "building": "Main Building",
+        "floor": "10th Floor",
+        "pur_date": "2023-05-20",
+        "invoice": "INV-2023-0501",
+        "amc_st_date": "2023-05-20",
+        "amc_end_date": "2024-05-20"
+      },{
+        "slno": 1,
+        "asset_id": "ASSET001",
+        "asset_name": "Laptop",
+        "emp_name": "John Doe",
+        "client_name": "Company XYZ",
+        "serial_num": "SN123456",
+        "ass_dis": "Dell Latitude 7400",
+        "vendor_name": "Dell",
+        "cmpny_group": "Tech Division",
+        "status": "Active",
+        "city": "New York",
+        "location": "Headquarters",
+        "building": "Main Building",
+        "floor": "10th Floor",
+        "pur_date": "2023-05-20",
+        "invoice": "INV-2023-0501",
+        "amc_st_date": "2023-05-20",
+        "amc_end_date": "2024-05-20"
+      },{
+        "slno": 1,
+        "asset_id": "ASSET001",
+        "asset_name": "Laptop",
+        "emp_name": "John Doe",
+        "client_name": "Company XYZ",
+        "serial_num": "SN123456",
+        "ass_dis": "Dell Latitude 7400",
+        "vendor_name": "Dell",
+        "cmpny_group": "Tech Division",
+        "status": "Active",
+        "city": "New York",
+        "location": "Headquarters",
+        "building": "Main Building",
+        "floor": "10th Floor",
+        "pur_date": "2023-05-20",
+        "invoice": "INV-2023-0501",
+        "amc_st_date": "2023-05-20",
+        "amc_end_date": "2024-05-20"
+      },
   ];
 
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
-
+  // const { getData, data, isLoading } = useGet();
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/plant")
+  //     .then(response => response.json())
+  //     .then(data => setResponseData(data))
+  //     .catch(error => console.error("Error fetching users:", error));
+  // }, []);
+  const MyDocument = () => (
+    <Document>
+      <Page>
+        <Text>Generated PDF Content</Text>
+      </Page>
+    </Document>
+  );
   const columns = useMemo(
     () => [
-      {
-        Header: "SL NO",
-        accessor: "slno",
-        width:'6%',
-      },
-      {
-        Header: "ASSET ID",
-        accessor: "assetId",
-        disableFilters: true,
-        filterable: true,
-      },
-      {
-        Header: "MODEL NUMBER",
-        accessor: "modelNo",
-        disableFilters: true,
-        filterable: true,
-      },
-      {
-        Header: "ASSET NAME",
-        accessor: "assetName",
-        disableFilters: true,
-        filterable: true,
-      },
-      {
-        Header: "SERIAL NUMBER",
-        accessor: "serialNumber",
-        disableFilters: true,
-        filterable: true,
-      },
+      { Header: "SL NO", accessor: "slno" },
+      { Header: "ASSET ID", accessor: "asset_id" },
+      { Header: "ASSET NAME", accessor: "asset_name" },
+      { Header: "SERIAL NUMBER", accessor: "serial_num" },
+      { Header: "ASSET DISCRIPTION", accessor: "ass_dis" },
+      { Header: "VENDOR NAME", accessor: "vendor_name"}, 
+      { Header: "PURCHASE DATE", accessor: "pur_date" },    
+      { Header: "INVOICE DATE", accessor: "invoice" },    
+      { Header: "AMC START DATE", accessor: "amc_st_date" },    
+      { Header: "AMC END DATE", accessor: "amc_end_date" },    
+  
     ],
     []
   );
+
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
@@ -136,33 +141,28 @@ const DamagedAssets = () => {
     usePagination
   );
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/employeemaster");
-  //   }
-  //   fetch();
-  // }, [getData]);
-
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
-
   return (
     <React.Fragment>
+      {/* {isLoading ? (
+      <div className="page-content">
+        <Card>
+          <div>
+            <h1>Loading...</h1>
+          </div>
+        </Card>
+      </div>
+    ) : ( */}
       <Container fluid>
         <div className="page-content">
           <Card>
-          <CardHeader>
+            <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                DAMAGED ASSETS DETAILS
+               GENERATED LEASE REPORT DETAILS{" "}
               </h1>
             </CardHeader>
-            <CardBody>
-
-            <div className="container pt-0">
+            <div className="container pt-2">
               <div className="rmb-2 row">
-                <div className="col-md-1">
+              <div className="col-md-1">
                 <select className="form-select" style={{ width: "88PX" }}>
                     <option value="10">SHOW 10</option>
                     <option value="20">SHOW 20</option>
@@ -172,7 +172,7 @@ const DamagedAssets = () => {
                   </select>
                 </div>
 
-                <div className="col-md-4">
+                <div className="col-md-8">
                   <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
                     <div className="position-relative">
                       <label htmlFor="search-bar-0" className="search-label">
@@ -192,27 +192,41 @@ const DamagedAssets = () => {
                     </div>
                   </div>
                 </div>
+                {/* <div className="col-sm-2 mb-2">
+                  <div className="text-sm-end d-flex justify-content-between">
+                    <div>
+                      <CopyToClipboard text="data to be copied">
+                        <FaCopy className="icon" />
+                      </CopyToClipboard>
+                      <PDFDownloadLink
+                        document={<MyDocument />}
+                        fileName="report.pdf"
+                      >
+                        {({ blob, url, loading, error }) =>
+                          loading ? (
+                            <span>Loading...</span>
+                          ) : (
+                            <FaFilePdf className="icon" />
+                          )
+                        }
+                      </PDFDownloadLink>
 
-                {/* <div className="col-sm-7">
-              <div className="text-sm-end">
-                <button
-                  type="button"
-                  className="btn mb-2 me-2 btn btn-primary"
-                  onClick={() => navigate("/create_all_asset")}
-                >
-                  <i className="mdi mdi-plus-circle-outline me-1"></i>
-                  Create New
-                </button>
-              </div>
-            </div> */}
+                      <CSVLink
+                        data={demoData}
+                        filename={"report.csv"}
+                        className="btn btn-primary"
+                        target="_blank"
+                      >
+                        <FaFileExcel className="icon" />
+                      </CSVLink>
+                    </div>
+                  </div>
+                </div> */}
               </div>
             </div>
 
             <div className="table-responsive react-table">
-            <table
-                className="table table-bordered table-hover text-center"
-                {...getTableProps()}
-              >
+              <table className="table table-bordered table-hover">
                 <thead className="table-light table-nowrap">
                   {headerGroups.map(headerGroup => (
                     <tr
@@ -220,9 +234,18 @@ const DamagedAssets = () => {
                       {...headerGroup.getHeaderGroupProps()}
                     >
                       {headerGroup.headers.map(column => (
-                      <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
-
-                      <div className="d-flex justify-content-center">
+                        <th
+                          key={column.id}
+                          {...column.getHeaderProps(
+                            column.getSortByToggleProps()
+                          )}
+                          style={
+                            column.id === "slno"
+                              ? { width: "6%" }
+                              : { backgroundColor: "" }
+                          }
+                        >
+                          <div className="d-flex justify-content-between">
                             <span className="font-weight-bold">
                               {column.render("Header")}
                             </span>
@@ -247,15 +270,7 @@ const DamagedAssets = () => {
                         <tr key={row.id} {...row.getRowProps()}>
                           {row.cells.map(cell => (
                             <td key={cell.column.id} {...cell.getCellProps()}>
-                              {cell.column.id !== "id" ? (
-                                <Link
-                                  to={`/modify_damaged_asset/${row.original.id}`}
-                                >
-                                  {cell.render("Cell")}
-                                </Link>
-                              ) : (
-                                cell.render("Cell")
-                              )}
+                              {cell.render("Cell")}
                             </td>
                           ))}
                         </tr>
@@ -268,7 +283,7 @@ const DamagedAssets = () => {
                         style={{ textAlign: "center" }}
                       >
                         {" "}
-                        No search results found.
+                        NO SEARCH RESULTS FOUND{" "}
                       </td>
                     </tr>
                   )}
@@ -283,6 +298,7 @@ const DamagedAssets = () => {
                 </p>
               </div>
               <div className="col-sm-6">
+                {" "}
                 <div className="pagination justify-content-end pb-2 pe-2">
                   <button
                     className="btn btn-info"
@@ -316,12 +332,12 @@ const DamagedAssets = () => {
                 </div>
               </div>
             </div>
-            </CardBody>
           </Card>
         </div>
       </Container>
+      {/* )} */}
     </React.Fragment>
   );
 };
 
-export default DamagedAssets;
+export default LeaseReportView;

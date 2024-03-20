@@ -14,6 +14,8 @@ import { withTranslation } from "react-i18next";
 
 const Navbar = (props: any) => {
   const path = useLocation();
+  const [report, setreport] = useState<boolean>(false);
+  const [transferreport, settransferreport] = useState<boolean>(false);
 
   const [pricing, setpricing] = useState<boolean>(false);
   const [app, setapp] = useState<boolean>(false);
@@ -577,15 +579,81 @@ const Navbar = (props: any) => {
                     </div>
                   </div>
                 </li>
+                {/* ANALYTICS/REPORTS*/}
 
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle arrow-none"
+                    to="/#"
+                    onClick={e => {
+                      e.preventDefault();
+                      setreport(!report);
+                    }}
+                  >
+                    <Icon name="folder-plus" />{" "}
+                    <span>{props.t("ANALYTICS / REPORTS")}</span>
+                    <div className="arrow-down"></div>
+                  </Link>
 
+                  <div className={classname("dropdown-menu")}>
+                    <Link to="/master_report" className="dropdown-item">
+                      {props.t("Master Report")}
+                    </Link>
+                    <Link to="/asset_status_report" className="dropdown-item">
+                      {props.t("Asset Status Report")}
+                    </Link>
+                    <Link to="/employee_wise_report" className="dropdown-item">
+                      {props.t("Employee Wise Report")}
+                    </Link>
+                    <Link to="/client_wise_report" className="dropdown-item">
+                      {props.t("Client Wise Report")}
+                    </Link>
+                    <div className="dropdown">
+                      <Link
+                        to="/#"
+                        className="dropdown-item dropdown-toggle arrow-none"
+                        onClick={e => {
+                          e.preventDefault();
+                          settransferreport(!transferreport);
+                        }}
+                      >
+                        {props.t("Transfer Report")}{" "}
+                        <div className="arrow-down"></div>
+                      </Link>
+                      <div
+                        className={classname("dropdown-menu", {
+                          show: transferreport,
+                        })}
+                      >
+                        <Link to="/transfer_request_report" className="dropdown-item">
+                          {props.t("Transfer Request Report")}
+                        </Link>
+                        <Link to="/transfer_approval_report" className="dropdown-item">
+                          {props.t("Transfer Approval Report")}
+                        </Link>
+                        <Link to="/transfer_report" className="dropdown-item">
+                          {props.t("Transfer Report")}
+                        </Link>
+                        <Link to="/transfer_recieve_report" className="dropdown-item">
+                          {props.t("Transfer Recieve Report")}
+                        </Link>
+                      </div>
+                    </div>
 
-
-
-
-
-
-
+                    <Link to="/accessory_history_report" className="dropdown-item">
+                      {props.t("Accessory/Software History Report")}
+                    </Link>
+                    <Link to="/asset_history_report" className="dropdown-item">
+                      {props.t("Asset History Report")}
+                    </Link>
+                    <Link to="/amc_warrenty_report" className="dropdown-item">
+                      {props.t("AMC/Warrenty")}
+                    </Link>
+                    <Link to="/lease_report" className="dropdown-item">
+                      {props.t("Lease Report")}
+                    </Link>
+                  </div>
+                </li>
 
                 {/* 
                 <li className="nav-item dropdown">

@@ -296,7 +296,30 @@ import InterTransferPreview from "src/pages/Transfer/InterCreateUpdate.jsx/Inter
 import InterRecieveAssetsPreview from "src/pages/Transfer/InterCreateUpdate.jsx/InterRecieveAssetsPreview";
 import ReturnAknowPreview from "src/pages/Transfer/InterCreateUpdate.jsx/ReturnAknowPreview";
 import PrintGatePassPreview from "src/pages/Transfer/InterCreateUpdate.jsx/PrintGatePassPreview";
-
+import MasterReport from "src/pages/Reports/MasterReport";
+import MasterReportview from "src/pages/Reports/ReportViewPages/MasterReportview";
+import AssetStatusReport from "src/pages/Reports/AssetStatusReport";
+import EmpWiseReport from "src/pages/Reports/EmpWiseReport";
+import ClientWiseReport from "src/pages/Reports/ClientWiseReport";
+import AccessoryHistoryReport from "src/pages/Reports/AccessoryHistoryReport";
+import AssetHistoryReport from "src/pages/Reports/AssetHistoryReport";
+import AmcWarrentyReport from "src/pages/Reports/AmcWarrentyReport";
+import LeaseReport from "src/pages/Reports/LeaseReport";
+import TransferRequestReport from "src/pages/Reports/TransferReport/TransferRequestReport";
+import TransferReport from "src/pages/Reports/TransferReport/TransferReport";
+import TransferRecieveReport from "src/pages/Reports/TransferReport/TransferRecieveReport";
+import TransferApprovalReport from "src/pages/Reports/TransferReport/TransferApprovalReport";
+import AssetStatusReportview from "src/pages/Reports/ReportViewPages/AssetStatusReportview";
+import EmpWiseReportview from "src/pages/Reports/ReportViewPages/EmpWiseReportview";
+import ClientWiseReportview from "src/pages/Reports/ReportViewPages/ClientWiseReportview";
+import AccessoryHistoryReportview from "src/pages/Reports/ReportViewPages/AccessoryHistoryReportview";
+import AssetHistoryReportview from "src/pages/Reports/ReportViewPages/AssetHistoryReportview";
+import AmcWarrenttyReportview from "src/pages/Reports/ReportViewPages/AmcWarrenttyReportview";
+import LeaseReportView from "src/pages/Reports/ReportViewPages/LeaseReportView";
+import TransferRequestReportview from "src/pages/Reports/ReportViewPages/TransferReportView/TransferRequestReportview";
+import TransferReportview from "src/pages/Reports/ReportViewPages/TransferReportView/TransferReportview";
+import TransferRecieveReportview from "src/pages/Reports/ReportViewPages/TransferReportView/TransferRecieveReportview";
+import TransferApprovalReportview from "src/pages/Reports/ReportViewPages/TransferReportView/TransferApprovalReportview";
 interface RouteProps {
   path: string;
   component: any;
@@ -369,6 +392,35 @@ const userRoutes: Array<RouteProps> = [
 
 
 
+  //ANALYTICS/REPORT PATH
+  { path: "/master_report", component: <MasterReport /> },
+  { path: "/master_report_view", component: <MasterReportview/> },
+  { path: "/asset_status_report", component: <AssetStatusReport/> },
+  { path: "/asset_status_report_view", component: <AssetStatusReportview/> },
+  { path: "/employee_wise_report", component: <EmpWiseReport/> },
+  { path: "/employee_wise_report_view", component: <EmpWiseReportview/> },
+  { path: "/client_wise_report", component: <ClientWiseReport/> },
+  { path: "/client_wise_report_view", component: <ClientWiseReportview/> },
+  { path: "/accessory_history_report", component: <AccessoryHistoryReport/> },
+  { path: "/accessory_history_report_view", component: <AccessoryHistoryReportview/> },
+  { path: "/asset_history_report", component: <AssetHistoryReport/> },
+  { path: "/asset_history_report_view", component: <AssetHistoryReportview/> },
+  { path: "/amc_warrenty_report", component: <AmcWarrentyReport/> },
+  { path: "/amc_warrenty_report_view", component: <AmcWarrenttyReportview/> },
+  { path: "/lease_report", component: <LeaseReport/> },
+  { path: "/lease_report_view", component: <LeaseReportView/> },
+
+  { path: "/transfer_request_report", component: <TransferRequestReport/> },
+  { path: "/transfer_request_report_view", component: <TransferRequestReportview/> },
+
+  { path: "/transfer_report", component: <TransferReport/> },
+  { path: "/transfer_report_view", component: <TransferReportview/> },
+
+  { path: "/transfer_recieve_report", component: <TransferRecieveReport/> },
+  { path: "/transfer_recieve_report_view", component: <TransferRecieveReportview/> },
+
+  { path: "/transfer_approval_report", component: <TransferApprovalReport/> },
+  { path: "/transfer_approval_report_view", component: <TransferApprovalReportview/> },
 
 
 

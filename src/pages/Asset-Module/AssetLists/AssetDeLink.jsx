@@ -544,7 +544,7 @@ const AssetDeLink = () => {
               {/* <Row className="justify-content-center">
                 <Col xl={10}> */}
 
-              <div className="container pt-3">
+              <div className="container pt-0">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
                     <select className="form-select" style={{ width: "88PX" }}>
