@@ -1,5 +1,12 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Button, Card,Container, Input } from "reactstrap";
+import {
+  Button,
+  CardBody,
+  CardHeader,
+  Card,
+  Container,
+  Input,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -11,11 +18,34 @@ import { useGet } from "src/API/useGet";
 
 const EmplyeeMaster = () => {
   const demoData = [
-    { employeename: "Group A" ,employeeid:"XYZ",officialmailid:"ABC",designation:"ABCD",status:"ACTIVE"},
-    { employeename: "group d" ,employeeid:"XYZ",officialmailid:"ABC",designation:"ABCD",status:"ACTIVE"},
-    { employeename: "Group C" ,employeeid:"XYZ",officialmailid:"ABC",designation:"ABCD",status:"ACTIVE"},
-    { employeename: "Group D" ,employeeid:"XYZ",officialmailid:"ABC",designation:"ABCD",status:"ACTIVE"},
-    { employeename: "Group E" ,employeeid:"XYZ",officialmailid:"ABC",designation:"ABCD",status:"ACTIVE"},
+    {
+      employeename: "John Doe",
+      employeeid: "E12345",
+      officialmailid: "john.doe@example.com",
+      designation: "Software Engineer",
+      status: "Active",
+    },
+    {
+      employeename: "Jane Smith",
+      employeeid: "E23456",
+      officialmailid: "jane.smith@example.com",
+      designation: "HR Coordinator",
+      status: "Active",
+    },
+    {
+      employeename: "Alice Johnson",
+      employeeid: "E34567",
+      officialmailid: "alice.johnson@example.com",
+      designation: "Manager",
+      status: "Inactive",
+    },
+    {
+      employeename: "Bob Brown",
+      employeeid: "E45678",
+      officialmailid: "bob.brown@example.com",
+      designation: "Sales Representative",
+      status: "Active",
+    },
   ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
@@ -35,7 +65,8 @@ const EmplyeeMaster = () => {
     () => [
       {
         Header: "SL NO",
-        accessor:"slno",
+        accessor: "slno",
+        width: "6%",
       },
       {
         Header: "EMPLOYEE NAME",
@@ -103,18 +134,24 @@ const EmplyeeMaster = () => {
           </Card>
         </div>
       ) : ( */}
-        <Container fluid>
-      <div className="page-content">
-      <Card>
-              <div className="container pt-4">
+      <Container fluid>
+        <div className="page-content">
+          <Card>
+            <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+                EMPLOYEE DETAILS{" "}
+              </h1>
+            </CardHeader>
+            <CardBody>
+              <div className="container pt-0">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
-                    <select className="form-select">
-                      <option value="10">Show 10</option>
-                      <option value="20">Show 20</option>
-                      <option value="30">Show 30</option>
-                      <option value="40">Show 40</option>
-                      <option value="50">Show 50</option>
+                    <select className="form-select" style={{ width: "88PX" }}>
+                      <option value="10">SHOW 10</option>
+                      <option value="20">SHOW 20</option>
+                      <option value="30">SHOW 30</option>
+                      <option value="40">SHOW 40</option>
+                      <option value="50">SHOW 50</option>
                     </select>
                   </div>
 
@@ -129,7 +166,7 @@ const EmplyeeMaster = () => {
                             id="search-bar-0"
                             type="text"
                             className="form-control"
-                            placeholder="search ..."
+                            placeholder="SEARCH ..."
                             value={globalFilter || ""}
                             onChange={e => setGlobalFilter(e.target.value)}
                           />
@@ -147,7 +184,7 @@ const EmplyeeMaster = () => {
                         onClick={() => navigate("/create_emplyeemaster")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
-                        Create New
+                        CREATE NEW{" "}
                       </button>
                     </div>
                   </div>
@@ -155,7 +192,7 @@ const EmplyeeMaster = () => {
               </div>
 
               <div className="table-responsive react-table">
-                <table className="table table-bordered table-hover">
+                <table className="table table-bordered table-hover text-center">
                   <thead className="table-light table-nowrap">
                     {headerGroups.map(headerGroup => (
                       <tr
@@ -163,12 +200,14 @@ const EmplyeeMaster = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                           <th
-                           key={column.id}
-                           {...column.getHeaderProps(column.getSortByToggleProps())}
-                           style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
-                         >
-                            <div className="d-flex justify-content-between">
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
+                            <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
                               </span>
@@ -194,7 +233,9 @@ const EmplyeeMaster = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/emplyee_master/${row.original.id}`}>
+                                  <Link
+                                    to={`/emplyee_master/${row.original.id}`}
+                                  >
                                     {cell.render("Cell")}
                                   </Link>
                                 ) : (
@@ -212,7 +253,7 @@ const EmplyeeMaster = () => {
                           style={{ textAlign: "center" }}
                         >
                           {" "}
-                          No search results found.
+                          NO SEARCH RESULTS FOUND{" "}
                         </td>
                       </tr>
                     )}
@@ -261,9 +302,10 @@ const EmplyeeMaster = () => {
                   </div>
                 </div>
               </div>
-            </Card>
-          </div>
-      {/* )} */}
+            </CardBody>
+          </Card>
+        </div>
+        {/* )} */}
       </Container>
     </React.Fragment>
   );

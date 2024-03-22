@@ -1,316 +1,3 @@
-// import React from "react";
-// import * as Yup from "yup";
-// import { useFormik } from "formik";
-// import {
-//   Button,
-//   Col,
-//   FormFeedback,
-//   Input,
-//   Label,
-//   Row,
-//   Form,
-//   FormGroup,
-//   CardBody,
-//   CardHeader,
-//   Container,
-//   Card,
-// } from "reactstrap";
-// import { useNavigate } from "react-router-dom";
-
-// const UserLoginCreate = () => {
-//   const navigate = useNavigate();
-//   const validation = useFormik({
-//     enableReinitialize: true,
-
-//     initialValues: {
-//       EmployeeInitials: "",
-//       Email: "",
-//       LoginName: "",
-//       Password: "",
-//       ConfirmPassword: "",
-//       UserType: "",
-//       Status: "Active", // Default to Active
-//     },
-
-//     validationSchema: Yup.object({
-//       EmployeeInitials: Yup.string().required("EmployeeInitials is Required"),
-//       Email: Yup.string()
-//         .email("Enter a valid email")
-//         .required("Email is Required"),
-//       LoginName: Yup.string().required("LoginName is Required"),
-//       Password: Yup.string().required("Password is Required"),
-//       ConfirmPassword: Yup.string()
-//         .oneOf([Yup.ref("Password"), null], "Passwords must match")
-//         .required("Confirm Password is Required"),
-//       Status: Yup.string().required("Status is Required"),
-//     }),
-//     onSubmit: (values) => {
-//       alert("form validated!");
-//       // console.log("values", values);
-//     },
-//   });
-
-//   return (
-//     <React.Fragment>
-//       <Container fluid>
-//         <div className="page-content">
-//           <Card>
-//             <CardHeader>
-//               <h1 className="card-title" style={{ fontSize: "20px" }}>
-//               USER LOGIN DETAILS
-//               </h1>
-//             </CardHeader>
-
-//             <CardBody>
-//             <Row className="justify-content-center">
-//                 <Col xl={10}>
-//               <Form
-//                 className="needs-validation"
-//                 onSubmit={validation.handleSubmit}
-//               >
-//                   <Row className="mb-2">
-//                       <Col md={6}>
-//                     <FormGroup className="mb-3">
-//                       <Label htmlFor="validationCustom01">
-//                         EMPLOYEE INITIALS<font color="red">*</font>
-//                       </Label>
-//                       <Input
-//                         name="EmployeeInitials"
-//                         type="select"
-//                         className="form-control"
-//                         id="validationCustom01"
-//                         onChange={validation.handleChange}
-//                         onBlur={validation.handleBlur}
-//                         invalid={
-//                           validation.touched.EmployeeInitials &&
-//                           validation.errors.EmployeeInitials
-//                         }
-//                       >
-//                        <option value="">
-//                               SELECT EMPLOYEE INITIALS
-//                             </option>
-//                             <option value="dept1">ADMIN</option>
-//                             <option value="dept2">AMIT</option>
-//                             <option value="dept2">ASIT</option>
-//                             <option value="dept2">AMIT</option>
-//                             </Input>
-//                       {validation.touched.EmployeeInitials &&
-//                       validation.errors.EmployeeInitials ? (
-//                         <FormFeedback type="invalid">
-//                           {validation.errors.EmployeeInitials}
-//                         </FormFeedback>
-//                       ) : null}
-//                     </FormGroup>
-//                     </Col>
-//                       <Col md={6}>
-//                     <FormGroup className="mb-3">
-//                       <Label htmlFor="validationCustom02">
-//                         EMAIL<font color="red">*</font>
-//                       </Label>
-//                       <Input
-//                         name="Email"
-//                         type="text"
-//                         className="form-control"
-//                         id="validationCustom02"
-//                         onChange={validation.handleChange}
-//                         onBlur={validation.handleBlur}
-//                         invalid={
-//                           validation.touched.Email && validation.errors.Email
-//                         }
-//                       />
-//                       {validation.touched.Email && validation.errors.Email ? (
-//                         <FormFeedback type="invalid">
-//                           {validation.errors.Email}
-//                         </FormFeedback>
-//                       ) : null}
-//                     </FormGroup>
-//                     </Col>
-//                       <hr className="mb-2" />
-//                     </Row>
-//                     <Row className="mb-2">
-//                       <Col md={6}>
-//                     <FormGroup className="mb-3">
-//                       <Label htmlFor="validationCustom03">
-//                         LOGIN NAME<font color="red">*</font>
-//                       </Label>
-//                       <Input
-//                         name="LoginName"
-//                         type="text"
-//                         className="form-control"
-//                         id="validationCustom03"
-//                         onChange={validation.handleChange}
-//                         onBlur={validation.handleBlur}
-//                         invalid={
-//                           validation.touched.LoginName &&
-//                           validation.errors.LoginName
-//                         }
-//                       />
-//                       {validation.touched.LoginName &&
-//                       validation.errors.LoginName ? (
-//                         <FormFeedback type="invalid">
-//                           {validation.errors.LoginName}
-//                         </FormFeedback>
-//                       ) : null}
-//                     </FormGroup>
-//                     </Col>
-//                       <Col md={6}>
-//                     <FormGroup className="mb-3">
-//                       <Label htmlFor="validationCustom04">
-//                         PASSWORD<font color="red">*</font>
-//                       </Label>
-//                       <Input
-//                         name="Password"
-//                         type="password"
-//                         className="form-control"
-//                         id="validationCustom04"
-//                         onChange={validation.handleChange}
-//                         onBlur={validation.handleBlur}
-//                         invalid={
-//                           validation.touched.Password &&
-//                           validation.errors.Password
-//                         }
-//                       />
-//                       {validation.touched.Password &&
-//                       validation.errors.Password ? (
-//                         <FormFeedback type="invalid">
-//                           {validation.errors.Password}
-//                         </FormFeedback>
-//                       ) : null}
-//                     </FormGroup>
-//                     </Col>
-//                       <hr className="mb-2" />
-//                     </Row>
-//                     <Row className="mb-2">
-//                       <Col md={6}>
-//                     <FormGroup className="mb-3">
-//                       <Label htmlFor="validationCustom05">
-//                         CONFIRM PASSWORD<font color="red">*</font>
-//                       </Label>
-//                       <Input
-//                         name="ConfirmPassword"
-//                         type="password"
-//                         className="form-control"
-//                         id="validationCustom05"
-//                         onChange={validation.handleChange}
-//                         onBlur={validation.handleBlur}
-//                         invalid={
-//                           validation.touched.ConfirmPassword &&
-//                           validation.errors.ConfirmPassword
-//                         }
-//                       />
-//                       {validation.touched.ConfirmPassword &&
-//                       validation.errors.ConfirmPassword ? (
-//                         <FormFeedback type="invalid">
-//                           {validation.errors.ConfirmPassword}
-//                         </FormFeedback>
-//                       ) : null}
-//                       </FormGroup>
-//                  </Col>
-//                       <Col md={6}>
-//                     <FormGroup className="mb-3">
-//                       <Label htmlFor="validationCustom06">
-//                         USER TYPE
-//                       </Label>
-//                       <Input
-//                         name="UserType"
-//                         type="select"
-//                         className="form-control"
-//                         id="validationCustom06"
-//                         onChange={validation.handleChange}
-//                         onBlur={validation.handleBlur}
-//                         invalid={
-//                           validation.touched.UserType &&
-//                           validation.errors.UserType
-//                         }
-//                       >
-//                       <option value="" >
-//                               SELECT USER TYPE
-//                             </option>
-//                             <option value="dept1">ADMIN</option>
-//                             <option value="dept2">HOD</option>
-//                             <option value="dept2">PROFESSOR</option>
-//                             </Input>
-                    
-//                     </FormGroup>
-//                     </Col>
-//                     <hr className="mb-2" />
-
-//                       <Col md={6}>
-//                     <FormGroup className="mb-3">
-//                       <Label>STATUS<font color="red">*</font></Label>
-//                       <div>
-//                         <FormGroup check inline>
-//                           <Input
-//                             type="radio"
-//                             name="Status"
-//                             value="Active"
-//                             onChange={validation.handleChange}
-//                             checked={validation.values.Status === "Active"}
-//                           />
-//                           <Label check>ENABLED</Label>
-//                         </FormGroup>
-//                         <FormGroup check inline>
-//                           <Input
-//                             type="radio"
-//                             name="Status"
-//                             value="Inactive"
-//                             onChange={validation.handleChange}
-//                             checked={validation.values.Status === "Inactive"}
-//                           />
-//                           <Label check>DISABLED</Label>
-//                         </FormGroup>
-//                       </div>
-//                       {validation.touched.Status &&
-//                       validation.errors.Status ? (
-//                         <div className="text-danger">
-//                           {validation.errors.Status}
-//                         </div>
-//                       ) : null}
-//                     </FormGroup>
-//                   </Col>
-//                 </Row>
-
-//                 <div
-//                   style={{
-//                     display: "flex",
-//                     alignItems: "center",
-//                     justifyContent: "space-around",
-//                   }}
-//                 >
-//                   <Button
-//                     type="submit"
-//                     color="success-subtle"
-//                     className="border border-success"
-//                   >
-//                     CREATE
-//                   </Button>
-//                   <button
-//                     type="button"
-//                     className="btn btn-secondary-subtle border border-secondary"
-//                     onClick={() => {
-//                       navigate("/user_login");
-//                     }}
-//                     style={{
-//                       paddingTop: "10px",
-//                       width: "80px",
-//                       height: "45px",
-//                     }}
-//                   >
-//                     <Label>BACK</Label>
-//                   </button>
-//                 </div>
-//               </Form>
-//               </Col>
-//               </Row>
-//             </CardBody>
-//           </Card>
-//         </div>
-//       </Container>
-//     </React.Fragment>
-//   );
-// };
-
-// export default UserLoginCreate;
 import React from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -346,7 +33,6 @@ const UserLoginCreate = () => {
     }
     return true; // Return true if validation passes
   };
-  
   const navigate = useNavigate();
   const validation = useFormik({
     enableReinitialize: true,
@@ -357,30 +43,35 @@ const UserLoginCreate = () => {
       Password: "",
       ConfirmPassword: "",
       UserType: "",
-      Status: "Active",
+      Status: "",
       DisabledDate: "",
     },
-    
-    
+
     validationSchema: Yup.object({
-      EmployeeInitials: Yup.string().required("EmployeeInitials is Required"),
+      EmployeeInitials: Yup.string().required("EMPLOYEE INITIALS IS REQUIRED"),
       Email: Yup.string()
         .email("Enter a valid email")
-        .required("Email is Required"),
-      LoginName: Yup.string().required("LoginName is Required"),
-      Password: Yup.string().required("Password is Required"),
+        .required("EMAIL IS REQUIRED"),
+      LoginName: Yup.string().required("LOGINNAME IS REQUIRED"),
+      Password: Yup.string().required("PASSWORD IS REQUIRED"),
       ConfirmPassword: Yup.string()
         .oneOf([Yup.ref("Password"), null], "Passwords must match")
-        .required("Confirm Password is Required"),
-        Status: Yup.string().required("Status is Required"),
-        DisabledDate: Yup.string().test("disabledDate", "Invalid Disabled Date", validateDisabledDate),
-      }),
-    onSubmit: (values) => {
+        .required("CONFIRM PASSWORD IS REQUIRED"),
+      Status: Yup.string().required("STATUS IS REQUIRED"),
+      UserType: Yup.string().required("USER TYPE IS REQUIRED"),
+
+      
+      DisabledDate: Yup.string().test(
+        "disabledDate",
+        "INVALID DISABLED DATE",
+        validateDisabledDate
+      ),
+    }),
+    onSubmit: values => {
       alert("form validated!");
       // console.log("values", values);
     },
   });
- 
 
   return (
     <React.Fragment>
@@ -389,7 +80,7 @@ const UserLoginCreate = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                USER LOGIN DETAILS
+                CREATE USER LOGIN 
               </h1>
             </CardHeader>
 
@@ -409,6 +100,7 @@ const UserLoginCreate = () => {
                           <Input
                             name="EmployeeInitials"
                             type="select"
+                            placeholder="PLEASE ENTER EMPLOYEE INITIALS"
                             className="form-control"
                             id="validationCustom01"
                             onChange={validation.handleChange}
@@ -418,9 +110,7 @@ const UserLoginCreate = () => {
                               validation.errors.EmployeeInitials
                             }
                           >
-                            <option value="">
-                              SELECT EMPLOYEE INITIALS
-                            </option>
+                            <option value="">SELECT EMPLOYEE INITIALS</option>
                             <option value="dept1">ADMIN</option>
                             <option value="dept2">AMIT</option>
                             <option value="dept2">ASIT</option>
@@ -442,6 +132,7 @@ const UserLoginCreate = () => {
                           <Input
                             name="Email"
                             type="text"
+                            placeholder="PLEASE ENTER VALID EMAIL"
                             className="form-control"
                             id="validationCustom02"
                             onChange={validation.handleChange}
@@ -470,6 +161,7 @@ const UserLoginCreate = () => {
                           <Input
                             name="LoginName"
                             type="text"
+                            placeholder="PLEASE ENTER LOGIN NAME"
                             className="form-control"
                             id="validationCustom03"
                             onChange={validation.handleChange}
@@ -494,6 +186,7 @@ const UserLoginCreate = () => {
                           </Label>
                           <Input
                             name="Password"
+                            placeholder="PLEASE ENTER PASSWORD"
                             type="password"
                             className="form-control"
                             id="validationCustom04"
@@ -522,6 +215,7 @@ const UserLoginCreate = () => {
                           </Label>
                           <Input
                             name="ConfirmPassword"
+                            placeholder="PLEASE CONFIRM YOUR PASSWORD"
                             type="password"
                             className="form-control"
                             id="validationCustom05"
@@ -542,14 +236,15 @@ const UserLoginCreate = () => {
                       </Col>
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="validationCustom06">
-                            USER TYPE
-                          </Label>
+                          <Label htmlFor="validationCustom06">USER TYPE<font color="red">*</font></Label>
                           <Input
                             name="UserType"
                             type="select"
+                            placeholder="PLEASE ENTER USER TYPE"
                             className="form-control"
                             id="validationCustom06"
+
+                            
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -557,20 +252,26 @@ const UserLoginCreate = () => {
                               validation.errors.UserType
                             }
                           >
-                            <option value="">
-                              SELECT USER TYPE
-                            </option>
+                            <option value="">SELECT USER TYPE</option>
                             <option value="dept1">ADMIN</option>
                             <option value="dept2">HOD</option>
                             <option value="dept2">PROFESSOR</option>
                           </Input>
+                          {validation.touched.UserType &&
+                          validation.errors.UserType ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.UserType}
+                            </FormFeedback>
+                          ) : null}
                         </FormGroup>
                       </Col>
                       <hr className="mb-2" />
 
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label>STATUS<font color="red">*</font></Label>
+                          <Label>
+                            STATUS<font color="red">*</font>
+                          </Label>
                           <div>
                             <FormGroup check inline>
                               <Input
@@ -588,14 +289,19 @@ const UserLoginCreate = () => {
                                 name="Status"
                                 value="Inactive"
                                 onChange={validation.handleChange}
-                                checked={validation.values.Status === "Inactive"}
+                                checked={
+                                  validation.values.Status === "Inactive"
+                                }
                               />
                               <Label check>DISABLED</Label>
                             </FormGroup>
                           </div>
                           {validation.touched.Status &&
                           validation.errors.Status ? (
-                            <div className="text-danger">
+                            <div
+                              className="text-danger"
+                              style={{ fontSize: "12px" }}
+                            >
                               {validation.errors.Status}
                             </div>
                           ) : null}
@@ -615,7 +321,10 @@ const UserLoginCreate = () => {
                               type="date"
                               className="form-control"
                               id="validationCustom07"
-                              value={validation.values.DisabledDate || getCurrentDate()}
+                              value={
+                                validation.values.DisabledDate ||
+                                getCurrentDate()
+                              }
                               onChange={validation.handleChange}
                               onBlur={validation.handleBlur}
                               invalid={
@@ -634,7 +343,7 @@ const UserLoginCreate = () => {
                       </Row>
                     )}
 
- <div
+                    <div
                       style={{
                         display: "flex",
                         justifyContent: "center",
@@ -648,34 +357,34 @@ const UserLoginCreate = () => {
                           justifyContent: "space-around",
                         }}
                       >
-                      <Button
-                        type="submit"
-                        color="success-subtle"
-                        className="border border-success"
-                        style={{
-                          paddingTop: "10px",
-                          height: "45px",
-                          width: "80px",
-                          marginRight: "30px",
-                        }}
-                      >
-                        CREATE
-                      </Button>
-                      <button
-                        type="button"
-                        className="btn btn-secondary-subtle border border-secondary"
-                        onClick={() => {
-                          navigate("/user_login");
-                        }}
-                        style={{
-                          paddingTop: "10px",
-                          width: "80px",
-                          height: "45px",
-                        }}
-                      >
-                        <Label>BACK</Label>
-                      </button>
-                    </div>
+                        <Button
+                          type="submit"
+                          color="success-subtle"
+                          className="border border-success"
+                          style={{
+                            paddingTop: "10px",
+                            height: "45px",
+                            width: "80px",
+                            marginRight: "30px",
+                          }}
+                        >
+                          CREATE
+                        </Button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary-subtle border border-secondary"
+                          onClick={() => {
+                            navigate("/user_login");
+                          }}
+                          style={{
+                            paddingTop: "10px",
+                            width: "80px",
+                            height: "45px",
+                          }}
+                        >
+                          <Label>BACK</Label>
+                        </button>
+                      </div>
                     </div>
                   </Form>
                 </Col>

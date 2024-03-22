@@ -12,8 +12,8 @@ import { saveAs } from "file-saver";
 import { CSVLink } from "react-csv";
 import { PDFDownloadLink, Document, Page, Text } from "@react-pdf/renderer";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { FaCopy, FaFilePdf, FaFileExcel } from "react-icons/fa";
-
+import { FaCopy, FaFilePdf, FaFileExcel, FaPrint } from "react-icons/fa";
+import "../../../Reports/TransferReport/print.css"
 const TransferApprovalReportview = () => {
   const demoData = [
     {
@@ -150,7 +150,9 @@ const TransferApprovalReportview = () => {
     useSortBy,
     usePagination
   );
-
+  const printTable = () => {
+    window.print();
+  };
   return (
     <React.Fragment>
       {/* {isLoading ? (
@@ -170,6 +172,7 @@ const TransferApprovalReportview = () => {
               GENERATED TRANSFER RECIEVE REPORT DETAILS{" "}
               </h1>
             </CardHeader>
+            
             <div className="container pt-2">
               <div className="rmb-2 row">
               <div className="col-md-1">
@@ -202,36 +205,9 @@ const TransferApprovalReportview = () => {
                     </div>
                   </div>
                 </div>
-                {/* <div className="col-sm-2 mb-2">
-                  <div className="text-sm-end d-flex justify-content-between">
-                    <div>
-                      <CopyToClipboard text="data to be copied">
-                        <FaCopy className="icon" />
-                      </CopyToClipboard>
-                      <PDFDownloadLink
-                        document={<MyDocument />}
-                        fileName="report.pdf"
-                      >
-                        {({ blob, url, loading, error }) =>
-                          loading ? (
-                            <span>Loading...</span>
-                          ) : (
-                            <FaFilePdf className="icon" />
-                          )
-                        }
-                      </PDFDownloadLink>
-
-                      <CSVLink
-                        data={demoData}
-                        filename={"report.csv"}
-                        className="btn btn-primary"
-                        target="_blank"
-                      >
-                        <FaFileExcel className="icon" />
-                      </CSVLink>
-                    </div>
-                  </div>
-                </div> */}
+                <Button color="link" onClick={printTable}>
+                  <FaPrint /> Print
+                </Button>
               </div>
             </div>
 

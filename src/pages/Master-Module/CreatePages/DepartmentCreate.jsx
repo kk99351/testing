@@ -28,7 +28,7 @@ const DepartmentCreate = () => {
     },
 
     validationSchema: Yup.object({
-      departmentname: Yup.string().required("department name is Required"),
+      departmentname: Yup.string().required("DEPARTMENT IS REQUIRED"),
       departmentcode: Yup.string().required("department code is Required"),
     }),
     onSubmit: values => {
@@ -44,7 +44,7 @@ const DepartmentCreate = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                DEPARTMENT DETAILS
+                CREATE DEPARTMENT 
               </h1>
             </CardHeader>
 
@@ -64,6 +64,7 @@ const DepartmentCreate = () => {
                           <Input
                             name="departmentname"
                             type="text"
+                            placeholder="PLEASE ENTER DEPARTMENT"
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
@@ -82,7 +83,7 @@ const DepartmentCreate = () => {
                       </Col>
                     </Row>
                     <hr className="mb-2" />
-                    <Row className="mb-2">
+                    {/* <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="validationCustom02">
@@ -108,7 +109,7 @@ const DepartmentCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row>
+                    </Row> */}
 
                     <div
                       style={{

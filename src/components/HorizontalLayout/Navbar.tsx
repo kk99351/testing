@@ -175,7 +175,7 @@ const Navbar = (props: any) => {
                               to="/company_group"
                               className="dropdown-item "
                             >
-                              {props.t("Company Group")}
+                              {props.t("Country")}
                             </Link>
                             <Link to="/region" className="dropdown-item ">
                               {props.t("State")}
@@ -324,16 +324,16 @@ const Navbar = (props: any) => {
                         })}
                       >
                         <Link to="/create_catogries" className="dropdown-item ">
-                          {props.t("Create-Material")}
+                          {props.t("Material-Group")}
                         </Link>
                         <Link
                           to="/create_subcatogries"
                           className="dropdown-item "
                         >
-                          {props.t("Create-Sub-Material")}
+                          {props.t("Material-Sub-Group")}
                         </Link>
                         <Link to="/create_items" className="dropdown-item ">
-                          {props.t("Create-Items")}
+                          {props.t("Material")}
                         </Link>
                         <Link to="/unit" className="dropdown-item ">
                           {props.t("Uom-Master")}

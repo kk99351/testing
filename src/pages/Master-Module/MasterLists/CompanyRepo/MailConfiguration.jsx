@@ -33,12 +33,12 @@ const MailConfiguration = props => {
     },
     validationSchema: Yup.object({
       mailId: Yup.string()
-        .email("Invalid email address")
-        .required("Email is Required"),
-      mailPwd: Yup.string().required("Mail Password is Required"),
-      conMailPwd: Yup.string().required("Confirm mail password"),
-      nmHost: Yup.string().required("Name of Host is Required"),
-      noPort: Yup.string().required("PORT required "),
+        .email("INVALID EMAIL ADDRESS")
+        .required("EMAIL IS REQUIRED"),
+      mailPwd: Yup.string().required("MAIL PASSWORD IS REQUIRED"),
+      conMailPwd: Yup.string().required("CONFIRM MAIL PASSWORD"),
+      nmHost: Yup.string().required("NAME OF HOST IS REQUIRED"),
+      noPort: Yup.string().required("PORT NUMBER IS REQUIRED "),
     }),
 
     onSubmit: values => {
@@ -64,8 +64,11 @@ const MailConfiguration = props => {
 
       <Card>
         <CardHeader>
-          <h3 className="d-flex justify-content-center">Mail Configuration</h3>
+          <h1 className="card-title" style={{ fontSize: "20px" }}>
+            MAIL CONFIGURATION
+          </h1>
         </CardHeader>
+
         <CardBody
           className="border"
           style={{ boxShadow: "1px 1px 8px 1px gray" }}
@@ -83,7 +86,7 @@ const MailConfiguration = props => {
                         EMAIL ID<font color="red">*</font>
                       </Label>
                       <Input
-                        placeholder="Enter Email"
+                        placeholder="PLEASE ENTER VALID EMAIL"
                         type="email"
                         name="mailId"
                         id="validationCustom01"
@@ -109,6 +112,7 @@ const MailConfiguration = props => {
                       <Input
                         type="password"
                         name="mailPwd"
+                        placeholder="PLEASE ENTER PASSWORD"
                         id="validationCustom02"
                         onChange={handleChange}
                         value={validation.values.mailPwd}
@@ -136,7 +140,7 @@ const MailConfiguration = props => {
                         CONFIRM PASSWORD<font color="red">*</font>
                       </Label>
                       <Input
-                        placeholder="Enter Password"
+                        placeholder="PLEASE CONFIRM YOUR PASSWORD"
                         type="password"
                         name="conMailPwd"
                         id="validationCustom01"
@@ -164,7 +168,7 @@ const MailConfiguration = props => {
                       <Input
                         type="text"
                         name="nmHost"
-                        placeholder="Enter Host Name"
+                        placeholder="PLEASE ENTER HOST NAME"
                         id="validationCustom02"
                         onChange={handleChange}
                         value={validation.values.nmHost}
@@ -187,12 +191,12 @@ const MailConfiguration = props => {
                   <Col md="12">
                     <FormGroup className="mb-3">
                       <Label htmlFor="validationCustom01">
-                        PORT NO<font color="red">*</font>
+                        PORT NUMBER<font color="red">*</font>
                       </Label>
                       <Input
                         type="text"
                         name="noPort"
-                        placeholder="Enter PORT"
+                        placeholder="PLEASE ENTER PORT NUMBER"
                         id="validationCustom01"
                         onChange={handleChange}
                         value={validation.values.noPort}
@@ -219,7 +223,7 @@ const MailConfiguration = props => {
                     marginBottom: "20px",
                   }}
                 >
-                  <div
+                  {/* <div
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -252,7 +256,7 @@ const MailConfiguration = props => {
                     >
                       <Label>NEXT</Label>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </Form>
             </Col>

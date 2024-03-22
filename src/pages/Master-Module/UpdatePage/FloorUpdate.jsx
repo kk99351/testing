@@ -25,29 +25,29 @@ const FloorUpdate = () => {
     enableReinitialize: true,
 
     initialValues: {
-      statename: "",
+      company_group: "",
+      region_name: "",
       cityname: "",
-      companygroup: "",
       plantname: "",
-      building:"",
-      floor:"",
-      pincode:"",
-      doornumber:""
+      building: "",
+      floor: "",
+      pincode: "",
+      doornumber: "",
     },
     // validationSchema: Yup.object({
     //   companyGroup: Yup.string().required("Company Group is Required"),
     //   companyGroupCode: Yup.string().required("Company Group Code is Required"),
     // }),.
     validationSchema: Yup.object({
-      statename: Yup.string().required("State name is required"),
-      cityname: Yup.string().required("City Name is required"),
-      companygroup: Yup.string().required("Company name is required"),
-      plantname: Yup.string().required("Location Name is required"),
-      building: Yup.string().required("Building Name is required"),
-      floor: Yup.string().required("Floor Name is required"),
-      pincode: Yup.string().required("PINCODE is required"),
-      doornumber: Yup.string().required("Door Number is required"),
-
+      company_group: Yup.string().required("COUNTRY NAME IS REQUIRED"),
+      region_name: Yup.string().required("STATE NAME IS REQUIRED"),
+      cityname: Yup.string().required("CITY NAME IS REQUIRED"),
+      plantname: Yup.string().required("LOCATION NAME IS REQUIRED"),
+      building: Yup.string().required("BUILDING NAME IS REQUIRED"),
+      floor: Yup.string().required("FLOOR NUMBER IS REQUIRED"),
+      pincode: Yup.string().required("PINCODE IS REQUIRED"),
+      doornumber: Yup.string().required("DOOR NUMBER IS REQUIRED"),
+    
     }),
 
     onSubmit: async values => {
@@ -66,7 +66,7 @@ const FloorUpdate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 FLOOR DETAILS
@@ -80,63 +80,68 @@ const FloorUpdate = () => {
                     className="needs-validation"
                     onSubmit={validation.handleSubmit}
                   >
-                    <Row className="mb-2">
+                     <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="companygroup">
-                            COMPANY GROUP/COUNTRY <font color="red">*</font>
+                          <Label htmlFor="company_group">
+                            COUNTRY NAME<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="companygroup"
-                            id="companygroup"
-                            className="form-control"
+                            name="company_group"
+                            id="company_group"
+                            // className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.companygroup &&
-                              validation.errors.companygroup
+                              validation.touched.company_group &&
+                              validation.errors.company_group
                             }
                           >
-                            <option value="">
-                              Select Company Group/Country
+                            <option value="">SELECT COUNTRY</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">
+                              United Kingdom
                             </option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Australia">Australia</option>
                           </Input>
-                          {validation.touched.companygroup &&
-                          validation.errors.companygroup ? (
+                          {validation.touched.company_group &&
+                          validation.errors.company_group ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.companygroup}
+                              {validation.errors.company_group}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
                       </Col>
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="statename">
-                            STATE NAME <font color="red">*</font>
+                          <Label htmlFor="region_name">
+                            STATE NAME<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="statename"
-                            id="statename"
-                            className="form-control"
+                            name="region_name"
+                            id="region_name"
+                            // className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.statename &&
-                              validation.errors.statename
+                              validation.touched.region_name &&
+                              validation.errors.region_name
                             }
                           >
-                            <option value="">Select State Name</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="">SELECT STATE</option>
+                            <option value="CA">California</option>
+                            <option value="NY">New York</option>
+                            <option value="ENG">England</option>
+                            <option value="ON">Ontario</option>
+                            <option value="NSW">New South Wales</option>
                           </Input>
-                          {validation.touched.statename &&
-                          validation.errors.statename ? (
+                          {validation.touched.region_name &&
+                          validation.errors.region_name ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.statename}
+                              {validation.errors.region_name}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
@@ -144,16 +149,16 @@ const FloorUpdate = () => {
                       <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
-                    <Col md={6}>
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="cityname">
-                            CITY NAME <font color="red">*</font>
+                            CITY NAME<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
                             name="cityname"
                             id="cityname"
-                            className="form-control"
+                            // className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -161,9 +166,12 @@ const FloorUpdate = () => {
                               validation.errors.cityname
                             }
                           >
-                            <option value="">Select City Name</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="">SELECT CITY</option>
+                            <option value="Los Angeles">Los Angeles</option>
+                            <option value="New York City">New York City</option>
+                            <option value="London">London</option>
+                            <option value="Toronto">Toronto</option>
+                            <option value="Sydney">Sydney</option>
                           </Input>
                           {validation.touched.cityname &&
                           validation.errors.cityname ? (
@@ -176,13 +184,13 @@ const FloorUpdate = () => {
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="plantname">
-                            LOCATION NAME <font color="red">*</font>
+                            LOCATION NAME<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
                             name="plantname"
                             id="plantname"
-                            className="form-control"
+                            // className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -190,11 +198,17 @@ const FloorUpdate = () => {
                               validation.errors.plantname
                             }
                           >
-                            <option value="">
-                              Select Loaction Name
+                            <option value="">SELECT LOCATION </option>
+                            <option value="Downtown Branch">
+                              Downtown Branch
                             </option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="Midtown Branch">
+                              Midtown Branch
+                            </option>
+                            <option value="Westminster Branch">
+                              Westminster Branch
+                            </option>
+                            <option value="CBD Branch">CBD Branch</option>
                           </Input>
                           {validation.touched.plantname &&
                           validation.errors.plantname ? (
@@ -207,16 +221,16 @@ const FloorUpdate = () => {
                       <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
-                    <Col md={6}>
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="building">
-                            BUILDING NAME <font color="red">*</font>
+                            BUILDING NAME<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
                             name="building"
                             id="building"
-                            className="form-control"
+                            // className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -224,11 +238,16 @@ const FloorUpdate = () => {
                               validation.errors.building
                             }
                           >
-                            <option value="">
-                              Select Building Name
+                            <option value="">SELECT BUILDING </option>
+                            <option value="Central Tower">Central Tower</option>
+                            <option value="Empire State Building">
+                              Empire State Building
                             </option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="Westminster Palace">
+                              Westminster Palace
+                            </option>
+                            <option value="CN Tower">CN Tower</option>
+                            <option value="Sydney Tower">Sydney Tower</option>
                           </Input>
                           {validation.touched.building &&
                           validation.errors.building ? (
@@ -241,12 +260,13 @@ const FloorUpdate = () => {
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="floor">
-                           FLOOR NUMBER<font color="red">*</font>
+                            FLOOR NUMBER<font color="red">*</font>
                           </Label>
                           <Input
                             name="floor"
                             type="text"
-                            className="form-control"
+                            placeholder="PLEASE ENTER FLOOR NUMBER"
+                            // className="form-control"
                             id="floor"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
@@ -266,15 +286,16 @@ const FloorUpdate = () => {
                       <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
-                    <Col md={6}>
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="doornumber">
-                           DOOR NUMBER<font color="red">*</font>
+                            DOOR NUMBER<font color="red">*</font>
                           </Label>
                           <Input
                             name="doornumber"
                             type="text"
-                            className="form-control"
+                            placeholder="PLEASE ENTER DOOR NUMBER"
+                            // className="form-control"
                             id="doornumber"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
@@ -291,15 +312,16 @@ const FloorUpdate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    <Col md={6}>
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="pincode">
-                           PINCODE<font color="red">*</font>
+                            PINCODE<font color="red">*</font>
                           </Label>
                           <Input
                             name="pincode"
                             type="text"
-                            className="form-control"
+                            placeholder="PLEASE ENTER PINCODE"
+                            // className="form-control"
                             id="pincode"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
@@ -316,7 +338,7 @@ const FloorUpdate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                      
+
                       <hr className="mb-2" />
                     </Row>
                    

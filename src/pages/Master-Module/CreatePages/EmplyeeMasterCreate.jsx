@@ -20,8 +20,8 @@ const EmplyeeMasterCreate = () => {
   const navigate = useNavigate();
   const validation = useFormik({
     enableReinitialize: true,
-    initialValues: {
-      employeeName: "",
+     initialValues: {
+     employeeName: "",
       employeeCode: "",
       officialMailId: "",
       contactNo: "",
@@ -30,27 +30,38 @@ const EmplyeeMasterCreate = () => {
       department: "",
       location: "",
       subLocation: "",
-      building: "",
-      floor: "",
+
       employeeType: "",
       status: "",
+
+      company_group: "",
+      region_name: "",
+      cityname: "",
+      plantname: "",
+      building: "",
+      floor: "",
     },
     validationSchema: Yup.object({
-      employeeName: Yup.string().required("Employee name is Required"),
-      employeeCode: Yup.string().required("Employee code is Required"),
+      employeeName: Yup.string().required("EMPLOYEE NAME IS REQUIRED"),
+      employeeCode: Yup.string().required("EMPLOYEE CODE IS REQUIRED"),
       officialMailId: Yup.string()
         .email("Enter a valid email")
-        .required("Official Mail ID is Required"),
-      contactNo: Yup.string().required("Contact No is Required"),
-      designation: Yup.string().required("Designation is Required"),
-      reportingManager: Yup.string().required("Reporting Manager is Required"),
-      department: Yup.string().required("Department is Required"),
-      location: Yup.string().required("Location is Required"),
-      subLocation: Yup.string().required("Sub-Location is Required"),
-      building: Yup.string().required("Building is Required"),
-      floor: Yup.string().required("Floor is Required"),
-      employeeType: Yup.string().required("Employee Type is Required"),
-      status: Yup.string().required("Status is Required"),
+        .required("OFFICIAL MAIL ID IS REQUIRED"),
+      contactNo: Yup.string().required("CONTACT NO IS REQUIRED"),
+      designation: Yup.string().required("DESIGNATION IS REQUIRED"),
+      reportingManager: Yup.string().required("REPORTING MANAGER IS REQUIRED"),
+      department: Yup.string().required("DEPARTMENT IS REQUIRED"),
+      location: Yup.string().required("LOCATION IS REQUIRED"),
+      subLocation: Yup.string().required("SUB-LOCATION IS REQUIRED"),
+      employeeType: Yup.string().required("EMPLOYEE TYPE IS REQUIRED"),
+      status: Yup.string().required("STATUS IS REQUIRED"),
+
+      company_group: Yup.string().required("COUNTRY NAME IS REQUIRED"),
+      region_name: Yup.string().required("STATE NAME IS REQUIRED"),
+      cityname: Yup.string().required("CITY NAME IS REQUIRED"),
+      plantname: Yup.string().required("LOCATION NAME IS REQUIRED"),
+      building: Yup.string().required("BUILDING NAME IS REQUIRED"),
+      floor: Yup.string().required("FLOOR NUMBER IS REQUIRED"),
     }),
     onSubmit: values => {
       alert("Form validated!");
@@ -62,10 +73,10 @@ const EmplyeeMasterCreate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                EMPLOYEE DETAILS
+                CREATE EMPLOYEE
               </h1>
             </CardHeader>
             <CardBody>
@@ -84,6 +95,7 @@ const EmplyeeMasterCreate = () => {
                           <Input
                             type="text"
                             id="employeeName"
+                            placeholder="PLEASE ENTER EMPLOYEE NAME"
                             name="employeeName"
                             value={validation.values.employeeName}
                             onChange={validation.handleChange}
@@ -102,12 +114,13 @@ const EmplyeeMasterCreate = () => {
                       <Col md={6}>
                         <FormGroup className="mb-2">
                           <Label for="employeeCode">
-                            EMPLOYEE CODE<font color="red">*</font>
+                            EMPLOYEE ID<font color="red">*</font>
                           </Label>
                           <Input
                             type="text"
                             id="employeeCode"
                             name="employeeCode"
+                            placeholder="PLEASE ENTER EMPLOYEE ID"
                             value={validation.values.employeeCode}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
@@ -134,6 +147,7 @@ const EmplyeeMasterCreate = () => {
                             type="email"
                             id="officialMailId"
                             name="officialMailId"
+                            placeholder="PLEASE ENTER OFFICIAL MAIL ID"
                             value={validation.values.officialMailId}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
@@ -150,14 +164,26 @@ const EmplyeeMasterCreate = () => {
                       </Col>
                       <Col md={6}>
                         <FormGroup className="mb-2">
-                          <Label for="contactNo">CONTACT NUMBER</Label>
+                          <Label for="contactNo">
+                            CONTACT NUMBER<font color="red">*</font>
+                          </Label>
                           <Input
                             type="tel"
                             id="contactNo"
                             name="contactNo"
+                            placeholder="PLEASE ENTER CONTACT NUMBER"
                             value={validation.values.contactNo}
                             onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.contactNo &&
+                              !!validation.errors.contactNo
+                            }
                           />
+                          <div className="invalid-feedback">
+                            {validation.touched.contactNo &&
+                              validation.errors.contactNo}
+                          </div>
                         </FormGroup>
                       </Col>
                       <hr className="mb-2" />
@@ -181,9 +207,20 @@ const EmplyeeMasterCreate = () => {
                             }
                           >
                             <option value="">SELECT DESIGNATION</option>
-                            <option value="admin">Admin</option>
-                            <option value="manager">Manager</option>
-                            <option value="staff">Staff</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Assistant Manager">
+                              Assistant Manager
+                            </option>
+                            <option value="Team Lead">Team Lead</option>
+                            <option value="Software Engineer">
+                              Software Engineer
+                            </option>
+                            <option value="HR Coordinator">
+                              HR Coordinator
+                            </option>
+                            <option value="Sales Representative">
+                              Sales Representative
+                            </option>
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.designation &&
@@ -194,7 +231,7 @@ const EmplyeeMasterCreate = () => {
                       <Col md={6}>
                         <FormGroup className="mb-2">
                           <Label for="reportingManager">
-                          REPORTING MANAGER<font color="red">*</font>
+                            REPORTING MANAGER<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -209,9 +246,8 @@ const EmplyeeMasterCreate = () => {
                             }
                           >
                             <option value="">SELECT REPORTING MANAGER</option>
-                            <option value="admin">Admin</option>
-                            <option value="manager1">Manager 1</option>
-                            <option value="manager2">Manager 2</option>
+                            <option value="Project Manager ">Manager 1</option>
+                            <option value="Manager">Manager 2</option>
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.reportingManager &&
@@ -225,7 +261,7 @@ const EmplyeeMasterCreate = () => {
                       <Col md={6}>
                         <FormGroup className="mb-2">
                           <Label for="department">
-                          DEPARTMENT<font color="red">*</font>
+                            DEPARTMENT<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -240,9 +276,12 @@ const EmplyeeMasterCreate = () => {
                             }
                           >
                             <option value="">SELECT DEPARTMENT</option>
-                            <option value="dept1">Department 1</option>
-                            <option value="dept2">Department 2</option>
-                            <option value="dept3">Department 3</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Human Resources">
+                              Human Resources
+                            </option>
+                            <option value="Finance">Finance</option>
+                            <option value="Engineering">Engineering</option>
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.department &&
@@ -251,124 +290,9 @@ const EmplyeeMasterCreate = () => {
                         </FormGroup>
                       </Col>
                       <Col md={6}>
-                        <FormGroup className="mb-2">
-                          <Label for="location">
-                          LOCATION<font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            id="location"
-                            name="location"
-                            value={validation.values.location}
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.location &&
-                              !!validation.errors.location
-                            }
-                          >
-                            <option value="">SELECT LOCATION</option>
-                            <option value="loc1">Location 1</option>
-                            <option value="loc2">Location 2</option>
-                            <option value="loc3">Location 3</option>
-                          </Input>
-                          <div className="invalid-feedback">
-                            {validation.touched.location &&
-                              validation.errors.location}
-                          </div>
-                        </FormGroup>
-                      </Col>
-                      <hr className="mb-2" />
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={6}>
-                        <FormGroup>
-                          <Label for="subLocation">
-                          SUB-LOCATION<font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            id="subLocation"
-                            name="subLocation"
-                            value={validation.values.subLocation}
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.subLocation &&
-                              !!validation.errors.subLocation
-                            }
-                          >
-                            <option value="" disabled>
-                              SELECT SUB-LOCATION
-                            </option>
-                            {/* Add sub-location options based on your requirements */}
-                          </Input>
-                          <div className="invalid-feedback">
-                            {validation.errors.subLocation}
-                          </div>
-                        </FormGroup>
-                      </Col>
-
-                      <Col md={6}>
-                        <FormGroup>
-                          <Label for="building">
-                          BUILDING<font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            id="building"
-                            name="building"
-                            value={validation.values.building}
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.building &&
-                              !!validation.errors.building
-                            }
-                          >
-                            <option value="" disabled>
-                              SELECT BUILDING
-                            </option>
-                          </Input>
-                          <div className="invalid-feedback">
-                            {validation.errors.building}
-                          </div>
-                        </FormGroup>
-                      </Col>
-                      <hr className="mb-2" />
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={6}>
-                        <FormGroup>
-                          <Label for="floor">
-                          FLOOR<font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            id="floor"
-                            name="floor"
-                            value={validation.values.floor}
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.floor &&
-                              !!validation.errors.floor
-                            }
-                          >
-                            <option value="" disabled>
-                              SELECT FLOOR
-                            </option>
-                          </Input>
-                          <div className="invalid-feedback">
-                            {validation.errors.floor}
-                          </div>
-                        </FormGroup>
-                      </Col>
-
-                      <Col md={6}>
                         <FormGroup>
                           <Label for="employeeType">
-                          EMPLOYEE TYPE<font color="red">*</font>
+                            EMPLOYEE TYPE<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -386,17 +310,215 @@ const EmplyeeMasterCreate = () => {
                               SELEECT EMPLOYEE TYPE
                             </option>
                             <option value="full-time">EMPLOYEE</option>
-                            <option value="part-time">CONTACT</option>
+                            <option value="part-time">CONTRACT</option>
                           </Input>
                           <div className="invalid-feedback">
                             {validation.errors.employeeType}
                           </div>
                         </FormGroup>
                       </Col>
-                      <hr className="mb-3" />
+                      <hr className="mb-2" />
                     </Row>
 
-                    
+                    <Row className="mb-2">
+                      <Col md={6}>
+                        <FormGroup className="mb-2">
+                          <Label for="company_group">
+                            COUNTRY<font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            id="company_group"
+                            name="company_group"
+                            value={validation.values.company_group}
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.company_group &&
+                              !!validation.errors.company_group
+                            }
+                          >
+                            <option value="">SELECT COUNTRY </option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">
+                              United Kingdom
+                            </option>
+                            <option value="Canada">Canada</option>
+                            <option value="Australia">Australia</option>
+                          </Input>
+                          <div className="invalid-feedback">
+                            {validation.touched.company_group &&
+                              validation.errors.company_group}
+                          </div>
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup className="mb-2">
+                          <Label for="region_name">
+                            STATE<font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            id="region_name"
+                            name="region_name"
+                            value={validation.values.region_name}
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.region_name &&
+                              !!validation.errors.region_name
+                            }
+                          >
+                            <option value="">SELECT STATE</option>
+                            <option value="CA">California</option>
+                            <option value="NY">New York</option>
+                            <option value="ENG">England</option>
+                            <option value="ON">Ontario</option>
+                          </Input>
+                          <div className="invalid-feedback">
+                            {validation.touched.region_name &&
+                              validation.errors.region_name}
+                          </div>
+                        </FormGroup>
+                      </Col>
+                      <hr className="mb-2" />
+                    </Row>
+
+                    <Row className="mb-2">
+                      <Col md={6}>
+                        <FormGroup className="mb-2">
+                          <Label for="cityname">
+                            CITY<font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            id="cityname"
+                            name="cityname"
+                            value={validation.values.cityname}
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.cityname &&
+                              !!validation.errors.cityname
+                            }
+                          >
+                            <option value="">SELECT CITY</option>
+                            <option value="Los Angeles">Los Angeles</option>
+                            <option value="New York City">New York City</option>
+                            <option value="London">London</option>
+                            <option value="Toronto">Toronto</option>
+                            <option value="Sydney">Sydney</option>
+                          </Input>
+                          <div className="invalid-feedback">
+                            {validation.touched.cityname &&
+                              validation.errors.cityname}
+                          </div>
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup>
+                          <Label for="plantname">
+                            LOCATION<font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            id="plantname"
+                            name="plantname"
+                            value={validation.values.plantname}
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.plantname &&
+                              !!validation.errors.plantname
+                            }
+                          >
+                            <option value="" disabled>
+                              SELEECT LOCATION
+                            </option>
+                            <option value="Downtown Branch">
+                              Downtown Branch
+                            </option>
+                            <option value="Midtown Branch">
+                              Midtown Branch
+                            </option>
+                            <option value="Westminster Branch">
+                              Westminster Branch
+                            </option>
+                            <option value="CBD Branch">CBD Branch</option>
+                          </Input>
+                          <div className="invalid-feedback">
+                            {validation.errors.plantname}
+                          </div>
+                        </FormGroup>
+                      </Col>
+                      <hr className="mb-2" />
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={6}>
+                        <FormGroup className="mb-2">
+                          <Label for="building">
+                            BUILDING<font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            id="building"
+                            name="building"
+                            value={validation.values.building}
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.building &&
+                              !!validation.errors.building
+                            }
+                          >
+                            <option value="">SELECT BUILDING</option>
+                            <option value="Central Tower">Central Tower</option>
+                            <option value="Empire State Building">
+                              Empire State Building
+                            </option>
+                            <option value="Westminster Palace">
+                              Westminster Palace
+                            </option>
+                            <option value="CN Tower">CN Tower</option>
+                            <option value="Sydney Tower">Sydney Tower</option>
+                          </Input>
+                          <div className="invalid-feedback">
+                            {validation.touched.building &&
+                              validation.errors.building}
+                          </div>
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup>
+                          <Label for="floor">
+                            FLOOR<font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            id="floor"
+                            name="floor"
+                            value={validation.values.floor}
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.floor &&
+                              !!validation.errors.floor
+                            }
+                          >
+                            <option value="">SELEECT FLOOR</option>
+                            <option value="1">1st Floor</option>
+                            <option value="2">2nd Floor</option>
+                            <option value="3">3rd Floor</option>
+                            <option value="4">4th Floor</option>
+                            <option value="5">5th Floor</option>
+                          </Input>
+                          <div className="invalid-feedback">
+                            {validation.errors.floor}
+                          </div>
+                        </FormGroup>
+                      </Col>
+                      <hr className="mb-2" />
+                    </Row>
 
                     <div
                       style={{
@@ -412,31 +534,33 @@ const EmplyeeMasterCreate = () => {
                           justifyContent: "space-around",
                         }}
                       >
-                      <Button color="success" className="btn btn-success-subtle border border-success"
-                       style={{
-                        paddingTop: "10px",
-                        height: "45px",
-                        width: "80px",
-                        marginRight: "30px",
-                      }}>
-                        CREATE
-                      </Button>
-                      <Button
-                        color="secondary"
-                        className="border border-secondary"
-                        onClick={() => {
-                          navigate("/emplyee_master");
-                          
-                        }}
-                        style={{
-                          paddingTop: "10px",
-                          width: "80px",
-                          height: "45px",
-                        }}
-                      >
-                        BACK
-                      </Button>
-                    </div>
+                        <Button
+                          color="success"
+                          className="btn btn-success-subtle border border-success"
+                          style={{
+                            paddingTop: "10px",
+                            height: "45px",
+                            width: "80px",
+                            marginRight: "30px",
+                          }}
+                        >
+                          CREATE
+                        </Button>
+                        <Button
+                          color="secondary"
+                          className="border border-secondary"
+                          onClick={() => {
+                            navigate("/emplyee_master");
+                          }}
+                          style={{
+                            paddingTop: "10px",
+                            width: "80px",
+                            height: "45px",
+                          }}
+                        >
+                          BACK
+                        </Button>
+                      </div>
                     </div>
                   </Form>
                 </Col>

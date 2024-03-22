@@ -17,7 +17,7 @@ const TermAndConditionCreate = () => {
   const navigate = useNavigate();
   const requiredFields = {
     // fileName:"",
-    termAndCond:"Terms and Conditions",
+    termAndCond:"              TERMS AND CONDITIONS ",
 
   };
   const initialFormData = {
@@ -66,7 +66,7 @@ const TermAndConditionCreate = () => {
       if (!formData[fieldName].trim()) {
         setErrors(prevErrors => ({
           ...prevErrors,
-          [fieldName]: `${fieldLabel} is required`,
+          [fieldName]: `${fieldLabel} IS REQUIRED`,
         }));
         isValid = false;
       }
@@ -87,10 +87,10 @@ const TermAndConditionCreate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-              TERMS AND CONDITIONS DETAILS
+            CREATE TERMS AND CONDITIONS 
               </h1>
             </CardHeader>
             <CardBody>

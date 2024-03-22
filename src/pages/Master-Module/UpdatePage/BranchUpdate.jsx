@@ -24,9 +24,9 @@ const BranchUpdate = () => {
     enableReinitialize: true,
 
     initialValues: {
-      statename: "",
+      company_group: "",
+      region_name: "",
       cityname: "",
-      companygroup: "",
       plantname: "",
     },
     // validationSchema: Yup.object({
@@ -34,10 +34,10 @@ const BranchUpdate = () => {
     //   companyGroupCode: Yup.string().required("Company Group Code is Required"),
     // }),.
     validationSchema: Yup.object({
-      statename: Yup.string().required("State name is required"),
-      cityname: Yup.string().required("City Name is required"),
-      companygroup: Yup.string().required("Company name is required"),
-      plantname: Yup.string().required("Location Name is required"),
+      company_group: Yup.string().required("COUNTRY NAME IS REQUIRED"),
+      region_name: Yup.string().required("STATE NAME IS REQUIRED"),
+      cityname: Yup.string().required("CITY NAME IS REQUIRED"),
+      plantname: Yup.string().required("LOCATION NAME IS REQUIRED"),
     }),
 
     onSubmit: async values => {
@@ -56,7 +56,7 @@ const BranchUpdate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 LOCATION DETAILS
@@ -73,31 +73,33 @@ const BranchUpdate = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="companygroup">
-                            COMPANY GROUP/COUNTRY <font color="red">*</font>
+                          <Label htmlFor="company_group">
+                            COUNTRY NAME<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="companygroup"
-                            id="companygroup"
+                            name="company_group"
+                            id="company_group"
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.companygroup &&
-                              validation.errors.companygroup
+                              validation.touched.company_group &&
+                              validation.errors.company_group
                             }
                           >
-                            <option value="">
-                              Select Company Group/Country
+                            <option value="">SELECT COUNTRY</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">
+                              United Kingdom
                             </option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Australia">Australia</option>
                           </Input>
-                          {validation.touched.companygroup &&
-                          validation.errors.companygroup ? (
+                          {validation.touched.company_group &&
+                          validation.errors.company_group ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.companygroup}
+                              {validation.errors.company_group}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
@@ -105,44 +107,47 @@ const BranchUpdate = () => {
 
                       <hr className="mb-2" />
                     </Row>
+
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="statename">
-                            STATE NAME <font color="red">*</font>
+                          <Label htmlFor="region_name">
+                            STATE NAME<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="statename"
-                            id="statename"
+                            name="region_name"
+                            id="region_name"
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.statename &&
-                              validation.errors.statename
+                              validation.touched.region_name &&
+                              validation.errors.region_name
                             }
                           >
-                            <option value="">Select State Name</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="">SELECT STATE</option>
+                            <option value="CA">California</option>
+                            <option value="NY">New York</option>
+                            <option value="ENG">England</option>
+                            <option value="ON">Ontario</option>
+                            <option value="NSW">New South Wales</option>
                           </Input>
-                          {validation.touched.statename &&
-                          validation.errors.statename ? (
+                          {validation.touched.region_name &&
+                          validation.errors.region_name ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.statename}
+                              {validation.errors.region_name}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
                       </Col>
-
                       <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
-                      <Col md={12}>
+                    <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="cityname">
-                            CIRY NAME <font color="red">*</font>
+                            CITY NAME<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -156,9 +161,12 @@ const BranchUpdate = () => {
                               validation.errors.cityname
                             }
                           >
-                            <option value="">Select City Name</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="">SELECT CITY </option>
+                            <option value="Los Angeles">Los Angeles</option>
+                            <option value="New York City">New York City</option>
+                            <option value="London">London</option>
+                            <option value="Toronto">Toronto</option>
+                            <option value="Sydney">Sydney</option>
                           </Input>
                           {validation.touched.cityname &&
                           validation.errors.cityname ? (
@@ -168,18 +176,18 @@ const BranchUpdate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-
                       <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="plantname">
-                           LOCATION NAME<font color="red">*</font>
+                            LOCATION NAME<font color="red">*</font>
                           </Label>
                           <Input
                             name="plantname"
                             type="text"
+                            placeholder="PLEASE ENTER LOCATION NAME"
                             className="form-control"
                             id="plantname"
                             onChange={validation.handleChange}
@@ -198,6 +206,7 @@ const BranchUpdate = () => {
                         </FormGroup>
                       </Col>
                     </Row>
+                    <hr className="mb-2" />
 
                     <div
                       style={{

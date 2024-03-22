@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Container, Button, Input, Card } from "reactstrap";
+import { Container, Button,CardHeader,CardBody, Input, Card } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -11,12 +11,41 @@ import { useGet } from "src/API/useGet";
 
 const plant = () => {
   const demoData = [
-    { "slno": 1, "companygroup": "Group A", "region": "New York", "city": "New York City", "branch": "Headquarters", "building": "Empire State Building" },
-    { "slno": 2, "companygroup": "Group B", "region": "California", "city": "Los Angeles", "branch": "Downtown Office", "building": "Los Angeles Tower" },
-    { "slno": 3, "companygroup": "Group A", "region": "Illinois", "city": "Chicago", "branch": "Midtown Office", "building": "Chicago Plaza" },
-    { "slno": 4, "companygroup": "Group C", "region": "Texas", "city": "Houston", "branch": "Uptown Office", "building": "Houston Tower" },
-    { "slno": 5, "companygroup": "Group B", "region": "Florida", "city": "Miami", "branch": "Suburb Office", "building": "Miami Center" }
-  ];
+    {
+      "companygroup": "United States",
+      "region": "California",
+      "city": "Los Angeles",
+      "branch": "Downtown Branch",
+      "building": "Central Tower"
+    },
+    {
+      "companygroup": "United States",
+      "region": "New York",
+      "city": "New York City",
+      "branch": "Midtown Branch",
+      "building": "Empire State Building"
+    },
+    {
+      "companygroup": "United Kingdom",
+      "region": "England",
+      "city": "London",
+      "branch": "Westminster Branch",
+      "building": "Westminster Palace"
+    },
+    {
+      "companygroup": "Canada",
+      "region": "Ontario",
+      "city": "Toronto",
+      "branch": "Downtown Branch",
+      "building": "CN Tower"
+    },
+    {
+      "companygroup": "Australia",
+      "region": "New South Wales",
+      "city": "Sydney",
+      "branch": "CBD Branch",
+      "building": "Sydney Tower"
+    } ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
 
@@ -33,23 +62,24 @@ const plant = () => {
       {
         Header: "SL NO",
         accessor: "slno",
+        width:"6%",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "COMPANY GROUP",
+        Header: "COUNTRY",
         accessor: "companygroup",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "STATE NAME",
+        Header: "STATE ",
         accessor: "region",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "CITY NAME",
+        Header: "CITY ",
         accessor: "city",
         disableFilters: true,
         filterable: true,
@@ -114,57 +144,64 @@ const plant = () => {
     ) : ( */}
       <Container fluid>
         <div className="page-content">
-          <Card>
-            <div className="container pt-4">
-              <div className="rmb-2 row">
-                <div className="col-md-1">
-                  <select className="form-select">
-                    <option value="10">Show 10</option>
-                    <option value="20">Show 20</option>
-                    <option value="30">Show 30</option>
-                    <option value="40">Show 40</option>
-                    <option value="50">Show 50</option>
-                  </select>
-                </div>
+        <Card>
+            <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+                BUILDING DETAILS
+              </h1>
+            </CardHeader>
+            <CardBody>         
+               <div className="container pt-0">
+                <div className="rmb-2 row">
+                  <div className="col-md-1">
+                    <select className="form-select" style={{ width: "88PX" }}>
+                      <option value="10">SHOW 10</option>
+                      <option value="20">SHOW 20</option>
+                      <option value="30">SHOW 30</option>
+                      <option value="40">SHOW 40</option>
+                      <option value="50">SHOW 50</option>
+                    </select>
+                  </div>
 
-                <div className="col-md-4">
-                  <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
-                    <div className="position-relative">
-                      <label htmlFor="search-bar-0" className="search-label">
-                        <span id="search-bar-0-label" className="sr-only">
-                          Search this table
-                        </span>
-                        <input
-                          id="search-bar-0"
-                          type="text"
-                          className="form-control"
-                          placeholder="search ..."
-                          value={globalFilter || ""}
-                          onChange={e => setGlobalFilter(e.target.value)}
-                        />
-                        <i className="bx bx-search-alt search-icon"></i>
-                      </label>
+                  <div className="col-md-4">
+                    <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+                      <div className="position-relative">
+                        <label htmlFor="search-bar-0" className="search-label">
+                          <span id="search-bar-0-label" className="sr-only">
+                            Search this table
+                          </span>
+                          <input
+                            id="search-bar-0"
+                            type="text"
+                            className="form-control"
+                            placeholder="SEARCH ..."
+                            value={globalFilter || ""}
+                            onChange={e => setGlobalFilter(e.target.value)}
+                          />
+                          <i className="bx bx-search-alt search-icon"></i>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-sm-7">
+                    <div className="text-sm-end">
+                      <button
+                        type="button"
+                        className="btn mb-2 me-2 btn btn-primary"
+                        onClick={() => navigate("/createplant")}
+                      >
+                        <i className="mdi mdi-plus-circle-outline me-1"></i>
+                        CREATE NEW{" "}
+                      </button>
                     </div>
                   </div>
                 </div>
-
-                <div className="col-sm-7">
-                  <div className="text-sm-end">
-                    <button
-                      type="button"
-                      className="btn mb-2 me-2 btn btn-primary"
-                      onClick={() => navigate("/createplant")}
-                    >
-                      <i className="mdi mdi-plus-circle-outline me-1"></i>
-                      Create New
-                    </button>
-                  </div>
-                </div>
               </div>
-            </div>
 
+            
             <div className="table-responsive react-table">
-              <table className="table table-bordered table-hover">
+              <table className="table table-bordered table-hover text-center">
                 <thead className="table-light table-nowrap">
                   {headerGroups.map(headerGroup => (
                     <tr
@@ -172,18 +209,14 @@ const plant = () => {
                       {...headerGroup.getHeaderGroupProps()}
                     >
                       {headerGroup.headers.map(column => (
-                        <th
-                          key={column.id}
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                          style={
-                            column.id === "slno"
-                              ? { width: "6%" }
-                              : { backgroundColor: "" }
-                          }
-                        >
-                          <div className="d-flex justify-content-between">
+                         <th
+                         key={column.id}
+                         {...column.getHeaderProps(
+                           column.getSortByToggleProps()
+                         )}
+                         style={{ width: column.width }}
+                       >
+                         <div className="d-flex justify-content-center">
                             <span className="font-weight-bold">
                               {column.render("Header")}
                             </span>
@@ -227,7 +260,7 @@ const plant = () => {
                         style={{ textAlign: "center" }}
                       >
                         {" "}
-                        No search results found.
+                        NO SEARCH RESULTS FOUND{" "}
                       </td>
                     </tr>
                   )}
@@ -276,6 +309,7 @@ const plant = () => {
                 </div>
               </div>
             </div>
+            </CardBody>
           </Card>
         </div>
       </Container>

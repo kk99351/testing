@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Container,Button, Card, Input } from "reactstrap";
+import { Container,CardBody,CardHeader,Button, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -11,11 +11,11 @@ import { useGet } from "src/API/useGet";
 
 const UserPermission = () => {
   const demoData = [
-    { userType: "Group A" },
-    { userType: "group d"},
-    { userType: "Group C"},
-    { userType: "Group D" },
-    { userType: "Group E"},
+    { "nmUsertype": "Admin" },
+    { "nmUsertype": "Manager" },
+    { "nmUsertype": "Staff" },
+    { "nmUsertype": "Guest" },
+    { "nmUsertype": "Supervisor" }
   ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
@@ -43,10 +43,11 @@ const UserPermission = () => {
       {
         Header: "SL NO",
         accessor: "slno",
+        width:"6%",
       },
       {
         Header: "USER TYPE",
-        accessor: "userType",
+        accessor: "nmUsertype",
       },
     ],
     []
@@ -90,16 +91,22 @@ const UserPermission = () => {
       ) : ( */}
           <Container fluid>
         <div className="page-content">
-            <Card>
-              <div className="container pt-4">
+        <Card>
+            <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+               USER PERMISSION DETAILS
+              </h1>
+            </CardHeader>
+            <CardBody>
+              <div className="container pt-0">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
-                    <select className="form-select">
-                      <option value="10">Show 10</option>
-                      <option value="20">Show 20</option>
-                      <option value="30">Show 30</option>
-                      <option value="40">Show 40</option>
-                      <option value="50">Show 50</option>
+                    <select className="form-select" style={{ width: "88PX" }}>
+                      <option value="10">SHOW 10</option>
+                      <option value="20">SHOW 20</option>
+                      <option value="30">SHOW 30</option>
+                      <option value="40">SHOW 40</option>
+                      <option value="50">SHOW 50</option>
                     </select>
                   </div>
 
@@ -114,7 +121,7 @@ const UserPermission = () => {
                             id="search-bar-0"
                             type="text"
                             className="form-control"
-                            placeholder="search ..."
+                            placeholder="SEARCH ..."
                             value={globalFilter || ""}
                             onChange={e => setGlobalFilter(e.target.value)}
                           />
@@ -132,15 +139,14 @@ const UserPermission = () => {
                         onClick={() => navigate("/")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
-                        Create New
-                      </button>
+CREATE NEW                      </button>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="table-responsive react-table">
-                <table className="table table-bordered table-hover">
+                <table className="table table-bordered table-hover text-center">
                   <thead className="table-light table-nowrap">
                     {headerGroups.map(headerGroup => (
                       <tr
@@ -148,12 +154,9 @@ const UserPermission = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                          <th
-                          key={column.id}
-                          {...column.getHeaderProps(column.getSortByToggleProps())}
-                          style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
-                        >
-                            <div className="d-flex justify-content-between">
+                          <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
+
+                          <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
                               </span>
@@ -197,7 +200,7 @@ const UserPermission = () => {
                           style={{ textAlign: "center" }}
                         >
                           {" "}
-                          No search results found.
+                          NO SEARCH RESULTS FOUND
                         </td>
                       </tr>
                     )}
@@ -246,6 +249,7 @@ const UserPermission = () => {
                   </div>
                 </div>
               </div>
+              </CardBody>
             </Card>
           </div>
       {/* )} */}

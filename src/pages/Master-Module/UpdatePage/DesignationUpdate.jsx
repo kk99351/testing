@@ -28,7 +28,7 @@ const DesignationUpdate = () => {
     },
 
     validationSchema: Yup.object({
-      designationname: Yup.string().required("Designation name is Required"),
+      designationname: Yup.string().required("DESIGNATION NAME IS REQUIRED "),
       designationcode: Yup.string().required("Designation code is Required"),
     }),
     onSubmit: values => {
@@ -41,7 +41,7 @@ const DesignationUpdate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 DESIGNATION DETAILS
@@ -64,6 +64,7 @@ const DesignationUpdate = () => {
                           <Input
                             name="designationname"
                             type="text"
+                            placeholder="PLEASE ENTER DESIGNATION NAME"
                             className="form-control"
                             id="validationCustom03"
                             onChange={validation.handleChange}
@@ -83,7 +84,7 @@ const DesignationUpdate = () => {
                       </Col>
                       <hr className="mb-2" />
                     </Row>
-                    <Row className="mb-2">
+                    {/* <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="validationCustom03">
@@ -109,7 +110,7 @@ const DesignationUpdate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row>
+                    </Row> */}
 
                     <div
                       style={{
