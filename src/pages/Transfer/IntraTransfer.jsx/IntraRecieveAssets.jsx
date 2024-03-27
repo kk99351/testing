@@ -16,55 +16,20 @@ const IntraRecieveAssets = () => {
   };
   const demoData = [
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      "reqnumber": "REQ001",
+      "reqno": "2024-03-25",
+      "date": "2024-03-28"
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      "reqnumber": "REQ002",
+      "reqno": "2024-03-26",
+      "date": "2024-03-29"
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
-    {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
-    {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
+      "reqnumber": "REQ003",
+      "reqno": "2024-03-27",
+      "date": "2024-03-30"
+    }
   ];
 
   const [responseData] = useState(demoData);
@@ -79,15 +44,15 @@ const IntraRecieveAssets = () => {
       },
       {
         Header: "REQUEST NUMBER",
-        accessor: "assetId",
+        accessor: "reqnumber",
       },
       {
         Header: "REQUEST DATE",
-        accessor: "assetName",
+        accessor: "reqno",
       },
       {
         Header: "TRANSFER DATE",
-        accessor: "allocateTo",
+        accessor: "date",
       },
       {
         Header: "PREVIEW",

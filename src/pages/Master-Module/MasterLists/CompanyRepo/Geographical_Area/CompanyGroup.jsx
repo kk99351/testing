@@ -14,30 +14,37 @@ import { useGet } from "src/API/useGet";
 const CompanyGroup = () => {
   const demoData = [
     {
-      "slno": 1,
-      "companyGroup": "United States",
-      "companyGroupCode": "US"
+      slno: 1,
+      companyGroup: "United States",
+      entityName: "PR Limited", 
+
+      companyGroupCode: "US",
     },
     {
-      "slno": 2,
-      "companyGroup": "United Kingdom",
-      "companyGroupCode": "UK"
+      slno: 2,
+      companyGroup: "United Kingdom",
+      entityName: "AR Corporation", 
+      companyGroupCode: "UK",
     },
     {
-      "slno": 3,
-      "companyGroup": "Canada",
-      "companyGroupCode": "CA"
+      slno: 3,
+      companyGroup: "Canada",
+      entityName: "AR Corporation", 
+      companyGroupCode: "CA",
     },
     {
-      "slno": 4,
-      "companyGroup": "Australia",
-      "companyGroupCode": "AU"
+      slno: 4,
+      companyGroup: "Australia",
+      entityName: "AR Corporation", 
+      companyGroupCode: "AU",
     },
     {
-      "slno": 5,
-      "companyGroup": "Germany",
-      "companyGroupCode": "DE"
-    } ];
+      slno: 5,
+      companyGroup: "Germany",
+      entityName: "PR Limited", 
+      companyGroupCode: "DE",
+    },
+  ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
 
@@ -58,6 +65,12 @@ const CompanyGroup = () => {
         Header: "SL NO",
         accessor: "slno",
         width: "6%",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "ENTITY",
+        accessor: "entityName",
         disableFilters: true,
         filterable: true,
       },
@@ -119,7 +132,7 @@ const CompanyGroup = () => {
               </h1>
             </CardHeader>
             <CardBody>
-            <div className="container pt-0">
+              <div className="container pt-0">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
                     <select className="form-select" style={{ width: "88PX" }}>
@@ -167,7 +180,6 @@ const CompanyGroup = () => {
                 </div>
               </div>
 
-              
               <div className="table-responsive react-table">
                 <table className="table table-bordered table-hover text-center">
                   <thead className="table-light table-nowrap">
@@ -177,9 +189,14 @@ const CompanyGroup = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                          <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
-
-                          <div className="d-flex justify-content-center">
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
+                            <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
                               </span>
@@ -205,7 +222,9 @@ const CompanyGroup = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/company_group/${row.original.id}`}>
+                                  <Link
+                                    to={`/company_group/${row.original.id}`}
+                                  >
                                     {cell.render("Cell")}
                                   </Link>
                                 ) : (

@@ -19,55 +19,64 @@ import { useGet } from "src/API/useGet";
 const Floor = () => {
   const demoData = [
     {
-      "companygroup": "United States",
-      "region": "California",
-      "city": "Los Angeles",
-      "branch": "Downtown Branch",
-      "building": "Central Tower",
-      "floor": 10,
-      "door": "1001",
-      "pincode": "90001"
+      companygroup: "United States",
+      region: "California",
+      city: "Los Angeles",
+      branch: "Downtown Branch",
+      building: "Central Tower",
+      floor: 10,
+      entityName: "PR Limited",
+
+      door: "1001",
+      pincode: "90001",
     },
     {
-      "companygroup": "United States",
-      "region": "New York",
-      "city": "New York City",
-      "branch": "Midtown Branch",
-      "building": "Empire State Building",
-      "floor": 20,
-      "door": "2001",
-      "pincode": "10001"
+      companygroup: "United States",
+      region: "New York",
+      city: "New York City",
+      branch: "Midtown Branch",
+      building: "Empire State Building",
+      floor: 20,
+      door: "2001",
+      entityName: "PR Limited",
+
+      pincode: "10001",
     },
     {
-      "companygroup": "United Kingdom",
-      "region": "England",
-      "city": "London",
-      "branch": "Westminster Branch",
-      "building": "Westminster Palace",
-      "floor": 5,
-      "door": "501",
-      "pincode": "SW1A 1AA"
+      companygroup: "United Kingdom",
+      region: "England",
+      city: "London",
+      entityName: "AR Corporation",
+
+      branch: "Westminster Branch",
+      building: "Westminster Palace",
+      floor: 5,
+      door: "501",
+      pincode: "SW1A 1AA",
     },
     {
-      "companygroup": "Canada",
-      "region": "Ontario",
-      "city": "Toronto",
-      "branch": "Downtown Branch",
-      "building": "CN Tower",
-      "floor": 15,
-      "door": "1501",
-      "pincode": "M5V 2T6"
+      companygroup: "Canada",
+      region: "Ontario",
+      city: "Toronto",
+      entityName: "AR Corporation",
+      branch: "Downtown Branch",
+      building: "CN Tower",
+      floor: 15,
+      door: "1501",
+      pincode: "M5V 2T6",
     },
     {
-      "companygroup": "Australia",
-      "region": "New South Wales",
-      "city": "Sydney",
-      "branch": "CBD Branch",
-      "building": "Sydney Tower",
-      "floor": 30,
-      "door": "3001",
-      "pincode": "2000"
-    }
+      companygroup: "Australia",
+      region: "New South Wales",
+      city: "Sydney",
+      entityName: "PR Limited",
+
+      branch: "CBD Branch",
+      building: "Sydney Tower",
+      floor: 30,
+      door: "3001",
+      pincode: "2000",
+    },
   ];
 
   const [responseData, setResponseData] = useState(demoData);
@@ -87,6 +96,11 @@ const Floor = () => {
         Header: "SL NO",
         accessor: "slno",
         width: "6%",
+        disableFilters: true,
+        filterable: true,
+      }, {
+        Header: "ENTITY",
+        accessor: "entityName",
         disableFilters: true,
         filterable: true,
       },
@@ -111,6 +125,7 @@ const Floor = () => {
       {
         Header: "LOCATION NAME",
         accessor: "branch",
+
         disableFilters: true,
         filterable: true,
       },

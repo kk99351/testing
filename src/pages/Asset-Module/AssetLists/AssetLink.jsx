@@ -27,47 +27,17 @@ const AssetLink = () => {
   const [responseData, setResponseData] = useState([
     {
       slno: 1,
-      assetId: "A001",
+      assetId: "ASSET001",
       assetName: "Laptop",
-      serialNumber: "SN001",
-      assetRemarks: "INV-001",
-      allocateType: "Active",
-      checked: false,
+      serialNumber: "SN12345",
+      assetRemarks: "Good condition",
     },
     {
       slno: 2,
-      assetId: "A002",
+      assetId: "ASSET002",
       assetName: "Desktop",
-      serialNumber: "SN002",
-      assetRemarks: "INV-002",
-      checked: false,
-    },
-    {
-      slno: 3,
-      assetId: "A003",
-      assetName: "Printer",
-      serialNumber: "SN003",
-      assetRemarks: "INV-003",
-      allocateType: "Inactive",
-      checked: false,
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      assetRemarks: "INV-004",
-      allocateType: "Active",
-      checked: false,
-    },
-    {
-      slno: 5,
-      assetId: "A005",
-      assetName: "Keyboard",
-      serialNumber: "SN005",
-      assetRemarks: "INV-005",
-      allocateType: "Inactive",
-      checked: false,
+      serialNumber: "SN67890",
+      assetRemarks: "Needs maintenance",
     },
   ]);
   const navigate = useNavigate();
@@ -255,10 +225,12 @@ const AssetLink = () => {
                       invalid={!!errors.linkTo}
                     >
                       <option value="">SELECT LINK TO</option>
-                      <option value="group1">Group 1</option>
-                      <option value="group2">Group 2</option>
+                      <option value="website">Website</option>
+                      <option value="document">Document</option>
+                      <option value="email">Email</option>
+                      <option value="folder">Folder</option>
                     </Input>
-                    <span className="text-danger">{errors.linkTo}</span>
+                    <span className="invalid-feedback">{errors.linkTo}</span>
                   </Col>
                   <Col md={4}>
                     <Label for="assetId">
@@ -273,8 +245,9 @@ const AssetLink = () => {
                       invalid={!!errors.assetId}
                     >
                       <option value="">SELECT ASSET-ID</option>
-                      <option value="group1">Group 1</option>
-                      <option value="group2">Group 2</option>
+                      <option value="ASSET001">ASSET001</option>
+                      <option value="ASSET002">ASSET002</option>
+                      <option value="ASSET003">ASSET003</option>
                     </Input>
                     <span className="invalid-feedback">{errors.assetId}</span>
                   </Col>

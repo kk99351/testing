@@ -17,7 +17,7 @@ const TermAndConditionCreate = () => {
   const navigate = useNavigate();
   const requiredFields = {
     // fileName:"",
-    termAndCond:"              TERMS AND CONDITIONS ",
+    termAndCond:"TERMS AND CONDITIONS ",
 
   };
   const initialFormData = {
@@ -90,7 +90,7 @@ const TermAndConditionCreate = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-            CREATE TERMS AND CONDITIONS 
+             CREATE TERMS AND CONDITIONS 
               </h1>
             </CardHeader>
             <CardBody>
@@ -112,7 +112,7 @@ const TermAndConditionCreate = () => {
                             errors.termAndCond ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="text-danger">{errors.termAndCond}</span>
+                        <span className="invalid-feedback">{errors.termAndCond}</span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
@@ -131,7 +131,7 @@ const TermAndConditionCreate = () => {
                             errors.fileName ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="text-danger">{errors.fileName}</span>
+                        <span className="invalid-feedback">{errors.fileName}</span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
@@ -141,6 +141,8 @@ const TermAndConditionCreate = () => {
                           TERMS & CONDITIONS DESCRIPTION
                         </Label>
                         <Input
+                        placeholder="PLEASE ENTER TERMS AND CONDITIONS DESCRIPTION"
+                       
                           type="textarea"
                           name="descriptionterms"
                           id="descriptionterms"
@@ -149,7 +151,7 @@ const TermAndConditionCreate = () => {
                             errors.fileName ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="text-danger">{errors.descriptionterms}</span>
+                        <span className="invalid-feedback">{errors.descriptionterms}</span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>

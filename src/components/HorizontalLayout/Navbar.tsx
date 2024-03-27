@@ -36,11 +36,14 @@ const Navbar = (props: any) => {
   const [authbasic, setauthbasic] = useState<boolean>(false);
   const [authcover, setauthcover] = useState<boolean>(false);
   const [error, seterror] = useState<boolean>(false);
+  const [dep, setdep] = useState<boolean>(false);
+  const [depreciation, setdepreciation] = useState<boolean>(false);
   const [error1, seterror1] = useState<boolean>(false);
   const [error2, seterror2] = useState<boolean>(false);
   const [utility, setutility] = useState<boolean>(false);
   const [project, setproject] = useState<boolean>(false);
   const [dashoboard, setdashoboard] = useState<boolean>(false);
+  const [config, setconfig] = useState<boolean>(false);
   const [elements, setelements] = useState<boolean>(false);
   const [intra, setintra] = useState<boolean>(false);
   const [inter, setinter] = useState<boolean>(false);
@@ -171,6 +174,12 @@ const Navbar = (props: any) => {
                               show: geograficalArea,
                             })}
                           >
+                             <Link
+                              to="/entity"
+                              className="dropdown-item "
+                            >
+                              {props.t("Entity")}
+                            </Link>
                             <Link
                               to="/company_group"
                               className="dropdown-item "
@@ -654,6 +663,119 @@ const Navbar = (props: any) => {
                     </Link>
                   </div>
                 </li>
+                {/* DEPRECIATION MASTER */}
+
+
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle arrow-none"
+                    to="/#"
+                    onClick={e => {
+                      e.preventDefault();
+                      setdepreciation(!depreciation);
+                    }}
+                  >
+                    <Icon name="layout" />{" "}
+                    <span>{props.t("DEPRECIATION")}</span>
+                    <div className="arrow-down"></div>
+                  </Link>
+
+                  <div className={classname("dropdown-menu")}>
+                    <Link to="/depreciation_master" className="dropdown-item">
+                      {props.t("Depreciation Master")}
+                    </Link>
+                    
+                    <div className="dropdown">
+                      <Link
+                        to="/#"
+                        className="dropdown-item dropdown-toggle arrow-none"
+                        onClick={e => {
+                          e.preventDefault();
+                          setdep(!dep);
+                        }}
+                      >
+                        {props.t("Depreciation")}{" "}
+                        <div className="arrow-down"></div>
+                      </Link>
+                      <div
+                        className={classname("dropdown-menu", {
+                          show: dep,
+                        })}
+                      >
+                        <Link to="/yearly_depreciation" className="dropdown-item">
+                          {props.t("Yearly-Depreciation")}
+                        </Link>
+                        <Link to="/monthly_depreciation" className="dropdown-item">
+                          {props.t("Monthly-Depreciation")}
+                        </Link>
+                       
+                      </div>
+                    </div>
+                    <div className="dropdown">
+                      <Link
+                        to="/#"
+                        className="dropdown-item dropdown-toggle arrow-none"
+                        onClick={e => {
+                          e.preventDefault();
+                          setconfig(!config);
+                        }}
+                      >
+                        {props.t("Depreciation Config")}{" "}
+                        <div className="arrow-down"></div>
+                      </Link>
+                      <div
+                        className={classname("dropdown-menu", {
+                          show: config,
+                        })}
+                      >
+                        <Link to="/ca_yearly" className="dropdown-item">
+                          {props.t("CA-Yearly")}
+                        </Link>
+                        <Link to="/it_act" className="dropdown-item">
+                          {props.t("IT-Act")}
+                        </Link>
+                       
+                      </div>
+                    </div>
+                    <Link to="/addition_Deletion" className="dropdown-item">
+                      {props.t("Addition/Deletion")}
+                    </Link>
+                    
+                  </div>
+                </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 {/* 
                 <li className="nav-item dropdown">

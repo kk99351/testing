@@ -30,10 +30,10 @@ const SubCategoryUpdate = () => {
     },
 
     validationSchema: Yup.object({
-      categoryname: Yup.string().required("Material name is Required"),
-      subcategoryname: Yup.string().required("Sub Material name is Required"),
-      subcategorycode: Yup.string().required("Sub Material code is Required"),
-      assetprefix: Yup.string().required("Aset Prefix is Required"),
+      categoryname: Yup.string().required("MATERIAL NAME IS REQUIRED"),
+      subcategoryname: Yup.string().required("SUB MATERIAL NAME IS REQUIRED"),
+      subcategorycode: Yup.string().required("SUB MATERIAL CODE IS REQUIRED"),
+      // assetprefix: Yup.string().required("Aset Prefix is Required"),
     }),
     onSubmit: values => {
       alert("form validated !");
@@ -45,131 +45,134 @@ const SubCategoryUpdate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-        <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-               SUB-CATEGORY DETAILS
+                MATERIAL SUB-GROUP DETAILS{" "}
               </h1>
             </CardHeader>
 
             <CardBody>
-            <Row className="justify-content-center">
+              <Row className="justify-content-center">
                 <Col xl={10}>
-              <Form
-                className="needs-validation"
-                onSubmit={validation.handleSubmit}
-              >
-                <Row className="mb-2">
+                  <Form
+                    className="needs-validation"
+                    onSubmit={validation.handleSubmit}
+                  >
+                    <Row className="mb-2">
                       <Col md={6}>
-                    <FormGroup className="mb-3">
-                      <Label htmlFor="validationCustom01">
-                        MATERIAL NAME<font color="red">*</font>
-                      </Label>
-                      <Input
-                        name="companygroup"
-                        type="select"
-                        className="form-control"
-                        id="validationCustom01"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.categoryname &&
-                          validation.errors.categoryname
-                        }
-                      >
-                        <option value="" >
-                          SELECT MATERIAL NAME
-                        </option>
-                        <option value="dept1">ROH</option>
-                        <option value="dept2">HALB</option>
-                        <option value="dept3">ABFB</option>
-                      </Input>
-                      {validation.touched.categoryname &&
-                        validation.errors.categoryname && (
-                          <div className="text-danger">
-                            {validation.errors.categoryname}
-                          </div>
-                        )}
-                    </FormGroup>
-                    </Col>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="validationCustom01">
+                            MATERIAL GROUP NAME<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="companygroup"
+                            type="select"
+                            className="form-control"
+                            id="validationCustom01"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.categoryname &&
+                              validation.errors.categoryname
+                            }
+                          >
+                            <option value="">
+                              SELECT MATERIAL GROUP NAME{" "}
+                            </option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Books">Books</option>
+                            <option value="Furniture">Furniture</option>
+                          </Input>
+                          {validation.touched.categoryname &&
+                            validation.errors.categoryname && (
+                              <div className="invalid-feedback">
+                                {validation.errors.categoryname}
+                              </div>
+                            )}
+                        </FormGroup>
+                      </Col>
                       <Col md={6}>
-                    <FormGroup className="mb-3">
-                      <Label>
-                        SUB MATERIAL NAME<font color="red">*</font>
-                      </Label>
-                      <Input
-                        name="subcategoryname"
-                        type="text"
-                        className="form-control"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.subcategoryname &&
-                          validation.errors.subcategoryname
-                        }
-                      />
-                      {validation.touched.subcategoryname &&
-                      validation.errors.subcategoryname ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.subcategoryname}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                    </Col>
+                        <FormGroup className="mb-3">
+                          <Label>
+                            MATERIAL SUB-GROUP NAME<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="subcategoryname"
+                            placeholder="PLEASE ENTER MATERIAL SUB-GROUP NAME"
+                            type="text"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.subcategoryname &&
+                              validation.errors.subcategoryname
+                            }
+                          />
+                          {validation.touched.subcategoryname &&
+                          validation.errors.subcategoryname ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.subcategoryname}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
                       <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
-                      <Col md={6}>
-                    <FormGroup className="mb-3">
-                      <Label>
-                        SUB MATERIAL CODE<font color="red">*</font>
-                      </Label>
-                      <Input
-                        name="subcategorycode"
-                        type="text"
-                        className="form-control"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.subcategorycode &&
-                          validation.errors.subcategorycode
-                        }
-                      />
-                      {validation.touched.subcategorycode &&
-                      validation.errors.subcategorycode ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.subcategorycode}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                    </Col>
-                      <Col md={6}>
-                    <FormGroup className="mb-3">
-                      <Label>
-                        ASSET PREFIX<font color="red">*</font>
-                      </Label>
-                      <Input
-                        name="assetprefix"
-                        type="text"
-                        className="form-control"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.assetprefix &&
-                          validation.errors.assetprefix
-                        }
-                      />
-                      {validation.touched.assetprefix &&
-                      validation.errors.assetprefix ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.assetprefix}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                </Row>
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label>
+                            MATERIAL SUB-GROUP CODE<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="subcategorycode"
+                            type="text"
+                            placeholder="PLEASE ENTER MATERIAL SUB-GROUP CODE"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.subcategorycode &&
+                              validation.errors.subcategorycode
+                            }
+                          />
+                          {validation.touched.subcategorycode &&
+                          validation.errors.subcategorycode ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.subcategorycode}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                      {/* <Col md={6}>
+                        <FormGroup className="mb-3">
+                          <Label>
+                            ASSET PREFIX<font color="red">*</font>
+                          </Label>
+                          <Input
+                            name="assetprefix"
+                            type="text"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.assetprefix &&
+                              validation.errors.assetprefix
+                            }
+                          />
+                          {validation.touched.assetprefix &&
+                          validation.errors.assetprefix ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.assetprefix}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col> */}
+                    </Row>
 
-                <div
+                    <div
                       style={{
                         display: "flex",
                         justifyContent: "center",
@@ -183,37 +186,37 @@ const SubCategoryUpdate = () => {
                           justifyContent: "space-around",
                         }}
                       >
-                  <Button
-                    type="submit"
-                    color="success-subtle"
-                    className="btn btn-success-subtle border border-success"
-                    style={{
-                      paddingTop: "10px",
-                      height: "45px",
-                      width: "80px",
-                      marginRight: "30px",
-                    }}
-                  >
-                    UPDATE
-                  </Button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary-subtle border border-secondary"
-                    onClick={() => {
-                      navigate("/create_subcatogries");
-                    }}
-                    style={{
-                      paddingTop: "10px",
-                      width: "80px",
-                      height: "45px",
-                    }}
-                  >
-                    <Label>BACK</Label>
-                  </button>
-                </div>
-                </div>
-              </Form>
-              </Col>
+                        <Button
+                          type="submit"
+                          color="success-subtle"
+                          className="btn btn-success-subtle border border-success"
+                          style={{
+                            paddingTop: "10px",
+                            height: "45px",
+                            width: "80px",
+                            marginRight: "30px",
+                          }}
+                        >
+                          UPDATE
+                        </Button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary-subtle border border-secondary"
+                          onClick={() => {
+                            navigate("/create_subcatogries");
+                          }}
+                          style={{
+                            paddingTop: "10px",
+                            width: "80px",
+                            height: "45px",
+                          }}
+                        >
+                          <Label>BACK</Label>
+                        </button>
+                      </div>
+                    </div>
+                  </Form>
+                </Col>
               </Row>
             </CardBody>
           </Card>

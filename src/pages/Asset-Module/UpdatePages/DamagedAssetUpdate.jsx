@@ -18,8 +18,8 @@ const DamagedAssetUpdate = () => {
 
   const navigate = useNavigate();
   const requiredFields = {
-    attachImage: "Image",
-    approxCost: "Approx Cost Of Repairing",
+    attachImage: "IMAGE",
+    approxCost: "APPROX COST OF REPAIRING",
   };
   const initialFormData = {
     assetId: "",
@@ -92,7 +92,7 @@ const DamagedAssetUpdate = () => {
         if (!formData[fieldName]) {
           setErrors((prevErrors) => ({
             ...prevErrors,
-            [fieldName]: `${fieldLabel} is required`,
+            [fieldName]: `${fieldLabel} IS REQUIRED`,
           }));
           isValid = false;
         }
@@ -125,7 +125,7 @@ const DamagedAssetUpdate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-3">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 DAMAGED-ASSETS DETAILS
@@ -142,11 +142,12 @@ const DamagedAssetUpdate = () => {
                           type="text"
                           name="assetId"
                           id="assetId"
+                          placeholder="PLEASE ENTER ASSET ID"
                           value={formData.assetId}
                           onChange={handleInputChange}
                           invalid={!!errors.assetId}
                         />
-                        <span className="text-danger">{errors.assetId}</span>
+                        <span className="invalid-feedback">{errors.assetId}</span>
                       </Col>
                       <Col md={6}>
                         <Label for="assetName">ASSET NAME</Label>
@@ -154,6 +155,7 @@ const DamagedAssetUpdate = () => {
                           type="text"
                           name="assetName"
                           id="assetName"
+                          placeholder="PLEASE ENTER ASSET NAME"
                           value={formData.assetName}
                           onChange={handleInputChange}
                           invalid={!!errors.assetName}
@@ -169,11 +171,12 @@ const DamagedAssetUpdate = () => {
                           type="text"
                           name="serialNumber"
                           id="serialNumber"
+                          placeholder="PLEASE ENTER SERIAL NUMBER"
                           value={formData.serialNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.serialNumber}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.serialNumber}
                         </span>
                       </Col>
@@ -183,6 +186,7 @@ const DamagedAssetUpdate = () => {
                           type="text"
                           name="diciceStorage"
                           id="diciceStorage"
+                          placeholder="PLEASE ENTER DIVICE STORAGE"
                           value={formData.diciceStorage}
                           onChange={handleInputChange}
                           invalid={!!errors.diciceStorage}
@@ -200,6 +204,7 @@ const DamagedAssetUpdate = () => {
                           type="text"
                           name="modelNumber"
                           id="modelNumber"
+                          placeholder="PLEASE ENTER MODEL NUMBER"
                           value={formData.modelNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.modelNumber}
@@ -214,6 +219,7 @@ const DamagedAssetUpdate = () => {
                           type="text"
                           name="processType"
                           id="processType"
+                          placeholder="PLEASE ENTER PROCESS TYPE"
                           value={formData.processType}
                           onChange={handleInputChange}
                           invalid={!!errors.processType}
@@ -231,6 +237,7 @@ const DamagedAssetUpdate = () => {
                           type="text"
                           name="storageType"
                           id="storageType"
+                          placeholder="PLEASE ENTER STORAGE TYPE "
                           value={formData.storageType}
                           onChange={handleInputChange}
                           invalid={!!errors.storageType}
@@ -245,6 +252,7 @@ const DamagedAssetUpdate = () => {
                           type="text"
                           name="ramType"
                           id="ramType"
+                          placeholder="PLEASE ENTER RAM TYPE "
                           value={formData.ramType}
                           onChange={handleInputChange}
                           invalid={!!errors.ramType}
@@ -261,6 +269,7 @@ const DamagedAssetUpdate = () => {
                           type="text"
                           name="invoiceNumber"
                           id="invoiceNumber"
+                          placeholder="PLEASE ENTER INVOICE NUMBER  "
                           value={formData.invoiceNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.invoiceNumber}
@@ -293,6 +302,8 @@ const DamagedAssetUpdate = () => {
                           type="text"
                           name="poNumber"
                           id="poNumber"
+                          placeholder="PLEASE ENTER PO NUMBER  "
+
                           value={formData.poNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.poNumber}
@@ -318,13 +329,14 @@ const DamagedAssetUpdate = () => {
                         <Label for="approxCost">APPROX COST OF REPAIRING</Label>
                         <Input
                           type="text"
+                          placeholder="PLEASE ENTER APPROX COST OF REPAIRING  "
                           name="approxCost"
                           id="approxCost"
                           value={formData.approxCost}
                           onChange={handleInputChange}
                           invalid={!!errors.approxCost}
                         />
-                        <span className="text-danger">{errors.approxCost}</span>
+                        <span className="invalid-feedback">{errors.approxCost}</span>
                       </Col>
                       <Col md={6}>
                         <Label for="uploadDocument">UPLOAD SUPPORTING DOCUMENT</Label>
@@ -351,7 +363,7 @@ const DamagedAssetUpdate = () => {
                           accept="image/*"
                           invalid={!!errors.attachImage}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.attachImage}
                         </span>
                       </Col>

@@ -20,40 +20,50 @@ import { useGet } from "src/API/useGet";
 const Branch = () => {
   const demoData = [
     {
-      "slno": 1,
-      "companygroup": "United States",
-      "region": "California",
-      "city": "Los Angeles",
-      "branch": "Downtown Branch"
+      slno: 1,
+      companygroup: "United States",
+      region: "California",
+      entityName: "PR Limited", 
+
+      city: "Los Angeles",
+      branch: "Downtown Branch",
     },
     {
-      "slno": 2,
-      "companygroup": "United States",
-      "region": "New York",
-      "city": "New York City",
-      "branch": "Midtown Branch"
+      slno: 2,
+      companygroup: "United States",
+      region: "New York",
+      city: "New York City",
+      entityName: "PR Limited", 
+
+      branch: "Midtown Branch",
     },
     {
-      "slno": 3,
-      "companygroup": "United Kingdom",
-      "region": "England",
-      "city": "London",
-      "branch": "Westminster Branch"
+      slno: 3,
+      companygroup: "United Kingdom",
+      region: "England",
+      city: "London",
+      entityName: "AR Corporation", 
+
+      branch: "Westminster Branch",
     },
     {
-      "slno": 4,
-      "companygroup": "Canada",
-      "region": "Ontario",
-      "city": "Toronto",
-      "branch": "Downtown Branch"
+      slno: 4,
+      companygroup: "Canada",
+      region: "Ontario",
+      entityName: "AR Corporation", 
+
+      city: "Toronto",
+      branch: "Downtown Branch",
     },
     {
-      "slno": 5,
-      "companygroup": "Australia",
-      "region": "New South Wales",
-      "city": "Sydney",
-      "branch": "CBD Branch"
-    }
+      slno: 5,
+      companygroup: "Australia",
+      region: "New South Wales",
+      entityName: "AR Corporation", 
+
+      city: "Sydney",
+      branch: "CBD Branch",
+    },
   ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
@@ -76,6 +86,12 @@ const Branch = () => {
         Header: "SL NO",
         accessor: "slno",
         width: "6%",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "ENTITY",
+        accessor: "entityName",
         disableFilters: true,
         filterable: true,
       },
@@ -103,9 +119,6 @@ const Branch = () => {
         disableFilters: true,
         filterable: true,
       },
-      
-     
-      
     ],
     []
   );
@@ -211,8 +224,6 @@ const Branch = () => {
                   </div>
                 </div>
               </div>
-
-              
               <div className="table-responsive react-table">
                 <table className="table table-bordered table-hover text-center">
                   <thead className="table-light table-nowrap">

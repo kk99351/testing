@@ -61,11 +61,15 @@ const CompanyGroupUpdate = () => {
     initialValues: {
       company_group: formData.companyGroup || "",
       companyGroupCode: formData.companyGroupCode || "",
+      entity:"",
+
     },
 
     validationSchema: Yup.object({
       company_group: Yup.string().required("COUNTRY NAME IS REQUIRED"),
       companyGroupCode: Yup.string().required("COUNTRY CODE IS REQUIRED"),
+      entity: Yup.string().required("ENTITY NAME IS REQUIRED"),
+
     }),
     onSubmit: async values => {
       console.log(values);
@@ -99,6 +103,38 @@ const CompanyGroupUpdate = () => {
                     className="needs-validation"
                     onSubmit={validation.handleSubmit}
                   >
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="entity">
+                            ENTITY NAME <font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            name="entity"
+                            id="entity"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.entity &&
+                              validation.errors.entity
+                            }
+                          >
+                            <option value="">SELECT ENTITY NAME</option>
+                            <option value="US">RA Lmt</option>
+                            <option value="UK">PR Enterprises</option>
+                            <option value="CA">CA  Corporation</option>
+                          </Input>
+                          {validation.touched.entity &&
+                          validation.errors.entity ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.entity}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </Row>
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">

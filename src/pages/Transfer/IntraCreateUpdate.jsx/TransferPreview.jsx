@@ -50,6 +50,7 @@ const TransferPreview = () => {
       serialNumber: "SN001",
       invoiceNumber: "INV-001",
       status: "Active",
+      assetdes: "Good condition",
       allocateTo: "John Doe",
       type: "Electronic",
     },
@@ -60,6 +61,7 @@ const TransferPreview = () => {
       serialNumber: "SN002",
       invoiceNumber: "INV-002",
       status: "Active",
+      assetdes: "Good condition",
       allocateTo: "Jane Smith",
       type: "Electronic",
     },
@@ -70,6 +72,7 @@ const TransferPreview = () => {
       serialNumber: "SN003",
       invoiceNumber: "INV-003",
       status: "Inactive",
+      assetdes: "Ink levels low",
       allocateTo: "Alice Johnson",
       type: "Peripheral",
     },
@@ -80,6 +83,7 @@ const TransferPreview = () => {
       serialNumber: "SN004",
       invoiceNumber: "INV-004",
       status: "Active",
+      assetdes: "Needs maintenance",
       allocateTo: "Bob Smith",
       type: "Peripheral",
     },
@@ -88,6 +92,7 @@ const TransferPreview = () => {
       assetId: "A004",
       assetName: "Monitor",
       serialNumber: "SN004",
+      assetdes: "Needs maintenance",
       invoiceNumber: "INV-004",
       status: "Active",
       allocateTo: "Bob Smith",
@@ -100,6 +105,7 @@ const TransferPreview = () => {
       serialNumber: "SN004",
       invoiceNumber: "INV-004",
       status: "Active",
+      assetdes: "Needs maintenance",
       allocateTo: "Bob Smith",
       type: "Peripheral",
     },
@@ -113,7 +119,7 @@ const TransferPreview = () => {
       {
         Header: "SL NO",
         accessor: "slno",
-        width:"6%",
+        width: "6%",
         disableFilters: true,
         filterable: true,
       },
@@ -137,7 +143,7 @@ const TransferPreview = () => {
       },
       {
         Header: "ASSET DISCRIPTION",
-        accessor: "invoiceNumber",
+        accessor: "assetdes",
         disableFilters: true,
         filterable: true,
       },
@@ -367,8 +373,13 @@ const TransferPreview = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                          <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
-
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
                             <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}

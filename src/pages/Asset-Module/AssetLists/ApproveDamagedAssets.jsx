@@ -12,50 +12,26 @@ import {
 const ApproveDamagedAssets = () => {
   const demoData = [
     {
-      slno: 1,
-      assetId: "A001",
-      modelNo: "SN001",
-      assetName: "Laptop",
-      serialNumber: "INV-001",
+      "slno": 1,
+      "assetId": "ASSET001",
+      "modelNo": "MN123",
+      "assetName": "Laptop",
+      "serialNumber": "SN12345"
     },
     {
-      slno: 2,
-      assetId: "A002",
-      modelNo: "SN002",
-      assetName: "Desktop",
-      serialNumber: "INV-002",
+      "slno": 2,
+      "assetId": "ASSET002",
+      "modelNo": "MN456",
+      "assetName": "Desktop",
+      "serialNumber": "SN67890"
     },
     {
-      slno: 3,
-      assetId: "A003",
-      modelNo: "SN003",
-      assetName: "Printer",
-      serialNumber: "INV-003",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      modelNo: "SN004",
-      assetName: "Monitor",
-
-      serialNumber: "INV-004",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      modelNo: "SN004",
-      assetName: "Monitor",
-
-      serialNumber: "INV-004",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      modelNo: "SN004",
-      assetName: "Monitor",
-
-      serialNumber: "INV-004",
-    },
+      "slno": 3,
+      "assetId": "ASSET003",
+      "modelNo": "MN789",
+      "assetName": "Printer",
+      "serialNumber": "SN24680"
+    }
   ];
 
   const [responseData, setResponseData] = useState(demoData);

@@ -29,48 +29,24 @@ const DamagedAssets = () => {
   const demoData = [
     {
       slno: 1,
-      assetId: "A001",
-      modelNo: "SN001",
+      assetId: "ASSET001",
+      modelNo: "MN123",
       assetName: "Laptop",
-      serialNumber: "INV-001",
+      serialNumber: "SN12345",
     },
     {
       slno: 2,
-      assetId: "A002",
-      modelNo: "SN002",
+      assetId: "ASSET002",
+      modelNo: "MN456",
       assetName: "Desktop",
-      serialNumber: "INV-002",
+      serialNumber: "SN67890",
     },
     {
       slno: 3,
-      assetId: "A003",
-      modelNo: "SN003",
+      assetId: "ASSET003",
+      modelNo: "MN789",
       assetName: "Printer",
-      serialNumber: "INV-003",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      modelNo: "SN004",
-      assetName: "Monitor",
-
-      serialNumber: "INV-004",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      modelNo: "SN004",
-      assetName: "Monitor",
-
-      serialNumber: "INV-004",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      modelNo: "SN004",
-      assetName: "Monitor",
-
-      serialNumber: "INV-004",
+      serialNumber: "SN24680",
     },
   ];
 
@@ -199,7 +175,7 @@ const DamagedAssets = () => {
                     </div>
                   </div>
 
-                  <div className="col-sm-7">
+                  {/* <div className="col-sm-7">
                     <div className="text-sm-end">
                       <button
                         type="button"
@@ -210,7 +186,7 @@ const DamagedAssets = () => {
                         CREATE NEW{" "}
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 

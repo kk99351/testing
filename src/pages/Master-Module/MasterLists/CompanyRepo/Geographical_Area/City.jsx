@@ -19,35 +19,44 @@ import { useGet } from "src/API/useGet";
 const City = () => {
   const demoData = [
     {
-      "slno": 1,
-      "companygroup": "United States",
-      "region": "California",
-      "cityname": "Los Angeles"
+      slno: 1,
+      companygroup: "United States",
+      region: "California",
+      entityName: "PR Corporation",
+
+      cityname: "Los Angeles",
     },
     {
-      "slno": 2,
-      "companygroup": "United States",
-      "region": "New York",
-      "cityname": "New York City"
+      slno: 2,
+      companygroup: "United States",
+      region: "New York",
+      entityName: "AR Corporation",
+
+      cityname: "New York City",
     },
     {
-      "slno": 3,
-      "companygroup": "United Kingdom",
-      "region": "England",
-      "cityname": "London"
+      slno: 3,
+      companygroup: "United Kingdom",
+      region: "England",
+      entityName: "AR LIMITED",
+
+      cityname: "London",
     },
     {
-      "slno": 4,
-      "companygroup": "Canada",
-      "region": "Ontario",
-      "cityname": "Toronto"
+      slno: 4,
+      companygroup: "Canada",
+      region: "Ontario",
+      entityName: "AR Corporation",
+      cityname: "Toronto",
     },
     {
-      "slno": 5,
-      "companygroup": "Australia",
-      "region": "New South Wales",
-      "cityname": "Sydney"
-    }
+      slno: 5,
+      companygroup: "Australia",
+      region: "New South Wales",
+      entityName: "AR Corporation",
+
+      cityname: "Sydney",
+    },
   ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
@@ -70,6 +79,12 @@ const City = () => {
         Header: "SL NO",
         accessor: "slno",
         width: "6%",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "ENTITY",
+        accessor: "entityName",
         disableFilters: true,
         filterable: true,
       },
@@ -189,7 +204,6 @@ const City = () => {
                   </div>
                 </div>
               </div>
-
               <div className="table-responsive react-table">
                 <table className="table table-bordered table-hover text-center">
                   <thead className="table-light table-nowrap">

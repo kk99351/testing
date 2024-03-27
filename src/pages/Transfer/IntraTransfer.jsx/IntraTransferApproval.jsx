@@ -16,55 +16,20 @@ const IntraTransferApproval = () => {
   };
   const demoData = [
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      "assetId": "REQ001",
+      "assetName": "2024-03-25",
+      "allocateTo": "John Doe"
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      "assetId": "REQ002",
+      "assetName": "2024-03-26",
+      "allocateTo": "Jane Smith"
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
-    {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
-    {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
+      "assetId": "REQ003",
+      "assetName": "2024-03-27",
+      "allocateTo": "Robert Johnson"
+    }
   ];
 
   const [responseData] = useState(demoData);

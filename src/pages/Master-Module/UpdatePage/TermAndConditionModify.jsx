@@ -17,14 +17,12 @@ const TermAndConditionModify = () => {
   const navigate = useNavigate();
   const requiredFields = {
     // fileName:"",
-    termAndCond:"Terms and Conditions",
-
+    termAndCond: "TERMS AND CONDITIONS ",
   };
   const initialFormData = {
-    termAndCond:"",
-    descriptionterms:"",
-    fileName:"",
-
+    termAndCond: "",
+    descriptionterms: "",
+    fileName: "",
   };
   const initialErrors = {};
   Object.keys(requiredFields).forEach(key => {
@@ -59,7 +57,7 @@ const TermAndConditionModify = () => {
     }));
   };
 
-  const UpdateHandle = async e => {
+  const CreateHandle = async e => {
     e.preventDefault();
     let isValid = true;
 
@@ -67,7 +65,7 @@ const TermAndConditionModify = () => {
       if (!formData[fieldName].trim()) {
         setErrors(prevErrors => ({
           ...prevErrors,
-          [fieldName]: `${fieldLabel} is required`,
+          [fieldName]: `${fieldLabel} IS REQUIRED`,
         }));
         isValid = false;
       }
@@ -88,10 +86,10 @@ const TermAndConditionModify = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                TERMS AND CONDITIONS DETAILS
+                 TERMS AND CONDITIONS DETAILS
               </h1>
             </CardHeader>
             <CardBody>
@@ -101,10 +99,10 @@ const TermAndConditionModify = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <Label for="termAndCond">
-                         TERMS AND CONDITIONS<font color="red">*</font>
+                          TERMS AND CONDITIONS<font color="red">*</font>
                         </Label>
                         <Input
-                        placeholder="ENTER TERMS AND CONDITIONS"
+                          placeholder="ENTER TERMS AND CONDITIONS "
                           name="termAndCond"
                           id="termAndCond"
                           value={formData.termAndCond}
@@ -113,16 +111,16 @@ const TermAndConditionModify = () => {
                             errors.termAndCond ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="text-danger">{errors.termAndCond}</span>
+                        <span className="invalid-feedback">
+                          {errors.termAndCond}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
 
                     <Row className="mb-2">
                       <Col md={12}>
-                        <Label for="fileName">
-                          UPLOAD FILE
-                        </Label>
+                        <Label for="fileName">UPLOAD FILE</Label>
                         <Input
                           type="file"
                           name="fileName"
@@ -132,7 +130,9 @@ const TermAndConditionModify = () => {
                             errors.fileName ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="text-danger">{errors.fileName}</span>
+                        <span className="invalid-feedback">
+                          {errors.fileName}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
@@ -142,6 +142,7 @@ const TermAndConditionModify = () => {
                           TERMS & CONDITIONS DESCRIPTION
                         </Label>
                         <Input
+                          placeholder="PLEASE ENTER TERMS AND CONDITIONS DESCRIPTION"
                           type="textarea"
                           name="descriptionterms"
                           id="descriptionterms"
@@ -150,7 +151,9 @@ const TermAndConditionModify = () => {
                             errors.fileName ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="text-danger">{errors.descriptionterms}</span>
+                        <span className="invalid-feedback">
+                          {errors.descriptionterms}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
@@ -171,7 +174,7 @@ const TermAndConditionModify = () => {
                         <button
                           type="button"
                           className="btn btn-success-subtle border border-success"
-                          onClick={UpdateHandle}
+                          onClick={CreateHandle}
                           style={{
                             paddingTop: "10px",
                             height: "45px",

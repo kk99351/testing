@@ -45,63 +45,24 @@ const InterTransferPreview = () => {
   const demoData = [
     {
       slno: 1,
-      assetId: "A001",
+      assetId: "ASSET001",
       assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      serialNumber: "SN12345",
+      assetdes: "Good condition",
     },
     {
       slno: 2,
-      assetId: "A002",
+      assetId: "ASSET002",
       assetName: "Desktop",
-      serialNumber: "SN002",
-      invoiceNumber: "INV-002",
-      status: "Active",
-      allocateTo: "Jane Smith",
-      type: "Electronic",
+      serialNumber: "SN67890",
+      assetdes: "Needs maintenance",
     },
     {
       slno: 3,
-      assetId: "A003",
+      assetId: "ASSET003",
       assetName: "Printer",
-      serialNumber: "SN003",
-      invoiceNumber: "INV-003",
-      status: "Inactive",
-      allocateTo: "Alice Johnson",
-      type: "Peripheral",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      invoiceNumber: "INV-004",
-      status: "Active",
-      allocateTo: "Bob Smith",
-      type: "Peripheral",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      invoiceNumber: "INV-004",
-      status: "Active",
-      allocateTo: "Bob Smith",
-      type: "Peripheral",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      invoiceNumber: "INV-004",
-      status: "Active",
-      allocateTo: "Bob Smith",
-      type: "Peripheral",
+      serialNumber: "SN24680",
+      assetdes: "Ink levels low",
     },
   ];
 
@@ -113,7 +74,7 @@ const InterTransferPreview = () => {
       {
         Header: "SL NO",
         accessor: "slno",
-        width:"6%",
+        width: "6%",
         disableFilters: true,
         filterable: true,
       },
@@ -137,7 +98,7 @@ const InterTransferPreview = () => {
       },
       {
         Header: "ASSET DISCRIPTION",
-        accessor: "invoiceNumber",
+        accessor: "assetdes",
         disableFilters: true,
         filterable: true,
       },
@@ -367,7 +328,13 @@ const InterTransferPreview = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                           <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
                             <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
@@ -467,11 +434,11 @@ const InterTransferPreview = () => {
 };
 
 InterTransferPreview.propTypes = {
-  row: PropTypes.object, 
+  row: PropTypes.object,
 };
 
 InterTransferPreview.defaultProps = {
-  row: {}, 
+  row: {},
 };
 
 export default InterTransferPreview;

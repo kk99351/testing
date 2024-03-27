@@ -271,68 +271,24 @@ const AssetDeLink = () => {
   };
   const [responseData, setResponseData] = useState([
     {
-      slno: 1,
-      a: "565H",
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      assetRemarks: "Good condition",
-      allocateType: "Active",
-      checked: false,
-      employeename: "John Doe",
-      client: "ABC Corp",
-      allocatedDate: "2023-01-15",
+      "slno": 1,
+      "accessoriesId": "ACC001",
+      "serialNumber": "SN12345",
+      "assetName": "Laptop",
+      "assetId": "ASSET001",
+      "linkedDate": "2024-03-25",
+      "assetRemarks": "Good condition",
+      "delinkDate": "2024-04-10"
     },
     {
-      slno: 2,
-      a: "565H",
-      assetId: "A002",
-      assetName: "Desktop",
-      serialNumber: "SN002",
-      assetRemarks: "Minor scratches on the back",
-      checked: false,
-      employeename: "Jane Smith",
-      client: "XYZ Inc",
-      allocatedDate: "2023-02-20",
-    },
-    {
-      slno: 3,
-      a: "565H",
-      assetId: "A003",
-      assetName: "Printer",
-      serialNumber: "SN003",
-      assetRemarks: "Needs toner replacement",
-      allocateType: "Inactive",
-      checked: false,
-      employeename: "Michael Johnson",
-      client: "DEF Ltd",
-      allocatedDate: "2023-03-10",
-    },
-    {
-      slno: 4,
-      a: "565H",
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      assetRemarks: "No issues",
-      allocateType: "Active",
-      checked: false,
-      employeename: "Emily Brown",
-      client: "GHI Corp",
-      allocatedDate: "2023-04-05",
-    },
-    {
-      slno: 5,
-      a: "565H",
-      assetId: "A005",
-      assetName: "Keyboard",
-      serialNumber: "SN005",
-      assetRemarks: "Missing key",
-      allocateType: "Inactive",
-      checked: false,
-      employeename: "David Lee",
-      client: "JKL Ltd",
-      allocatedDate: "2023-05-12",
+      "slno": 2,
+      "accessoriesId": "ACC002",
+      "serialNumber": "SN67890",
+      "assetName": "Desktop",
+      "assetId": "ASSET002",
+      "linkedDate": "2024-03-24",
+      "assetRemarks": "Needs maintenance",
+      "delinkDate": "2024-04-12"
     },
   ]);
   const navigate = useNavigate();
@@ -366,7 +322,7 @@ const AssetDeLink = () => {
       },
       {
         Header: "ACCESSORIES ID",
-        accessor: "a",
+        accessor: "accessoriesId",
       },
       {
         Header: "SERIAL NUMBER",
@@ -378,11 +334,11 @@ const AssetDeLink = () => {
       },
       {
         Header: "ASSET ID",
-        accessor: "employeename",
+        accessor: "assetId",
       },
       {
         Header: "LINKED DATE",
-        accessor: "client",
+        accessor: "linkedDate",
       },
       {
         Header: "ASSET REMARKS",
@@ -397,7 +353,7 @@ const AssetDeLink = () => {
       },
       {
         Header: "DE-LINK DATE",
-        accessor: "allocateDate",
+        accessor: "delinkDate",
         Cell: ({ row }) => (
           <Input
             type="date"

@@ -223,7 +223,7 @@ const MailConfiguration = props => {
                     marginBottom: "20px",
                   }}
                 >
-                  {/* <div
+                  <div
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -242,9 +242,9 @@ const MailConfiguration = props => {
                         marginRight: "30px",
                       }}
                     >
-                      CREATE
+                      UPDATE
                     </Button>
-                    <button
+                    {/* <button
                       type="button"
                       className="btn btn-secondary-subtle border border-secondary"
                       style={{
@@ -255,8 +255,8 @@ const MailConfiguration = props => {
                       onClick={fun}
                     >
                       <Label>NEXT</Label>
-                    </button>
-                  </div> */}
+                    </button> */}
+                  </div>
                 </div>
               </Form>
             </Col>

@@ -1,12 +1,6 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import {
-  Container,
-  CardBody,
-  CardHeader,
-  Button,
-  Card,
-  Input,
-} from "reactstrap";
+import Icon from "@ailibs/feather-react-ts";
+import { Card, CardBody, CardHeader, Container, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -14,23 +8,39 @@ import {
   useSortBy,
   usePagination,
 } from "react-table";
+import Create from "src/pages/Buttons/Create";
 import { useGet } from "src/API/useGet";
 
-const UOMConversion = () => {
-  const demoData = [
-    { material: "Steel", qyt: 10, uom: "kg" },
-    { material: "Plastic", qyt: 500, uom: "g" },
-    { material: "Wood", qyt: 3, uom: "m" },
-    { material: "Aluminum", qyt: 2, uom: "m" },
-    { material: "Glass", qyt: 1000, uom: "mL" },
-  ];
+const Entity = () => {
+    const demoData = [
+        { 
+          entityName: "AR Corporation", 
+          entityCode: "AR001", 
+          industry: "Technology", 
+          country: "United States" 
+        },
+        { 
+          entityName: "HCL Ltd", 
+          entityCode: "HCL002", 
+          industry: "Finance", 
+          country: "United Kingdom" 
+        },
+        { 
+          entityName: "RA Enterprises", 
+          entityCode: "RA003", 
+          industry: "Manufacturing", 
+          country: "Germany" 
+        },
+        // Add more entries as needed
+      ];
+      
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
 
   // const { getData, data, isLoading } = useGet();
   // useEffect(() => {
   //   async function fetch() {
-  //     await getData("http://localhost:3000/designationmaster");
+  //     await getData("http://localhost:3000/companygroup");
   //   }
   //   fetch();
   // }, [getData]);
@@ -38,25 +48,26 @@ const UOMConversion = () => {
   // useEffect(() => {
   //   setResponseData(data);
   // }, [data]);
-
   const columns = useMemo(
     () => [
       {
         Header: "SL NO",
         accessor: "slno",
         width: "6%",
+        disableFilters: true,
+        filterable: true,
       },
       {
-        Header: "MATERIAL GROUP",
-        accessor: "material",
+        Header: "ENTITY NAME",
+        accessor: "entityName",
+        disableFilters: true,
+        filterable: true,
       },
       {
-        Header: "QUANTITY",
-        accessor: "qyt",
-      },
-      {
-        Header: "UOM",
-        accessor: "uom",
+        Header: "ENTITY CODE",
+        accessor: "entityCode",
+        disableFilters: true,
+        filterable: true,
       },
     ],
     []
@@ -95,25 +106,16 @@ const UOMConversion = () => {
 
   return (
     <React.Fragment>
-      {/* {isLoading ? (
-        <div className="page-content">
-          <Card>
-            <div>
-              <h1>Loading...</h1>
-            </div>
-          </Card>
-        </div>
-      ) : ( */}
       <Container fluid>
         <div className="page-content">
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                UNIT OF MEASUREMENT CONVERSION DEATILS
+                ENTITY DETAILS
               </h1>
             </CardHeader>
             <CardBody>
-              <div className="container pt-0">
+            <div className="container pt-0">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
                     <select className="form-select" style={{ width: "88PX" }}>
@@ -151,16 +153,17 @@ const UOMConversion = () => {
                       <button
                         type="button"
                         className="btn mb-2 me-2 btn btn-primary"
-                        onClick={() => navigate("/create_uom_conversion")}
+                        onClick={() => navigate("/entity_create")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
-                        CREATE NEW
+                        CREATE NEW{" "}
                       </button>
                     </div>
                   </div>
                 </div>
               </div>
 
+              
               <div className="table-responsive react-table">
                 <table className="table table-bordered table-hover text-center">
                   <thead className="table-light table-nowrap">
@@ -170,14 +173,9 @@ const UOMConversion = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                          <th
-                            key={column.id}
-                            {...column.getHeaderProps(
-                              column.getSortByToggleProps()
-                            )}
-                            style={{ width: column.width }}
-                          >
-                            <div className="d-flex justify-content-center">
+                          <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
+
+                          <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
                               </span>
@@ -203,9 +201,7 @@ const UOMConversion = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link
-                                    to={`/modify_uom_conversion/${row.original.id}`}
-                                  >
+                                  <Link to={`/entity_update/${row.original.id}`}>
                                     {cell.render("Cell")}
                                   </Link>
                                 ) : (
@@ -275,11 +271,9 @@ const UOMConversion = () => {
             </CardBody>
           </Card>
         </div>
-
-        {/* )} */}
       </Container>
     </React.Fragment>
   );
 };
 
-export default UOMConversion;
+export default Entity;

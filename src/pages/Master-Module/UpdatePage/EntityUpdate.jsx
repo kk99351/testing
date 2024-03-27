@@ -18,7 +18,7 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
-const CompanyGroupCreate = () => {
+const EntityUpdate = () => {
   const navigate = useNavigate();
   const validation = useFormik({
     enableReinitialize: true,
@@ -26,13 +26,11 @@ const CompanyGroupCreate = () => {
     initialValues: {
       company_group: "",
       companyGroupCode: "",
-      entity:"",
     },
 
     validationSchema: Yup.object({
-      company_group: Yup.string().required("COUNTRY NAME IS REQUIRED"),
-      companyGroupCode: Yup.string().required("COUNTRY CODE IS REQUIRED"),
-      entity: Yup.string().required("ENTITY NAME IS REQUIRED"),
+      company_group: Yup.string().required("ENTITY NAME IS REQUIRED"),
+      companyGroupCode: Yup.string().required("ENTITY CODE IS REQUIRED"),
     }),
     onSubmit: async values => {
       // console.log(values)
@@ -53,7 +51,7 @@ const CompanyGroupCreate = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CREATE COUNTRY
+                CREATE ENTITY
               </h1>
             </CardHeader>
 
@@ -67,46 +65,14 @@ const CompanyGroupCreate = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="entity">
-                            ENTITY NAME <font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            name="entity"
-                            id="entity"
-                            className="form-control"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.entity &&
-                              validation.errors.entity
-                            }
-                          >
-                            <option value="">SELECT ENTITY NAME</option>
-                            <option value="US">RA Lmt</option>
-                            <option value="UK">PR Enterprises</option>
-                            <option value="CA">CA  Corporation</option>
-                          </Input>
-                          {validation.touched.entity &&
-                          validation.errors.entity ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.entity}
-                            </FormFeedback>
-                          ) : null}
-                        </FormGroup>
-                      </Col>
-                    </Row>
-
-                    <Row className="mb-2">
-                      <Col md={12}>
-                        <FormGroup className="mb-3">
                           <Label htmlFor="company_group">
-                            COUNTRY NAME<font color="red">*</font>
+                            ENTITY NAME<font color="red">*</font>
                           </Label>
                           <Input
-                            type="select"
+                            type="text"
                             name="company_group"
                             id="company_group"
+                            placeholder="PLEASE ENTER ENTITY NAME"
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
@@ -114,15 +80,7 @@ const CompanyGroupCreate = () => {
                               validation.touched.company_group &&
                               validation.errors.company_group
                             }
-                          >
-                            <option value="">SELECT COUNTRY</option>
-                            <option value="United States">United States</option>
-                            <option value="United Kingdom">
-                              United Kingdom
-                            </option>
-                            <option value="Canada">Canada</option>
-                            <option value="Australia">Australia</option>
-                          </Input>
+                          ></Input>
                           {validation.touched.company_group &&
                           validation.errors.company_group ? (
                             <FormFeedback type="invalid">
@@ -137,10 +95,11 @@ const CompanyGroupCreate = () => {
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="companyGroupCode">
-                            COUNTRY CODE <font color="red">*</font>
+                            ENTITY CODE <font color="red">*</font>
                           </Label>
                           <Input
-                            type="select"
+                            type="text"
+                            placeholder="PLEASE ENTER ENTITY CODE"
                             name="companyGroupCode"
                             id="companyGroupCode"
                             className="form-control"
@@ -150,13 +109,7 @@ const CompanyGroupCreate = () => {
                               validation.touched.companyGroupCode &&
                               validation.errors.companyGroupCode
                             }
-                          >
-                            <option value="">SELECT COUNTRY CODE</option>
-                            <option value="US">US</option>
-                            <option value="UK">UK</option>
-                            <option value="CA">CA</option>
-                            <option value="AU">AU</option>
-                          </Input>
+                          ></Input>
                           {validation.touched.companyGroupCode &&
                           validation.errors.companyGroupCode ? (
                             <FormFeedback type="invalid">
@@ -198,7 +151,7 @@ const CompanyGroupCreate = () => {
                           type="button"
                           className="btn btn-secondary-subtle border border-secondary"
                           onClick={() => {
-                            navigate("/company_group");
+                            navigate("/entity");
                           }}
                           style={{
                             paddingTop: "10px",
@@ -221,4 +174,6 @@ const CompanyGroupCreate = () => {
   );
 };
 
-export default CompanyGroupCreate;
+export default EntityUpdate;
+
+ 

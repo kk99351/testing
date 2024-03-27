@@ -15,88 +15,85 @@ import { useNavigate } from "react-router-dom";
 
 const CreateItemsCreate = () => {
   const navigate = useNavigate();
-    const requiredFields = {
-        item_name: "Item Name",
-        item_code: "Item Code",
-        item_type: "Item Type",
-        sub_category: "Sub Material",
-        category: "Material",
-        uom: "Uom",
-        model: "Make/Model",
-        discription: "Discription",
+  const requiredFields = {
+    item_name: "MATERIAL NAME",
+    item_code: "MATERIAL CODE",
+    item_type: "MATERIAL TYPE",
+    sub_category: "MATERIAL SUB-GROUP",
+    category: "MATERIAL GROUP",
+    uom: "UOM",
+    model: "MAKE/MODEL",
+    discription: "DESCRIPTION",
 
-
-  // remarks: "",
-    };
-    const initialFormData = {};
-const initialErrors = {};
-Object.keys(requiredFields).forEach(key => {
+    // remarks: "",
+  };
+  const initialFormData = {};
+  const initialErrors = {};
+  Object.keys(requiredFields).forEach(key => {
     initialFormData[key] = "";
     initialErrors[key] = "";
-});
+  });
 
+  const [formData, setFormData] = useState(initialFormData);
+  const [errors, setErrors] = useState(initialErrors);
 
-const [formData, setFormData] = useState(initialFormData);
-const [errors, setErrors] = useState(initialErrors);
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
 
-    const handleInputChange = e => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
+  const handleDropdownChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
+
+  const createHandle = async e => {
+    e.preventDefault();
+    let isValid = true;
+
+    Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
+      if (!formData[fieldName].trim()) {
         setErrors(prevErrors => ({
-            ...prevErrors,
-            [name]: "",
+          ...prevErrors,
+          [fieldName]: `${fieldLabel}  IS REQUIRED`,
         }));
-    };
+        isValid = false;
+      }
+    });
 
-    const handleDropdownChange = e => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
-        setErrors(prevErrors => ({
-            ...prevErrors,
-            [name]: "",
-        }));
-    };
-
-    const createHandle = async e => {
-        e.preventDefault();
-        let isValid = true;
-
-        Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
-            if (!formData[fieldName].trim()) {
-                setErrors(prevErrors => ({
-                    ...prevErrors,
-                    [fieldName]: `${fieldLabel} is required`,
-                }));
-                isValid = false;
-            }
-        });
-
-        if (isValid) {
-            try {
-                // await axios.post(`http://localhost:3000/region/`, formData);
-                // navigate("/company_group");
-                console.log("Form submitted successfully");
-            } catch (error) {
-                console.log("error in creating group data" + error);
-            }
-        }
-    };
-
+    if (isValid) {
+      try {
+        // await axios.post(`http://localhost:3000/region/`, formData);
+        // navigate("/company_group");
+        console.log("Form submitted successfully");
+      } catch (error) {
+        console.log("error in creating group data" + error);
+      }
+    }
+  };
 
   return (
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                ITEM DETAILS
+                CREATE MATERIAL 
               </h1>
             </CardHeader>
             <CardBody>
@@ -104,29 +101,52 @@ const [errors, setErrors] = useState(initialErrors);
                 <Col xl={10}>
                   <form className="needs-validation" noValidate>
                     <Row className="mb-2">
-                    <Col md={6}>
+                      <Col md={6}>
                         <Label for="item_type">
-                        ITEM TYPE<font color="red">*</font>
+                          MATERIAL TYPE<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
                           name="item_type"
+                          placeholder="PLEASE ENTER MATERIAL TYPE"
                           id="item_type"
                           value={formData.item_type}
                           onChange={handleDropdownChange}
                           invalid={!!errors.item_type}
                         >
-                          <option value="">SELECT ITEM TYPE</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
+                          <option value="">SELECT MATERIAL TYPE</option>
+                          <option value="Electronics">Electronics</option>
+                          <option value="Clothing">Clothing</option>
+                          <option value="Books">Books</option>
+                          <option value="Furniture">Furniture</option>
+                          <option value="Automobile">Automobile</option>
                         </Input>
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.item_type}
                         </span>
                       </Col>
                       <Col md={6}>
+                        <Label for="item_name">
+                          MATERIAL NAME<font color="red">*</font>
+                        </Label>
+                        <Input
+                          type="text"
+                          name="item_name"
+                          placeholder="PLEASE ENTER MATERIAL NAME"
+                          id="item_name"
+                          value={formData.item_name}
+                          onChange={handleInputChange}
+                          invalid={!!errors.item_name}
+                        />
+                        <span className="text-danger">{errors.item_name}</span>
+                      </Col>
+
+                      <hr className="mb-0 mt-3" />
+                    </Row>
+                    <Row className="mb-2">
+                      <Col md={6}>
                         <Label for="category">
-                        MATERIAL<font color="red">*</font>
+                          MATERIAL GROUP<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -136,20 +156,20 @@ const [errors, setErrors] = useState(initialErrors);
                           onChange={handleDropdownChange}
                           invalid={!!errors.category}
                         >
-                          <option value="">SELECT MATERIAL</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
+                          <option value="">SELECT MATERIAL GROUP</option>
+                          <option value="Electronics">Electronics</option>
+                          <option value="Clothing">Clothing</option>
+                          <option value="Books">Books</option>
+                          <option value="Furniture">Furniture</option>
+                          <option value="Automobile">Automobile</option>
                         </Input>
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.category}
                         </span>
                       </Col>
-                      <hr className="mb-0 mt-3" />
-                    </Row>
-                    <Row className="mb-2">
-                    <Col md={6}>
+                      <Col md={6}>
                         <Label for="sub_category">
-                        SUB MATERIAL<font color="red">*</font>
+                          MATERIAL SUB GROUP<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -159,49 +179,43 @@ const [errors, setErrors] = useState(initialErrors);
                           onChange={handleDropdownChange}
                           invalid={!!errors.sub_category}
                         >
-                          <option value="">SELECT SUB MATERIAL</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
+                          <option value=""> SELECT MATERIAL SUB GROUPL</option>
+                          <option value="Books">Books</option>
+                          <option value="Furniture">Furniture</option>
+                          <option value="Automobile">Automobile</option>
+                          <option value="Beauty & Personal Care">
+                            Beauty & Personal Care
+                          </option>
+                          <option value="Home & Kitchen">Home & Kitchen</option>
                         </Input>
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.sub_category}
                         </span>
                       </Col>
-                      <Col md={6}>
-                        <Label for="item_name">
-                         ITEM NAME<font color="red">*</font>
-                        </Label>
-                        <Input
-                          type="text"
-                          name="item_name"
-                          id="item_name"
-                          value={formData.item_name}
-                          onChange={handleInputChange}
-                          invalid={!!errors.item_name}
-                        />
-                        <span className="text-danger">{errors.item_name}</span>
-                      </Col>
-                      
+
                       <hr className="mb-0 mt-3" />
                     </Row>
                     <Row className="mb-2">
-                    <Col md={6}>
+                      <Col md={6}>
                         <Label for="item_code">
-                         ITEM CODE<font color="red">*</font>
+                          MATERIAL CODE<font color="red">*</font>
                         </Label>
                         <Input
                           type="text"
+                          placeholder="PLEASE ENTER MATERIAL CODE"
                           name="item_code"
                           id="item_code"
                           value={formData.item_code}
                           onChange={handleInputChange}
                           invalid={!!errors.item_code}
                         />
-                        <span className="text-danger">{errors.item_code}</span>
+                        <span className="invalid-feedback">
+                          {errors.item_code}
+                        </span>
                       </Col>
                       <Col md={6}>
                         <Label for="uom">
-                        UOM<font color="red">*</font>
+                          UOM<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -212,43 +226,48 @@ const [errors, setErrors] = useState(initialErrors);
                           invalid={!!errors.uom}
                         >
                           <option value="">SELECT UOM</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
+                          <option value="kg">Kilogram (kg)</option>
+                          <option value="g">Gram (g)</option>
+                          <option value="lb">Pound (lb)</option>
+                          <option value="oz">Ounce (oz)</option>
+                          <option value="mg">Milligram (mg)</option>
                         </Input>
-                        <span className="text-danger">
-                          {errors.uom}
-                        </span>
+                        <span className="invalid-feedback">{errors.uom}</span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
                     <Row className="mb-2">
-                    <Col md={6}>
+                      <Col md={6}>
                         <Label for="model">
-                         MAKE/MODEL<font color="red">*</font>
+                          MAKE/MODEL<font color="red">*</font>
                         </Label>
                         <Input
                           type="text"
+                          placeholder="PLEASE ENTER  MAKE/MODEL "
                           name="model"
                           id="model"
                           value={formData.model}
                           onChange={handleInputChange}
                           invalid={!!errors.model}
                         />
-                        <span className="text-danger">{errors.model}</span>
+                        <span className="invalid-feedback">{errors.model}</span>
                       </Col>
                       <Col md={6}>
                         <Label for="discription">
-                         DISCRIPTION<font color="red">*</font>
+                          DESCRIPTION<font color="red">*</font>
                         </Label>
                         <Input
                           type="text"
                           name="discription"
+                          placeholder="PLEASE WRITE DESCRIPTION"
                           id="discription"
                           value={formData.discription}
                           onChange={handleInputChange}
                           invalid={!!errors.discription}
                         />
-                        <span className="text-danger">{errors.discription}</span>
+                        <span className="invalid-feedback">
+                          {errors.discription}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>

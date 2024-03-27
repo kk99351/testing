@@ -316,62 +316,25 @@ const DeAllocate = () => {
   const [responseData, setResponseData] = useState([
     {
       slno: 1,
-      assetId: "A001",
+      assetId: "ASSET001",
       assetName: "Laptop",
-      serialNumber: "SN001",
-      assetRemarks: "Good condition",
-      allocateType: "Active",
-      checked: false,
+      serialNumber: "SN12345",
       employeename: "John Doe",
-      client: "ABC Corp",
-      allocatedDate: "2023-01-15",
+      client: "RA Corporation",
+      assetRemarks: "Good condition",
+      allocateDate: "2024-03-25",
+      allocateType: "Active",
     },
     {
       slno: 2,
-      assetId: "A002",
+      assetId: "ASSET002",
       assetName: "Desktop",
-      serialNumber: "SN002",
-      assetRemarks: "Minor scratches on the back",
-      checked: false,
+      serialNumber: "SN67890",
       employeename: "Jane Smith",
-      client: "XYZ Inc",
-      allocatedDate: "2023-02-20",
-    },
-    {
-      slno: 3,
-      assetId: "A003",
-      assetName: "Printer",
-      serialNumber: "SN003",
-      assetRemarks: "Needs toner replacement",
+      client: "CA Corporation",
+      assetRemarks: "Needs maintenance",
+      allocateDate: "2024-03-24",
       allocateType: "Inactive",
-      checked: false,
-      employeename: "Michael Johnson",
-      client: "DEF Ltd",
-      allocatedDate: "2023-03-10",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      assetRemarks: "No issues",
-      allocateType: "Active",
-      checked: false,
-      employeename: "Emily Brown",
-      client: "GHI Corp",
-      allocatedDate: "2023-04-05",
-    },
-    {
-      slno: 5,
-      assetId: "A005",
-      assetName: "Keyboard",
-      serialNumber: "SN005",
-      assetRemarks: "Missing key",
-      allocateType: "Inactive",
-      checked: false,
-      employeename: "David Lee",
-      client: "JKL Ltd",
-      allocatedDate: "2023-05-12",
     },
   ]);
   const navigate = useNavigate();
@@ -599,7 +562,7 @@ const DeAllocate = () => {
               {/* <Row className="justify-content-center">
                 <Col xl={10}> */}
 
-              <div className="container pt-3">
+              <div className="container pt-0">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
                     <select className="form-select" style={{ width: "88PX" }}>
@@ -632,19 +595,19 @@ const DeAllocate = () => {
                       </div>
                     </div>
                   </div>
-                  
-                <div className="col-sm-7">
-              <div className="text-sm-end">
-                <button
-                  type="button"
-                  className="btn mb-2 me-2 btn btn-primary"
-                  // onClick={() => navigate("/create_all_asset")}
-                >
-                  <i className="mdi mdi-minus-circle-outline me-1"></i>
-                  DEALLOCATE
-                </button>
-              </div>
-            </div>
+
+                  <div className="col-sm-7">
+                    <div className="text-sm-end">
+                      <button
+                        type="button"
+                        className="btn mb-2 me-2 btn btn-primary"
+                        // onClick={() => navigate("/create_all_asset")}
+                      >
+                        <i className="mdi mdi-minus-circle-outline me-1"></i>
+                        DEALLOCATE
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="table-responsive react-table">

@@ -51,7 +51,7 @@ const AssetMaintenance = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                ASSET MAINTENANCE DETAILS
+                ASSET FOR MAINTENANCE 
               </h1>
             </CardHeader>
 
@@ -66,7 +66,7 @@ const AssetMaintenance = () => {
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="assetMaterial">
-                            ASSET MATERIAL <font color="red">*</font>
+                            ASSET MATERIAL-GROUP <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -79,9 +79,12 @@ const AssetMaintenance = () => {
                               validation.errors.assetMaterial
                             }
                           >
-                            <option value="">SELECT ASSET MATERIAL GROUP</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="">
+                              SELECT ASSET MATERIAL GROUP
+                            </option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Hardware">Hardware</option>
                           </Input>
                           {validation.touched.assetMaterial &&
                           validation.errors.assetMaterial ? (
@@ -96,7 +99,7 @@ const AssetMaintenance = () => {
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="assetSubMaterial">
-                            ASSET SUB-MATERIAL <font color="red">*</font>
+                            ASSET MATERIAL SUB GROUP <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -109,9 +112,12 @@ const AssetMaintenance = () => {
                               validation.errors.assetSubMaterial
                             }
                           >
-                            <option value="">SELECT ASSET MATERIAL SUB GROUP</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="">
+                              SELECT ASSET MATERIAL SUB GROUP
+                            </option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Hardware">Hardware</option>
                           </Input>
                           {validation.touched.assetSubMaterial &&
                           validation.errors.assetSubMaterial ? (
@@ -140,8 +146,8 @@ const AssetMaintenance = () => {
                             }
                           >
                             <option value="">SELECT ASSET</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="Laptop">Laptop</option>
+                            <option value="Desktop">Desktop</option>
                           </Input>
                           {validation.touched.asset &&
                           validation.errors.asset ? (
@@ -156,7 +162,7 @@ const AssetMaintenance = () => {
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="assetId">
-                            Asset ID <font color="red">*</font>
+                            ASSET ID <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -170,8 +176,8 @@ const AssetMaintenance = () => {
                             }
                           >
                             <option value="">SELECT ASSET ID</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="ASSET001">ASSET001</option>
+                            <option value="ASSET002">ASSET002</option>
                           </Input>
                           {validation.touched.assetId &&
                           validation.errors.assetId ? (

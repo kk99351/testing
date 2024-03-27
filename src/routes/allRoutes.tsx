@@ -320,6 +320,15 @@ import TransferRequestReportview from "src/pages/Reports/ReportViewPages/Transfe
 import TransferReportview from "src/pages/Reports/ReportViewPages/TransferReportView/TransferReportview";
 import TransferRecieveReportview from "src/pages/Reports/ReportViewPages/TransferReportView/TransferRecieveReportview";
 import TransferApprovalReportview from "src/pages/Reports/ReportViewPages/TransferReportView/TransferApprovalReportview";
+import DepreciationMaster from "src/pages/Depreciation/DepreciationMaster";
+import CAYearly from "src/pages/Depreciation/DepreciationConfig/CAYearly";
+import ITAct from "src/pages/Depreciation/DepreciationConfig/ITAct";
+import MonthlyDep from "src/pages/Depreciation/DepreciationYearMonth/MonthlyDep";
+import YearlyDep from "src/pages/Depreciation/DepreciationYearMonth/YearlyDep";
+import AdditionDeletion from "src/pages/Depreciation/AdditionDeletion";
+import Entity from "src/pages/Master-Module/MasterLists/CompanyRepo/Geographical_Area/Entity";
+import EntityUpdate from "src/pages/Master-Module/UpdatePage/EntityUpdate";
+import Entitycreate from "src/pages/Master-Module/CreatePages/Entitycreate";
 interface RouteProps {
   path: string;
   component: any;
@@ -329,6 +338,13 @@ const userRoutes: Array<RouteProps> = [
   //new page
   { path: "ex", component: <Experimental /> },
   { path: "/home", component: <Home /> },
+  //DEPRETIATION MODFY PATH
+  { path: "/depreciation_master", component: <DepreciationMaster /> },
+  { path: "/ca_yearly", component: <CAYearly /> },
+  { path: "/it_act", component: <ITAct /> },
+  { path: "/monthly_depreciation", component: <MonthlyDep /> },
+  { path: "/yearly_depreciation", component: <YearlyDep /> },
+  { path: "/addition_Deletion", component: <AdditionDeletion /> },
 
   //ASSET MASTER PAGES PATH
   { path: "/add_new_asset", component: <AddNewAsset /> },
@@ -530,6 +546,9 @@ const userRoutes: Array<RouteProps> = [
   { path: "/createfloor", component: <FloorCreate /> },
 
   { path: "/updatefloor/:id", component: <FloorUpdate /> },
+  { path: "/entity", component: <Entity /> },
+  { path: "/entity_create", component: <Entitycreate /> },
+  { path: "/entity_update/:id", component: <EntityUpdate /> },
 
   { path: "/updateplant/:id", component: <PlantUpdate /> },
   { path: "/createcity", component: <CityCreate /> },

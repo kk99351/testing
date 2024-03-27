@@ -28,64 +28,19 @@ const BulkAssetAllocate = () => {
   const [responseData, setResponseData] = useState([
     {
       slno: 1,
-      assetId: "A001",
+      assetId: "ASSET001",
       assetName: "Laptop",
-      serialNumber: "SN001",
-      assetRemarks: "INV-001",
+      allocateTo: "John Doe",
+      assetRemarks: "Good condition",
       allocateType: "Active",
-      checked: false,
     },
     {
       slno: 2,
-      assetId: "A002",
+      assetId: "ASSET002",
       assetName: "Desktop",
-      serialNumber: "SN002",
-      assetRemarks: "INV-002",
-      checked: false,
-    },
-    {
-      slno: 3,
-      assetId: "A003",
-      assetName: "Printer",
-      serialNumber: "SN003",
-      assetRemarks: "INV-003",
+      allocateTo: "Jane Smith",
+      assetRemarks: "Needs maintenance",
       allocateType: "Inactive",
-      checked: false,
-    },{
-      slno: 3,
-      assetId: "A003",
-      assetName: "Printer",
-      serialNumber: "SN003",
-      assetRemarks: "INV-003",
-      allocateType: "Inactive",
-      checked: false,
-    },
-    {
-      slno: 3,
-      assetId: "A003",
-      assetName: "Printer",
-      serialNumber: "SN003",
-      assetRemarks: "INV-003",
-      allocateType: "Inactive",
-      checked: false,
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      assetRemarks: "INV-004",
-      allocateType: "Active",
-      checked: false,
-    },
-    {
-      slno: 5,
-      assetId: "A005",
-      assetName: "Keyboard",
-      serialNumber: "SN005",
-      assetRemarks: "INV-005",
-      allocateType: "Inactive",
-      checked: false,
     },
   ]);
   const navigate = useNavigate();
@@ -136,7 +91,7 @@ const BulkAssetAllocate = () => {
           <Input
             type="text"
             value={row.original.assetRemarks}
-            onChange={(e) => handleAssetRemarkChange(row.index, e.target.value)}
+            onChange={e => handleAssetRemarkChange(row.index, e.target.value)}
           />
         ),
       },
@@ -147,7 +102,9 @@ const BulkAssetAllocate = () => {
           <Input
             type="select"
             value={row.original.allocateType}
-            onChange={(e) => handleAllocationTypeChange(row.index, e.target.value)}
+            onChange={e =>
+              handleAllocationTypeChange(row.index, e.target.value)
+            }
           >
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
@@ -196,23 +153,23 @@ const BulkAssetAllocate = () => {
       const newData = [...prevData];
       newData[index] = {
         ...newData[index],
-        assetRemarks: value
+        assetRemarks: value,
       };
       return newData;
     });
   };
-  
+
   const handleAllocationTypeChange = (index, value) => {
     setResponseData(prevData => {
       const newData = [...prevData];
       newData[index] = {
         ...newData[index],
-        allocateType: value
+        allocateType: value,
       };
       return newData;
     });
   };
-  
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -226,7 +183,7 @@ const BulkAssetAllocate = () => {
     state: { pageIndex, globalFilter, selectedRowIds },
     pageCount,
     gotoPage,
-    setSelectedRows, 
+    setSelectedRows,
     setGlobalFilter,
   } = useTable(
     {
@@ -294,8 +251,9 @@ const BulkAssetAllocate = () => {
                       invalid={!!errors.assignTo}
                     >
                       <option value="">SELECT ASSIGN TO</option>
-                      <option value="group1">Group 1</option>
-                      <option value="group2">Group 2</option>
+                      <option value="JohnDoe">John Doe</option>
+                      <option value="JaneSmith">Jane Smith</option>
+                      <option value="RobertJohnson">Robert Johnson</option>
                     </Input>
                     <span className="invalid-feedback">{errors.assignTo}</span>
                   </Col>
@@ -312,8 +270,8 @@ const BulkAssetAllocate = () => {
                       invalid={!!errors.flr}
                     >
                       <option value="">SELECT FLOOR</option>
-                      <option value="group1">Group 1</option>
-                      <option value="group2">Group 2</option>
+                      <option value="group1">1ST FLOOR</option>
+                      <option value="group2">2ST FLOOR</option>
                     </Input>
                     <span className="invalid-feedback">{errors.flr}</span>
                   </Col>
@@ -327,7 +285,9 @@ const BulkAssetAllocate = () => {
                       onChange={handleInputChange}
                       invalid={!!errors.alocationDate}
                     />
-                    <span className="invalid-feedback">{errors.alocationDate}</span>
+                    <span className="invalid-feedback">
+                      {errors.alocationDate}
+                    </span>
                   </Col>
                   <hr className="mb-0 mt-3" />
                 </Row>

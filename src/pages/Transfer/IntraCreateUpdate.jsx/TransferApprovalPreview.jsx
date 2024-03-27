@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from "react";
-import { Container,CardHeader, Button, Card, CardBody } from "reactstrap";
+import { Container, CardHeader, Button, Card, CardBody } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -12,66 +12,28 @@ import PropTypes from "prop-types"; // Import PropTypes
 const TransferApprovalPreview = () => {
   const demoData = [
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      "slno": 1,
+      "assetId": "ASSET001",
+      "assetName": "Laptop",
+      "serialNumber": "SN12345",
+      "assetdes": "Good condition"
     },
     {
-      slno: 2,
-      assetId: "A002",
-      assetName: "Desktop",
-      serialNumber: "SN002",
-      invoiceNumber: "INV-002",
-      status: "Active",
-      allocateTo: "Jane Smith",
-      type: "Electronic",
+      "slno": 2,
+      "assetId": "ASSET002",
+      "assetName": "Desktop",
+      "serialNumber": "SN67890",
+      "assetdes": "Needs maintenance"
     },
     {
-      slno: 3,
-      assetId: "A003",
-      assetName: "Printer",
-      serialNumber: "SN003",
-      invoiceNumber: "INV-003",
-      status: "Inactive",
-      allocateTo: "Alice Johnson",
-      type: "Peripheral",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      invoiceNumber: "INV-004",
-      status: "Active",
-      allocateTo: "Bob Smith",
-      type: "Peripheral",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      invoiceNumber: "INV-004",
-      status: "Active",
-      allocateTo: "Bob Smith",
-      type: "Peripheral",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      invoiceNumber: "INV-004",
-      status: "Active",
-      allocateTo: "Bob Smith",
-      type: "Peripheral",
+      "slno": 3,
+      "assetId": "ASSET003",
+      "assetName": "Printer",
+      "serialNumber": "SN24680",
+      "assetdes": "Ink levels low"
     },
   ];
+  
 
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
@@ -81,7 +43,7 @@ const TransferApprovalPreview = () => {
       {
         Header: "SL NO",
         accessor: "slno",
-        width:"6%",
+        width: "6%",
         disableFilters: true,
         filterable: true,
       },
@@ -105,7 +67,7 @@ const TransferApprovalPreview = () => {
       },
       {
         Header: "ASSET DISCRIPTION",
-        accessor: "invoiceNumber",
+        accessor: "assetdes",
         disableFilters: true,
         filterable: true,
       },
@@ -163,186 +125,195 @@ const TransferApprovalPreview = () => {
       <Container fluid>
         <div className="page-content">
           <Card className="mt-0">
-          <CardHeader>
+            <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-              INTRA  TRANSFER APPROVE DETAILS
+                INTRA TRANSFER APPROVE DETAILS
               </h1>
             </CardHeader>
             <CardBody>
-            <div className="container pt-0">
-              <div className="rmb-2 row">
-                <div className="col-md-1">
-                  <select className="form-select" style={{ width: "88PX" }}>
-                    <option value="10">SHOW 10</option>
-                    <option value="20">SHOW 20</option>
-                    <option value="30">SHOW 30</option>
-                    <option value="40">SHOW 40</option>
-                    <option value="50">SHOW 50</option>
-                  </select>
-                </div>
+              <div className="container pt-0">
+                <div className="rmb-2 row">
+                  <div className="col-md-1">
+                    <select className="form-select" style={{ width: "88PX" }}>
+                      <option value="10">SHOW 10</option>
+                      <option value="20">SHOW 20</option>
+                      <option value="30">SHOW 30</option>
+                      <option value="40">SHOW 40</option>
+                      <option value="50">SHOW 50</option>
+                    </select>
+                  </div>
 
-                <div className="col-md-4">
-                  <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
-                    <div className="position-relative">
-                      <label htmlFor="search-bar-0" className="search-label">
-                        <span id="search-bar-0-label" className="sr-only">
-                          Search this table
-                        </span>
-                        <input
-                          id="search-bar-0"
-                          type="text"
-                          className="form-control"
-                          placeholder="SEARCH..."
-                          value={globalFilter || ""}
-                          onChange={e => setGlobalFilter(e.target.value)}
-                        />
-                        <i className="bx bx-search-alt search-icon"></i>
-                      </label>
+                  <div className="col-md-4">
+                    <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+                      <div className="position-relative">
+                        <label htmlFor="search-bar-0" className="search-label">
+                          <span id="search-bar-0-label" className="sr-only">
+                            Search this table
+                          </span>
+                          <input
+                            id="search-bar-0"
+                            type="text"
+                            className="form-control"
+                            placeholder="SEARCH..."
+                            value={globalFilter || ""}
+                            onChange={e => setGlobalFilter(e.target.value)}
+                          />
+                          <i className="bx bx-search-alt search-icon"></i>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-sm-7 mb-2">
+                    <div className="text-sm-end">
+                      <Button
+                        className="btn btn-success-subtle border border-success"
+                        style={{
+                          paddingTop: "5px",
+                          width: "90px",
+                          height: "35px",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        APPROVE{" "}
+                      </Button>
+                      <Button
+                        className="btn btn-secondary-subtle border border-secondary"
+                        onClick={() => navigate("/intra_transfer_approval")}
+                        style={{
+                          paddingTop: "5px",
+                          width: "80px",
+                          height: "35px",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        CANCEL{" "}
+                      </Button>
+                      <Button
+                        className="btn btn-success-subtle border border-success"
+                        style={{
+                          paddingTop: "5px",
+                          width: "80px",
+                          height: "35px",
+                          marginLeft: "10px",
+                        }}
+                      >
+                        REJECT{" "}
+                      </Button>
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="table-responsive react-table">
+                <table
+                  className="table table-bordered table-hover text-center"
+                  {...getTableProps()}
+                >
+                  <thead className="table-light table-nowrap">
+                    {headerGroups.map(headerGroup => (
+                      <tr
+                        key={headerGroup.id}
+                        {...headerGroup.getHeaderGroupProps()}
+                      >
+                        {headerGroup.headers.map(column => (
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
+                            <div className="d-flex justify-content-center">
+                              <span className="font-weight-bold">
+                                {column.render("Header")}
+                              </span>
+                              <span>
+                                {column.isSorted
+                                  ? column.isSortedDesc
+                                    ? " 🔽"
+                                    : " 🔼"
+                                  : ""}
+                              </span>
+                            </div>
+                          </th>
+                        ))}
+                      </tr>
+                    ))}
+                  </thead>
+                  <tbody {...getTableBodyProps()}>
+                    {page.length > 0 ? (
+                      page.map(row => {
+                        prepareRow(row);
+                        return (
+                          <tr key={row.id} {...row.getRowProps()}>
+                            {row.cells.map(cell => {
+                              return (
+                                <td
+                                  key={cell.column.id}
+                                  {...cell.getCellProps()}
+                                >
+                                  {cell.render("Cell")}
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan={headerGroups[0].headers.length}
+                          style={{ textAlign: "center" }}
+                        >
+                          {" "}
+                          No search results found.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
 
-                <div className="col-sm-7 mb-2">
-                  <div className="text-sm-end">
-                    <Button
-                      className="btn btn-success-subtle border border-success"
-                      style={{
-                        paddingTop: "5px",
-                        width: "90px",
-                        height: "35px",
-                        marginLeft: "10px",
-                      }}
+              <div className="row">
+                <div className="col-sm-6">
+                  <p className="ps-2">
+                    Showing {pageIndex + 1} of {pageCount} pages
+                  </p>
+                </div>
+                <div className="col-sm-6">
+                  <div className="pagination justify-content-end pb-2 pe-2">
+                    <button
+                      className="btn btn-info"
+                      disabled={pageIndex === 0}
+                      onClick={() => gotoPage(0)}
                     >
-                      APPROVE{" "}
-                    </Button>
-                    <Button
-                      className="btn btn-secondary-subtle border border-secondary"
-                      onClick={() => navigate("/intra_transfer_approval")}
-                      style={{
-                        paddingTop: "5px",
-                        width: "80px",
-                        height: "35px",
-                        marginLeft: "10px",
-                      }}
+                      FIRST
+                    </button>
+                    <button
+                      className="btn btn-primary"
+                      disabled={!canPreviousPage}
+                      onClick={previousPage}
                     >
-                      CANCEL{" "}
-                    </Button>
-                    <Button
-                      className="btn btn-success-subtle border border-success"
-                      style={{
-                        paddingTop: "5px",
-                        width: "80px",
-                        height: "35px",
-                        marginLeft: "10px",
-                      }}
+                      PRE
+                    </button>
+                    <span className="btn btn-light">{pageIndex + 1}</span>
+                    <button
+                      className="btn btn-primary"
+                      disabled={!canNextPage}
+                      onClick={nextPage}
                     >
-                      REJECT{" "}
-                    </Button>
+                      NEXT
+                    </button>
+                    <button
+                      className="btn btn-info"
+                      disabled={pageIndex >= pageCount - 1}
+                      onClick={() => gotoPage(pageCount - 1)}
+                    >
+                      LAST
+                    </button>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="table-responsive react-table">
-              <table
-                className="table table-bordered table-hover text-center"
-                {...getTableProps()}
-              >
-                <thead className="table-light table-nowrap">
-                  {headerGroups.map(headerGroup => (
-                    <tr
-                      key={headerGroup.id}
-                      {...headerGroup.getHeaderGroupProps()}
-                    >
-                      {headerGroup.headers.map(column => (
-                         <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
-                          <div className="d-flex justify-content-center">
-                            <span className="font-weight-bold">
-                              {column.render("Header")}
-                            </span>
-                            <span>
-                              {column.isSorted
-                                ? column.isSortedDesc
-                                  ? " 🔽"
-                                  : " 🔼"
-                                : ""}
-                            </span>
-                          </div>
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                  {page.length > 0 ? (
-                    page.map(row => {
-                      prepareRow(row);
-                      return (
-                        <tr key={row.id} {...row.getRowProps()}>
-                          {row.cells.map(cell => {
-                            return (
-                              <td key={cell.column.id} {...cell.getCellProps()}>
-                                {cell.render("Cell")}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      );
-                    })
-                  ) : (
-                    <tr>
-                      <td
-                        colSpan={headerGroups[0].headers.length}
-                        style={{ textAlign: "center" }}
-                      >
-                        {" "}
-                        No search results found.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="row">
-              <div className="col-sm-6">
-                <p className="ps-2">
-                  Showing {pageIndex + 1} of {pageCount} pages
-                </p>
-              </div>
-              <div className="col-sm-6">
-                <div className="pagination justify-content-end pb-2 pe-2">
-                  <button
-                    className="btn btn-info"
-                    disabled={pageIndex === 0}
-                    onClick={() => gotoPage(0)}
-                  >
-                    FIRST
-                  </button>
-                  <button
-                    className="btn btn-primary"
-                    disabled={!canPreviousPage}
-                    onClick={previousPage}
-                  >
-                    PRE
-                  </button>
-                  <span className="btn btn-light">{pageIndex + 1}</span>
-                  <button
-                    className="btn btn-primary"
-                    disabled={!canNextPage}
-                    onClick={nextPage}
-                  >
-                    NEXT
-                  </button>
-                  <button
-                    className="btn btn-info"
-                    disabled={pageIndex >= pageCount - 1}
-                    onClick={() => gotoPage(pageCount - 1)}
-                  >
-                    LAST
-                  </button>
-                </div>
-              </div>
-            </div>
             </CardBody>
           </Card>
         </div>

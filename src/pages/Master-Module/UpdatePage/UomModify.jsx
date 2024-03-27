@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   Col,
@@ -16,79 +15,74 @@ import { useNavigate } from "react-router-dom";
 
 const UomModify = () => {
   const navigate = useNavigate();
-    const requiredFields = {
-        uom_name: "UOM Name",
-        uom_code: "UOM Code ",
-    };
-    const initialFormData = {};
-const initialErrors = {};
-Object.keys(requiredFields).forEach(key => {
+  const requiredFields = {
+    uom_name: "UNIT OF MEASUREMENT NAME",
+    uom_code: "UNIT OF MEASUREMENT CODE ",
+  };
+  const initialFormData = {};
+  const initialErrors = {};
+  Object.keys(requiredFields).forEach(key => {
     initialFormData[key] = "";
     initialErrors[key] = "";
-});
+  });
 
+  const [formData, setFormData] = useState(initialFormData);
+  const [errors, setErrors] = useState(initialErrors);
 
-const [formData, setFormData] = useState(initialFormData);
-const [errors, setErrors] = useState(initialErrors);
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
 
-    const handleInputChange = e => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
+  const handleDropdownChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
+
+  const createUpdate = async e => {
+    e.preventDefault();
+    let isValid = true;
+
+    Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
+      if (!formData[fieldName].trim()) {
         setErrors(prevErrors => ({
-            ...prevErrors,
-            [name]: "",
+          ...prevErrors,
+          [fieldName]: `${fieldLabel} IS REQUIRED`,
         }));
-    };
+        isValid = false;
+      }
+    });
 
-    const handleDropdownChange = e => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
-        setErrors(prevErrors => ({
-            ...prevErrors,
-            [name]: "",
-        }));
-    };
-
-    const createUpdate = async e => {
-        e.preventDefault();
-        let isValid = true;
-
-        Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
-            if (!formData[fieldName].trim()) {
-                setErrors(prevErrors => ({
-                    ...prevErrors,
-                    [fieldName]: `${fieldLabel} is required`,
-                }));
-                isValid = false;
-            }
-        });
-
-        if (isValid) {
-            try {
-                // await axios.post(`http://localhost:3000/region/`, formData);
-                // navigate("/company_group");
-                console.log("Form submitted successfully");
-            } catch (error) {
-                console.log("error in creating group data" + error);
-            }
-        }
-    };
-
-
-
-
+    if (isValid) {
+      try {
+        // await axios.post(`http://localhost:3000/region/`, formData);
+        // navigate("/company_group");
+        console.log("Form submitted successfully");
+      } catch (error) {
+        console.log("error in creating group data" + error);
+      }
+    }
+  };
 
   return (
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 UNIT OF MEASUREMENT DETAILS
@@ -101,18 +95,19 @@ const [errors, setErrors] = useState(initialErrors);
                     <Row className="mb-2">
                       <Col md={12}>
                         <Label for="uom_name">
-                         UOM NAME<font color="red">*</font>
+                          UOM NAME<font color="red">*</font>
                         </Label>
                         <Input
                           name="uom_name"
                           id="uom_name"
+                          placeholder="PLEASE ENTER UNIT OF MEASUREMENT NAME"
                           value={formData.uom_name}
                           onChange={handleInputChange}
                           className={`form-control ${
                             errors.uom_name ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="text-danger">{errors.uom_name}</span>
+                        <span className="invalid-feedback">{errors.uom_name}</span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
@@ -125,13 +120,14 @@ const [errors, setErrors] = useState(initialErrors);
                         <Input
                           name="uom_code"
                           id="uom_code"
+                          placeholder="PLEASE ENTER UNIT OF MEASUREMENT CODE"
                           value={formData.uom_code}
                           onChange={handleInputChange}
                           className={`form-control ${
                             errors.uom_code ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="text-danger">{errors.uom_code}</span>
+                        <span className="invalid-feedback">{errors.uom_code}</span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>

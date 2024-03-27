@@ -16,55 +16,20 @@ const InterTransferApprove = () => {
   };
   const demoData = [
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      "reqno": "REQ001",
+      "reqdate": "2024-03-25",
+      "reqby": "John Doe"
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      "reqno": "REQ002",
+      "reqdate": "2024-03-26",
+      "reqby": "Jane Smith"
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
-    {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
-    {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
+      "reqno": "REQ003",
+      "reqdate": "2024-03-27",
+      "reqby": "Robert Johnson"
+    }
   ];
 
   const [responseData] = useState(demoData);
@@ -79,15 +44,15 @@ const InterTransferApprove = () => {
       },
       {
         Header: "REQUEST NUMBER",
-        accessor: "assetId",
+        accessor: "reqno",
       },
       {
         Header: "REQUEST DATE",
-        accessor: "assetName",
+        accessor: "reqdate",
       },
       {
         Header: "REQUEST BY",
-        accessor: "allocateTo",
+        accessor: "reqby",
       },
       {
         Header: "PREVIEW",

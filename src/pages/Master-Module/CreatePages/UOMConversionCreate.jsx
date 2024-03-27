@@ -16,11 +16,10 @@ import { useNavigate } from "react-router-dom";
 const UOMConversionCreate = () => {
   const navigate = useNavigate();
   const requiredFields = {
-    material: "Material",
-    qyt: "Quantity",
-    uom: "Unit of measurement",
-    quality: "Quality",
-    uomconverted: "Uom Convertion",
+    material: "MATERIAL",
+    qyt: "QYT",
+    uom: "UOM",
+    uomconverted: "UOM CONVERTED",
   };
   const initialFormData = {
     material: "",
@@ -62,7 +61,7 @@ const UOMConversionCreate = () => {
     }));
   };
 
-  const CreateHandle = async e => {
+  const UpdateHandle = async e => {
     e.preventDefault();
     let isValid = true;
 
@@ -70,7 +69,7 @@ const UOMConversionCreate = () => {
       if (!formData[fieldName].trim()) {
         setErrors(prevErrors => ({
           ...prevErrors,
-          [fieldName]: `${fieldLabel} is required`,
+          [fieldName]: `${fieldLabel} IS REQUIRED`,
         }));
         isValid = false;
       }
@@ -91,10 +90,10 @@ const UOMConversionCreate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                UOM CONVERTION DETAILS
+               CREATE UNIT OF MEASUREMENT CONVERSION 
               </h1>
             </CardHeader>
             <CardBody>
@@ -104,7 +103,7 @@ const UOMConversionCreate = () => {
                     <Row className="mb-2">
                       <Col md={6}>
                         <Label for="material">
-                          MATERIAL<font color="red">*</font>
+                          MATERIAL GROUP<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -114,29 +113,30 @@ const UOMConversionCreate = () => {
                           onChange={handleDropdownChange}
                           invalid={!!errors.material}
                         >
-                          <option value="">SELECT MATERIAL</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
+                          <option value="">SELECT MATERIAL GROUP</option>
+                          <option value="group1">Steel</option>
+                          <option value="group2">Glass</option>
                         </Input>
-                        <span className="text-danger">{errors.material}</span>
+                        <span className="invalid-feedback">
+                          {errors.material}
+                        </span>
                       </Col>
                       <Col md={6}>
                         <Label for="qyt">
-                          QUANTITY<font color="red">*</font>
+                          QUANTITY <font color="red">*</font>
                         </Label>
-                        <Input
-                          type="select"
+                        <input
+                          type="number"
                           name="qyt"
                           id="qyt"
+                          placeholder="PLEASE ENTER QUANTITY"
                           value={formData.qyt}
-                          onChange={handleDropdownChange}
-                          invalid={!!errors.qyt}
-                        >
-                          <option value="">SELECT QUANTITY</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
-                        </Input>
-                        <span className="text-danger">{errors.qyt}</span>
+                          onChange={handleInputChange}
+                          className={`form-control ${
+                            errors.qyt ? "is-invalid" : ""
+                          }`}
+                        />
+                        <span className="invalid-feedback">{errors.qyt}</span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
@@ -154,51 +154,32 @@ const UOMConversionCreate = () => {
                           invalid={!!errors.uom}
                         >
                           <option value="">SELECT UOM</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
+                          <option value="group1">M</option>
+                          <option value="group2">Liter</option>
                         </Input>
-                        <span className="text-danger">{errors.uom}</span>
+                        <span className="invalid-feedback">{errors.uom}</span>
                       </Col>
                       <Col md={6}>
-                        <Label for="quality">
-                          QUALITY<font color="red">*</font>
-                        </Label>
-                        <Input
-                          type="select"
-                          name="quality"
-                          id="quality"
-                          value={formData.quality}
-                          onChange={handleDropdownChange}
-                          invalid={!!errors.quality}
-                        >
-                          <option value="">SELECT QUALITY</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
-                        </Input>
-                        <span className="text-danger">{errors.quality}</span>
-                      </Col>
-                      <hr className="mb-0 mt-3" />
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={12}>
                         <Label for="uomconverted">
                           UOM CONVERSION<font color="red">*</font>
                         </Label>
                         <input
                           name="uomconverted"
                           id="uomconverted"
+                          placeholder="PLEASE ENTER UNIT OF MEASUREMENT CONVERSION"
                           value={formData.uomconverted}
                           onChange={handleInputChange}
                           className={`form-control ${
                             errors.uomconverted ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.uomconverted}
                         </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
+
                     <div
                       style={{
                         display: "flex",
@@ -216,7 +197,7 @@ const UOMConversionCreate = () => {
                         <button
                           type="button"
                           className="btn btn-success-subtle border border-success"
-                          onClick={CreateHandle}
+                          onClick={UpdateHandle}
                           style={{
                             paddingTop: "10px",
                             height: "45px",
@@ -224,7 +205,7 @@ const UOMConversionCreate = () => {
                             marginRight: "30px",
                           }}
                         >
-                          <Label>CREATE</Label>
+                          <Label>UPDATE</Label>
                         </button>
                         <button
                           type="button"

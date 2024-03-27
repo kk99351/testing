@@ -19,30 +19,35 @@ import { useGet } from "src/API/useGet";
 const Region = () => {
   const demoData = [
     {
-      "company_group": "United States",
-      "region_name": "California",
-      "region_code": "CA"
+      company_group: "United States",
+      region_name: "California",
+      entityName: "AR Corporation", 
+      region_code: "CA",
     },
     {
-      "company_group": "United States",
-      "region_name": "New York",
-      "region_code": "NY"
+      company_group: "United States",
+      region_name: "New York",
+      entityName: "AR Corporation", 
+      region_code: "NY",
     },
     {
-      "company_group": "United Kingdom",
-      "region_name": "England",
-      "region_code": "ENG"
+      company_group: "United Kingdom",
+      region_name: "England",
+      entityName: "AR Private Lmt", 
+      region_code: "ENG",
     },
     {
-      "company_group": "United Kingdom",
-      "region_name": "Scotland",
-      "region_code": "SCO"
+      company_group: "United Kingdom",
+      region_name: "Scotland",
+      entityName: "AR Corporation", 
+      region_code: "SCO",
     },
     {
-      "company_group": "Canada",
-      "region_name": "Ontario",
-      "region_code": "ON"
-    }
+      company_group: "Canada",
+      region_name: "Ontario",
+      entityName: "PR Limited",
+      region_code: "ON",
+    },
   ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
@@ -61,6 +66,12 @@ const Region = () => {
         Header: "SL NO",
         accessor: "slno",
         width: "6%",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "ENTITY",
+        accessor: "entityName",
         disableFilters: true,
         filterable: true,
       },
@@ -186,8 +197,6 @@ const Region = () => {
                   </div>
                 </div>
               </div>
-
-              
               <div className="table-responsive react-table">
                 <table
                   className="table table-bordered table-hover text-center"

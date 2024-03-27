@@ -88,52 +88,20 @@ const AllAssetUpdate = () => {
   const demoData = useMemo(
     () => [
       {
-        slno: 1,
-        fieldName: "Asset Name",
-        oldValue: "Laptop",
-        newValue: "Desktop",
-        editedBy: "John Doe",
-        editDate: "2024-03-01",
+        "slno": 1,
+        "fieldName": "Product Status",
+        "oldValue": "In Store",
+        "newValue": "Allocated to Employee",
+        "editedBy": "John Doe",
+        "editDate": "2024-03-25"
       },
       {
-        slno: 2,
-        fieldName: "Serial Number",
-        oldValue: "123456",
-        newValue: "654321",
-        editedBy: "Alice Smith",
-        editDate: "2024-03-02",
-      },
-      {
-        slno: 3,
-        fieldName: "Asset Status",
-        oldValue: "Active",
-        newValue: "Inactive",
-        editedBy: "Bob Johnson",
-        editDate: "2024-03-03",
-      },
-      {
-        slno: 4,
-        fieldName: "Asset Location",
-        oldValue: "Room A",
-        newValue: "Room B",
-        editedBy: "Emily Davis",
-        editDate: "2024-03-04",
-      },
-      {
-        slno: 5,
-        fieldName: "Asset Owner",
-        oldValue: "John Doe",
-        newValue: "Alice Smith",
-        editedBy: "John Doe",
-        editDate: "2024-03-05",
-      },
-      {
-        slno: 5,
-        fieldName: "Asset Owner",
-        oldValue: "John Doe",
-        newValue: "Alice Smith",
-        editedBy: "John Doe",
-        editDate: "2024-03-05",
+        "slno": 2,
+        "fieldName": "Location",
+        "oldValue": "Warehouse A",
+        "newValue": "Warehouse B",
+        "editedBy": "Jane Smith",
+        "editDate": "2024-03-24"
       },
     ],
     []
@@ -276,7 +244,7 @@ const AllAssetUpdate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 ALL ASSET DETAILS
@@ -294,6 +262,7 @@ const AllAssetUpdate = () => {
                         <Input
                           type="text"
                           name="assetId"
+                          placeholder="PLEASE ENTER ASSET ID"
                           id="assetId"
                           value={formData.assetId}
                           onChange={handleInputChange}
@@ -309,6 +278,7 @@ const AllAssetUpdate = () => {
                           type="text"
                           name="invoiceNumber"
                           id="invoiceNumber"
+                          placeholder="PLEASE ENTER INVOICE NUMBER"
                           value={formData.invoiceNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.invoiceNumber}
@@ -323,6 +293,7 @@ const AllAssetUpdate = () => {
                           type="date"
                           name="invoiceDate"
                           id="invoiceDate"
+                          placeholder="PLEASE ENTER INVOICE DATE"
                           value={formData.invoiceDate}
                           onChange={handleInputChange}
                           invalid={!!errors.invoiceDate}
@@ -340,6 +311,7 @@ const AllAssetUpdate = () => {
                           type="text"
                           name="poNumber"
                           id="poNumber"
+                          placeholder="PLEASE ENTER PO NUMBER"
                           value={formData.poNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.poNumber}
@@ -354,6 +326,7 @@ const AllAssetUpdate = () => {
                           type="date"
                           name="poDate"
                           id="poDate"
+                          placeholder="PLEASE ENTER PO DATE"
                           value={formData.poDate}
                           onChange={handleInputChange}
                           invalid={!!errors.poDate}
@@ -367,6 +340,7 @@ const AllAssetUpdate = () => {
                         <Input
                           type="text"
                           name="serialNumber"
+                          placeholder="PLEASE ENTER SERIAL NUMBER"
                           id="serialNumber"
                           value={formData.serialNumber}
                           onChange={handleInputChange}
@@ -386,6 +360,7 @@ const AllAssetUpdate = () => {
                           type="text"
                           name="assetRef"
                           id="assetRef"
+                          placeholder="PLEASE ENTER ASSET RFQ NUMBER"
                           value={formData.assetRef}
                           onChange={handleInputChange}
                           invalid={!!errors.assetRef}
@@ -399,6 +374,7 @@ const AllAssetUpdate = () => {
                         <Input
                           type="text"
                           name="diviceStatus"
+                          placeholder="PLEASE ENTER DEVICE STATUS"
                           id="poDate"
                           value={formData.diviceStatus}
                           onChange={handleInputChange}
@@ -413,6 +389,7 @@ const AllAssetUpdate = () => {
                         <Input
                           type="text"
                           name="processType"
+                          placeholder="PLEASE ENTER PROCESS TYPE"
                           id="processType"
                           value={formData.processType}
                           onChange={handleInputChange}
@@ -432,6 +409,7 @@ const AllAssetUpdate = () => {
                           type="text"
                           name="storageType"
                           id="storageType"
+                          placeholder="PLEASE ENTER STORAGE TYPE"
                           value={formData.storageType}
                           onChange={handleInputChange}
                           invalid={!!errors.storageType}
@@ -446,6 +424,7 @@ const AllAssetUpdate = () => {
                           type="text"
                           name="ramType"
                           id="ramType"
+                          placeholder="PLEASE ENTER RAM TYPE"
                           value={formData.ramType}
                           onChange={handleInputChange}
                           invalid={!!errors.ramType}
@@ -460,6 +439,7 @@ const AllAssetUpdate = () => {
                           type="text"
                           name="assetName"
                           id="assetName"
+                          placeholder="PLEASE ENTER ASSET NAME"
                           value={formData.assetName}
                           onChange={handleInputChange}
                           invalid={!!errors.assetName}
@@ -477,6 +457,7 @@ const AllAssetUpdate = () => {
                           type="text"
                           name="assetRemarks"
                           id="assetRemarks"
+                          placeholder="PLEASE ENTER ASSET REMARKS"
                           value={formData.assetRemarks}
                           onChange={handleInputChange}
                           invalid={!!errors.assetRemarks}
@@ -496,20 +477,24 @@ const AllAssetUpdate = () => {
                           invalid={!!errors.serviceVendor}
                         >
                           <option value="">SELECT SERVICE VENDOR</option>
-                          <option value="group1">GROUP 2</option>
-                          <option value="amgroup2c">GROUP 1</option>
-                          <option value="wargrpop3renty">GROUP 1</option>
+                          <option value="apple">Apple Inc.</option>
+                          <option value="amazon">Amazon.com Inc.</option>
+                          <option value="microsoft">
+                            Microsoft Corporation
+                          </option>
+                          <option value="google">Google LLC</option>
                         </Input>
                         <span className="invalid-feedback">
                           {errors.serviceVendor}
                         </span>
                       </Col>
                       <Col md={4}>
-                        <Label for="assetDescription">ASSET DISCRIPTION</Label>
+                        <Label for="assetDescription">ASSET DESCRIPTION</Label>
                         <Input
                           type="text"
                           name="assetDescription"
                           id="assetDescription"
+                          placeholder="PLEASE ENTER ASSET DESCRIPTION"
                           value={formData.assetDescription}
                           onChange={handleInputChange}
                           invalid={!!errors.assetDescription}
@@ -590,6 +575,7 @@ const AllAssetUpdate = () => {
                               type="date"
                               name="amcStartDate"
                               id="amcStartDate"
+                              placeholder="PLEASE ENTER AMC/WARRENTY START DATE"
                               value={formData.amcStartDate}
                               onChange={handleInputChange}
                               invalid={!!errors.amcStartDate}
@@ -611,6 +597,7 @@ const AllAssetUpdate = () => {
                               type="date"
                               name="amcEndDate"
                               id="amcEndDate"
+                              placeholder="PLEASE ENTER AMC/WARRENTY END DATE"
                               value={formData.amcEndDate}
                               onChange={handleInputChange}
                               invalid={!!errors.amcEndDate}
@@ -655,6 +642,7 @@ const AllAssetUpdate = () => {
                               type="date"
                               name="leaseStartDate"
                               id="leaseStartDate"
+                              placeholder="PLEASE ENTER LEASE START DATE"
                               value={formData.leaseStartDate}
                               onChange={handleInputChange}
                               invalid={!!errors.leaseStartDate}
@@ -672,6 +660,7 @@ const AllAssetUpdate = () => {
                               type="date"
                               name="leaseEndDate"
                               id="leaseEndDate"
+                              placeholder="PLEASE ENTER LEASE END DATE"
                               value={formData.leaseEndDate}
                               onChange={handleInputChange}
                               invalid={!!errors.leaseEndDate}
@@ -714,6 +703,7 @@ const AllAssetUpdate = () => {
                               type="date"
                               name="licenseStartDate"
                               id="licenseStartDate"
+                              placeholder="PLEASE ENTER   LICENSE START DATE"
                               value={formData.licenseStartDate}
                               onChange={handleInputChange}
                               invalid={!!errors.licenseStartDate}
@@ -731,6 +721,7 @@ const AllAssetUpdate = () => {
                               type="date"
                               name="licenseEndDate"
                               id="licenseEndDate"
+                              placeholder="PLEASE ENTER   LICENSE START DATE"
                               value={formData.licenseEndDate}
                               onChange={handleInputChange}
                               invalid={!!errors.licenseEndDate}
@@ -748,6 +739,7 @@ const AllAssetUpdate = () => {
                               type="text"
                               name="policyNumber"
                               id="policyNumber"
+                              placeholder="PLEASE ENTER   POLICY NUMBER"
                               value={formData.policyNumber}
                               onChange={handleInputChange}
                               invalid={!!errors.policyNumber}
@@ -765,6 +757,7 @@ const AllAssetUpdate = () => {
                               type="text"
                               name="providerName"
                               id="providerName"
+                              placeholder="PLEASE ENTER PROVIDER NAME"
                               value={formData.providerName}
                               onChange={handleInputChange}
                               invalid={!!errors.providerName}
@@ -784,6 +777,7 @@ const AllAssetUpdate = () => {
                           type="text"
                           name="additionalCost"
                           id="additionalCost"
+                          placeholder="PLEASE ENTER ADDITIONAL COST"
                           value={formData.additionalCost}
                           onChange={handleInputChange}
                           invalid={!!errors.additionalCost}
@@ -798,6 +792,7 @@ const AllAssetUpdate = () => {
                           type="text"
                           name="totalUnitPrice"
                           id="totalUnitPrice"
+                          placeholder="PLEASE ENTER TOTAL UNIT PRICE"
                           value={formData.totalUnitPrice}
                           onChange={handleInputChange}
                           invalid={!!errors.totalUnitPrice}
@@ -812,6 +807,7 @@ const AllAssetUpdate = () => {
                           type="text"
                           name="netValue"
                           id="netValue"
+                          placeholder="PLEASE ENTER NET VALUE"
                           value={formData.netValue}
                           onChange={handleInputChange}
                           invalid={!!errors.netValue}
@@ -871,43 +867,46 @@ const AllAssetUpdate = () => {
               </Row>
               <Row className="justify-content-center">
                 <Col xl={10}>
-                <div className="container pt-0">
-                  <div className="row">
-                    <div className="col-md-1">
-                      <select className="form-select" style={{ width: "84PX" }}>
-                        <option value="10">SHOW 10</option>
-                        <option value="20">SHOW 20</option>
-                        <option value="30">SHOW 30</option>
-                        <option value="40">SHOW 40</option>
-                        <option value="50">SHOW 50</option>
-                      </select>
-                    </div>
+                  <div className="container pt-0">
+                    <div className="row">
+                      <div className="col-md-1">
+                        <select
+                          className="form-select"
+                          style={{ width: "84PX" }}
+                        >
+                          <option value="10">SHOW 10</option>
+                          <option value="20">SHOW 20</option>
+                          <option value="30">SHOW 30</option>
+                          <option value="40">SHOW 40</option>
+                          <option value="50">SHOW 50</option>
+                        </select>
+                      </div>
 
-                    <div className="col-md-11 d-flex justify-content-end">
-                      <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
-                        <div className="position-relative">
-                          <label
-                            htmlFor="search-bar-0"
-                            className="search-label"
-                          >
-                            <span id="search-bar-0-label" className="sr-only">
-                              Search this table
-                            </span>
-                            <input
-                              id="search-bar-0"
-                              type="text"
-                              className="form-control"
-                              placeholder="SEARCH...."
-                              value={globalFilter || ""}
-                              onChange={e => setGlobalFilter(e.target.value)}
-                            />
-                            <i className="bx bx-search-alt search-icon"></i>
-                          </label>
+                      <div className="col-md-11 d-flex justify-content-end">
+                        <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+                          <div className="position-relative">
+                            <label
+                              htmlFor="search-bar-0"
+                              className="search-label"
+                            >
+                              <span id="search-bar-0-label" className="sr-only">
+                                Search this table
+                              </span>
+                              <input
+                                id="search-bar-0"
+                                type="text"
+                                className="form-control"
+                                placeholder="SEARCH...."
+                                value={globalFilter || ""}
+                                onChange={e => setGlobalFilter(e.target.value)}
+                              />
+                              <i className="bx bx-search-alt search-icon"></i>
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
                   <div className="table-responsive react-table">
                     <table
