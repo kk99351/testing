@@ -12,6 +12,6 @@ export const UploadFile = async file => {
 
     return result;
   } catch (error) {
-    return error.message;
+    return error.response.message;
   }
 };
