@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/plain.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import * as Yup from "yup";
 import {
   Button,
@@ -15,9 +18,13 @@ import {
   Card,
   CardHeader,
   CardBody,
+  Alert,
+  Toast,
 } from "reactstrap";
 import { useFormik } from "formik";
 import { useGet } from "src/API/useGet";
+import { CreateCompanyMaster } from "src/API/Master/CompanyRepo/Api";
+import { UploadFile } from "src/API/Upload";
 
 const CompanyMaster = props => {
   const { fun } = { ...props };
@@ -87,8 +94,48 @@ const CompanyMaster = props => {
     }),
 
     onSubmit: values => {
-      alert("Form validated!");
-      console.log("values", values);
+      console.log(values);
+      //---------Creating Company Master--------------//
+
+      // UploadFile(values.logo).then(res => {
+      //   console.log(res);
+      // });
+      CreateCompanyMaster({
+        idCom: 0,
+        nmCom: values.companyname,
+        add1: values.address1,
+        add2: values.address2,
+        city: values.city,
+        country: values.country,
+        pin: values.pin,
+        licenseNo: values.licenseNumber,
+        licenceDt: "",
+        phone: values.phone,
+        fax: values.fax,
+        mailid: values.email,
+        nmState: values.state,
+        fileName: "",
+        tin: "",
+        cst: "",
+        pan: values.pan,
+        cin: "",
+        gst: values.gst,
+        dtRegister: new Date(),
+        liEnddt: "",
+        assetPrefix: "",
+        nmContact: "",
+      })
+        .then(res => {
+          console.log(res.status);
+          if (res.status === 200) {
+            toast("Form submitted successfully");
+          } else {
+            toast("Failed to submit form");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
@@ -140,6 +187,7 @@ const CompanyMaster = props => {
 
   return (
     <React.Fragment>
+      <ToastContainer />
       <>
         <Card>
           <CardHeader>
@@ -147,6 +195,7 @@ const CompanyMaster = props => {
               FILL YOUR COMPANY DETAILS
             </h1>
           </CardHeader>
+
           <CardBody>
             <Row className="justify-content-center">
               <Col xl={10}>
@@ -546,9 +595,7 @@ const CompanyMaster = props => {
                     </Col>
                     <Col md="6">
                       <FormGroup className="mb-3">
-                        <Label htmlFor="validationCustom16">
-                          LICENSE NUMBER
-                        </Label>
+                        <Label htmlFor="validationCustom16">LICENSE DATE</Label>
                         <Input
                           name="licenseNumberNoValidation"
                           placeholder="License Number (No Validation)"
