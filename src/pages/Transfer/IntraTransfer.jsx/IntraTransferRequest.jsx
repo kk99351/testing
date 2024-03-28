@@ -706,7 +706,7 @@ const IntraTransferRequest = () => {
       building: "",
     },
     validationSchema: Yup.object({
-      companygroup: Yup.string().required("COMPANY GROUP/COUNTRY IS REQUIRED"),
+      companygroup: Yup.string().required("COUNTRY IS REQUIRED"),
       statename: Yup.string().required("STATE NAME IS REQUIRED"),
       cityname: Yup.string().required("CITY NAME IS REQUIRED"),
       plantname: Yup.string().required("LOCATION NAME IS REQUIRED"),
@@ -739,31 +739,31 @@ const IntraTransferRequest = () => {
       {
         Header: "SL NO",
         accessor: "slno",
-        width:"6%",
+        width: "6%",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "ASSET ID",
-        accessor: "fieldName",
+        accessor: "assetid",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "ASSET NAME",
-        accessor: "oldValue",
+        accessor: "assetname",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "SERIAL NUMBER",
-        accessor: "newValue",
+        accessor: "sn",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "ASSET DISCRIPTION",
-        accessor: "editedBy",
+        accessor: "assetdes",
         disableFilters: true,
         filterable: true,
       },
@@ -830,54 +830,28 @@ const IntraTransferRequest = () => {
   const demoData = useMemo(
     () => [
       {
-        slno: 1,
-        fieldName: "Asset Name",
-        oldValue: "Laptop",
-        newValue: "Desktop",
-        editedBy: "John Doe",
-        editDate: "2024-03-01",
+        "slno": 1,
+        "assetid": "ASSET001",
+        "assetname": "Laptop",
+        "sn": "SN12345",
+        "assetdes": "Good condition"
       },
       {
-        slno: 2,
-        fieldName: "Serial Number",
-        oldValue: "123456",
-        newValue: "654321",
-        editedBy: "Alice Smith",
-        editDate: "2024-03-02",
+        "slno": 2,
+        "assetid": "ASSET002",
+        "assetname": "Desktop",
+        "sn": "SN67890",
+        "assetdes": "Needs maintenance"
       },
       {
-        slno: 3,
-        fieldName: "Asset Status",
-        oldValue: "Active",
-        newValue: "Inactive",
-        editedBy: "Bob Johnson",
-        editDate: "2024-03-03",
-      },
-      {
-        slno: 4,
-        fieldName: "Asset Location",
-        oldValue: "Room A",
-        newValue: "Room B",
-        editedBy: "Emily Davis",
-        editDate: "2024-03-04",
-      },
-      {
-        slno: 5,
-        fieldName: "Asset Owner",
-        oldValue: "John Doe",
-        newValue: "Alice Smith",
-        editedBy: "John Doe",
-        editDate: "2024-03-05",
-      },
-      {
-        slno: 5,
-        fieldName: "Asset Owner",
-        oldValue: "John Doe",
-        newValue: "Alice Smith",
-        editedBy: "John Doe",
-        editDate: "2024-03-05",
-      },
+        "slno": 3,
+        "assetid": "ASSET003",
+        "assetname": "Printer",
+        "sn": "SN24680",
+        "assetdes": "Ink levels low"
+      }
     ],
+    
     []
   );
   const [responseData, setResponseData] = useState(demoData);
@@ -962,7 +936,7 @@ const IntraTransferRequest = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                INTRA TRANSFER REQUEST DETAILS
+                INTRA TRANSFER REQUEST 
               </h1>
             </CardHeader>
             <CardBody>
@@ -976,7 +950,7 @@ const IntraTransferRequest = () => {
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="companygroup">
-                            COMPANY GROUP/COUNTRY <font color="red">*</font>
+                            COUNTRY <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -991,10 +965,11 @@ const IntraTransferRequest = () => {
                             }
                           >
                             <option value="">
-                              SELECT COMPANY GROUP/COUNTRY
+                              SELECT COUNTRY
                             </option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="USA">United States</option>
+                            <option value="CAN">Canada</option>
+                            <option value="UK">United Kingdom</option>
                           </Input>
                           {validation.touched.companygroup &&
                           validation.errors.companygroup ? (
@@ -1022,8 +997,10 @@ const IntraTransferRequest = () => {
                             }
                           >
                             <option value="">SELECT STATE NAME</option>
-                            <option value="state1">State 1</option>
-                            <option value="state2">State 2</option>
+                            <option value="Alabama">Alabama</option>
+                            <option value="Alaska">Alaska</option>
+                            <option value="Arizona">Arizona</option>
+                            <option value="Arkansas">Arkansas</option>
                           </Input>
                           {validation.touched.statename &&
                           validation.errors.statename ? (
@@ -1051,8 +1028,10 @@ const IntraTransferRequest = () => {
                             }
                           >
                             <option value="">SELECT CITY NAME</option>
-                            <option value="city1">City 1</option>
-                            <option value="city2">City 2</option>
+                            <option value="New York">New York</option>
+                            <option value="Los Angeles">Los Angeles</option>
+                            <option value="Chicago">Chicago</option>
+                            <option value="Houston">Houston</option>
                           </Input>
                           {validation.touched.cityname &&
                           validation.errors.cityname ? (
@@ -1080,8 +1059,10 @@ const IntraTransferRequest = () => {
                             }
                           >
                             <option value="">SELECT LOCATION NAME</option>
-                            <option value="location1">Location 1</option>
-                            <option value="location2">Location 2</option>
+                            <option value="NewYork">New York</option>
+                            <option value="LosAngeles">Los Angeles</option>
+                            <option value="Chicago">Chicago</option>
+                            <option value="Houston">Houston</option>
                           </Input>
                           {validation.touched.plantname &&
                           validation.errors.plantname ? (
@@ -1109,8 +1090,14 @@ const IntraTransferRequest = () => {
                             }
                           >
                             <option value="">SELECT BUILDING NAME</option>
-                            <option value="building1">Building 1</option>
-                            <option value="building2">Building 2</option>
+                            <option value="EmpireState">
+                              Empire State Building
+                            </option>
+                            <option value="Chrysler">Chrysler Building</option>
+                            <option value="Rockefeller">
+                              Rockefeller Center
+                            </option>
+                            <option value="Flatiron">Flatiron Building</option>
                           </Input>
                           {validation.touched.building &&
                           validation.errors.building ? (
@@ -1156,14 +1143,14 @@ const IntraTransferRequest = () => {
             </CardBody>
           </Card>
         ) : (
-          <Card className="mt-4">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 INTRA TRANSFER REQUEST DETAILS
               </h1>
             </CardHeader>
             <CardBody>
-              <div className="container pt-2">
+              <div className="container pt-0">
                 <div className="row">
                   <div className="col-md-1">
                     <select className="form-select" style={{ width: "88PX" }}>
@@ -1220,7 +1207,7 @@ const IntraTransferRequest = () => {
                   <form className="needs-validation" noValidate>
                     <Row className="mb-2">
                       <Col md={12}>
-                        <Label for="floor">FLOOR</Label>
+                        <Label for="floor">FLOOR<font color="red">*</font></Label>
                         <Input
                           type="select"
                           name="floor"
@@ -1230,9 +1217,8 @@ const IntraTransferRequest = () => {
                           invalid={!!errors.floor}
                         >
                           <option value="">SELECT FLOOR</option>
-                          <option value="group1">GROUP 2</option>
-                          <option value="amgroup2c">GROUP 1</option>
-                          <option value="wargrpop3renty">GROUP 1</option>
+                          <option value="group1">2st floor</option>
+                          <option value="amgroup2c">3rd floor</option>
                         </Input>
                         <span className="invalid-feedback">{errors.floor}</span>
                       </Col>

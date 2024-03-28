@@ -15,82 +15,80 @@ import { useNavigate } from "react-router-dom";
 
 const DeligationCreate = () => {
   const navigate = useNavigate();
-    const requiredFields = {
-      id_delgation_by: "Deligation By",
-  id_delgation_to: "Deligation To",
-  dt_start: "Start Date",
-  dt_end: "End Date",
-  // remarks: "",
-    };
-    const initialFormData = {};
-const initialErrors = {};
-Object.keys(requiredFields).forEach(key => {
+  const requiredFields = {
+    id_delgation_by: "DELEGATION BY",
+    id_delgation_to: "DELEGATION TO",
+    dt_start: "START DATE",
+    dt_end: "END DATE",
+    // remarks: "",
+  };
+  const initialFormData = {};
+  const initialErrors = {};
+  Object.keys(requiredFields).forEach(key => {
     initialFormData[key] = "";
     initialErrors[key] = "";
-});
+  });
 
+  const [formData, setFormData] = useState(initialFormData);
+  const [errors, setErrors] = useState(initialErrors);
 
-const [formData, setFormData] = useState(initialFormData);
-const [errors, setErrors] = useState(initialErrors);
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
 
-    const handleInputChange = e => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
+  const handleDropdownChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
+
+  const createHandle = async e => {
+    e.preventDefault();
+    let isValid = true;
+
+    Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
+      if (!formData[fieldName].trim()) {
         setErrors(prevErrors => ({
-            ...prevErrors,
-            [name]: "",
+          ...prevErrors,
+          [fieldName]: `${fieldLabel} IS REQUIRED`,
         }));
-    };
+        isValid = false;
+      }
+    });
 
-    const handleDropdownChange = e => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
-        setErrors(prevErrors => ({
-            ...prevErrors,
-            [name]: "",
-        }));
-    };
-
-    const createHandle = async e => {
-        e.preventDefault();
-        let isValid = true;
-
-        Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
-            if (!formData[fieldName].trim()) {
-                setErrors(prevErrors => ({
-                    ...prevErrors,
-                    [fieldName]: `${fieldLabel} is required`,
-                }));
-                isValid = false;
-            }
-        });
-
-        if (isValid) {
-            try {
-                // await axios.post(`http://localhost:3000/region/`, formData);
-                // navigate("/company_group");
-                console.log("Form submitted successfully");
-            } catch (error) {
-                console.log("error in creating group data" + error);
-            }
-        }
-    };
-
+    if (isValid) {
+      try {
+        // await axios.post(`http://localhost:3000/region/`, formData);
+        // navigate("/company_group");
+        console.log("Form submitted successfully");
+      } catch (error) {
+        console.log("error in creating group data" + error);
+      }
+    }
+  };
 
   return (
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                DELIGATION DETAILS
+                CREATE DELEGATION
               </h1>
             </CardHeader>
             <CardBody>
@@ -100,7 +98,7 @@ const [errors, setErrors] = useState(initialErrors);
                     <Row className="mb-2">
                       <Col md={6}>
                         <Label for="id_delgation_by">
-                        DELEGATION BY<font color="red">*</font>
+                          DELEGATION BY<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -111,16 +109,18 @@ const [errors, setErrors] = useState(initialErrors);
                           invalid={!!errors.id_delgation_by}
                         >
                           <option value="">SELECT DELEGATION BY</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
+                          <option value="John Doe">John Doe</option>
+                          <option value="Jane Smith">Jane Smith</option>
+                          <option value="Alice Johnson">Alice Johnson</option>
+                          <option value="Bob Brown">Bob Brown</option>
                         </Input>
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.id_delgation_by}
                         </span>
                       </Col>
                       <Col md={6}>
                         <Label for="id_delgation_to">
-                          DELEGATION BY<font color="red">*</font>
+                          DELEGATION TO<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -131,10 +131,12 @@ const [errors, setErrors] = useState(initialErrors);
                           invalid={!!errors.id_delgation_to}
                         >
                           <option value="">SELECT DELEGATION TO</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
+                          <option value="Manager">Manager</option>
+                          <option value="Staff">Staff</option>
+                          <option value="Guest">Guest</option>
+                          <option value="Supervisor">Supervisor</option>
                         </Input>
-                        <span className="text-danger">
+                        <span className="invalid-feedback">
                           {errors.id_delgation_to}
                         </span>
                       </Col>
@@ -153,7 +155,9 @@ const [errors, setErrors] = useState(initialErrors);
                           onChange={handleInputChange}
                           invalid={!!errors.dt_start}
                         />
-                        <span className="text-danger">{errors.dt_start}</span>
+                        <span className="invalid-feedback">
+                          {errors.dt_start}
+                        </span>
                       </Col>
                       <Col md={6}>
                         <Label for="dt_end">
@@ -167,25 +171,28 @@ const [errors, setErrors] = useState(initialErrors);
                           onChange={handleInputChange}
                           invalid={!!errors.dt_end}
                         />
-                        <span className="text-danger">{errors.dt_end}</span>
+                        <span className="invalid-feedback">
+                          {errors.dt_end}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
                     <Row className="mb-2">
                       <Col md={12}>
-                        <Label for="remarks">
-                          REMARKS
-                        </Label>
+                        <Label for="remarks">REMARKS</Label>
                         <textarea
                           name="remarks"
                           id="remarks"
+                          placeholder="REMARKS 500 CHARACTERS ONLY"
                           value={formData.remarks}
                           onChange={handleInputChange}
                           className={`form-control ${
                             errors.remarks ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="text-danger">{errors.remarks}</span>
+                        <span className="invalid-feedback">
+                          {errors.remarks}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>

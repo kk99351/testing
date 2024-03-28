@@ -1083,7 +1083,7 @@ const BarcodePage = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                BARCODE DETAILS
+                CREATE BARCODE
               </h1>
             </CardHeader>
 
@@ -1111,8 +1111,10 @@ const BarcodePage = () => {
                             }
                           >
                             <option value="">SELECT MATERIAL GROUP</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="clothing">Clothing</option>
+                            <option value="automobile">Automobile</option>
+                            <option value="cosmetics">Cosmetics</option>
                           </Input>
                           {validation.touched.cat && validation.errors.cat ? (
                             <FormFeedback type="invalid">
@@ -1138,9 +1140,12 @@ const BarcodePage = () => {
                               validation.errors.subCat
                             }
                           >
-                            <option value="">SELECT  MATERIAL SUB GROUP  </option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="">SELECT MATERIAL SUB GROUP</option>
+                            <option value="electronics">
+                              Consumer Electronics
+                            </option>
+                            <option value="apparel">Apparel & Clothing</option>
+                            <option value="automotive">Automotive Parts</option>
                           </Input>
                           {validation.touched.subCat &&
                           validation.errors.subCat ? (
@@ -1150,7 +1155,6 @@ const BarcodePage = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-
                     </Row>
                     <Row className="mb-2">
                       <Col md={6}>
@@ -1169,8 +1173,9 @@ const BarcodePage = () => {
                             }
                           >
                             <option value="">SELECT PO.NUMBER</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="PO123456">PO123456</option>
+                            <option value="PO789012">PO789012</option>
+                            <option value="PO345678">PO345678</option>
                           </Input>
                           {validation.touched.poNo && validation.errors.poNo ? (
                             <FormFeedback type="invalid">
@@ -1197,8 +1202,9 @@ const BarcodePage = () => {
                             }
                           >
                             <option value="">SELECT INVOICE NUMBER</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="INV2024001">INV2024001</option>
+                            <option value="INV2024002">INV2024002</option>
+                            <option value="INV2024003">INV2024003</option>
                           </Input>
                           {validation.touched.invoiceNo &&
                           validation.errors.invoiceNo ? (
@@ -1248,96 +1254,101 @@ const BarcodePage = () => {
           </Card>
 
           {submitted && (
-            <Card className="mt-3">
+            <Card className="mt-0">
               <CardBody>
                 {/* Replace this with your table component */}
                 <div>
-                <Row className="justify-content-center">
-                <Col xl={10}>
-                  <div className="container pt-1">
-                    <div className="row">
-                      <div className="col-md-4">
-                        <div className="search-box me-2 my-3 my-md-0 d-inline-block">
-                          <div className="position-relative">
-                            <label
-                              htmlFor="search-bar-0"
-                              className="search-label"
-                            >
-                              <span id="search-bar-0-label" className="sr-only">
-                                Search this table
-                              </span>
-                              <input
-                                id="search-bar-0"
-                                type="text"
-                                className="form-control"
-                                placeholder="Search..."
-                                value={searchValue}
-                                onChange={handleInputChange}
-                              />
-                              <i className="bx bx-search-alt search-icon"></i>
-                            </label>
+                  <Row className="justify-content-center">
+                    <Col xl={10}>
+                      <div className="container pt-1">
+                        <div className="row">
+                          <div className="col-md-4">
+                            <div className="search-box me-2 my-3 my-md-0 d-inline-block">
+                              <div className="position-relative">
+                                <label
+                                  htmlFor="search-bar-0"
+                                  className="search-label"
+                                >
+                                  <span
+                                    id="search-bar-0-label"
+                                    className="sr-only"
+                                  >
+                                    Search this table
+                                  </span>
+                                  <input
+                                    id="search-bar-0"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="SEARCH..."
+                                    value={searchValue}
+                                    onChange={handleInputChange}
+                                  />
+                                  <i className="bx bx-search-alt search-icon"></i>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="col-sm-8">
+                            <div className="text-sm-end">
+                              <button
+                                type="button"
+                                className="btn btn-success-subtle border border-success"
+                                onClick={handleDeallocate}
+                              >
+                                <i className="mdi me-1"></i>
+                                PREVIEW
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
 
-                      <div className="col-sm-8">
-                        <div className="text-sm-end">
-                          <button
-                            type="button"
-                            className="btn btn-success-subtle border border-success"
-                            onClick={handleDeallocate}
-                          >
-                            <i className="mdi me-1"></i>
-                            PREVIEW
-                          </button>
+                      <div className="table-responsive">
+                        <Table className="table table-bordered table-hover text-center">
+                          {" "}
+                          <thead>
+                            <tr>
+                              <th>SL NO</th>
+                              <th>ASSET ID</th>
+                              <th>ASSET REF.NO</th>
+                              <th>SERIAL NUMBER</th>
+                              <th>SUB MATERIAL</th>
+                              <th>CHECK/UNCHECK</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {filteredData.map((row, index) => (
+                              <tr key={index}>
+                                <td>{row.slno}</td>
+                                <td>{row.assetId}</td>
+                                <td>{row.assetName}</td>
+                                <td>{row.serialNumber}</td>
+                                <td>{row.assetName}</td>
+                                <td
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    marginBottom: "20px",
+                                  }}
+                                >
+                                  <Input
+                                    type="checkbox"
+                                    checked={row.checked}
+                                    onChange={() => handleCheckboxChange(index)}
+                                  />
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </Table>
+                        <div className="text-center">
+                          {filteredData.length === 0 && (
+                            <div>No search results found</div>
+                          )}
                         </div>
                       </div>
-                    </div>
-                  </div>
-
-                  <div className="table-responsive">
-                  <Table className="table table-bordered table-hover text-center">                      <thead>
-                        <tr>
-                          <th>SL NO</th>
-                          <th>ASSET ID</th>
-                          <th>ASSET REF.NO</th>
-                          <th>SERIAL NUMBER</th>
-                          <th>SUB MATERIAL</th>
-                          <th>CHECK/UNCHECK</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {filteredData.map((row, index) => (
-                          <tr key={index}>
-                            <td>{row.slno}</td>
-                            <td>{row.assetId}</td>
-                            <td>{row.assetName}</td>
-                            <td>{row.serialNumber}</td>
-                            <td>{row.assetName}</td>
-                            <td
-                              style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                marginBottom: "20px",
-                              }}
-                            >
-                              <Input
-                                type="checkbox"
-                                checked={row.checked}
-                                onChange={() => handleCheckboxChange(index)}
-                              />
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </Table>
-                    <div className="text-center">
-                      {filteredData.length === 0 && (
-                        <div>No search results found</div>
-                      )}
-                    </div>
-                  </div>
-                  </Col>
+                    </Col>
                   </Row>
                 </div>
               </CardBody>

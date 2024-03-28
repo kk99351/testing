@@ -16,54 +16,19 @@ const PrintGatePass = () => {
   };
   const demoData = [
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      reqnum: "REQ001",
+      reqdate: "2024-03-25",
+      approvedby: "John Doe",
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      reqnum: "REQ002",
+      reqdate: "2024-03-26",
+      approvedby: "Jane Smith",
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
-    {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
-    {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      reqnum: "REQ003",
+      reqdate: "2024-03-27",
+      approvedby: "Robert Johnson",
     },
   ];
 
@@ -79,15 +44,15 @@ const PrintGatePass = () => {
       },
       {
         Header: "REQUEST NUMBER",
-        accessor: "assetId",
+        accessor: "reqnum",
       },
       {
         Header: "REQUEST DATE",
-        accessor: "assetName",
+        accessor: "reqdate",
       },
       {
         Header: "REQUEST BY",
-        accessor: "allocateTo",
+        accessor: "approvedby",
       },
       {
         Header: "PREVIEW",
@@ -151,7 +116,7 @@ const PrintGatePass = () => {
               </h1>
             </CardHeader>
             <CardBody>
-              <div className="container pt-3">
+              <div className="container pt-0">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
                     <select className="form-select" style={{ width: "88PX" }}>

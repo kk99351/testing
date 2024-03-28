@@ -1,6 +1,12 @@
-
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Container,Button, Card, Input } from "reactstrap";
+import {
+  Container,
+  CardBody,
+  CardHeader,
+  Button,
+  Card,
+  Input,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -12,15 +18,15 @@ import { useGet } from "src/API/useGet";
 
 const UOMConversion = () => {
   const demoData = [
-    { material: "Group A",qyt:"9",uom:"XYZ",quality:"10" },
-    { material: "group d",qyt:"9",uom:"XYZ",quality:"10" },
-    { material: "Group C",qyt:"9",uom:"XYZ",quality:"10" },
-    { material: "Group D",qyt:"9",uom:"XYZ",quality:"10" },
-    { material: "Group E",qyt:"9",uom:"XYZ",quality:"10" },
+    { material: "Steel", qyt: 10, uom: "kg" },
+    { material: "Plastic", qyt: 500, uom: "g" },
+    { material: "Wood", qyt: 3, uom: "m" },
+    { material: "Aluminum", qyt: 2, uom: "m" },
+    { material: "Glass", qyt: 1000, uom: "mL" },
   ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
-  
+
   // const { getData, data, isLoading } = useGet();
   // useEffect(() => {
   //   async function fetch() {
@@ -38,9 +44,10 @@ const UOMConversion = () => {
       {
         Header: "SL NO",
         accessor: "slno",
+        width: "6%",
       },
       {
-        Header: "MATERIAL",
+        Header: "MATERIAL GROUP",
         accessor: "material",
       },
       {
@@ -50,10 +57,6 @@ const UOMConversion = () => {
       {
         Header: "UOM",
         accessor: "uom",
-      },
-      {
-        Header: "QUALITY",
-        accessor: "quality",
       },
     ],
     []
@@ -90,7 +93,6 @@ const UOMConversion = () => {
     usePagination
   );
 
-
   return (
     <React.Fragment>
       {/* {isLoading ? (
@@ -102,18 +104,24 @@ const UOMConversion = () => {
           </Card>
         </div>
       ) : ( */}
-    <Container fluid>
-      <div className="page-content">
-      <Card>
-              <div className="container pt-4">
+      <Container fluid>
+        <div className="page-content">
+          <Card>
+            <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+                UNIT OF MEASUREMENT CONVERSION DEATILS
+              </h1>
+            </CardHeader>
+            <CardBody>
+              <div className="container pt-0">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
-                    <select className="form-select">
-                      <option value="10">Show 10</option>
-                      <option value="20">Show 20</option>
-                      <option value="30">Show 30</option>
-                      <option value="40">Show 40</option>
-                      <option value="50">Show 50</option>
+                    <select className="form-select" style={{ width: "88PX" }}>
+                      <option value="10">SHOW 10</option>
+                      <option value="20">SHOW 20</option>
+                      <option value="30">SHOW 30</option>
+                      <option value="40">SHOW 40</option>
+                      <option value="50">SHOW 50</option>
                     </select>
                   </div>
 
@@ -128,7 +136,7 @@ const UOMConversion = () => {
                             id="search-bar-0"
                             type="text"
                             className="form-control"
-                            placeholder="search ..."
+                            placeholder="SEARCH ..."
                             value={globalFilter || ""}
                             onChange={e => setGlobalFilter(e.target.value)}
                           />
@@ -146,7 +154,7 @@ const UOMConversion = () => {
                         onClick={() => navigate("/create_uom_conversion")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
-                        Create New
+                        CREATE NEW
                       </button>
                     </div>
                   </div>
@@ -154,7 +162,7 @@ const UOMConversion = () => {
               </div>
 
               <div className="table-responsive react-table">
-                <table className="table table-bordered table-hover">
+                <table className="table table-bordered table-hover text-center">
                   <thead className="table-light table-nowrap">
                     {headerGroups.map(headerGroup => (
                       <tr
@@ -162,12 +170,14 @@ const UOMConversion = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                           <th
-                           key={column.id}
-                           {...column.getHeaderProps(column.getSortByToggleProps())}
-                           style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
-                         >
-                            <div className="d-flex justify-content-between">
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
+                            <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
                               </span>
@@ -193,7 +203,9 @@ const UOMConversion = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/modify_uom_conversion/${row.original.id}`}>
+                                  <Link
+                                    to={`/modify_uom_conversion/${row.original.id}`}
+                                  >
                                     {cell.render("Cell")}
                                   </Link>
                                 ) : (
@@ -211,7 +223,7 @@ const UOMConversion = () => {
                           style={{ textAlign: "center" }}
                         >
                           {" "}
-                          No search results found.
+                          NO SEARCH RESULTS FOUND{" "}
                         </td>
                       </tr>
                     )}
@@ -260,11 +272,11 @@ const UOMConversion = () => {
                   </div>
                 </div>
               </div>
-            </Card>
-          </div>
-        
-      {/* )} */}
-     
+            </CardBody>
+          </Card>
+        </div>
+
+        {/* )} */}
       </Container>
     </React.Fragment>
   );

@@ -1,5 +1,12 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Container,Button, Card, Input } from "reactstrap";
+import {
+  Container,
+  CardBody,
+  CardHeader,
+  Button,
+  Card,
+  Input,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -11,16 +18,16 @@ import {
 import { useGet } from "src/API/useGet";
 
 const UserTypeMaster = () => {
-    const demoData = [
-      { nmUsertype: "Group A" },
-      { nmUsertype: "group d" },
-      { nmUsertype: "Group C" },
-      { nmUsertype: "Group D" },
-      { nmUsertype: "Group E" },
-    ];
-    const [responseData, setResponseData] = useState(demoData);
-    const navigate = useNavigate();
-    // const { getData, data, isLoading } = useGet();
+  const demoData = [
+    { "nmUsertype": "Admin" },
+    { "nmUsertype": "Manager" },
+    { "nmUsertype": "Staff" },
+    { "nmUsertype": "Guest" },
+    { "nmUsertype": "Supervisor" }
+  ];
+  const [responseData, setResponseData] = useState(demoData);
+  const navigate = useNavigate();
+  // const { getData, data, isLoading } = useGet();
   // useEffect(() => {
   //   async function fetch() {
   //     await getData("http://localhost:3000/usertypemaster");
@@ -43,6 +50,7 @@ const UserTypeMaster = () => {
       {
         Header: "SL NO",
         accessor: "slno",
+        width:"6%",
       },
       {
         Header: "USER TYPE",
@@ -68,18 +76,18 @@ const UserTypeMaster = () => {
     pageCount,
     gotoPage,
     setGlobalFilter,
-  // } = useTable(
-  //   {
-  //     columns,
-  //     data: responseData,
-  //     initialState: { pageSize: 10 },
-  //   },
-} = useTable(
-  {
-    columns,
-    data: dataWithSlno,
-    initialState: { pageSize: 10 },
-  },
+    // } = useTable(
+    //   {
+    //     columns,
+    //     data: responseData,
+    //     initialState: { pageSize: 10 },
+    //   },
+  } = useTable(
+    {
+      columns,
+      data: dataWithSlno,
+      initialState: { pageSize: 10 },
+    },
     useGlobalFilter,
     useSortBy,
     usePagination
@@ -100,18 +108,24 @@ const UserTypeMaster = () => {
           </Card>
         </div>
       ) : ( */}
-        <Container fluid>
-      <div className="page-content">
-      <Card>
-              <div className="container pt-4">
+      <Container fluid>
+        <div className="page-content">
+          <Card>
+            <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+                USER TYPE DETAILS{" "}
+              </h1>
+            </CardHeader>
+            <CardBody>
+              <div className="container pt-0">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
-                    <select className="form-select">
-                      <option value="10">Show 10</option>
-                      <option value="20">Show 20</option>
-                      <option value="30">Show 30</option>
-                      <option value="40">Show 40</option>
-                      <option value="50">Show 50</option>
+                    <select className="form-select" style={{ width: "88PX" }}>
+                      <option value="10">SHOW 10</option>
+                      <option value="20">SHOW 20</option>
+                      <option value="30">SHOW 30</option>
+                      <option value="40">SHOW 40</option>
+                      <option value="50">SHOW 50</option>
                     </select>
                   </div>
 
@@ -126,7 +140,7 @@ const UserTypeMaster = () => {
                             id="search-bar-0"
                             type="text"
                             className="form-control"
-                            placeholder="search ..."
+                            placeholder="SEARCH ..."
                             value={globalFilter || ""}
                             onChange={e => setGlobalFilter(e.target.value)}
                           />
@@ -144,15 +158,14 @@ const UserTypeMaster = () => {
                         onClick={() => navigate("/usertypecreate")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
-                        Create New
-                      </button>
+CREATE NEW                      </button>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="table-responsive react-table">
-                <table className="table table-bordered table-hover">
+                <table className="table table-bordered table-hover text-center">
                   <thead className="table-light table-nowrap">
                     {headerGroups.map(headerGroup => (
                       <tr
@@ -160,12 +173,9 @@ const UserTypeMaster = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                         <th
-                         key={column.id}
-                         {...column.getHeaderProps(column.getSortByToggleProps())}
-                         style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
-                       >
-                            <div className="d-flex justify-content-between">
+                           <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
+
+                           <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
                               </span>
@@ -211,8 +221,7 @@ const UserTypeMaster = () => {
                           style={{ textAlign: "center" }}
                         >
                           {" "}
-                          No search results found.
-                        </td>
+                          NO SEARCH RESULTS FOUND                        </td>
                       </tr>
                     )}
                   </tbody>
@@ -260,11 +269,11 @@ const UserTypeMaster = () => {
                   </div>
                 </div>
               </div>
-            </Card>
+            </CardBody>
+          </Card>
         </div>
-      {/* )} */}
+        {/* )} */}
       </Container>
-
     </React.Fragment>
   );
 };

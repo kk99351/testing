@@ -30,11 +30,10 @@ const DepartmentCreate = () => {
     },
 
     validationSchema: Yup.object({
-      departmentname: Yup.string().required("department name is Required"),
-      departmentcode: Yup.string().required("department code is Required"),
+      departmentname: Yup.string().required("DEPARTMENT IS REQUIRED"),
+      departmentcode: Yup.string().required("DEPARTMENT IS REQUIRED"),
     }),
     onSubmit: values => {
-     
       CreateDepertment([
         {
           iddept: 0,
@@ -46,6 +45,7 @@ const DepartmentCreate = () => {
           console.log(res.ok);
           if (res.ok) {
             toast("Department created successfully");
+            // navigate("department");
           } else {
             toast("Departments already exists");
           }
@@ -64,7 +64,7 @@ const DepartmentCreate = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                DEPARTMENT DETAILS
+                CREATE DEPARTMENT
               </h1>
             </CardHeader>
 
@@ -84,6 +84,7 @@ const DepartmentCreate = () => {
                           <Input
                             name="departmentname"
                             type="text"
+                            placeholder="PLEASE ENTER DEPARTMENT"
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}

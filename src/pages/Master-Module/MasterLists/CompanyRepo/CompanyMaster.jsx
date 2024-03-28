@@ -32,7 +32,7 @@ const CompanyMaster = props => {
   const [logoError, setLogoError] = useState("");
 
   const [companyFormData, setCompanyFormData] = useState({
-    companyname: "HCS",
+    // companyname: "HCS",
   });
   // const { getData, data, isLoading, isError } = useGet();
 
@@ -67,30 +67,31 @@ const CompanyMaster = props => {
       cin: companyFormData?.cin || "",
       assetPrefix: companyFormData?.assetPrefix || "",
       logo: companyFormData?.logo || null,
+      
     },
 
     validationSchema: Yup.object({
-      companyname: Yup.string().required("Company Name is Required"),
-      address1: Yup.string().required("Address 1 is Required"),
-      city: Yup.string().required("City is Required"),
-      address2: Yup.string().required("Address 2 is Required"),
-      state: Yup.string().required("State is Required"),
+      companyname: Yup.string().required("COMPANY NAME IS REQUIRED"),
+      address1: Yup.string().required("ADDRESS 1 IS REQUIRED"),
+      city: Yup.string().required("CITY IS REQUIRED"),
+      address2: Yup.string().required("ADDRESS 2 IS REQUIRED"),
+      state: Yup.string().required("STATE IS REQUIRED"),
       email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is Required"),
-      country: Yup.string().required("Country is Required"),
+        .email(" INVALID EMAIL ADDRESS")
+        .required("EMAIL IS REQUIRED"),
+      country: Yup.string().required("COUNTRY IS REQUIRED"),
       fax: Yup.string(),
-      contactPerson: Yup.string().required("Contact Person is Required"),
-      gst: Yup.string().required("GST is Required"),
+      contactPerson: Yup.string().required("CONTACT PERSON IS REQUIRED"),
+      gst: Yup.string().required("GST IS REQUIRED"),
       pan: Yup.string()
-        .max(10, "not be more than 10 characters")
-        .matches(/[A-Z]{5}[0-9]{4}[A-Z]/, "Invalid PAN format")
-        .required("PAN is Required"),
-      cin: Yup.string().required("CIN is Required"),
-      pin: Yup.string().required("PIN is Required"),
+        .max(10, "NOT BE MORE THAN 10 CHARACTERS")
+        .matches(/[A-Z]{5}[0-9]{4}[A-Z]/, "INVALID PAN format")
+        .required("PAN IS REQUIRED"),
+      cin: Yup.string().required("CIN IS REQUIRED"),
+      pin: Yup.string().required("PIN IS REQUIRED"),
       licenseNumber: Yup.string(),
-      assetPrefix: Yup.string().required("AssetPrefix is required"),
-      logo: Yup.string().required("Company Logo is Required"),
+      // assetPrefix: Yup.string().required("AssetPrefix IS REQUIRED"),
+      logo: Yup.string().required("COMPANY LOGO IS REQUIRED"),
     }),
 
     onSubmit: values => {
@@ -158,7 +159,7 @@ const CompanyMaster = props => {
       ) {
         setLogoPreview(null);
         validation.setFieldValue("logo", null);
-        setLogoError("Please choose a valid image file (jpg, jpeg, png).");
+        setLogoError("PLEASE CHOOSE A VALID IMAGE FILE(jpg, jpeg, png).");
       } else {
         setLogoPreview(URL.createObjectURL(file));
         validation.setFieldValue("logo", file);
@@ -192,7 +193,7 @@ const CompanyMaster = props => {
         <Card>
           <CardHeader>
             <h1 className="card-title" style={{ fontSize: "20px" }}>
-              FILL YOUR COMPANY DETAILS
+              COMPANY DETAILS
             </h1>
           </CardHeader>
 
@@ -211,7 +212,7 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="companyname"
-                          placeholder="Company Name"
+                          placeholder="PLEASE ENTER COMPANY NAME"
                           type="text"
                           className="form-control"
                           value={validation.values.companyname}
@@ -237,7 +238,7 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="address1"
-                          placeholder="address1"
+                          placeholder="PLEASE ENTER ADDRESS1"
                           type="text"
                           className="form-control"
                           value={validation.values.address1}
@@ -267,7 +268,7 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="city"
-                          placeholder="City"
+                          placeholder="PLEASE ENTER CITY"
                           type="text"
                           className="form-control"
                           value={validation.values.city}
@@ -291,7 +292,7 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="address2"
-                          placeholder="Address2"
+                          placeholder="PLEASE ENTER ADDRESS2 "
                           type="text"
                           className="form-control"
                           value={validation.values.address2}
@@ -321,7 +322,7 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="state"
-                          placeholder="State"
+                          placeholder="PLEASE ENTER STATE"
                           type="text"
                           className="form-control"
                           value={validation.values.state}
@@ -345,7 +346,7 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="email"
-                          placeholder="Email"
+                          placeholder="PLEASE ENTER VALID EMAIL"
                           type="email"
                           className="form-control"
                           value={validation.values.email}
@@ -368,10 +369,10 @@ const CompanyMaster = props => {
                   <Row>
                     <Col md="6">
                       <FormGroup className="mb-3">
-                        <Label htmlFor="validationCustom07">PIN</Label>
+                        <Label htmlFor="validationCustom07">PIN<font color="red">*</font></Label>
                         <Input
                           name="pin"
-                          placeholder="PIN"
+                          placeholder="PLEASE ENTER PIN"
                           type="text"
                           className="form-control"
                           value={validation.values.pin}
@@ -395,7 +396,7 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="country"
-                          placeholder="Country"
+                          placeholder="PLEASE ENTER COUNTRY"
                           type="text"
                           className="form-control"
                           value={validation.values.country}
@@ -423,7 +424,7 @@ const CompanyMaster = props => {
                         <Label htmlFor="validationCustom09">FAX</Label>
                         <Input
                           name="fax"
-                          placeholder="Fax"
+                          placeholder="PLEASE ENTER  FAX"
                           type="text"
                           className="form-control"
                           value={validation.values.fax}
@@ -434,11 +435,11 @@ const CompanyMaster = props => {
                     </Col>
                     <Col md="6">
                       <FormGroup className="mb-3">
-                        <Label>PHONE</Label>
+                        <Label>PHONE NUMBER</Label>
                         <PhoneInput
                           inputStyle={{ width: "100%" }}
                           name="phone"
-                          placeholder="Enter Phone"
+                          placeholder="PLEASE ENTER PHONE NUMBER"
                           country="in"
                           value={String(validation.values.phone)}
                           onChange={value => {
@@ -478,7 +479,7 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="contactPerson"
-                          placeholder="Contact Person"
+                          placeholder="PLEASE ENTER CONTACT PERSON NAME"
                           type="text"
                           className="form-control"
                           value={validation.values.contactPerson}
@@ -504,7 +505,7 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="gst"
-                          placeholder="GST"
+                          placeholder="PLEASE ENTER GST"
                           type="text"
                           className="form-control"
                           value={validation.values.gst}
@@ -532,7 +533,7 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="pan"
-                          placeholder="PAN"
+                          placeholder="PLEASE ENTER PAN"
                           type="text"
                           className="form-control"
                           value={validation.values.pan}
@@ -556,7 +557,7 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="cin"
-                          placeholder="CIN"
+                          placeholder="PLEASE ENTER CIN"
                           type="text"
                           className="form-control"
                           value={validation.values.cin}
@@ -584,7 +585,7 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="licenseNumber"
-                          placeholder="License Number"
+                          placeholder="PLEASE ENTER LICENSE NUMBER"
                           type="text"
                           className="form-control"
                           value={validation.values.licenseNumber}
@@ -597,11 +598,11 @@ const CompanyMaster = props => {
                       <FormGroup className="mb-3">
                         <Label htmlFor="validationCustom16">LICENSE DATE</Label>
                         <Input
-                          name="licenseNumberNoValidation"
-                          placeholder="License Number (No Validation)"
+                          name="lidt"
+                          placeholder="PLEASE ENTER LICENSE DATE"
                           type="text"
                           className="form-control"
-                          value={validation.values.companyname}
+                          value={validation.values.lidt}
                           onChange={handleChange}
                           onBlur={validation.handleBlur}
                         />
@@ -611,7 +612,7 @@ const CompanyMaster = props => {
                   </Row>
 
                   <Row>
-                    <Col md="6">
+                    {/* <Col md="6">
                       <FormGroup className="mb-3">
                         <Label htmlFor="validationCustom17">
                           ASSET PREFIX<font color="red">*</font>
@@ -636,9 +637,9 @@ const CompanyMaster = props => {
                           </FormFeedback>
                         ) : null}
                       </FormGroup>
-                    </Col>
+                    </Col> */}
 
-                    <Col md="6">
+                    <Col md="12">
                       <FormGroup className="mb-3">
                         <Label htmlFor="validationCustom18">
                           COMPANY LOGO<font color="red">*</font>
@@ -702,7 +703,7 @@ const CompanyMaster = props => {
                           marginRight: "30px",
                         }}
                       >
-                        CREATE
+                        UPDATE
                       </Button>
                       <button
                         type="button"

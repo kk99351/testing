@@ -24,13 +24,15 @@ const CompanyGroupCreate = () => {
     enableReinitialize: true,
 
     initialValues: {
-      companyGroup: "",
+      company_group: "",
       companyGroupCode: "",
+      entity:"",
     },
 
     validationSchema: Yup.object({
-      companyGroup: Yup.string().required("Company Group is Required"),
-      companyGroupCode: Yup.string().required("Company Group Code is Required"),
+      company_group: Yup.string().required("COUNTRY NAME IS REQUIRED"),
+      companyGroupCode: Yup.string().required("COUNTRY CODE IS REQUIRED"),
+      entity: Yup.string().required("ENTITY NAME IS REQUIRED"),
     }),
     onSubmit: async values => {
       // console.log(values)
@@ -48,10 +50,10 @@ const CompanyGroupCreate = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                COMPANY GROUP/COUNTRY DETAILS
+                CREATE COUNTRY
               </h1>
             </CardHeader>
 
@@ -65,25 +67,66 @@ const CompanyGroupCreate = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="validationCustom01">
-                            COMPANY GROUP/COUNTRY <font color="red">*</font>
+                          <Label htmlFor="entity">
+                            ENTITY NAME <font color="red">*</font>
                           </Label>
                           <Input
-                            name="companyGroup"
-                            type="text"
+                            type="select"
+                            name="entity"
+                            id="entity"
                             className="form-control"
-                            id="validationCustom01"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.companyGroup &&
-                              validation.errors.companyGroup
+                              validation.touched.entity &&
+                              validation.errors.entity
                             }
-                          />
-                          {validation.touched.companyGroup &&
-                          validation.errors.companyGroup ? (
+                          >
+                            <option value="">SELECT ENTITY NAME</option>
+                            <option value="US">RA Lmt</option>
+                            <option value="UK">PR Enterprises</option>
+                            <option value="CA">CA  Corporation</option>
+                          </Input>
+                          {validation.touched.entity &&
+                          validation.errors.entity ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.companyGroup}
+                              {validation.errors.entity}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="company_group">
+                            COUNTRY NAME<font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            name="company_group"
+                            id="company_group"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.company_group &&
+                              validation.errors.company_group
+                            }
+                          >
+                            <option value="">SELECT COUNTRY</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">
+                              United Kingdom
+                            </option>
+                            <option value="Canada">Canada</option>
+                            <option value="Australia">Australia</option>
+                          </Input>
+                          {validation.touched.company_group &&
+                          validation.errors.company_group ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.company_group}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
@@ -93,21 +136,27 @@ const CompanyGroupCreate = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="validationCustom02">
-                            COMPANY GROUP/COUNTRY CODE<font color="red">*</font>
+                          <Label htmlFor="companyGroupCode">
+                            COUNTRY CODE <font color="red">*</font>
                           </Label>
                           <Input
+                            type="select"
                             name="companyGroupCode"
-                            type="text"
+                            id="companyGroupCode"
                             className="form-control"
-                            id="validationCustom02"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.companyGroupCode &&
                               validation.errors.companyGroupCode
                             }
-                          />
+                          >
+                            <option value="">SELECT COUNTRY CODE</option>
+                            <option value="US">US</option>
+                            <option value="UK">UK</option>
+                            <option value="CA">CA</option>
+                            <option value="AU">AU</option>
+                          </Input>
                           {validation.touched.companyGroupCode &&
                           validation.errors.companyGroupCode ? (
                             <FormFeedback type="invalid">
@@ -132,34 +181,34 @@ const CompanyGroupCreate = () => {
                           justifyContent: "space-around",
                         }}
                       >
-                      <Button
-                        type="submit"
-                        color="success-subtle"
-                        className="btn btn-success-subtle border border-success"
-                        style={{
-                          paddingTop: "10px",
-                          height: "45px",
-                          width: "80px",
-                          marginRight: "30px",
-                        }}
-                      >
-                        CREATE
-                      </Button>
-                      <button
-                        type="button"
-                        className="btn btn-secondary-subtle border border-secondary"
-                        onClick={() => {
-                          navigate("/company_group");
-                        }}
-                        style={{
-                          paddingTop: "10px",
-                          width: "80px",
-                          height: "45px",
-                        }}
-                      >
-                        <Label>BACK</Label>
-                      </button>
-                    </div>
+                        <Button
+                          type="submit"
+                          color="success-subtle"
+                          className="btn btn-success-subtle border border-success"
+                          style={{
+                            paddingTop: "10px",
+                            height: "45px",
+                            width: "80px",
+                            marginRight: "30px",
+                          }}
+                        >
+                          CREATE
+                        </Button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary-subtle border border-secondary"
+                          onClick={() => {
+                            navigate("/company_group");
+                          }}
+                          style={{
+                            paddingTop: "10px",
+                            width: "80px",
+                            height: "45px",
+                          }}
+                        >
+                          <Label>BACK</Label>
+                        </button>
+                      </div>
                     </div>
                   </Form>
                 </Col>

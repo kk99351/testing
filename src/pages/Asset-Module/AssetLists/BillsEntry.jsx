@@ -11,7 +11,7 @@ import {
   Container,
   Table,
 } from "reactstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   useTable,
   useGlobalFilter,
@@ -20,37 +20,36 @@ import {
 } from "react-table";
 
 const BillsEntry = () => {
-  const [responseData, setResponseData] = useState([
+  const initialData = [
     {
-      id: 1,
       bill_no: "B001",
       dt_bill: "2024-03-10",
-      nm_ven: "Vendor A",
+      nm_ven: "CA Suppliers",
     },
     {
-      id: 2,
       bill_no: "B002",
       dt_bill: "2024-03-11",
-      nm_ven: "Vendor B",
+      nm_ven: "RA Enterprises",
     },
     {
       id: 3,
       bill_no: "B003",
       dt_bill: "2024-03-12",
-      nm_ven: "Vendor C",
+      nm_ven: "HCL Traders",
     },
-  ]);
+  ];
+
+  const [responseData, setResponseData] = useState(initialData);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [searchValue, setSearchValue] = useState("");
-  const navigate = useNavigate();
 
   const columns = useMemo(
     () => [
       {
         Header: "SL NO",
         accessor: "slno",
-        width:"6%",
+        width: "6%",
       },
       {
         Header: "BILL NUMBER",
@@ -67,6 +66,7 @@ const BillsEntry = () => {
     ],
     []
   );
+
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
@@ -109,10 +109,17 @@ const BillsEntry = () => {
 
   const handleSearch = () => {
     // Filter data based on the selected date range
-    const filteredData = responseData.filter(item => {
+    const filteredData = initialData.filter(item => {
       return item.dt_bill >= startDate && item.dt_bill <= endDate;
     });
     setResponseData(filteredData);
+  };
+
+  const clearSearch = () => {
+    setResponseData(initialData);
+    setStartDate("");
+    setEndDate("");
+    setSearchValue("");
   };
 
   const handleInputChange = e => {
@@ -129,7 +136,6 @@ const BillsEntry = () => {
             </h1>
           </CardHeader>
           <CardBody>
-        
             <Row className="mb-2">
               <Col md={5}>
                 <Label for="startDate">
@@ -163,7 +169,15 @@ const BillsEntry = () => {
                   color="primary"
                   onClick={handleSearch}
                 >
-                 SEARCH
+                  SEARCH
+                </Button>
+                <Button
+                  className="btn btn-secondary-subtle border border-secondary"
+                  color="danger"
+                  onClick={clearSearch}
+                  style={{width:"85px", marginLeft:"5px"}}
+                >
+                  CLEAR
                 </Button>
               </Col>
             </Row>
@@ -177,9 +191,14 @@ const BillsEntry = () => {
                       {...headerGroup.getHeaderGroupProps()}
                     >
                       {headerGroup.headers.map(column => (
-                       <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
-
-                       <div className="d-flex justify-content-center">
+                        <th
+                          key={column.id}
+                          {...column.getHeaderProps(
+                            column.getSortByToggleProps()
+                          )}
+                          style={{ width: column.width }}
+                        >
+                          <div className="d-flex justify-content-center">
                             <span className="font-weight-bold">
                               {column.render("Header")}
                             </span>
@@ -223,7 +242,7 @@ const BillsEntry = () => {
                         style={{ textAlign: "center" }}
                       >
                         {" "}
-                       NO SEARCH RESULTS AVAILABLE
+                        NO SEARCH RESULTS AVAILABLE
                       </td>
                     </tr>
                   )}
@@ -271,7 +290,6 @@ const BillsEntry = () => {
                 </div>
               </div>
             </div>
-          
           </CardBody>
         </Card>
       </div>

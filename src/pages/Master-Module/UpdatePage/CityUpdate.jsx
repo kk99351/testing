@@ -23,16 +23,19 @@ const CityUpdate = () => {
     enableReinitialize: true,
 
     initialValues: {
-      companygroup: "",
-      region: "",
+      company_group: "",
+      region_name: "",
       cityname: "",
+      entity:"",
     },
 
     validationSchema: Yup.object({
-      companygroup: Yup.string().required("company group is Required"),
-      region: Yup.string().required("State Name is Required"),
-      cityname: Yup.string().required("City Name is Required"),
-    }),
+      company_group: Yup.string().required("COUNTRY NAME IS REQUIRED"),
+      region_name: Yup.string().required("STATE NAME IS REQUIRED"),
+      entity: Yup.string().required("ENTITY NAME IS REQUIRED"),
+
+      cityname: Yup.string().required("CITY NAME IS REQUIRED"),
+     }),
     onSubmit: values => {
       alert("form validated !");
       //console.log("values", values);
@@ -56,84 +59,122 @@ const CityUpdate = () => {
               <Form
                 className="needs-validation"
                 onSubmit={validation.handleSubmit}
-              >
+              >  <Row className="mb-2">
+              <Col md={12}>
+                <FormGroup className="mb-3">
+                  <Label htmlFor="entity">
+                    ENTITY NAME <font color="red">*</font>
+                  </Label>
+                  <Input
+                    type="select"
+                    name="entity"
+                    id="entity"
+                    className="form-control"
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    invalid={
+                      validation.touched.entity &&
+                      validation.errors.entity
+                    }
+                  >
+                    <option value="">SELECT ENTITY NAME</option>
+                    <option value="US">RA Lmt</option>
+                    <option value="UK">PR Enterprises</option>
+                    <option value="CA">CA  Corporation</option>
+                  </Input>
+                  {validation.touched.entity &&
+                  validation.errors.entity ? (
+                    <FormFeedback type="invalid">
+                      {validation.errors.entity}
+                    </FormFeedback>
+                  ) : null}
+                </FormGroup>
+              </Col>
+            </Row>
+
                 <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="companygroup">
-                            COMPANY GROUP/COUNTRY <font color="red">*</font>
+                          <Label htmlFor="company_group">
+                            COUNTRY NAME<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="companygroup"
-                            id="companygroup"
+                            name="company_group"
+                            id="company_group"
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.companygroup &&
-                              validation.errors.companygroup
+                              validation.touched.company_group &&
+                              validation.errors.company_group
                             }
                           >
-                            <option value="">
-                              Select Company Group/Country
+                            <option value="">SELECT COUNTRY</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">
+                              United Kingdom
                             </option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Australia">Australia</option>
                           </Input>
-                          {validation.touched.companygroup &&
-                          validation.errors.companygroup ? (
+                          {validation.touched.company_group &&
+                          validation.errors.company_group ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.companygroup}
+                              {validation.errors.company_group}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
-                        </Col>
+                      </Col>
+
                       <hr className="mb-2" />
-                    </Row>     
+                    </Row>
+
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="region">
-                          STATE NAME <font color="red">*</font>
+                          <Label htmlFor="region_name">
+                            STATE NAME<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="region"
-                            id="region"
+                            name="region_name"
+                            id="region_name"
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.region &&
-                              validation.errors.region
+                              validation.touched.region_name &&
+                              validation.errors.region_name
                             }
                           >
-                            <option value="">
-                              Select Region
-                            </option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="">SELECT STATE</option>
+                            <option value="CA">California</option>
+                            <option value="NY">New York</option>
+                            <option value="ENG">England</option>
+                            <option value="ON">Ontario</option>
+                            <option value="NSW">New South Wales</option>
                           </Input>
-                          {validation.touched.region &&
-                          validation.errors.region ? (
+                          {validation.touched.region_name &&
+                          validation.errors.region_name ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.region}
+                              {validation.errors.region_name}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
-                        </Col>
+                      </Col>
                       <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="cityname">
-                           CITY NAME<font color="red">*</font>
+                            CITY NAME<font color="red">*</font>
                           </Label>
                           <Input
                             name="cityname"
                             type="text"
+                            placeholder="PLEASE ENTER CITY NAME"
                             className="form-control"
                             id="cityname"
                             onChange={validation.handleChange}
@@ -152,7 +193,7 @@ const CityUpdate = () => {
                         </FormGroup>
                       </Col>
                     </Row>
-
+                    <hr className="mb-2" />
 
             
 

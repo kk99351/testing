@@ -14,6 +14,8 @@ import { withTranslation } from "react-i18next";
 
 const Navbar = (props: any) => {
   const path = useLocation();
+  const [report, setreport] = useState<boolean>(false);
+  const [transferreport, settransferreport] = useState<boolean>(false);
 
   const [pricing, setpricing] = useState<boolean>(false);
   const [app, setapp] = useState<boolean>(false);
@@ -34,11 +36,14 @@ const Navbar = (props: any) => {
   const [authbasic, setauthbasic] = useState<boolean>(false);
   const [authcover, setauthcover] = useState<boolean>(false);
   const [error, seterror] = useState<boolean>(false);
+  const [dep, setdep] = useState<boolean>(false);
+  const [depreciation, setdepreciation] = useState<boolean>(false);
   const [error1, seterror1] = useState<boolean>(false);
   const [error2, seterror2] = useState<boolean>(false);
   const [utility, setutility] = useState<boolean>(false);
   const [project, setproject] = useState<boolean>(false);
   const [dashoboard, setdashoboard] = useState<boolean>(false);
+  const [config, setconfig] = useState<boolean>(false);
   const [elements, setelements] = useState<boolean>(false);
   const [intra, setintra] = useState<boolean>(false);
   const [inter, setinter] = useState<boolean>(false);
@@ -169,11 +174,17 @@ const Navbar = (props: any) => {
                               show: geograficalArea,
                             })}
                           >
+                             <Link
+                              to="/entity"
+                              className="dropdown-item "
+                            >
+                              {props.t("Entity")}
+                            </Link>
                             <Link
                               to="/company_group"
                               className="dropdown-item "
                             >
-                              {props.t("Company Group")}
+                              {props.t("Country")}
                             </Link>
                             <Link to="/region" className="dropdown-item ">
                               {props.t("State")}
@@ -322,16 +333,16 @@ const Navbar = (props: any) => {
                         })}
                       >
                         <Link to="/create_catogries" className="dropdown-item ">
-                          {props.t("Create-Material")}
+                          {props.t("Material-Group")}
                         </Link>
                         <Link
                           to="/create_subcatogries"
                           className="dropdown-item "
                         >
-                          {props.t("Create-Sub-Material")}
+                          {props.t("Material-Sub-Group")}
                         </Link>
                         <Link to="/create_items" className="dropdown-item ">
-                          {props.t("Create-Items")}
+                          {props.t("Material")}
                         </Link>
                         <Link to="/unit" className="dropdown-item ">
                           {props.t("Uom-Master")}
@@ -577,6 +588,185 @@ const Navbar = (props: any) => {
                     </div>
                   </div>
                 </li>
+                {/* ANALYTICS/REPORTS*/}
+
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle arrow-none"
+                    to="/#"
+                    onClick={e => {
+                      e.preventDefault();
+                      setreport(!report);
+                    }}
+                  >
+                    <Icon name="folder-plus" />{" "}
+                    <span>{props.t("ANALYTICS / REPORTS")}</span>
+                    <div className="arrow-down"></div>
+                  </Link>
+
+                  <div className={classname("dropdown-menu")}>
+                    <Link to="/master_report" className="dropdown-item">
+                      {props.t("Master Report")}
+                    </Link>
+                    <Link to="/asset_status_report" className="dropdown-item">
+                      {props.t("Asset Status Report")}
+                    </Link>
+                    <Link to="/employee_wise_report" className="dropdown-item">
+                      {props.t("Employee Wise Report")}
+                    </Link>
+                    <Link to="/client_wise_report" className="dropdown-item">
+                      {props.t("Client Wise Report")}
+                    </Link>
+                    <div className="dropdown">
+                      <Link
+                        to="/#"
+                        className="dropdown-item dropdown-toggle arrow-none"
+                        onClick={e => {
+                          e.preventDefault();
+                          settransferreport(!transferreport);
+                        }}
+                      >
+                        {props.t("Transfer Report")}{" "}
+                        <div className="arrow-down"></div>
+                      </Link>
+                      <div
+                        className={classname("dropdown-menu", {
+                          show: transferreport,
+                        })}
+                      >
+                        <Link to="/transfer_request_report" className="dropdown-item">
+                          {props.t("Transfer Request Report")}
+                        </Link>
+                        <Link to="/transfer_approval_report" className="dropdown-item">
+                          {props.t("Transfer Approval Report")}
+                        </Link>
+                        <Link to="/transfer_report" className="dropdown-item">
+                          {props.t("Transfer Report")}
+                        </Link>
+                        <Link to="/transfer_recieve_report" className="dropdown-item">
+                          {props.t("Transfer Recieve Report")}
+                        </Link>
+                      </div>
+                    </div>
+
+                    <Link to="/accessory_history_report" className="dropdown-item">
+                      {props.t("Accessory/Software History Report")}
+                    </Link>
+                    <Link to="/asset_history_report" className="dropdown-item">
+                      {props.t("Asset History Report")}
+                    </Link>
+                    <Link to="/amc_warrenty_report" className="dropdown-item">
+                      {props.t("AMC/Warrenty")}
+                    </Link>
+                    <Link to="/lease_report" className="dropdown-item">
+                      {props.t("Lease Report")}
+                    </Link>
+                  </div>
+                </li>
+                {/* DEPRECIATION MASTER */}
+
+
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle arrow-none"
+                    to="/#"
+                    onClick={e => {
+                      e.preventDefault();
+                      setdepreciation(!depreciation);
+                    }}
+                  >
+                    <Icon name="layout" />{" "}
+                    <span>{props.t("DEPRECIATION")}</span>
+                    <div className="arrow-down"></div>
+                  </Link>
+
+                  <div className={classname("dropdown-menu")}>
+                    <Link to="/depreciation_master" className="dropdown-item">
+                      {props.t("Depreciation Master")}
+                    </Link>
+                    
+                    <div className="dropdown">
+                      <Link
+                        to="/#"
+                        className="dropdown-item dropdown-toggle arrow-none"
+                        onClick={e => {
+                          e.preventDefault();
+                          setdep(!dep);
+                        }}
+                      >
+                        {props.t("Depreciation")}{" "}
+                        <div className="arrow-down"></div>
+                      </Link>
+                      <div
+                        className={classname("dropdown-menu", {
+                          show: dep,
+                        })}
+                      >
+                        <Link to="/yearly_depreciation" className="dropdown-item">
+                          {props.t("Yearly-Depreciation")}
+                        </Link>
+                        <Link to="/monthly_depreciation" className="dropdown-item">
+                          {props.t("Monthly-Depreciation")}
+                        </Link>
+                       
+                      </div>
+                    </div>
+                    <div className="dropdown">
+                      <Link
+                        to="/#"
+                        className="dropdown-item dropdown-toggle arrow-none"
+                        onClick={e => {
+                          e.preventDefault();
+                          setconfig(!config);
+                        }}
+                      >
+                        {props.t("Depreciation Config")}{" "}
+                        <div className="arrow-down"></div>
+                      </Link>
+                      <div
+                        className={classname("dropdown-menu", {
+                          show: config,
+                        })}
+                      >
+                        <Link to="/ca_yearly" className="dropdown-item">
+                          {props.t("CA-Yearly")}
+                        </Link>
+                        <Link to="/it_act" className="dropdown-item">
+                          {props.t("IT-Act")}
+                        </Link>
+                       
+                      </div>
+                    </div>
+                    <Link to="/addition_Deletion" className="dropdown-item">
+                      {props.t("Addition/Deletion")}
+                    </Link>
+                    
+                  </div>
+                </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -33,7 +33,7 @@ const AssetMaintainancenext = () => {
     },
     validationSchema: Yup.object({
       assetId: Yup.string().required("ASSET ID IS REQUIRED"),
-      assetName: Yup.string().required("MAINTAINANCE DATE IS REQUIRED"),
+      assetName: Yup.string().required(" ASSET NAME IS REQUIRED"),
       ammount: Yup.string().required("AMMOUNT MAINTAINANCE IS REQUIRED"),
       remarkss: Yup.string().required("MAINTAINANCE REMARKS IS REQUIRED"),
     }),
@@ -57,10 +57,10 @@ const AssetMaintainancenext = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-3">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                ASSET MAINTENANCE DETAILS
+              ASSET FOR MAINTENANCE 
               </h1>
             </CardHeader>
 
@@ -77,7 +77,7 @@ const AssetMaintainancenext = () => {
                           <Label htmlFor="assetId">ASSET ID<font color="red">*</font></Label>
                           <Input
                             name="assetId"
-                            placeholder="ENTER ASSET ID"
+                            placeholder="PLEASE ENTER ASSET ID"
                             type="text"
                             className="form-control"
                             id="assetId"
@@ -105,7 +105,7 @@ const AssetMaintainancenext = () => {
                           <Input
                             name="assetName"
                             type="text"
-                            placeholder="ENTER ASSET NAME"
+                            placeholder=" PLEASE ENTER ASSET NAME"
                             className="form-control"
                             id="assetName"
                             onChange={validation.handleChange}
@@ -133,7 +133,7 @@ const AssetMaintainancenext = () => {
                           <Input
                             name="AssetDiscription"
                             type="text"
-                            placeholder="ENTER ASSET DESCRIPTION"
+                            placeholder="PLEASE ENTER ASSET DESCRIPTION"
                             className="form-control"
                             id="AssetDiscription"
                             onChange={validation.handleChange}
@@ -156,12 +156,12 @@ const AssetMaintainancenext = () => {
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="Maintainancedate">
-                            MAINTENANCE DATE
+                          MAINTENANCE DATE
                           </Label>
                           <Input
                             name="Maintainancedate"
                             type="date"
-                            placeholder="ENTER MAINTENANCE DATE"
+                            placeholder="PLEASE ENTER MAINTENANCE DATE"
                             className="form-control"
                             id="Maintainancedate"
                             onChange={validation.handleChange}
@@ -189,7 +189,7 @@ const AssetMaintainancenext = () => {
                           </Label>
                           <Input
                             name="ammount"
-                            placeholder="ENTER AMOUNT MAINTENANCE"
+                            placeholder="PLEASE ENTER AMOUNT MAINTENANCE"
                             type="text"
                             className="form-control"
                             id="ammount"
@@ -213,12 +213,12 @@ const AssetMaintainancenext = () => {
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="remarkss">
-                            MAINTENANCE REMARKS<font color="red">*</font>
+                          MAINTENANCE REMARKS<font color="red">*</font>
                           </Label>
                           <Input
                             name="remarkss"
                             type="text"
-                            placeholder="ENTER  MAINTENANCE REMARKS"
+                            placeholder="PLEASE ENTER  MAINTENANCE REMARKS"
                             className="form-control"
                             id="remarkss"
                             onChange={validation.handleChange}

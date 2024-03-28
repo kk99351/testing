@@ -91,7 +91,7 @@ const FormDetails = () => {
                     <MailConfiguration fun={t_col3}/>
                   </Collapse>
                 </div>
-                <div className="accordion-item">
+                {/* <div className="accordion-item">
                   <h2 className="accordion-header" id="gen-ques-headingThree">
                     <button
                       className={classnames("accordion-button", {
@@ -107,7 +107,7 @@ const FormDetails = () => {
                   <Collapse isOpen={col3} className="accordion-collapse">
                     <HelpMailDesk />
                   </Collapse>
-                </div>
+                </div> */}
               </div>
             </CardBody>
           </Card>

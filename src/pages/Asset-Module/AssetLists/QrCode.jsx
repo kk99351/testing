@@ -604,10 +604,10 @@ const QrCode = () => {
       invoiceNo: "",
     },
     validationSchema: Yup.object({
-      cat: Yup.string().required("Material is required"),
-      subCat: Yup.string().required("Sub-Material is required"),
-      poNo: Yup.string().required("PO.Number is required"),
-      invoiceNo: Yup.string().required("Invoice Number is required"),
+      cat: Yup.string().required("MATERIAL-GROUP  IS REQUIRED"),
+      subCat: Yup.string().required("SUB-MATERIALIS REQUIRED"),
+      poNo: Yup.string().required("PO.NUMBER IS REQUIRED"),
+      invoiceNo: Yup.string().required("INVOICE NUMBER IS REQUIRED"),
     }),
 
     onSubmit: async values => {
@@ -691,7 +691,7 @@ const QrCode = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                QR CODE DETAILS
+              CREATE QR-CODE 
               </h1>
             </CardHeader>
 
@@ -719,8 +719,10 @@ const QrCode = () => {
                             }
                           >
                             <option value="">SELECT MATERIAL GROUP</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="clothing">Clothing</option>
+                            <option value="automobile">Automobile</option>
+                            <option value="cosmetics">Cosmetics</option>
                           </Input>
                           {validation.touched.cat && validation.errors.cat ? (
                             <FormFeedback type="invalid">
@@ -747,8 +749,11 @@ const QrCode = () => {
                             }
                           >
                             <option value="">SELECT MATERIAL SUB GROUP</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="electronics">
+                              Consumer Electronics
+                            </option>
+                            <option value="apparel">Apparel & Clothing</option>
+                            <option value="automotive">Automotive Parts</option>
                           </Input>
                           {validation.touched.subCat &&
                           validation.errors.subCat ? (
@@ -776,8 +781,9 @@ const QrCode = () => {
                             }
                           >
                             <option value="">SELECT PO.NUMBER</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="PO123456">PO123456</option>
+                            <option value="PO789012">PO789012</option>
+                            <option value="PO345678">PO345678</option>
                           </Input>
                           {validation.touched.poNo && validation.errors.poNo ? (
                             <FormFeedback type="invalid">
@@ -804,8 +810,9 @@ const QrCode = () => {
                             }
                           >
                             <option value="">SELECT INVOICE NUMBER</option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="INV2024001">INV2024001</option>
+                            <option value="INV2024002">INV2024002</option>
+                            <option value="INV2024003">INV2024003</option>
                           </Input>
                           {validation.touched.invoiceNo &&
                           validation.errors.invoiceNo ? (
@@ -879,7 +886,7 @@ const QrCode = () => {
                                     id="search-bar-0"
                                     type="text"
                                     className="form-control"
-                                    placeholder="Search..."
+                                    placeholder="SEARCH..."
                                     value={searchValue}
                                     onChange={handleInputChange}
                                   />

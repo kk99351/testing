@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Button, Card, Input } from "reactstrap";
+import { Button, CardBody, CardHeader, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -12,39 +12,28 @@ import { useGet } from "src/API/useGet";
 const CreatVendor = () => {
   const demoData = [
     {
-      nm_ven: "Group A",
-      cd_ven: "udedv",
-      mailid: "gmail.com",
-      nm_contact: "987875565",
-      status: "active",
+      slno: 1,
+      nm_ven: "CA Supplies",
+      cd_ven: "ABC001",
+      mailid: "abc@example.com",
+      nm_contact: "John Smith",
+      status: "123-456-7890",
     },
     {
-      nm_ven: "group d",
-      cd_ven: "udedv",
-      mailid: "gmail.com",
-      nm_contact: "987875565",
-      status: "active",
+      slno: 2,
+      nm_ven: "HCL Corp",
+      cd_ven: "XYZ002",
+      mailid: "xyz@example.com",
+      nm_contact: "Emily Johnson",
+      status: "987-654-3210",
     },
     {
-      nm_ven: "Group C",
-      cd_ven: "udedv",
-      mailid: "gmail.com",
-      nm_contact: "987875565",
-      status: "active",
-    },
-    {
-      nm_ven: "Group D",
-      cd_ven: "udedv",
-      mailid: "gmail.com",
-      nm_contact: "987875565",
-      status: "active",
-    },
-    {
-      nm_ven: "Group E",
-      cd_ven: "udedv",
-      mailid: "gmail.com",
-      nm_contact: "987875565",
-      status: "active",
+      slno: 3,
+      nm_ven: "Global Merchants",
+      cd_ven: "GM003",
+      mailid: "info@globalmerchants.com",
+      nm_contact: "Michael Brown",
+      status: "555-555-5555",
     },
   ];
   const [responseData, setResponseData] = useState(demoData);
@@ -60,12 +49,19 @@ const CreatVendor = () => {
   // useEffect(() => {
   //   setResponseData(data);
   // }, [data]);
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+    }));
+  }, [responseData]);
 
   const columns = useMemo(
     () => [
       {
         Header: "SL NO",
-        accessor: (row, index) => index + 1,
+        accessor: "slno",
+        width: "6%",
       },
       {
         Header: "SUPPLIER NAME",
@@ -84,13 +80,13 @@ const CreatVendor = () => {
         accessor: "nm_contact",
       },
       {
-        Header: "STATUS",
+        Header: "MOBILE NUMBER",
         accessor: "status",
       },
     ],
     []
   );
-    
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -108,7 +104,7 @@ const CreatVendor = () => {
   } = useTable(
     {
       columns,
-      data: responseData,
+      data: dataWithSlno,
       initialState: { pageSize: 10 },
     },
     useGlobalFilter,
@@ -127,18 +123,24 @@ const CreatVendor = () => {
           </Card>
         </div>
       ) : ( */}
-        <div className="page-content">
-          <div className="container-fluid">
-            <Card>
-              <div className="container pt-4">
+      <div className="page-content">
+        <div className="container-fluid">
+          <Card>
+            <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+                SUPPLIER DETAILS
+              </h1>
+            </CardHeader>
+            <CardBody>
+              <div className="container pt-0">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
-                    <select className="form-select">
-                      <option value="10">Show 10</option>
-                      <option value="20">Show 20</option>
-                      <option value="30">Show 30</option>
-                      <option value="40">Show 40</option>
-                      <option value="50">Show 50</option>
+                    <select className="form-select" style={{ width: "88PX" }}>
+                      <option value="10">SHOW 10</option>
+                      <option value="20">SHOW 20</option>
+                      <option value="30">SHOW 30</option>
+                      <option value="40">SHOW 40</option>
+                      <option value="50">SHOW 50</option>
                     </select>
                   </div>
 
@@ -153,7 +155,7 @@ const CreatVendor = () => {
                             id="search-bar-0"
                             type="text"
                             className="form-control"
-                            placeholder="search ..."
+                            placeholder="SEARCH ..."
                             value={globalFilter || ""}
                             onChange={e => setGlobalFilter(e.target.value)}
                           />
@@ -171,7 +173,7 @@ const CreatVendor = () => {
                         onClick={() => navigate("/create_vendormaster")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
-                        Create New
+                        CREATE NEW
                       </button>
                     </div>
                   </div>
@@ -179,7 +181,7 @@ const CreatVendor = () => {
               </div>
 
               <div className="table-responsive react-table">
-                <table className="table table-bordered table-hover">
+                <table className="table table-bordered table-hover text-center">
                   <thead className="table-light table-nowrap">
                     {headerGroups.map(headerGroup => (
                       <tr
@@ -192,8 +194,9 @@ const CreatVendor = () => {
                             {...column.getHeaderProps(
                               column.getSortByToggleProps()
                             )}
+                            style={{ width: column.width }}
                           >
-                            <div className="d-flex justify-content-between">
+                            <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
                               </span>
@@ -219,7 +222,9 @@ const CreatVendor = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/vendor_master/${row.original.id}`}>
+                                  <Link
+                                    to={`/vendor_master/${row.original.id}`}
+                                  >
                                     {cell.render("Cell")}
                                   </Link>
                                 ) : (
@@ -237,7 +242,7 @@ const CreatVendor = () => {
                           style={{ textAlign: "center" }}
                         >
                           {" "}
-                          No search results found.
+                          NO SEARCH RESULTS FOUND
                         </td>
                       </tr>
                     )}
@@ -286,9 +291,10 @@ const CreatVendor = () => {
                   </div>
                 </div>
               </div>
-            </Card>
-          </div>
+            </CardBody>
+          </Card>
         </div>
+      </div>
       {/* )} */}
     </React.Fragment>
   );

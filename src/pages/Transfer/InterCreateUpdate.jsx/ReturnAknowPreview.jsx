@@ -66,11 +66,10 @@ const ReturnAknowPreview = () => {
         accessor: "receiveDate",
         Cell: ({ row }) => (
           <input
-          className="form-control"
+            className="form-control"
             type="date"
             value={row.values.receiveDate}
             onChange={e => handleReceiveDateChange(e, row)}
-         
           />
         ),
       },
@@ -140,7 +139,7 @@ const ReturnAknowPreview = () => {
 
   const requiredFields = {
     state: "TRANSFER DATE",
-    city: "TRANSFER TYPE",
+    city: "TRANSFER RECIEVE DATE",
     location: "TRANSFER RETURN DATE",
   };
 
@@ -167,54 +166,28 @@ const ReturnAknowPreview = () => {
   const demoData = useMemo(
     () => [
       {
-        slno: 1,
-        fieldName: "Asset Name",
+        fieldName: "ASSET001",
         oldValue: "Laptop",
-        newValue: "Desktop",
+        newValue: "REQ001",
         editedBy: "John Doe",
-        editDate: "2024-03-01",
+        requestDate: "2024-03-25",
       },
       {
-        slno: 2,
-        fieldName: "Serial Number",
-        oldValue: "123456",
-        newValue: "654321",
-        editedBy: "Alice Smith",
-        editDate: "2024-03-02",
+        fieldName: "ASSET002",
+        oldValue: "Desktop",
+        newValue: "REQ002",
+        editedBy: "Jane Smith",
+        requestDate: "2024-03-26",
       },
       {
-        slno: 3,
-        fieldName: "Asset Status",
-        oldValue: "Active",
-        newValue: "Inactive",
-        editedBy: "Bob Johnson",
-        editDate: "2024-03-03",
-      },
-      {
-        slno: 4,
-        fieldName: "Asset Location",
-        oldValue: "Room A",
-        newValue: "Room B",
-        editedBy: "Emily Davis",
-        editDate: "2024-03-04",
-      },
-      {
-        slno: 5,
-        fieldName: "Asset Owner",
-        oldValue: "John Doe",
-        newValue: "Alice Smith",
-        editedBy: "John Doe",
-        editDate: "2024-03-05",
-      },
-      {
-        slno: 5,
-        fieldName: "Asset Owner",
-        oldValue: "John Doe",
-        newValue: "Alice Smith",
-        editedBy: "John Doe",
-        editDate: "2024-03-05",
+        fieldName: "ASSET003",
+        oldValue: "Printer",
+        newValue: "REQ003",
+        editedBy: "Robert Johnson",
+        requestDate: "2024-03-27",
       },
     ],
+
     []
   );
   const [responseData, setResponseData] = useState(demoData);
@@ -275,6 +248,7 @@ const ReturnAknowPreview = () => {
                       <Label for="transType">REQUEST NUMBER</Label>
                       <Input
                         type="text"
+                        placeholder="PLEASE ENTER REQUEST NUMBER"
                         name="transType"
                         id="transType"
                         value={formData.transType}
@@ -291,6 +265,7 @@ const ReturnAknowPreview = () => {
                       <Input
                         type="text"
                         name="ComGroup"
+                        placeholder="PLEASE ENTER TRANSFER TYPE"
                         id="ComGroup"
                         value={formData.ComGroup}
                         onChange={handleDropdownChange}
@@ -310,6 +285,7 @@ const ReturnAknowPreview = () => {
                         type="date"
                         name="state"
                         id="state"
+                        placeholder="PLEASE ENTER TRANSFER DATE"
                         value={formData.state}
                         onChange={handleDropdownChange}
                         invalid={!!errors.state}

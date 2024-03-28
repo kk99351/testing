@@ -15,88 +15,87 @@ import { useNavigate } from "react-router-dom";
 
 const AddCurrencyCreate = () => {
   const navigate = useNavigate();
-    const requiredFields = {
-      nmCurr: "Currency Name",
-      cdCurr: "Currency Symbol",
-    };
-    const initialFormData = {};
-const initialErrors = {};
-Object.keys(requiredFields).forEach(key => {
+  const requiredFields = {
+    nmCurr: "CURRENCY NAME",
+    cdCurr: "CURRENCY SYMBOL",
+  };
+  const initialFormData = {};
+  const initialErrors = {};
+  Object.keys(requiredFields).forEach(key => {
     initialFormData[key] = "";
     initialErrors[key] = "";
-});
+  });
 
+  const [formData, setFormData] = useState(initialFormData);
+  const [errors, setErrors] = useState(initialErrors);
 
-const [formData, setFormData] = useState(initialFormData);
-const [errors, setErrors] = useState(initialErrors);
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
 
-    const handleInputChange = e => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
+  const handleDropdownChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
+
+  const CreateHandle = async e => {
+    e.preventDefault();
+    let isValid = true;
+
+    Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
+      if (!formData[fieldName].trim()) {
         setErrors(prevErrors => ({
-            ...prevErrors,
-            [name]: "",
+          ...prevErrors,
+          [fieldName]: `${fieldLabel} IS REQUIRED`,
         }));
-    };
+        isValid = false;
+      }
+    });
 
-    const handleDropdownChange = e => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
-        setErrors(prevErrors => ({
-            ...prevErrors,
-            [name]: "",
-        }));
-    };
-
-    const CreateHandle = async e => {
-        e.preventDefault();
-        let isValid = true;
-
-        Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
-            if (!formData[fieldName].trim()) {
-                setErrors(prevErrors => ({
-                    ...prevErrors,
-                    [fieldName]: `${fieldLabel} is required`,
-                }));
-                isValid = false;
-            }
-        });
-
-        if (isValid) {
-            try {
-                // await axios.post(`http://localhost:3000/region/`, formData);
-                // navigate("/company_group");
-                console.log("Form submitted successfully");
-            } catch (error) {
-                console.log("error in creating group data" + error);
-            }
-        }
-    };
+    if (isValid) {
+      try {
+        // await axios.post(`http://localhost:3000/region/`, formData);
+        // navigate("/company_group");
+        console.log("Form submitted successfully");
+      } catch (error) {
+        console.log("error in creating group data" + error);
+      }
+    }
+  };
 
   return (
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-5">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CURRENCY DETAILS
+              CREATE CURRENCY
               </h1>
             </CardHeader>
             <CardBody>
               <Row className="justify-content-center">
                 <Col xl={10}>
                   <form className="needs-validation" noValidate>
-                  <Row className="mb-2">
-                    <Col md={12}>
+                    <Row className="mb-2">
+                      <Col md={12}>
                         <Label for="nmCurr">
-                        CURRENCY NAME<font color="red">*</font>
+                          CURRENCY NAME<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -107,20 +106,20 @@ const [errors, setErrors] = useState(initialErrors);
                           invalid={!!errors.nmCurr}
                         >
                           <option value="">SELECT CURRENCY NAME</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
+                          <option value="US Dollar">US Dollar</option>
+                          <option value="Euro">Euro</option>
+                          <option value="British Pound">British Pound</option>
+                          <option value="Indian Rupee">Indian Rupee</option>
                         </Input>
-                        <span className="text-danger">
-                          {errors.nmCurr}
-                        </span>
+                        <span className="invalid-feedback">{errors.nmCurr}</span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
 
                     <Row className="mb-2">
-                    <Col md={12}>
+                      <Col md={12}>
                         <Label for="cdCurr">
-                        CURRENCY SYMBOL<font color="red">*</font>
+                          CURRENCY SYMBOL<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -131,14 +130,14 @@ const [errors, setErrors] = useState(initialErrors);
                           invalid={!!errors.cdCurr}
                         >
                           <option value="">SELECT CURRENCY SYMBOL</option>
-                          <option value="group1">Group 1</option>
-                          <option value="group2">Group 2</option>
+                          <option value="USD">USD</option>
+                          <option value="EUR">EUR</option>
+                          <option value="GBP">GBP</option>
+                          <option value="INR">INR</option>
                         </Input>
-                        <span className="text-danger">
-                          {errors.cdCurr}
-                        </span>
+                        <span className="invalid-feedback">{errors.cdCurr}</span>
                       </Col>
-                      
+
                       <hr className="mb-0 mt-3" />
                     </Row>
                     <div

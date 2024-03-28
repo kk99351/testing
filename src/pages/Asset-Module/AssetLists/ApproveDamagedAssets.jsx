@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Container, CardHeader, Button, Card, Input } from "reactstrap";
+import { Container, CardBody,CardHeader, Button, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -12,50 +12,26 @@ import {
 const ApproveDamagedAssets = () => {
   const demoData = [
     {
-      slno: 1,
-      assetId: "A001",
-      modelNo: "SN001",
-      assetName: "Laptop",
-      serialNumber: "INV-001",
+      "slno": 1,
+      "assetId": "ASSET001",
+      "modelNo": "MN123",
+      "assetName": "Laptop",
+      "serialNumber": "SN12345"
     },
     {
-      slno: 2,
-      assetId: "A002",
-      modelNo: "SN002",
-      assetName: "Desktop",
-      serialNumber: "INV-002",
+      "slno": 2,
+      "assetId": "ASSET002",
+      "modelNo": "MN456",
+      "assetName": "Desktop",
+      "serialNumber": "SN67890"
     },
     {
-      slno: 3,
-      assetId: "A003",
-      modelNo: "SN003",
-      assetName: "Printer",
-      serialNumber: "INV-003",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      modelNo: "SN004",
-      assetName: "Monitor",
-
-      serialNumber: "INV-004",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      modelNo: "SN004",
-      assetName: "Monitor",
-
-      serialNumber: "INV-004",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      modelNo: "SN004",
-      assetName: "Monitor",
-
-      serialNumber: "INV-004",
-    },
+      "slno": 3,
+      "assetId": "ASSET003",
+      "modelNo": "MN789",
+      "assetName": "Printer",
+      "serialNumber": "SN24680"
+    }
   ];
 
   const [responseData, setResponseData] = useState(demoData);
@@ -151,7 +127,8 @@ const ApproveDamagedAssets = () => {
                 APPROVE DAMAGED ASSETS DETAILS
               </h1>
             </CardHeader>
-            <div className="container pt-4">
+            <CardBody>
+            <div className="container pt-0">
               <div className="rmb-2 row">
                 <div className="col-md-1">
                 <select className="form-select" style={{ width: "88PX" }}>
@@ -294,6 +271,7 @@ const ApproveDamagedAssets = () => {
                 </div>
               </div>
             </div>
+            </CardBody>
           </Card>
         </div>
       </Container>

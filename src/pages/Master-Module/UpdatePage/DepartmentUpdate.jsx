@@ -39,7 +39,7 @@ const DepartmentUpdate = () => {
     },
 
     validationSchema: Yup.object({
-      departmentname: Yup.string().required("department name is Required"),
+      departmentname: Yup.string().required("DEPARTMENT IS REQUIRED"),
       departmentcode: Yup.string().required("department code is Required"),
     }),
     onSubmit: values => {
@@ -92,6 +92,7 @@ const DepartmentUpdate = () => {
                           <Input
                             name="departmentname"
                             type="text"
+                            placeholder="PLEASE ENTER DEPARTMENT"
                             className="form-control"
                             value={validation.values.departmentname}
                             onChange={validation.handleChange}
@@ -165,7 +166,7 @@ const DepartmentUpdate = () => {
                             marginRight: "30px",
                           }}
                         >
-                          CREATE
+                          UPDATE
                         </Button>
                         <button
                           type="button"

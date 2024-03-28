@@ -43,7 +43,7 @@ const InterTarnsferReq = () => {
       department: "",
     },
     validationSchema: Yup.object({
-      companygroup: Yup.string().required("COMPANY GROUP/COUNTRY IS REQUIRED"),
+      companygroup: Yup.string().required("COUNTRY IS REQUIRED"),
       statename: Yup.string().required("STATE NAME IS REQUIRED"),
       cityname: Yup.string().required("CITY NAME IS REQUIRED"),
       plantname: Yup.string().required("LOCATION NAME IS REQUIRED"),
@@ -69,25 +69,25 @@ const InterTarnsferReq = () => {
       },
       {
         Header: "ASSET ID",
-        accessor: "fieldName",
+        accessor: "assetid",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "ASSET NAME",
-        accessor: "oldValue",
+        accessor: "assetname",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "SERIAL NUMBER",
-        accessor: "newValue",
+        accessor: "sn",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "ASSET DISCRIPTION",
-        accessor: "editedBy",
+        accessor: "assetdes",
         disableFilters: true,
         filterable: true,
       },
@@ -190,52 +190,22 @@ const InterTarnsferReq = () => {
   const demoData = useMemo(
     () => [
       {
-        slno: 1,
-        fieldName: "Asset Name",
-        oldValue: "Laptop",
-        newValue: "Desktop",
-        editedBy: "John Doe",
-        editDate: "2024-03-01",
+        assetid: "ASSET001",
+        assetname: "Laptop",
+        sn: "123456",
+        assetdes: "Good condition",
       },
       {
-        slno: 2,
-        fieldName: "Serial Number",
-        oldValue: "123456",
-        newValue: "654321",
-        editedBy: "Alice Smith",
-        editDate: "2024-03-02",
+        assetid: "ASSET002",
+        assetname: "Desktop",
+        sn: "789012",
+        assetdes: "Needs maintenance",
       },
       {
-        slno: 3,
-        fieldName: "Asset Status",
-        oldValue: "Active",
-        newValue: "Inactive",
-        editedBy: "Bob Johnson",
-        editDate: "2024-03-03",
-      },
-      {
-        slno: 4,
-        fieldName: "Asset Location",
-        oldValue: "Room A",
-        newValue: "Room B",
-        editedBy: "Emily Davis",
-        editDate: "2024-03-04",
-      },
-      {
-        slno: 5,
-        fieldName: "Asset Owner",
-        oldValue: "John Doe",
-        newValue: "Alice Smith",
-        editedBy: "John Doe",
-        editDate: "2024-03-05",
-      },
-      {
-        slno: 5,
-        fieldName: "Asset Owner",
-        oldValue: "John Doe",
-        newValue: "Alice Smith",
-        editedBy: "John Doe",
-        editDate: "2024-03-05",
+        assetid: "ASSET003",
+        assetname: "Printer",
+        sn: "345678",
+        assetdes: "Ink levels low",
       },
     ],
     []
@@ -322,7 +292,7 @@ const InterTarnsferReq = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                INTER TRANSFER REQUEST DETAILS
+                INTER TRANSFER REQUEST
               </h1>
             </CardHeader>
             <CardBody>
@@ -336,7 +306,7 @@ const InterTarnsferReq = () => {
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="companygroup">
-                            COMPANY GROUP/COUNTRY <font color="red">*</font>
+                            COUNTRY <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -350,11 +320,10 @@ const InterTarnsferReq = () => {
                               validation.errors.companygroup
                             }
                           >
-                            <option value="">
-                              SELECT COMPANY GROUP/COUNTRY
-                            </option>
-                            <option value="group1">Company Group 1</option>
-                            <option value="group2">Company Group 2</option>
+                            <option value="">SELECT COUNTRY</option>
+                            <option value="USA">United States</option>
+                            <option value="CAN">Canada</option>
+                            <option value="UK">United Kingdom</option>
                           </Input>
                           {validation.touched.companygroup &&
                           validation.errors.companygroup ? (
@@ -382,8 +351,10 @@ const InterTarnsferReq = () => {
                             }
                           >
                             <option value="">SELECT STATE NAME</option>
-                            <option value="state1">State 1</option>
-                            <option value="state2">State 2</option>
+                            <option value="Alabama">Alabama</option>
+                            <option value="Alaska">Alaska</option>
+                            <option value="Arizona">Arizona</option>
+                            <option value="Arkansas">Arkansas</option>
                           </Input>
                           {validation.touched.statename &&
                           validation.errors.statename ? (
@@ -411,8 +382,10 @@ const InterTarnsferReq = () => {
                             }
                           >
                             <option value="">SELECT CITY NAME</option>
-                            <option value="city1">City 1</option>
-                            <option value="city2">City 2</option>
+                            <option value="New York">New York</option>
+                            <option value="Los Angeles">Los Angeles</option>
+                            <option value="Chicago">Chicago</option>
+                            <option value="Houston">Houston</option>
                           </Input>
                           {validation.touched.cityname &&
                           validation.errors.cityname ? (
@@ -440,8 +413,10 @@ const InterTarnsferReq = () => {
                             }
                           >
                             <option value="">SELECT LOCATION NAME</option>
-                            <option value="location1">Location 1</option>
-                            <option value="location2">Location 2</option>
+                            <option value="NewYork">New York</option>
+                            <option value="LosAngeles">Los Angeles</option>
+                            <option value="Chicago">Chicago</option>
+                            <option value="Houston">Houston</option>
                           </Input>
                           {validation.touched.plantname &&
                           validation.errors.plantname ? (
@@ -469,8 +444,14 @@ const InterTarnsferReq = () => {
                             }
                           >
                             <option value="">SELECT BUILDING NAME</option>
-                            <option value="building1">Building 1</option>
-                            <option value="building2">Building 2</option>
+                            <option value="EmpireState">
+                              Empire State Building
+                            </option>
+                            <option value="Chrysler">Chrysler Building</option>
+                            <option value="Rockefeller">
+                              Rockefeller Center
+                            </option>
+                            <option value="Flatiron">Flatiron Building</option>
                           </Input>
                           {validation.touched.building &&
                           validation.errors.building ? (
@@ -498,8 +479,8 @@ const InterTarnsferReq = () => {
                             }
                           >
                             <option value="">SELECT FLOOR</option>
-                            <option value="building1">Building 1</option>
-                            <option value="building2">Building 2</option>
+                            <option value="building1">1st floor</option>
+                            <option value="building2"> 2nd floor</option>
                           </Input>
                           {validation.touched.floor &&
                           validation.errors.floor ? (
@@ -527,8 +508,12 @@ const InterTarnsferReq = () => {
                             }
                           >
                             <option value="">SELECT DEPARTMENT</option>
-                            <option value="building1">Building 1</option>
-                            <option value="building2">Building 2</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Human Resources">
+                              Human Resources
+                            </option>
+                            <option value="IT">IT</option>
                           </Input>
                           {validation.touched.building &&
                           validation.errors.department ? (
@@ -574,7 +559,7 @@ const InterTarnsferReq = () => {
             </CardBody>
           </Card>
         ) : (
-          <Card className="mt-4">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 INTER TRANSFER REQUEST DETAILS
@@ -597,9 +582,11 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.transType}
                         >
                           <option value="">SELECT TRANSFER TYPE</option>
-                          <option value="group1">GROUP 2</option>
-                          <option value="amgroup2c">GROUP 1</option>
-                          <option value="wargrpop3renty">GROUP 1</option>
+                          <option value="Internal">Internal Transfer</option>
+                          <option value="External">External Transfer</option>
+                          <option value="Departmental">
+                            Departmental Transfer
+                          </option>
                         </Input>
                         <span className="invalid-feedback">
                           {errors.transType}
@@ -616,9 +603,9 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.ComGroup}
                         >
                           <option value="">SELECT COMPANY GROUP/COUNTRY</option>
-                          <option value="group1">GROUP 2</option>
-                          <option value="amgroup2c">GROUP 1</option>
-                          <option value="wargrpop3renty">GROUP 1</option>
+                          <option value="USA">United States</option>
+                          <option value="CAN">Canada</option>
+                          <option value="UK">United Kingdom</option>
                         </Input>
                         <span className="invalid-feedback">
                           {errors.ComGroup}
@@ -637,9 +624,10 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.state}
                         >
                           <option value="">SELECT STATE</option>
-                          <option value="group1">GROUP 2</option>
-                          <option value="amgroup2c">GROUP 1</option>
-                          <option value="wargrpop3renty">GROUP 1</option>
+                          <option value="Alabama">Alabama</option>
+                          <option value="Alaska">Alaska</option>
+                          <option value="Arizona">Arizona</option>
+                          <option value="Arkansas">Arkansas</option>
                         </Input>
                         <span className="invalid-feedback">{errors.state}</span>
                       </Col>
@@ -654,9 +642,10 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.city}
                         >
                           <option value="">SELECT CITY</option>
-                          <option value="group1">GROUP 2</option>
-                          <option value="amgroup2c">GROUP 1</option>
-                          <option value="wargrpop3renty">GROUP 1</option>
+                          <option value="New York">New York</option>
+                          <option value="Los Angeles">Los Angeles</option>
+                          <option value="Chicago">Chicago</option>
+                          <option value="Houston">Houston</option>
                         </Input>
                         <span className="invalid-feedback">{errors.city}</span>
                       </Col>
@@ -673,9 +662,10 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.location}
                         >
                           <option value="">SELECT LOCATION</option>
-                          <option value="group1">GROUP 2</option>
-                          <option value="amgroup2c">GROUP 1</option>
-                          <option value="wargrpop3renty">GROUP 1</option>
+                          <option value="NewYork">New York</option>
+                          <option value="LosAngeles">Los Angeles</option>
+                          <option value="Chicago">Chicago</option>
+                          <option value="Houston">Houston</option>
                         </Input>
                         <span className="invalid-feedback">
                           {errors.location}
@@ -694,9 +684,14 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.building}
                         >
                           <option value="">SELECT BUILDING</option>
-                          <option value="group1">OUTRIGHT PURCHASE</option>
-                          <option value="group2">LOAN BASIC</option>
-                          <option value="group3">ADD-ON</option>
+                          <option value="EmpireState">
+                            Empire State Building
+                          </option>
+                          <option value="Chrysler">Chrysler Building</option>
+                          <option value="Rockefeller">
+                            Rockefeller Center
+                          </option>
+                          <option value="Flatiron">Flatiron Building</option>
                         </Input>
                         <span className="invalid-feedback">
                           {errors.building}
@@ -717,8 +712,8 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.floor}
                         >
                           <option value="">SELECT FLOOR</option>
-                          <option value="Notunderlease">NOT UNDER LEASE</option>
-                          <option value="underlease">UNDER LEASE</option>
+                          <option value="Notunderlease">1st floor</option>
+                          <option value="underlease">2nd floor</option>
                         </Input>
                         <span className="invalid-feedback">{errors.floor}</span>
                       </Col>
@@ -735,8 +730,12 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.department}
                         >
                           <option value="">SELECT DEPARTMENT</option>
-                          <option value="Notunderlease">NOT UNDER LEASE</option>
-                          <option value="underlease">UNDER LEASE</option>
+                          <option value="Marketing">Marketing</option>
+                          <option value="Finance">Finance</option>
+                          <option value="Human Resources">
+                            Human Resources
+                          </option>
+                          <option value="IT">IT</option>
                         </Input>
                         <span className="invalid-feedback">
                           {errors.department}
@@ -794,39 +793,45 @@ const InterTarnsferReq = () => {
 
               <Row className="justify-content-center">
                 <Col xl={10}>
-              <div className="container pt-0">
-                <div className="row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "84PX" }}>
-                      <option value="10">SHOW 10</option>
-                      <option value="20">SHOW 20</option>
-                      <option value="30">SHOW 30</option>
-                      <option value="40">SHOW 40</option>
-                      <option value="50">SHOW 50</option>
-                    </select>
-                  </div>
+                  <div className="container pt-0">
+                    <div className="row">
+                      <div className="col-md-1">
+                        <select
+                          className="form-select"
+                          style={{ width: "84PX" }}
+                        >
+                          <option value="10">SHOW 10</option>
+                          <option value="20">SHOW 20</option>
+                          <option value="30">SHOW 30</option>
+                          <option value="40">SHOW 40</option>
+                          <option value="50">SHOW 50</option>
+                        </select>
+                      </div>
 
-                  <div className="col-md-11 d-flex justify-content-end">
-                    <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
-                      <div className="position-relative">
-                        <label htmlFor="search-bar-0" className="search-label">
-                          <span id="search-bar-0-label" className="sr-only">
-                            Search this table
-                          </span>
-                          <input
-                            id="search-bar-0"
-                            type="text"
-                            className="form-control"
-                            placeholder="SEARCH...."
-                            value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
-                          />
-                          <i className="bx bx-search-alt search-icon"></i>
-                        </label>
+                      <div className="col-md-11 d-flex justify-content-end">
+                        <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+                          <div className="position-relative">
+                            <label
+                              htmlFor="search-bar-0"
+                              className="search-label"
+                            >
+                              <span id="search-bar-0-label" className="sr-only">
+                                Search this table
+                              </span>
+                              <input
+                                id="search-bar-0"
+                                type="text"
+                                className="form-control"
+                                placeholder="SEARCH...."
+                                value={globalFilter || ""}
+                                onChange={e => setGlobalFilter(e.target.value)}
+                              />
+                              <i className="bx bx-search-alt search-icon"></i>
+                            </label>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  </div>
                   </div>
 
                   <div className="table-responsive react-table">

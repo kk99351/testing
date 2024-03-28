@@ -12,64 +12,25 @@ import PropTypes from "prop-types"; // Import PropTypes
 const InterTransferApprovePreview = () => {
   const demoData = [
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      "slno": 1,
+      "assetId": "ASSET001",
+      "assetName": "Laptop",
+      "serialNumber": "SN12345",
+      "assetdes": "Good condition"
     },
     {
-      slno: 2,
-      assetId: "A002",
-      assetName: "Desktop",
-      serialNumber: "SN002",
-      invoiceNumber: "INV-002",
-      status: "Active",
-      allocateTo: "Jane Smith",
-      type: "Electronic",
+      "slno": 2,
+      "assetId": "ASSET002",
+      "assetName": "Desktop",
+      "serialNumber": "SN67890",
+      "assetdes": "Needs maintenance"
     },
     {
-      slno: 3,
-      assetId: "A003",
-      assetName: "Printer",
-      serialNumber: "SN003",
-      invoiceNumber: "INV-003",
-      status: "Inactive",
-      allocateTo: "Alice Johnson",
-      type: "Peripheral",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      invoiceNumber: "INV-004",
-      status: "Active",
-      allocateTo: "Bob Smith",
-      type: "Peripheral",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      invoiceNumber: "INV-004",
-      status: "Active",
-      allocateTo: "Bob Smith",
-      type: "Peripheral",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      invoiceNumber: "INV-004",
-      status: "Active",
-      allocateTo: "Bob Smith",
-      type: "Peripheral",
+      "slno": 3,
+      "assetId": "ASSET003",
+      "assetName": "Printer",
+      "serialNumber": "SN24680",
+      "assetdes": "Ink levels low"
     },
   ];
 
@@ -105,7 +66,7 @@ const InterTransferApprovePreview = () => {
       },
       {
         Header: "ASSET DISCRIPTION",
-        accessor: "invoiceNumber",
+        accessor: "assetdes",
         disableFilters: true,
         filterable: true,
       },
@@ -162,14 +123,14 @@ const InterTransferApprovePreview = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-4">
+          <Card className="mt-0">
           <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
               INTER  TRANSFER APPROVE DETAILS
               </h1>
             </CardHeader>
             <CardBody>
-            <div className="container pt-3">
+            <div className="container pt-0">
               <div className="rmb-2 row">
                 <div className="col-md-1">
                   <select className="form-select" style={{ width: "88PX" }}>

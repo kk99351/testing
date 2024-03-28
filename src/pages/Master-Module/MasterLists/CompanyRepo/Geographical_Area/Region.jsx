@@ -1,5 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Button,Container, Input, Card } from "reactstrap";
+import {
+  Button,
+  CardBody,
+  CardHeader,
+  Container,
+  Input,
+  Card,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -8,18 +15,43 @@ import {
   useGlobalFilter,
 } from "react-table";
 import { useGet } from "src/API/useGet";
- 
+
 const Region = () => {
   const demoData = [
-    { "company_group": "Group A", "slno": 1, "region_name": "California", "region_code": "CA" },
-  { "company_group": "Group B", "slno": 2, "region_name": "New York", "region_code": "NY" },
-  { "company_group": "Group C", "slno": 3, "region_name": "Texas", "region_code": "TX" },
-  { "company_group": "Group D", "slno": 4, "region_name": "Florida", "region_code": "FL" }
-
+    {
+      company_group: "United States",
+      region_name: "California",
+      entityName: "AR Corporation", 
+      region_code: "CA",
+    },
+    {
+      company_group: "United States",
+      region_name: "New York",
+      entityName: "AR Corporation", 
+      region_code: "NY",
+    },
+    {
+      company_group: "United Kingdom",
+      region_name: "England",
+      entityName: "AR Private Lmt", 
+      region_code: "ENG",
+    },
+    {
+      company_group: "United Kingdom",
+      region_name: "Scotland",
+      entityName: "AR Corporation", 
+      region_code: "SCO",
+    },
+    {
+      company_group: "Canada",
+      region_name: "Ontario",
+      entityName: "PR Limited",
+      region_code: "ON",
+    },
   ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
-  
+
   // const { getData, data, isLoading } = useGet();
   // useEffect(() => {
   //   fetch("http://localhost:3000/region")
@@ -27,24 +59,30 @@ const Region = () => {
   //     .then(data => setResponseData(data))
   //     .catch(error => console.error("Error fetching users:", error));
   // }, []);
- 
+
   const columns = useMemo(
     () => [
-     
       {
         Header: "SL NO",
         accessor: "slno",
+        width: "6%",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "COMPANY GROUP",
+        Header: "ENTITY",
+        accessor: "entityName",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "COUNTRY ",
         accessor: "company_group",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "STATE NAME",
+        Header: "STATE",
         accessor: "region_name",
         disableFilters: true,
         filterable: true,
@@ -55,7 +93,6 @@ const Region = () => {
         disableFilters: true,
         filterable: true,
       },
-      
     ],
     []
   );
@@ -90,10 +127,10 @@ const Region = () => {
     useSortBy,
     usePagination
   );
- 
+
   return (
     <React.Fragment>
-{/* 
+      {/* 
       {isLoading ? (
       //   <div className="page-content">
       //     <Card>
@@ -104,20 +141,27 @@ const Region = () => {
       //   </div>
       // ) : ( */}
       <Container fluid>
-      <div className="page-content">
-      <Card>
-              <div className="container pt-4">
+        <div className="page-content">
+          <Card>
+            <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+                STATE DETAILS
+              </h1>
+            </CardHeader>
+            <CardBody>
+              {" "}
+              <div className="container pt-0">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
-                    <select className="form-select">
-                      <option value="10">Show 10</option>
-                      <option value="20">Show 20</option>
-                      <option value="30">Show 30</option>
-                      <option value="40">Show 40</option>
-                      <option value="50">Show 50</option>
+                    <select className="form-select" style={{ width: "88PX" }}>
+                      <option value="10">SHOW 10</option>
+                      <option value="20">SHOW 20</option>
+                      <option value="30">SHOW 30</option>
+                      <option value="40">SHOW 40</option>
+                      <option value="50">SHOW 50</option>
                     </select>
                   </div>
- 
+
                   <div className="col-md-4">
                     <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
                       <div className="position-relative">
@@ -129,7 +173,7 @@ const Region = () => {
                             id="search-bar-0"
                             type="text"
                             className="form-control"
-                            placeholder="search ..."
+                            placeholder="SEARCH ..."
                             value={globalFilter || ""}
                             onChange={e => setGlobalFilter(e.target.value)}
                           />
@@ -138,7 +182,7 @@ const Region = () => {
                       </div>
                     </div>
                   </div>
- 
+
                   <div className="col-sm-7">
                     <div className="text-sm-end">
                       <button
@@ -147,85 +191,82 @@ const Region = () => {
                         onClick={() => navigate("/createregion")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
-                        Create New
+                        CREATE NEW{" "}
                       </button>
                     </div>
                   </div>
                 </div>
               </div>
- 
               <div className="table-responsive react-table">
-              <table className="table table-bordered table-hover">
-                <thead className="table-light table-nowrap">
-                  {headerGroups.map(headerGroup => (
-                    <tr
-                      key={headerGroup.id}
-                      {...headerGroup.getHeaderGroupProps()}
-                    >
-                      {headerGroup.headers.map(column => (
-                        <th
-                          key={column.id}
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                          style={
-                            column.id === "slno"
-                              ? { width: "6%" }
-                              : { backgroundColor: "" }
-                          }
-                        >
-                          <div className="d-flex justify-content-between">
-                            <span className="font-weight-bold">
-                              {column.render("Header")}
-                            </span>
-                            <span>
-                              {column.isSorted
-                                ? column.isSortedDesc
-                                  ? " 🔽"
-                                  : " 🔼"
-                                : ""}
-                            </span>
-                          </div>
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                  {page.length > 0 ? (
-                    page.map(row => {
-                      prepareRow(row);
-                      return (
-                        <tr key={row.id} {...row.getRowProps()}>
-                          {row.cells.map(cell => (
-                            <td key={cell.column.id} {...cell.getCellProps()}>
-                              {cell.column.id !== "SL NO" ? (
-                                <Link to={`/updatefloor/${row.original.id}`}>
-                                  {cell.render("Cell")}
-                                </Link>
-                              ) : (
-                                cell.render("Cell")
-                              )}
-                            </td>
-                          ))}
-                        </tr>
-                      );
-                    })
-                  ) : (
-                    <tr>
-                      <td
-                        colSpan={headerGroups[0].headers.length}
-                        style={{ textAlign: "center" }}
+                <table
+                  className="table table-bordered table-hover text-center"
+                  {...getTableProps()}
+                >
+                  <thead className="table-light table-nowrap">
+                    {headerGroups.map(headerGroup => (
+                      <tr
+                        key={headerGroup.id}
+                        {...headerGroup.getHeaderGroupProps()}
                       >
-                        {" "}
-                        No search results found.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
- 
+                        {headerGroup.headers.map(column => (
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
+                            <div className="d-flex justify-content-center">
+                              <span className="font-weight-bold">
+                                {column.render("Header")}
+                              </span>
+                              <span>
+                                {column.isSorted
+                                  ? column.isSortedDesc
+                                    ? " 🔽"
+                                    : " 🔼"
+                                  : ""}
+                              </span>
+                            </div>
+                          </th>
+                        ))}
+                      </tr>
+                    ))}
+                  </thead>
+                  <tbody {...getTableBodyProps()}>
+                    {page.length > 0 ? (
+                      page.map(row => {
+                        prepareRow(row);
+                        return (
+                          <tr key={row.id} {...row.getRowProps()}>
+                            {row.cells.map(cell => (
+                              <td key={cell.column.id} {...cell.getCellProps()}>
+                                {cell.column.id !== "SL NO" ? (
+                                  <Link to={`/region/${row.original.id}`}>
+                                    {cell.render("Cell")}
+                                  </Link>
+                                ) : (
+                                  cell.render("Cell")
+                                )}
+                              </td>
+                            ))}
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan={headerGroups[0].headers.length}
+                          style={{ textAlign: "center" }}
+                        >
+                          {" "}
+                          NO SEARCH RESULTS FOUND{" "}
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
               <div className="row">
                 <div className="col-sm-6">
                   <p className="ps-2">
@@ -267,12 +308,13 @@ const Region = () => {
                   </div>
                 </div>
               </div>
-            </Card>
-          </div>
-          </Container>
+            </CardBody>
+          </Card>
+        </div>
+      </Container>
       {/* // )} */}
     </React.Fragment>
   );
 };
- 
+
 export default Region;

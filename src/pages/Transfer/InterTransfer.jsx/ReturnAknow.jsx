@@ -16,54 +16,22 @@ const ReturnAknow = () => {
   };
   const demoData = [
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
+      assetId: "REQ001",
+      assetName: "2024-03-25",
       allocateTo: "John Doe",
-      type: "Electronic",
+      status: "Internal",
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      assetId: "REQ002",
+      assetName: "2024-03-26",
+      allocateTo: "Jane Smith",
+      status: "External",
     },
     {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
-    {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
-    },
-    {
-      slno: 1,
-      assetId: "A001",
-      assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      assetId: "REQ003",
+      assetName: "2024-03-27",
+      allocateTo: "Robert Johnson",
+      status: "Internal",
     },
   ];
 
@@ -157,7 +125,7 @@ const ReturnAknow = () => {
               </h1>
             </CardHeader>
             <CardBody>
-              <div className="container pt-3">
+              <div className="container pt-0">
                 <div className="rmb-2 row">
                   <div className="col-md-1">
                     <select className="form-select" style={{ width: "88PX" }}>

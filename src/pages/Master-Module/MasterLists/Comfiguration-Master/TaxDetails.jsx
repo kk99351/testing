@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Container,Button, Card, Input } from "reactstrap";
+import { Container,CardHeader,CardBody,Button, Card, Input } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -12,12 +12,25 @@ import {
 
 const TaxDetails = () => {
   const demoData = [
-    { nmTax1: "Group A",perTax1:"99.09%",nmTax2:"OPOPOP",perTax2:"98.98%" },
-    { nmTax1: "group d",perTax1:"99.09%",nmTax2:"OPOPOP",perTax2:"98.98%" },
-    { nmTax1: "Group C",perTax1:"99.09%",nmTax2:"OPOPOP",perTax2:"98.98%"},
-    { nmTax1: "Group D",perTax1:"99.09%",nmTax2:"OPOPOP",perTax2:"98.98%" },
-    { nmTax1: "Group E",perTax1:"99.09%",nmTax2:"OPOPOP",perTax2:"98.98%" },
-  ];
+    
+      {
+        "slno": 1,
+        "nmTax1": "Sales Tax",
+        "perTax1": "7%",
+        "nmTax2": "IGST"
+      },
+      {
+        "slno": 2,
+        "nmTax1": "VAT",
+        "perTax1": "20%",
+        "nmTax2": "SGST"
+      },
+      {
+        "slno": 3,
+        "nmTax1": "Income Tax",
+        "perTax1": "25%",
+        "nmTax2": "CGST"
+      } ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
   
@@ -38,31 +51,27 @@ const TaxDetails = () => {
       {
         Header: "SL NO",
         accessor: "slno",
+        width:"6%",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "TAX 1 NAME",
+        Header: "TAX NAME",
         accessor: "nmTax1",
         disableFilters: true,
         filterable: true,
       },{
-        Header: "TAX 1 PERCENTAGE",
+        Header: "RATE",
         accessor: "perTax1",
         disableFilters: true,
         filterable: true,
       },
       {
-        Header: "TAX 2 NAME",
+        Header: "TAX TYPE",
         accessor: "nmTax2",
         disableFilters: true,
         filterable: true,
-      },{
-        Header: "TAX 2 PERCENTAGE",
-        accessor: "perTax2",
-        disableFilters: true,
-        filterable: true,
-      }
+      },
     ],
     []
   );
@@ -117,15 +126,21 @@ const TaxDetails = () => {
     <Container fluid>
       <div className="page-content">
       <Card>
-        <div className="container pt-4">
-          <div className="rmb-2 row">
-            <div className="col-md-1">
-              <select className="form-select">
-                <option value="10">Show 10</option>
-                <option value="20">Show 20</option>
-                <option value="30">Show 30</option>
-                <option value="40">Show 40</option>
-                <option value="50">Show 50</option>
+            <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+              TAX CONFIGURATION DETAILS
+              </h1>
+            </CardHeader>
+            <CardBody>
+              <div className="container pt-0">
+                <div className="rmb-2 row">
+                  <div className="col-md-1">
+                    <select className="form-select" style={{ width: "88PX" }}>
+                <option value="10">SHOW 10</option>
+                <option value="20">SHOW 20</option>
+                <option value="30">SHOW 30</option>
+                <option value="40">SHOW 40</option>
+                <option value="50">SHOW 50</option>
               </select>
             </div>
 
@@ -140,7 +155,7 @@ const TaxDetails = () => {
                       id="search-bar-0"
                       type="text"
                       className="form-control"
-                      placeholder="search ..."
+                      placeholder="SEARCH ..."
                       value={globalFilter || ""}
                       onChange={e => setGlobalFilter(e.target.value)}
                     />
@@ -158,7 +173,7 @@ const TaxDetails = () => {
                   onClick={() => navigate("/tax_configuration_create")}
                 >
                   <i className="mdi mdi-plus-circle-outline me-1"></i>
-                  Create New
+                 CREATE NEW
                 </button>
               </div>
             </div>
@@ -167,19 +182,16 @@ const TaxDetails = () => {
 
         <div className="table-responsive react-table">
           <table
-            className="table table-bordered table-hover"
+            className="table table-bordered table-hover text-center"
             {...getTableProps()}
           >
             <thead className="table-light table-nowrap">
               {headerGroups.map(headerGroup => (
                 <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map(column => (
-                    <th
-                      key={column.id}
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                      style={column.id === 'slno' ? { width:'6%' } : { backgroundColor: "" }}
-                    >
-                      <div className="d-flex justify-content-between">
+                    <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
+
+                    <div className="d-flex justify-content-center">
                         <span className="font-weight-bold">
                           {column.render("Header")}
                         </span>
@@ -221,7 +233,7 @@ const TaxDetails = () => {
                         style={{ textAlign: "center" }}
                       >
                         {" "}
-                        No search results found.
+                        NO SEARCH RESULTS REQUIRED
                       </td>
                     </tr>
                   )}
@@ -269,6 +281,7 @@ const TaxDetails = () => {
             </div>
           </div>
         </div>
+        </CardBody>
       </Card>
       </div>
       </Container>

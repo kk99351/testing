@@ -36,64 +36,24 @@ const InterRecieveAssetsPreview = () => {
 
   const demoData = [
     {
-      slno: 1,
-      assetId: "A001",
+      assetId: "ASSET001",
       assetName: "Laptop",
-      serialNumber: "SN001",
-      invoiceNumber: "INV-001",
-      status: "Active",
-      allocateTo: "John Doe",
-      type: "Electronic",
+      serialNumber: "123456",
+      assetdes: "Good condition",
     },
     {
-      slno: 2,
-      assetId: "A002",
+      assetId: "ASSET002",
+
       assetName: "Desktop",
-      serialNumber: "SN002",
-      invoiceNumber: "INV-002",
-      status: "Active",
-      allocateTo: "Jane Smith",
-      type: "Electronic",
+      serialNumber: "789012",
+      assetdes: "Needs maintenance",
     },
     {
-      slno: 3,
-      assetId: "A003",
+      assetId: "ASSET003",
+
       assetName: "Printer",
-      serialNumber: "SN003",
-      invoiceNumber: "INV-003",
-      status: "Inactive",
-      allocateTo: "Alice Johnson",
-      type: "Peripheral",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      invoiceNumber: "INV-004",
-      status: "Active",
-      allocateTo: "Bob Smith",
-      type: "Peripheral",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      invoiceNumber: "INV-004",
-      status: "Active",
-      allocateTo: "Bob Smith",
-      type: "Peripheral",
-    },
-    {
-      slno: 4,
-      assetId: "A004",
-      assetName: "Monitor",
-      serialNumber: "SN004",
-      invoiceNumber: "INV-004",
-      status: "Active",
-      allocateTo: "Bob Smith",
-      type: "Peripheral",
+      serialNumber: "345678",
+      assetdes: "Ink levels low",
     },
   ];
 
@@ -104,7 +64,7 @@ const InterRecieveAssetsPreview = () => {
     () => [
       {
         Header: "SL NO",
-        width:"6%",
+        width: "6%",
         accessor: "slno",
         disableFilters: true,
         filterable: true,
@@ -129,7 +89,7 @@ const InterRecieveAssetsPreview = () => {
       },
       {
         Header: "ASSET DISCRIPTION",
-        accessor: "invoiceNumber",
+        accessor: "assetdes",
         disableFilters: true,
         filterable: true,
       },
@@ -144,7 +104,6 @@ const InterRecieveAssetsPreview = () => {
     ],
     []
   );
-  
 
   const initialErrors = {};
   Object.keys(requiredFields).forEach(key => {
@@ -244,10 +203,10 @@ const InterRecieveAssetsPreview = () => {
     <React.Fragment>
       <Container fluid>
         <div className="page-content">
-          <Card className="mt-4">
+          <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-              INTER RECIEVE ASSETS DETAILS
+                INTER RECIEVE ASSETS DETAILS
               </h1>
             </CardHeader>
 
@@ -353,8 +312,13 @@ const InterRecieveAssetsPreview = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                            <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
-
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
                             <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
