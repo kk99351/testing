@@ -16,9 +16,7 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import {
-  CreateDepertment,
-} from "src/API/Master/AccessManagement/Api";
+import { CreateDepertment } from "src/API/Master/AccessManagement/Api";
 import { useParams } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import { GetSignleData } from "src/API/Master/GlobalGet";

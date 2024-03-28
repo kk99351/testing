@@ -31,5 +31,3 @@ export const CreateDesignation = async payload => {
     return error.message;
   }
 };
-
-

@@ -8,7 +8,6 @@ export const UploadFile = async file => {
       method: "POST",
       body: formData,
     });
-
     return result;
   } catch (error) {
     return error.response.message;
