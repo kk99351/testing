@@ -2,6 +2,8 @@ import React from "react";
 import MetaTags from "react-meta-tags";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Col,
   Input,
@@ -15,6 +17,7 @@ import {
   FormFeedback,
   Form,
 } from "reactstrap";
+import { CreateMailConfigration } from "src/API/Master/CompanyRepo/Api";
 
 const MailConfiguration = props => {
   const { fun } = { ...props };
@@ -42,8 +45,27 @@ const MailConfiguration = props => {
     }),
 
     onSubmit: values => {
-      alert("Form validated!");
-      console.log("values", values);
+      console.log("values", values.mailId);
+      CreateMailConfigration({
+        idmailconfig: 0,
+        mailid: values.mailId,
+        mailpwd: values.mailPwd,
+        nmhost: values.nmHost,
+        nmport: values.noPort,
+        supportmail: "",
+        nodays: 0,
+      })
+        .then(res => {
+          console.log(res);
+          if (res.status === 200) {
+            toast("Form submitted successfully");
+          } else {
+            toast("Email already used");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
@@ -61,7 +83,7 @@ const MailConfiguration = props => {
       <MetaTags>
         <title>HCS Technology Private Limited</title>
       </MetaTags>
-
+      <ToastContainer></ToastContainer>
       <Card>
         <CardHeader>
           <h3 className="d-flex justify-content-center">Mail Configuration</h3>

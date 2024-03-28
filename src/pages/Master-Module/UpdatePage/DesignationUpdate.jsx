@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,15 +16,28 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router";
+import { GetSignleData } from "src/API/Master/GlobalGet";
+import { CreateDesignation } from "src/API/Master/AccessManagement/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const DesignationUpdate = () => {
   const navigate = useNavigate();
+  const [Designation, setDesignation] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    GetSignleData("Designation", id).then(res => {
+      console.log(res);
+      setDesignation(res);
+    });
+  }, []);
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      designationname: "",
-      designationcode: "",
+      designationname: Designation?.nmdesign,
+      designationcode: Designation?.cddesign,
     },
 
     validationSchema: Yup.object({
@@ -32,13 +45,30 @@ const DesignationUpdate = () => {
       designationcode: Yup.string().required("Designation code is Required"),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+      CreateDesignation([
+        {
+          iddesign: id,
+          nmdesign: values.designationname,
+          cddesign: values.designationcode,
+        },
+      ])
+        .then(res => {
+          console.log(res.ok);
+          if (res.ok) {
+            toast("Designation Updated successfully");
+          } else {
+            toast("Designation already exists");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card className="mt-5">
@@ -66,6 +96,7 @@ const DesignationUpdate = () => {
                             type="text"
                             className="form-control"
                             id="validationCustom03"
+                            value={validation.values.designationname}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -94,6 +125,7 @@ const DesignationUpdate = () => {
                             type="text"
                             className="form-control"
                             id="validationCustom03"
+                            value={validation.values.designationcode}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={

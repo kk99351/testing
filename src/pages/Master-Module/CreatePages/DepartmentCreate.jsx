@@ -16,6 +16,8 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { CreateDepertment } from "src/API/Master/AccessManagement/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const DepartmentCreate = () => {
   const navigate = useNavigate();
@@ -32,13 +34,31 @@ const DepartmentCreate = () => {
       departmentcode: Yup.string().required("department code is Required"),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+     
+      CreateDepertment([
+        {
+          iddept: 0,
+          nmdept: values.departmentname,
+          cddept: values.departmentcode,
+        },
+      ])
+        .then(res => {
+          console.log(res.ok);
+          if (res.ok) {
+            toast("Department created successfully");
+          } else {
+            toast("Departments already exists");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card>

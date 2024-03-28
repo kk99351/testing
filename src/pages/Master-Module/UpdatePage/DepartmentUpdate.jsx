@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,15 +16,28 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import {
+  CreateDepertment,
+} from "src/API/Master/AccessManagement/Api";
+import { useParams } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import { GetSignleData } from "src/API/Master/GlobalGet";
 
 const DepartmentUpdate = () => {
+  const [dept, setDept] = useState([]);
   const navigate = useNavigate();
+  const { id } = useParams();
+  useEffect(() => {
+    GetSignleData("Dept", id).then(res => {
+      setDept(res);
+    });
+  }, []);
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      departmentname: "",
-      departmentcode: "",
+      departmentname: dept?.nmdept,
+      departmentcode: dept?.cddept,
     },
 
     validationSchema: Yup.object({
@@ -32,13 +45,30 @@ const DepartmentUpdate = () => {
       departmentcode: Yup.string().required("department code is Required"),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+      CreateDepertment([
+        {
+          iddept: id,
+          nmdept: values.departmentname,
+          cddept: values.departmentcode,
+        },
+      ])
+        .then(res => {
+          console.log(res.ok);
+          if (res.ok) {
+            toast("Department Updated successfully");
+          } else {
+            toast("Departments already exists");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card>
@@ -65,6 +95,7 @@ const DepartmentUpdate = () => {
                             name="departmentname"
                             type="text"
                             className="form-control"
+                            value={validation.values.departmentname}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -93,6 +124,7 @@ const DepartmentUpdate = () => {
                             type="text"
                             className="form-control"
                             id="validationCustom02"
+                            value={validation.values.departmentcode}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
