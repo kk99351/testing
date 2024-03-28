@@ -16,28 +16,19 @@ import {
 } from "react-table";
 
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const UserTypeMaster = () => {
-  const demoData = [
-    { "nmUsertype": "Admin" },
-    { "nmUsertype": "Manager" },
-    { "nmUsertype": "Staff" },
-    { "nmUsertype": "Guest" },
-    { "nmUsertype": "Supervisor" }
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/usertypemaster");
-  //   }
-  //   fetch();
-  // }, [getData]);
 
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
+  useEffect(() => {
+    GetAllData("Usertype").then(res => {
+      if (res?.length > 0) {
+        setResponseData(res);
+      }
+    });
+  }, []);
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
@@ -50,11 +41,11 @@ const UserTypeMaster = () => {
       {
         Header: "SL NO",
         accessor: "slno",
-        width:"6%",
+        width: "6%",
       },
       {
         Header: "USER TYPE",
-        accessor: "nmUsertype",
+        accessor: "nmusertype",
         disableFilters: true,
         filterable: true,
       },
@@ -158,7 +149,8 @@ const UserTypeMaster = () => {
                         onClick={() => navigate("/usertypecreate")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
-CREATE NEW                      </button>
+                        CREATE NEW{" "}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -173,9 +165,14 @@ CREATE NEW                      </button>
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                           <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
-
-                           <div className="d-flex justify-content-center">
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
+                            <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
                               </span>
@@ -202,7 +199,7 @@ CREATE NEW                      </button>
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/modify_user_type/${row.original.id}`}
+                                    to={`/modify_user_type/${row.original.idusertype}`}
                                   >
                                     {cell.render("Cell")}
                                   </Link>
@@ -221,7 +218,8 @@ CREATE NEW                      </button>
                           style={{ textAlign: "center" }}
                         >
                           {" "}
-                          NO SEARCH RESULTS FOUND                        </td>
+                          NO SEARCH RESULTS FOUND{" "}
+                        </td>
                       </tr>
                     )}
                   </tbody>

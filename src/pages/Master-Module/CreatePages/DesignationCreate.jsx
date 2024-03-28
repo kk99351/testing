@@ -45,6 +45,7 @@ const DesignationCreate = () => {
           console.log(res.ok);
           if (res.ok) {
             toast("Designation created successfully");
+            navigate("/designation");
           } else {
             toast("Designation already exists");
           }
@@ -85,6 +86,7 @@ const DesignationCreate = () => {
                             type="text"
                             className="form-control"
                             id="validationCustom03"
+                            placeholder="PLEASE ENTER DESIGNATION NAME"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -113,6 +115,7 @@ const DesignationCreate = () => {
                             type="text"
                             className="form-control"
                             id="validationCustom03"
+                            placeholder="PLEASE ENTER DESIGNATION CODE"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={

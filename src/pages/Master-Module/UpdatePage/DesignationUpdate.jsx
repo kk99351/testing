@@ -56,6 +56,7 @@ const DesignationUpdate = () => {
           console.log(res.ok);
           if (res.ok) {
             toast("Designation Updated successfully");
+            navigate("/designation");
           } else {
             toast("Designation already exists");
           }
@@ -126,6 +127,7 @@ const DesignationUpdate = () => {
                             type="text"
                             className="form-control"
                             id="validationCustom03"
+                            placeholder="PLEASE ENTER DESIGNATION CODE"
                             value={validation.values.designationcode}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}

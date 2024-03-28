@@ -11,47 +11,30 @@ import { useGet } from "src/API/useGet";
 import { GetAllData } from "src/API/Master/GlobalGet";
 
 const DesignationMaster = () => {
-  const demoData = [
-    { dname: "Group A" },
-    { dname: "group d" },
-    { dname: "Group C" },
-    { dname: "Group D" },
-    { dname: "Group E" },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
-
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/designationmaster");
-  //   }
-  //   fetch();
-  // }, [getData]);
-
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
 
   useEffect(() => {
     GetAllData("Designation").then(res => {
-      console.log(res);
-      setResponseData(res);
+      if (res?.length > 0) {
+        setResponseData(res);
+      }
     });
   }, []);
 
   const columns = useMemo(
     () => [
       {
-        Header: "ID",
-        accessor: "iddesign",
+        Header: "SL NO",
+        accessor: "slno",
+        width: "6%",
       },
       {
-        Header: "Department Name",
+        Header: "DESIGNATION NAME",
         accessor: "nmdesign",
       },
       {
-        Header: "Code",
+        Header: "DESIGNATION CODE",
         accessor: "cddesign",
       },
     ],
@@ -60,6 +43,7 @@ const DesignationMaster = () => {
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
+      slno: index + 1,
     }));
   }, [responseData]);
 
@@ -150,7 +134,7 @@ const DesignationMaster = () => {
               </div>
             </div>
 
-            <div className="table-responsive react-table">
+            <div className="table-responsive react-table center">
               <table className="table table-bordered table-hover">
                 <thead className="table-light table-nowrap">
                   {headerGroups.map(headerGroup => (
@@ -170,7 +154,7 @@ const DesignationMaster = () => {
                               : { backgroundColor: "" }
                           }
                         >
-                          <div className="d-flex justify-content-between">
+                          <div className="d-flex justify-content-center">
                             <span className="font-weight-bold">
                               {column.render("Header")}
                             </span>
@@ -187,7 +171,7 @@ const DesignationMaster = () => {
                     </tr>
                   ))}
                 </thead>
-                <tbody {...getTableBodyProps()}>
+                <tbody {...getTableBodyProps()} style={{ textAlign: "center" }}>
                   {page.length > 0 ? (
                     page.map(row => {
                       prepareRow(row);

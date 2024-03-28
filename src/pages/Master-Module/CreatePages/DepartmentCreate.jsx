@@ -42,10 +42,9 @@ const DepartmentCreate = () => {
         },
       ])
         .then(res => {
-          console.log(res.ok);
           if (res.ok) {
             toast("Department created successfully");
-            // navigate("department");
+            navigate("/department");
           } else {
             toast("Departments already exists");
           }
@@ -114,6 +113,7 @@ const DepartmentCreate = () => {
                             type="text"
                             className="form-control"
                             id="validationCustom02"
+                            placeholder="PLEASE ENTER DEPARTMENT CODE"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={

@@ -54,6 +54,7 @@ const DepartmentUpdate = () => {
           console.log(res.ok);
           if (res.ok) {
             toast("Department Updated successfully");
+            navigate("/department");
           } else {
             toast("Departments already exists");
           }

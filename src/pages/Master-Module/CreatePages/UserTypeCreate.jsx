@@ -16,6 +16,8 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { CreateUserType } from "src/API/Master/AccessManagement/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const UserTypeCreate = () => {
   const navigate = useNavigate();
@@ -30,13 +32,31 @@ const UserTypeCreate = () => {
       usertypename: Yup.string().required("USER TYPE IS REQUIRED"),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+      CreateUserType([
+        {
+          idusertype: 0,
+          nmusertype: values.usertypename,
+          cdusertype: "",
+        },
+      ])
+        .then(res => {
+          console.log(res);
+          if (res.ok) {
+            toast("User created successfully");
+            navigate("/user_type");
+          } else {
+            toast("User already exists");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card className="mt-0">

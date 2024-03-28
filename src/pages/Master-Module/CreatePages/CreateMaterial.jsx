@@ -16,6 +16,7 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { CreateMaterialGroup } from "src/API/Master/MaterialMaster/Api";
 
 const CreateMaterial = () => {
   const navigate = useNavigate();
@@ -37,7 +38,20 @@ const CreateMaterial = () => {
     }),
     onSubmit: values => {
       alert("form validated !");
-      //console.log("values", values);
+      CreateMaterialGroup([
+        {
+          idassetdiv: 0,
+          nmassetdiv: values.categoryname,
+          cdassetdiv: values.categorycode,
+        },
+      ]).then(res => {
+        if (res.ok) {
+          toast("Material Group created successfully");
+          navigate("/create_catogries");
+        } else {
+          toast("Material Group already exists");
+        }
+      });
     },
   });
 

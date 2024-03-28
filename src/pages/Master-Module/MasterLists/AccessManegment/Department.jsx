@@ -19,31 +19,16 @@ import { useGet } from "src/API/useGet";
 import { GetAllData } from "src/API/Master/GlobalGet";
 
 const Department = () => {
-  const demoData = [
-    { departmentname: "Group A" },
-    { departmentname: "group d" },
-    { departmentname: "Group C" },
-    { departmentname: "Group D" },
-    { departmentname: "Group E" },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
-
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/department");
-  //   }
-  //   fetch();
-  // }, [getData]);
-
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
 
   useEffect(() => {
     GetAllData("Dept").then(res => {
-      setResponseData(res);
+      if(res?.length>0){
+        setResponseData(res);
+      }
+      
     });
   }, []);
 
@@ -52,14 +37,14 @@ const Department = () => {
       {
         Header: "SL NO",
         accessor: "slno",
-        width:"6%",
+        width: "6%",
       },
       {
-        Header: "Department Name",
+        Header: "DEPARTMENT NAME",
         accessor: "nmdept",
       },
       {
-        Header: "Code",
+        Header: "DEPARTMENT CODE",
         accessor: "cddept",
       },
     ],
@@ -234,7 +219,7 @@ const Department = () => {
                           style={{ textAlign: "center" }}
                         >
                           {" "}
-                           NO SEARCH RESULTS FOUND
+                          NO SEARCH RESULTS FOUND
                         </td>
                       </tr>
                     )}
