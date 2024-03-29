@@ -86,6 +86,11 @@ const VendorApprovelL1 = () => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
+      nm_ven: item.nm_ven.toUpperCase(), 
+      cd_ven: item.cd_ven.toUpperCase(), 
+      person: item.person.toUpperCase(), 
+      nm_contact: item.nm_contact.toUpperCase(),
+
     }));
   }, [responseData]);
 
@@ -128,8 +133,8 @@ const VendorApprovelL1 = () => {
             <CardBody>
               <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select" >
                       {" "}
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
@@ -152,8 +157,9 @@ const VendorApprovelL1 = () => {
                             className="form-control"
                             placeholder="SEARCH..."
                             value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
-                          />
+                            onChange={e =>
+                              setGlobalFilter(e.target.value.toUpperCase())
+                            }                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
                       </div>
@@ -173,18 +179,7 @@ const VendorApprovelL1 = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                          // <th
-                          //   key={column.id}
-                          //   {...column.getHeaderProps(
-                          //     column.getSortByToggleProps()
-                          //   )}
-                          //   style={
-                          //     column.id === "slno"
-                          //       ? { width: "6%" }
-                          //       : { backgroundColor: "" }
-                          //   }
-                          //   className="text-center"
-                          // >
+                      
                           <th
                             key={column.id}
                             {...column.getHeaderProps(

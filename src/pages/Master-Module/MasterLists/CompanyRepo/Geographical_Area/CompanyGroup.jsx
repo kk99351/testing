@@ -16,32 +16,32 @@ const CompanyGroup = () => {
     {
       slno: 1,
       companyGroup: "United States",
-      entityName: "PR Limited", 
+      entityName: "PR Limited",
 
       companyGroupCode: "US",
     },
     {
       slno: 2,
       companyGroup: "United Kingdom",
-      entityName: "AR Corporation", 
+      entityName: "AR Corporation",
       companyGroupCode: "UK",
     },
     {
       slno: 3,
       companyGroup: "Canada",
-      entityName: "AR Corporation", 
+      entityName: "AR Corporation",
       companyGroupCode: "CA",
     },
     {
       slno: 4,
       companyGroup: "Australia",
-      entityName: "AR Corporation", 
+      entityName: "AR Corporation",
       companyGroupCode: "AU",
     },
     {
       slno: 5,
       companyGroup: "Germany",
-      entityName: "PR Limited", 
+      entityName: "PR Limited",
       companyGroupCode: "DE",
     },
   ];
@@ -134,8 +134,8 @@ const CompanyGroup = () => {
             <CardBody>
               <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select">
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
                       <option value="30">SHOW 30</option>
@@ -157,7 +157,9 @@ const CompanyGroup = () => {
                             className="form-control"
                             placeholder="SEARCH ..."
                             value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
+                            onChange={e =>
+                              setGlobalFilter(e.target.value.toUpperCase())
+                            }
                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
@@ -165,7 +167,7 @@ const CompanyGroup = () => {
                     </div>
                   </div>
 
-                  <div className="col-sm-7">
+                  <div className="col-sm-6">
                     <div className="text-sm-end">
                       <button
                         type="button"
@@ -225,10 +227,10 @@ const CompanyGroup = () => {
                                   <Link
                                     to={`/company_group/${row.original.id}`}
                                   >
-                                    {cell.render("Cell")}
+                                    {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (
-                                  cell.render("Cell")
+                                  String(cell.value).toUpperCase()
                                 )}
                               </td>
                             ))}

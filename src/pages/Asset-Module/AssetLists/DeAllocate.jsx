@@ -343,6 +343,16 @@ const DeAllocate = () => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
+      assetId: item.assetId.toUpperCase(), 
+      assetName: item.assetName.toUpperCase(), 
+      serialNumber: item.serialNumber.toUpperCase(), 
+      employeename: item.employeename.toUpperCase(), 
+      client: item.client.toUpperCase(),
+      assetRemarks: item.assetRemarks.toUpperCase(), 
+      client: item.client.toUpperCase(), 
+      allocateType: item.allocateType.toUpperCase(), 
+ 
+
     }));
   }, [responseData]);
   const requiredFields = {
@@ -422,8 +432,8 @@ const DeAllocate = () => {
               handleAllocationTypeChange(row.index, e.target.value)
             }
           >
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
+            <option value="Active">ACTIVE</option>
+            <option value="Inactive">INACTIVE</option>
           </Input>
         ),
       },
@@ -564,8 +574,8 @@ const DeAllocate = () => {
 
               <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select">
                       {" "}
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
@@ -596,7 +606,7 @@ const DeAllocate = () => {
                     </div>
                   </div>
 
-                  <div className="col-sm-7">
+                  <div className="col-sm-6">
                     <div className="text-sm-end">
                       <button
                         type="button"

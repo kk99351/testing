@@ -93,7 +93,7 @@ const CreateItemsModify = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                 MATERIAL DETAILS
+                MATERIAL DETAILS
               </h1>
             </CardHeader>
             <CardBody>
@@ -115,11 +115,10 @@ const CreateItemsModify = () => {
                           invalid={!!errors.item_type}
                         >
                           <option value="">SELECT MATERIAL TYPE</option>
-                          <option value="Electronics">Electronics</option>
-                          <option value="Clothing">Clothing</option>
-                          <option value="Books">Books</option>
-                          <option value="Furniture">Furniture</option>
-                          <option value="Automobile">Automobile</option>
+                          <option value="IT">IT</option>
+                          <option value="NON-IT">NON IT</option>
+                          <option value="soft">SOFTWARE</option>
+                          <option value="accessories">ACCESSORIES</option>
                         </Input>
                         <span className="invalid-feedback">
                           {errors.item_type}
@@ -179,7 +178,7 @@ const CreateItemsModify = () => {
                           onChange={handleDropdownChange}
                           invalid={!!errors.sub_category}
                         >
-                          <option value=""> SELECT MATERIAL SUB GROUPL</option>
+                          <option value=""> SELECT MATERIAL SUB GROUP</option>
                           <option value="Books">Books</option>
                           <option value="Furniture">Furniture</option>
                           <option value="Automobile">Automobile</option>
@@ -196,24 +195,7 @@ const CreateItemsModify = () => {
                       <hr className="mb-0 mt-3" />
                     </Row>
                     <Row className="mb-2">
-                      <Col md={6}>
-                        <Label for="item_code">
-                          MATERIAL CODE<font color="red">*</font>
-                        </Label>
-                        <Input
-                          type="text"
-                          placeholder="PLEASE ENTER MATERIAL CODE"
-                          name="item_code"
-                          id="item_code"
-                          value={formData.item_code}
-                          onChange={handleInputChange}
-                          invalid={!!errors.item_code}
-                        />
-                        <span className="invalid-feedback">
-                          {errors.item_code}
-                        </span>
-                      </Col>
-                      <Col md={6}>
+                      <Col md={12}>
                         <Label for="uom">
                           UOM<font color="red">*</font>
                         </Label>

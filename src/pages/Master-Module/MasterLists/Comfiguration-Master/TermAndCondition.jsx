@@ -19,17 +19,18 @@ import {
 const TermsAndConditions = () => {
   const demoData = [
     {
-      "termAndCond": "Privacy Policy",
-      "fileName": "privacy_policy.pdf"
+      termAndCond: "Privacy Policy",
+      fileName: "privacy_policy.pdf",
     },
     {
-      "termAndCond": "Terms of Service",
-      "fileName": "terms_of_service.pdf"
+      termAndCond: "Terms of Service",
+      fileName: "terms_of_service.pdf",
     },
     {
-      "termAndCond": "Refund Policy",
-      "fileName": "refund_policy.pdf"
-    }];
+      termAndCond: "Refund Policy",
+      fileName: "refund_policy.pdf",
+    },
+  ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
 
@@ -120,14 +121,14 @@ const TermsAndConditions = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                 TERM AND CONDITIONS DETAILS{" "}
+                TERM AND CONDITIONS DETAILS{" "}
               </h1>
             </CardHeader>
             <CardBody>
               <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select">
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
                       <option value="30">SHOW 30</option>
@@ -149,15 +150,16 @@ const TermsAndConditions = () => {
                             className="form-control"
                             placeholder="SEARCH ..."
                             value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
-                          />
+                            onChange={e =>
+                              setGlobalFilter(e.target.value.toUpperCase())
+                            }                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
                       </div>
                     </div>
                   </div>
 
-                  <div className="col-sm-7">
+                  <div className="col-sm-6">
                     <div className="text-sm-end">
                       <button
                         type="button"
@@ -173,7 +175,7 @@ const TermsAndConditions = () => {
               </div>
 
               <div className="table-responsive react-table">
-              <table className="table table-bordered table-hover text-center">
+                <table className="table table-bordered table-hover text-center">
                   <thead className="table-light table-nowrap">
                     {headerGroups.map(headerGroup => (
                       <tr
@@ -181,9 +183,14 @@ const TermsAndConditions = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                          <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
-
-                          <div className="d-flex justify-content-center">
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
+                            <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
                               </span>
@@ -212,10 +219,10 @@ const TermsAndConditions = () => {
                                   <Link
                                     to={`/modify_terms_and_conditions/${row.original.id}`}
                                   >
-                                    {cell.render("Cell")}
+                                    {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (
-                                  cell.render("Cell")
+                                  String(cell.value).toUpperCase()
                                 )}
                               </td>
                             ))}

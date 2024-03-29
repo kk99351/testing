@@ -1,5 +1,12 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Container,CardHeader,CardBody,Button, Card, Input } from "reactstrap";
+import {
+  Container,
+  CardHeader,
+  CardBody,
+  Button,
+  Card,
+  Input,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -11,15 +18,15 @@ import { useGet } from "src/API/useGet";
 
 const DesignationMaster = () => {
   const demoData = [
-    { "dname": "Manager" },
-  { "dname": "Assistant Manager" },
-  { "dname": "Software Engineer" },
-  { "dname": "Sales Representative" },
-  { "dname": "HR Coordinator" }
+    { dname: "Manager" },
+    { dname: "Assistant Manager" },
+    { dname: "Software Engineer" },
+    { dname: "Sales Representative" },
+    { dname: "HR Coordinator" },
   ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
-  
+
   // const { getData, data, isLoading } = useGet();
   // useEffect(() => {
   //   async function fetch() {
@@ -37,7 +44,7 @@ const DesignationMaster = () => {
       {
         Header: "SL NO",
         accessor: "slno",
-        width:"6%",
+        width: "6%",
       },
       {
         Header: "DESIGNATION NAME",
@@ -78,7 +85,6 @@ const DesignationMaster = () => {
     usePagination
   );
 
-
   return (
     <React.Fragment>
       {/* {isLoading ? (
@@ -90,9 +96,9 @@ const DesignationMaster = () => {
           </Card>
         </div>
       ) : ( */}
-    <Container fluid>
-      <div className="page-content">
-      <Card>
+      <Container fluid>
+        <div className="page-content">
+          <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
                 DESIGNATION DETAILS
@@ -101,8 +107,8 @@ const DesignationMaster = () => {
             <CardBody>
               <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select">
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
                       <option value="30">SHOW 30</option>
@@ -124,7 +130,8 @@ const DesignationMaster = () => {
                             className="form-control"
                             placeholder="SEARCH ..."
                             value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
+                            onChange={(e) => setGlobalFilter(e.target.value.toUpperCase())} 
+
                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
@@ -132,7 +139,7 @@ const DesignationMaster = () => {
                     </div>
                   </div>
 
-                  <div className="col-sm-7">
+                  <div className="col-sm-6">
                     <div className="text-sm-end">
                       <button
                         type="button"
@@ -140,7 +147,8 @@ const DesignationMaster = () => {
                         onClick={() => navigate("/createdesignation")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
-CREATE NEW                      </button>
+                        CREATE NEW{" "}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -155,8 +163,13 @@ CREATE NEW                      </button>
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                            <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
-
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
                             <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
@@ -183,11 +196,13 @@ CREATE NEW                      </button>
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/modify_designation/${row.original.id}`}>
-                                    {cell.render("Cell")}
-                                  </Link>
-                                ) : (
-                                  cell.render("Cell")
+                                  <Link
+                                    to={`/modify_designation/${row.original.id}`}
+                                  >
+                                     {String(cell.value).toUpperCase()}{" "}
+  </Link>
+   ) : (
+   String(cell.value).toUpperCase()
                                 )}
                               </td>
                             ))}
@@ -201,7 +216,8 @@ CREATE NEW                      </button>
                           style={{ textAlign: "center" }}
                         >
                           {" "}
-NO SEARCH RESULTS FOUND                        </td>
+                          NO SEARCH RESULTS FOUND{" "}
+                        </td>
                       </tr>
                     )}
                   </tbody>
@@ -249,12 +265,11 @@ NO SEARCH RESULTS FOUND                        </td>
                   </div>
                 </div>
               </div>
-              </CardBody>
-            </Card>
-          </div>
-        
-      {/* )} */}
-     
+            </CardBody>
+          </Card>
+        </div>
+
+        {/* )} */}
       </Container>
     </React.Fragment>
   );

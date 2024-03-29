@@ -225,10 +225,10 @@ const BillsEntry = () => {
                             <td key={cell.column.id} {...cell.getCellProps()}>
                               {cell.column.id !== "SL NO" ? (
                                 <Link to={`/bill_entry/${row.original.id}`}>
-                                  {cell.render("Cell")}
-                                </Link>
-                              ) : (
-                                cell.render("Cell")
+                                    {String(cell.value).toUpperCase()}{" "}
+                                  </Link>
+                                ) : (
+                                  String(cell.value).toUpperCase()
                               )}
                             </td>
                           ))}

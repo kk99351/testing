@@ -18,11 +18,36 @@ import { useGet } from "src/API/useGet";
 
 function SubCategories() {
   const demoData = [
-    { slno: 1, subcategory: "Smartphones", subcategorycode: "SP001" },
-    { slno: 2, subcategory: "Laptops", subcategorycode: "LT002" },
-    { slno: 3, subcategory: "Televisions", subcategorycode: "TV003" },
-    { slno: 4, subcategory: "Tablets", subcategorycode: "TB004" },
-    { slno: 5, subcategory: "Printers", subcategorycode: "PR005" },
+    {
+      slno: 1,
+      category: "Automobile",
+      subcategory: "Smartphones",
+      subcategorycode: "SP001",
+    },
+    {
+      slno: 2,
+      category: "Automobile",
+      subcategory: "Laptops",
+      subcategorycode: "LT002",
+    },
+    {
+      slno: 3,
+      category: "Automobile",
+      subcategory: "Televisions",
+      subcategorycode: "TV003",
+    },
+    {
+      slno: 4,
+      category: "Automobile",
+      subcategory: "Tablets",
+      subcategorycode: "TB004",
+    },
+    {
+      slno: 5,
+      category: "Automobile",
+      subcategory: "Printers",
+      subcategorycode: "PR005",
+    },
   ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
@@ -51,6 +76,12 @@ function SubCategories() {
         Header: "SL NO",
         accessor: "slno",
         width: "6%",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "MATERIAL-GROUP",
+        accessor: "category",
         disableFilters: true,
         filterable: true,
       },
@@ -112,8 +143,8 @@ function SubCategories() {
             <CardBody>
               <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select">
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
                       <option value="30">SHOW 30</option>
@@ -135,7 +166,9 @@ function SubCategories() {
                             className="form-control"
                             placeholder="SEARCH ..."
                             value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
+                            onChange={e =>
+                              setGlobalFilter(e.target.value.toUpperCase())
+                            }
                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
@@ -143,7 +176,7 @@ function SubCategories() {
                     </div>
                   </div>
 
-                  <div className="col-sm-7">
+                  <div className="col-sm-6">
                     <div className="text-sm-end">
                       <button
                         type="button"
@@ -200,11 +233,13 @@ function SubCategories() {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/modify_subcatogries/${row.original.id}`}>
-                                    {cell.render("Cell")}
+                                  <Link
+                                    to={`/modify_subcatogries/${row.original.id}`}
+                                  >
+                                    {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (
-                                  cell.render("Cell")
+                                  String(cell.value).toUpperCase()
                                 )}
                               </td>
                             ))}
@@ -218,7 +253,7 @@ function SubCategories() {
                           style={{ textAlign: "center" }}
                         >
                           {" "}
-                           NO SEARCH RESULTS FOUND
+                          NO SEARCH RESULTS FOUND
                         </td>
                       </tr>
                     )}

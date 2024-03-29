@@ -18,12 +18,46 @@ import {
 
 const CreateItems = () => {
   const demoData = [
-    { "slno": 1, "category": "Electronics", "sub_category": "Smartphones", "item_name": "iPhone 12", "item_code": "EL001-SP001-I12", "item_type": "Mobile Phone" },
-    { "slno": 2, "category": "Electronics", "sub_category": "Smartphones", "item_name": "Samsung Galaxy S21", "item_code": "EL001-SP001-SG21", "item_type": "Mobile Phone" },
-    { "slno": 3, "category": "Electronics", "sub_category": "Laptops", "item_name": "MacBook Pro", "item_code": "EL001-LT002-MBP", "item_type": "Laptop" },
-    { "slno": 4, "category": "Electronics", "sub_category": "Laptops", "item_name": "Dell XPS 15", "item_code": "EL001-LT002-XPS15", "item_type": "Laptop" },
-    { "slno": 5, "category": "Clothing", "sub_category": "Men's T-Shirts", "item_name": "Plain White T-Shirt", "item_code": "CL002-MT001-PWT", "item_type": "T-Shirt" }
-  
+    {
+      slno: 1,
+      category: "Electronics",
+      sub_category: "Smartphones",
+      item_name: "iPhone 12",
+      item_code: "EL001-SP001-I12",
+      item_type: "Mobile Phone",
+    },
+    {
+      slno: 2,
+      category: "Electronics",
+      sub_category: "Smartphones",
+      item_name: "Samsung Galaxy S21",
+      item_code: "EL001-SP001-SG21",
+      item_type: "Mobile Phone",
+    },
+    {
+      slno: 3,
+      category: "Electronics",
+      sub_category: "Laptops",
+      item_name: "MacBook Pro",
+      item_code: "EL001-LT002-MBP",
+      item_type: "Laptop",
+    },
+    {
+      slno: 4,
+      category: "Electronics",
+      sub_category: "Laptops",
+      item_name: "Dell XPS 15",
+      item_code: "EL001-LT002-XPS15",
+      item_type: "Laptop",
+    },
+    {
+      slno: 5,
+      category: "Clothing",
+      sub_category: "Men's T-Shirts",
+      item_name: "Plain White T-Shirt",
+      item_code: "CL002-MT001-PWT",
+      item_type: "T-Shirt",
+    },
   ];
 
   const [responseData, setResponseData] = useState(demoData);
@@ -141,8 +175,8 @@ const CreateItems = () => {
             <CardBody>
               <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select">
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
                       <option value="30">SHOW 30</option>
@@ -164,7 +198,9 @@ const CreateItems = () => {
                             className="form-control"
                             placeholder="SEARCH ..."
                             value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
+                            onChange={e =>
+                              setGlobalFilter(e.target.value.toUpperCase())
+                            }
                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
@@ -172,7 +208,7 @@ const CreateItems = () => {
                     </div>
                   </div>
 
-                  <div className="col-sm-7">
+                  <div className="col-sm-6">
                     <div className="text-sm-end">
                       <button
                         type="button"
@@ -235,10 +271,10 @@ const CreateItems = () => {
                                   <Link
                                     to={`/modifycreateitems/${row.original.id}`}
                                   >
-                                    {cell.render("Cell")}
+                                    {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (
-                                  cell.render("Cell")
+                                  String(cell.value).toUpperCase()
                                 )}
                               </td>
                             ))}

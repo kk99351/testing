@@ -85,6 +85,10 @@ const ReturnAknow = () => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
+      assetId: item.assetId.toUpperCase(), 
+      allocateTo: item.allocateTo.toUpperCase(), 
+      status: item.status.toUpperCase(), 
+
     }));
   }, [responseData]);
 
@@ -127,8 +131,8 @@ const ReturnAknow = () => {
             <CardBody>
               <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select" >
                       {" "}
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
@@ -151,8 +155,9 @@ const ReturnAknow = () => {
                             className="form-control"
                             placeholder="SEARCH..."
                             value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
-                          />
+                            onChange={e =>
+                              setGlobalFilter(e.target.value.toUpperCase())
+                            }                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
                       </div>

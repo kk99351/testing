@@ -17,98 +17,103 @@ import { FaCopy, FaFilePdf, FaFileExcel } from "react-icons/fa";
 const AccessoryHistoryReportview = () => {
   const demoData = [
     {
-        "slno": 1,
-        "access_id": "ACC001",
-        "access_name": "Keyboard",
-        "asset_id": "ASSET001",
-        "asset_name": "Desktop Computer",
-        "serial_number": "KB12345",
-        "ass_serial_number": "PC67890",
-        "mat_name": "Electronics",
-        "mat_sub_name": "Peripherals",
-        "assigned_date": "2024-03-10",
-        "delink_date": "2024-03-15",
-        "employee_name": "John Doe"
-      },
-      {
-        "slno": 1,
-        "access_id": "ACC001",
-        "access_name": "Keyboard",
-        "asset_id": "ASSET001",
-        "asset_name": "Desktop Computer",
-        "serial_number": "KB12345",
-        "ass_serial_number": "PC67890",
-        "mat_name": "Electronics",
-        "mat_sub_name": "Peripherals",
-        "assigned_date": "2024-03-10",
-        "delink_date": "2024-03-15",
-        "employee_name": "John Doe"
-      },{
-        "slno": 1,
-        "access_id": "ACC001",
-        "access_name": "Keyboard",
-        "asset_id": "ASSET001",
-        "asset_name": "Desktop Computer",
-        "serial_number": "KB12345",
-        "ass_serial_number": "PC67890",
-        "mat_name": "Electronics",
-        "mat_sub_name": "Peripherals",
-        "assigned_date": "2024-03-10",
-        "delink_date": "2024-03-15",
-        "employee_name": "John Doe"
-      },{
-        "slno": 1,
-        "access_id": "ACC001",
-        "access_name": "Keyboard",
-        "asset_id": "ASSET001",
-        "asset_name": "Desktop Computer",
-        "serial_number": "KB12345",
-        "ass_serial_number": "PC67890",
-        "mat_name": "Electronics",
-        "mat_sub_name": "Peripherals",
-        "assigned_date": "2024-03-10",
-        "delink_date": "2024-03-15",
-        "employee_name": "John Doe"
-      },{
-        "slno": 1,
-        "access_id": "ACC001",
-        "access_name": "Keyboard",
-        "asset_id": "ASSET001",
-        "asset_name": "Desktop Computer",
-        "serial_number": "KB12345",
-        "ass_serial_number": "PC67890",
-        "mat_name": "Electronics",
-        "mat_sub_name": "Peripherals",
-        "assigned_date": "2024-03-10",
-        "delink_date": "2024-03-15",
-        "employee_name": "John Doe"
-      },{
-        "slno": 1,
-        "access_id": "ACC001",
-        "access_name": "Keyboard",
-        "asset_id": "ASSET001",
-        "asset_name": "Desktop Computer",
-        "serial_number": "KB12345",
-        "ass_serial_number": "PC67890",
-        "mat_name": "Electronics",
-        "mat_sub_name": "Peripherals",
-        "assigned_date": "2024-03-10",
-        "delink_date": "2024-03-15",
-        "employee_name": "John Doe"
-      },{
-        "slno": 1,
-        "access_id": "ACC001",
-        "access_name": "Keyboard",
-        "asset_id": "ASSET001",
-        "asset_name": "Desktop Computer",
-        "serial_number": "KB12345",
-        "ass_serial_number": "PC67890",
-        "mat_name": "Electronics",
-        "mat_sub_name": "Peripherals",
-        "assigned_date": "2024-03-10",
-        "delink_date": "2024-03-15",
-        "employee_name": "John Doe"
-      },
+      slno: 1,
+      access_id: "ACC001",
+      access_name: "Keyboard",
+      asset_id: "ASSET001",
+      asset_name: "Desktop Computer",
+      serial_number: "KB12345",
+      ass_serial_number: "PC67890",
+      mat_name: "Electronics",
+      mat_sub_name: "Peripherals",
+      assigned_date: "2024-03-10",
+      delink_date: "2024-03-15",
+      employee_name: "John Doe",
+    },
+    {
+      slno: 1,
+      access_id: "ACC001",
+      access_name: "Keyboard",
+      asset_id: "ASSET001",
+      asset_name: "Desktop Computer",
+      serial_number: "KB12345",
+      ass_serial_number: "PC67890",
+      mat_name: "Electronics",
+      mat_sub_name: "Peripherals",
+      assigned_date: "2024-03-10",
+      delink_date: "2024-03-15",
+      employee_name: "John Doe",
+    },
+    {
+      slno: 1,
+      access_id: "ACC001",
+      access_name: "Keyboard",
+      asset_id: "ASSET001",
+      asset_name: "Desktop Computer",
+      serial_number: "KB12345",
+      ass_serial_number: "PC67890",
+      mat_name: "Electronics",
+      mat_sub_name: "Peripherals",
+      assigned_date: "2024-03-10",
+      delink_date: "2024-03-15",
+      employee_name: "John Doe",
+    },
+    {
+      slno: 1,
+      access_id: "ACC001",
+      access_name: "Keyboard",
+      asset_id: "ASSET001",
+      asset_name: "Desktop Computer",
+      serial_number: "KB12345",
+      ass_serial_number: "PC67890",
+      mat_name: "Electronics",
+      mat_sub_name: "Peripherals",
+      assigned_date: "2024-03-10",
+      delink_date: "2024-03-15",
+      employee_name: "John Doe",
+    },
+    {
+      slno: 1,
+      access_id: "ACC001",
+      access_name: "Keyboard",
+      asset_id: "ASSET001",
+      asset_name: "Desktop Computer",
+      serial_number: "KB12345",
+      ass_serial_number: "PC67890",
+      mat_name: "Electronics",
+      mat_sub_name: "Peripherals",
+      assigned_date: "2024-03-10",
+      delink_date: "2024-03-15",
+      employee_name: "John Doe",
+    },
+    {
+      slno: 1,
+      access_id: "ACC001",
+      access_name: "Keyboard",
+      asset_id: "ASSET001",
+      asset_name: "Desktop Computer",
+      serial_number: "KB12345",
+      ass_serial_number: "PC67890",
+      mat_name: "Electronics",
+      mat_sub_name: "Peripherals",
+      assigned_date: "2024-03-10",
+      delink_date: "2024-03-15",
+      employee_name: "John Doe",
+    },
+    {
+      slno: 1,
+      access_id: "ACC001",
+      access_name: "Keyboard",
+      asset_id: "ASSET001",
+      asset_name: "Desktop Computer",
+      serial_number: "KB12345",
+      ass_serial_number: "PC67890",
+      mat_name: "Electronics",
+      mat_sub_name: "Peripherals",
+      assigned_date: "2024-03-10",
+      delink_date: "2024-03-15",
+      employee_name: "John Doe",
+    },
   ];
 
   const [responseData, setResponseData] = useState(demoData);
@@ -193,13 +198,13 @@ const AccessoryHistoryReportview = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-              GENERATED ACCESSORY/SOFTWARE HISTORY REPORT{" "}
+                GENERATED ACCESSORY/SOFTWARE HISTORY REPORT{" "}
               </h1>
             </CardHeader>
             <div className="container pt-2">
               <div className="rmb-2 row">
-              <div className="col-md-1">
-                <select className="form-select" style={{ width: "88PX" }}>
+                <div className="col-md-2">
+                  <select className="form-select">
                     <option value="10">SHOW 10</option>
                     <option value="20">SHOW 20</option>
                     <option value="30">SHOW 30</option>
@@ -221,47 +226,20 @@ const AccessoryHistoryReportview = () => {
                           className="form-control"
                           placeholder="SEARCH ..."
                           value={globalFilter || ""}
-                          onChange={e => setGlobalFilter(e.target.value)}
+                          onChange={e =>
+                            setGlobalFilter(e.target.value.toUpperCase())
+                          }
                         />
                         <i className="bx bx-search-alt search-icon"></i>
                       </label>
                     </div>
                   </div>
-                </div>                {/* <div className="col-sm-2 mb-2">
-                  <div className="text-sm-end d-flex justify-content-between">
-                    <div>
-                      <CopyToClipboard text="data to be copied">
-                        <FaCopy className="icon" />
-                      </CopyToClipboard>
-                      <PDFDownloadLink
-                        document={<MyDocument />}
-                        fileName="report.pdf"
-                      >
-                        {({ blob, url, loading, error }) =>
-                          loading ? (
-                            <span>Loading...</span>
-                          ) : (
-                            <FaFilePdf className="icon" />
-                          )
-                        }
-                      </PDFDownloadLink>
-
-                      <CSVLink
-                        data={demoData}
-                        filename={"report.csv"}
-                        className="btn btn-primary"
-                        target="_blank"
-                      >
-                        <FaFileExcel className="icon" />
-                      </CSVLink>
-                    </div>
-                  </div>
-                </div> */}
+                </div>
               </div>
             </div>
 
             <div className="table-responsive react-table">
-              <table className="table table-bordered table-hover">
+            <table className="table table-bordered table-hover text-center">
                 <thead className="table-light table-nowrap">
                   {headerGroups.map(headerGroup => (
                     <tr
@@ -305,7 +283,7 @@ const AccessoryHistoryReportview = () => {
                         <tr key={row.id} {...row.getRowProps()}>
                           {row.cells.map(cell => (
                             <td key={cell.column.id} {...cell.getCellProps()}>
-                              {cell.render("Cell")}
+                                    {String(cell.value).toUpperCase()}{" "}
                             </td>
                           ))}
                         </tr>

@@ -2,6 +2,7 @@ import React, { useMemo, useEffect, useState } from "react";
 import { Container, CardHeader, CardBody, Card } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import ToggleSwitch from "react-toggle-switch";
 
 import {
   useTable,
@@ -51,6 +52,8 @@ const FinancialYear = () => {
 
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
+  const [selectedRowFirstTable, setSelectedRowFirstTable] = useState(null);
+  const [selectedRowSecondTable, setSelectedRowSecondTable] = useState(null);
 
   const firstTableColumns = useMemo(
     () => [
@@ -113,24 +116,25 @@ const FinancialYear = () => {
         ],
       },
       {
-        Header: "MANIPULATION",
-        columns: [
-          {
-            Header: "ACTIVE",
-            id: "checkbox",
-            accessor: "",
-            Cell: ({ row }) => (
-              <input
-                type="checkbox"
-                checked={row.isSelected}
-                onChange={() => {}}
-              />
-            ),
-          },
-        ],
+        Header: "ACTIVE",
+        id: "checkbox",
+        accessor: "",
+        Cell: ({ row }) => (
+          <input
+            type="checkbox"
+            checked={row.index === selectedRowFirstTable}
+            onChange={() => setSelectedRowFirstTable(row.index)}
+            style={{
+              transform: "scale(1.5)",
+              accentColor: "green",
+              cursor: "pointer",
+              marginRight: "10px",
+            }}
+          />
+        ),
       },
     ],
-    []
+    [selectedRowFirstTable]
   );
 
   const secondTableColumns = useMemo(
@@ -200,25 +204,32 @@ const FinancialYear = () => {
             Header: "CHECK/UNCHECK",
             id: "checkbox",
             accessor: "",
-
             Cell: ({ row }) => (
               <input
                 type="checkbox"
-                checked={row.isSelected}
-                onChange={() => {}}
+                checked={row.index === selectedRowSecondTable}
+                onChange={() => setSelectedRowSecondTable(row.index)}
+                style={{
+                  transform: "scale(1.5)",
+                  accentColor: "green",
+                  cursor: "pointer",
+                  marginRight: "10px",
+                }}
               />
             ),
           },
         ],
       },
     ],
-    []
+    [selectedRowSecondTable]
   );
 
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
+      
+   
     }));
   }, [responseData]);
 
@@ -285,8 +296,8 @@ const FinancialYear = () => {
             <CardBody>
               <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select">
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
                       <option value="30">SHOW 30</option>
@@ -307,14 +318,16 @@ const FinancialYear = () => {
                             className="form-control"
                             placeholder="SEARCH ..."
                             value={firstGlobalFilter || ""}
-                            onChange={e => setFirstGlobalFilter(e.target.value)}
+                            onChange={e =>
+                              setFirstGlobalFilter(e.target.value.toUpperCase())
+                            }
                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
                       </div>
                     </div>
                   </div>
-                  <div className="col-sm-7">
+                  <div className="col-sm-6">
                     <div className="text-sm-end">
                       <button
                         type="button"
@@ -451,8 +464,8 @@ const FinancialYear = () => {
             <CardBody>
               <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select">
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
                       <option value="30">SHOW 30</option>
@@ -474,7 +487,9 @@ const FinancialYear = () => {
                             placeholder="SEARCH ..."
                             value={secondGlobalFilter || ""}
                             onChange={e =>
-                              setSecondGlobalFilter(e.target.value)
+                              setSecondGlobalFilter(
+                                e.target.value.toUpperCase()
+                              )
                             }
                           />
                           <i className="bx bx-search-alt search-icon"></i>

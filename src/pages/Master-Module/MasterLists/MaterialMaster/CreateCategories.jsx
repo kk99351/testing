@@ -1,5 +1,12 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Button,CardBody,CardHeader, Card, Input, Container } from "reactstrap";
+import {
+  Button,
+  CardBody,
+  CardHeader,
+  Card,
+  Input,
+  Container,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -11,11 +18,11 @@ import { useGet } from "src/API/useGet";
 
 function CreateCategories() {
   const demoData = [
-    { "slno": 1, "category": "Electronics", "categoryCode": "EL001" },
-    { "slno": 2, "category": "Clothing", "categoryCode": "CL002" },
-    { "slno": 3, "category": "Books", "categoryCode": "BK003" },
-    { "slno": 4, "category": "Furniture", "categoryCode": "FRN004" },
-    { "slno": 5, "category": "Automobile", "categoryCode": "AUTO005" }
+    { slno: 1, category: "Electronics", categoryCode: "EL001" },
+    { slno: 2, category: "Clothing", categoryCode: "CL002" },
+    { slno: 3, category: "Books", categoryCode: "BK003" },
+    { slno: 4, category: "Furniture", categoryCode: "FRN004" },
+    { slno: 5, category: "Automobile", categoryCode: "AUTO005" },
   ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
@@ -105,8 +112,8 @@ function CreateCategories() {
             <CardBody>
               <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select">
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
                       <option value="30">SHOW 30</option>
@@ -128,7 +135,9 @@ function CreateCategories() {
                             className="form-control"
                             placeholder="SEARCH ..."
                             value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
+                            onChange={e =>
+                              setGlobalFilter(e.target.value.toUpperCase())
+                            }
                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
@@ -136,7 +145,7 @@ function CreateCategories() {
                     </div>
                   </div>
 
-                  <div className="col-sm-7">
+                  <div className="col-sm-6">
                     <div className="text-sm-end">
                       <button
                         type="button"
@@ -156,13 +165,18 @@ function CreateCategories() {
                   <thead className="table-light table-nowrap">
                     {headerGroups.map(headerGroup => (
                       <tr
-                      key={headerGroup.id}
-                      {...headerGroup.getHeaderGroupProps()}
-                    >
-                      {headerGroup.headers.map(column => (
-                        <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
-
-                        <div className="d-flex justify-content-center">
+                        key={headerGroup.id}
+                        {...headerGroup.getHeaderGroupProps()}
+                      >
+                        {headerGroup.headers.map(column => (
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
+                            <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
                               </span>
@@ -191,10 +205,10 @@ function CreateCategories() {
                                   <Link
                                     to={`/modify_categories/${row.original.id}`}
                                   >
-                                    {cell.render("Cell")}
+                                    {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (
-                                  cell.render("Cell")
+                                  String(cell.value).toUpperCase()
                                 )}
                               </td>
                             ))}
@@ -208,7 +222,7 @@ function CreateCategories() {
                           style={{ textAlign: "center" }}
                         >
                           {" "}
-                         NO SEARCH RESULTS FOUND.
+                          NO SEARCH RESULTS FOUND.
                         </td>
                       </tr>
                     )}

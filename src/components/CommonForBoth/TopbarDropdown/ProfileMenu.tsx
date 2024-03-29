@@ -110,19 +110,19 @@ const ProfileMenu = (props: any) => {
               <Link to="/kanban-board"> {props.t("Taskboard")}</Link>
             </span>
           </DropdownItem>
-          <DropdownItem>
+          {/* <DropdownItem>
             <i className="mdi mdi-lifebuoy text-muted font-size-16 align-middle me-1"></i>{" "}
             <span className="align-middle">
               <Link to="/pages-faqs"> {props.t("Help")}</Link>
             </span>
-          </DropdownItem>
+          </DropdownItem> */}
           <DropdownItem divider />
-          <DropdownItem>
+          {/* <DropdownItem>
             <i className="mdi mdi-wallet text-muted font-size-16 align-middle me-1"></i>{" "}
             <span className="align-middle">
               {props.t("Balance")} : <b>$6951.02</b>
             </span>
-          </DropdownItem>
+          </DropdownItem> */}
           <DropdownItem className="d-flex align-items-center">
             <i className="mdi mdi-cog-outline text-muted font-size-16 align-middle me-1"></i>{" "}
             <span className="align-middle">

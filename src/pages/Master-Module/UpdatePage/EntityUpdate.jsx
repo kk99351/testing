@@ -145,7 +145,7 @@ const EntityUpdate = () => {
                             marginRight: "30px",
                           }}
                         >
-                          CREATE
+                          UPDATE
                         </Button>
                         <button
                           type="button"

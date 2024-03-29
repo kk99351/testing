@@ -12,28 +12,28 @@ import Create from "src/pages/Buttons/Create";
 import { useGet } from "src/API/useGet";
 
 const Entity = () => {
-    const demoData = [
-        { 
-          entityName: "AR Corporation", 
-          entityCode: "AR001", 
-          industry: "Technology", 
-          country: "United States" 
-        },
-        { 
-          entityName: "HCL Ltd", 
-          entityCode: "HCL002", 
-          industry: "Finance", 
-          country: "United Kingdom" 
-        },
-        { 
-          entityName: "RA Enterprises", 
-          entityCode: "RA003", 
-          industry: "Manufacturing", 
-          country: "Germany" 
-        },
-        // Add more entries as needed
-      ];
-      
+  const demoData = [
+    {
+      entityName: "AR Corporation",
+      entityCode: "AR001",
+      industry: "Technology",
+      country: "United States",
+    },
+    {
+      entityName: "HCL Ltd",
+      entityCode: "HCL002",
+      industry: "Finance",
+      country: "United Kingdom",
+    },
+    {
+      entityName: "RA Enterprises",
+      entityCode: "RA003",
+      industry: "Manufacturing",
+      country: "Germany",
+    },
+    // Add more entries as needed
+  ];
+
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
 
@@ -115,10 +115,10 @@ const Entity = () => {
               </h1>
             </CardHeader>
             <CardBody>
-            <div className="container pt-0">
+              <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select">
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
                       <option value="30">SHOW 30</option>
@@ -140,7 +140,9 @@ const Entity = () => {
                             className="form-control"
                             placeholder="SEARCH ..."
                             value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
+                            onChange={e =>
+                              setGlobalFilter(e.target.value.toUpperCase())
+                            }
                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
@@ -148,7 +150,7 @@ const Entity = () => {
                     </div>
                   </div>
 
-                  <div className="col-sm-7">
+                  <div className="col-sm-6">
                     <div className="text-sm-end">
                       <button
                         type="button"
@@ -163,7 +165,6 @@ const Entity = () => {
                 </div>
               </div>
 
-              
               <div className="table-responsive react-table">
                 <table className="table table-bordered table-hover text-center">
                   <thead className="table-light table-nowrap">
@@ -173,9 +174,14 @@ const Entity = () => {
                         {...headerGroup.getHeaderGroupProps()}
                       >
                         {headerGroup.headers.map(column => (
-                          <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
-
-                          <div className="d-flex justify-content-center">
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
+                            <div className="d-flex justify-content-center">
                               <span className="font-weight-bold">
                                 {column.render("Header")}
                               </span>
@@ -201,11 +207,13 @@ const Entity = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/entity_update/${row.original.id}`}>
-                                    {cell.render("Cell")}
+                                  <Link
+                                    to={`/entity_update/${row.original.id}`}
+                                  >
+                                    {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (
-                                  cell.render("Cell")
+                                  String(cell.value).toUpperCase()
                                 )}
                               </td>
                             ))}
