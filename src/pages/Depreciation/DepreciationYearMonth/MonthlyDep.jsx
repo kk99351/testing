@@ -117,7 +117,7 @@
 //                             </FormFeedback>
 //                           ) : null}
 //                         </FormGroup>
-//                         <FormGroup className="mb-3"> 
+//                         <FormGroup className="mb-3">
 //                           <Input
 //                             type="select"
 //                             name="month"
@@ -171,7 +171,7 @@
 //                               validation.errors.region_name
 //                             }
 //                           >
-                           
+
 //                           </Input>
 //                           {validation.touched.region_name &&
 //                           validation.errors.region_name ? (
@@ -183,7 +183,7 @@
 //                       </Col>
 //                       <hr className="mb-2" />
 //                     </Row>
-                    
+
 //                     <hr className="mb-2" />
 //                     <div
 //                       style={{
@@ -260,58 +260,82 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const MonthlyDep = () => {
+  // const navigate = useNavigate();
+  // const [selectAll, setSelectAll] = useState(false);
+  // const demoData = ["TEACHER", "NON IT", "PRINCIPLE"];
+
+  // const validation = useFormik({
+  //   enableReinitialize: true,
+
+  //   initialValues: {
+      // type: "",
+      // year: "",
+      // group: demoData, // Set initial value of group to demoData
+      // month: "",
+  //   },
+
+  //   validationSchema: Yup.object({
+      // type: Yup.string().required("DEPRECIATION TYPE IS REQUIRED"),
+      // year: Yup.string().required("FINANCIAL YEAR IS REQUIRED"),
+      // month: Yup.string().required("FINANCIAL MONTH IS REQUIRED"),
+      // group: Yup.array().min(1, "At least one item must be selected"),
+  //   }),
+  //   onSubmit: values => {
+  //     alert("form validated !");
+  //     //console.log("values", values);
+  //   },
+  // });
   const navigate = useNavigate();
   const [selectAll, setSelectAll] = useState(false);
-  const demoData = [
-    "Demo Item 1",
-    "Demo Item 2",
-    "Demo Item 3",
-    "Demo Item 4",
-    "Demo Item 5",
-  ];
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const demoData = ["TEACHER", "NON IT", "PRINCIPLE"];
 
   const validation = useFormik({
     enableReinitialize: true,
-
     initialValues: {
       type: "",
       year: "",
-      group: demoData, // Set initial value of group to demoData
       month: "",
+      group: [],
     },
-
     validationSchema: Yup.object({
       type: Yup.string().required("DEPRECIATION TYPE IS REQUIRED"),
       year: Yup.string().required("FINANCIAL YEAR IS REQUIRED"),
       month: Yup.string().required("FINANCIAL MONTH IS REQUIRED"),
-      group: Yup.array().min(1, "At least one item must be selected"),
+   group: Yup.array()
+        .min(1, "AT LEAST ONE MATERIAL GROUP SHOULD BE SELECTED")
+        .when("$selectAll", {
+          is: false,
+          then: Yup.array().required("MATERIAL GROUP IS REQUIRED"),
+        }),
     }),
-    onSubmit: (values) => {
+    onSubmit: values => {
       alert("form validated !");
       //console.log("values", values);
     },
   });
 
-  const handleCheckboxChange = (value) => {
-    const index = validation.values.group.indexOf(value);
-    const newGroup = [...validation.values.group];
-
-    if (index === -1) {
-      newGroup.push(value);
-    } else {
-      newGroup.splice(index, 1);
-    }
-
-    validation.setFieldValue("group", newGroup);
-  };
-
   const handleSelectAll = () => {
-    if (selectAll) {
-      validation.setFieldValue("group", []);
+    if (!selectAll) {
+      setSelectedOptions(demoData);
     } else {
-      validation.setFieldValue("group", demoData);
+      setSelectedOptions([]);
     }
     setSelectAll(!selectAll);
+    validation.setFieldError("group", "");
+  };
+
+  const handleOptionClick = option => {
+    if (selectedOptions.includes(option)) {
+      const updatedOptions = selectedOptions.filter(
+        selectedOption => selectedOption !== option
+      );
+      setSelectedOptions(updatedOptions);
+    } else {
+      setSelectedOptions([...selectedOptions, option]);
+    }
+    setSelectAll(false);
+    validation.setFieldError("group", "");
   };
 
   return (
@@ -365,7 +389,7 @@ const MonthlyDep = () => {
                       <Col md={12}>
                         <FormGroup className="mb-1">
                           <Label htmlFor="year">
-                            FINANCIAL YEAR<font color="red">*</font>
+                            FINANCIAL YEAR AND MONTH<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -390,9 +414,6 @@ const MonthlyDep = () => {
                           ) : null}
                         </FormGroup>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="month">
-                            FINANCIAL MONTH<font color="red">*</font>
-                          </Label>
                           <Input
                             type="select"
                             name="month"
@@ -428,34 +449,70 @@ const MonthlyDep = () => {
                         </FormGroup>
                       </Col>
                     </Row>
-                    <Row className="mb-2">
+                    <Row className="mb-3">
                       <Col md={12}>
-                        <FormGroup className="mb-3">
-                          <Label htmlFor="group">
-                            MATERIAL-GROUP <font color="red">*</font>
+                        <FormGroup>
+                          <Label>
+                            MATERIAL GROUP<font color="red">*</font>
                           </Label>
-                          <FormGroup check className="mb-3">
+                          <div>
+                            <FormGroup check inline>
+                              <Input
+                                type="checkbox"
+                                id="selectAll"
+                                checked={selectAll}
+                                onChange={handleSelectAll}
+                              />
+                              <Label
+                                style={{ marginBottom: "8px" }}
+                                check
+                                htmlFor="selectAll"
+                              >
+                                SELECT ALL{" "}
+                              </Label>
+                            </FormGroup>
                             <Input
-                              type="checkbox"
-                              id="selectAll"
-                              checked={selectAll}
-                              onChange={handleSelectAll}
-                            />
-                            <Label check htmlFor="selectAll">
-                              Select All
-                            </Label>
-                          </FormGroup>
-                          <textarea
-                            className="form-control"
-                            rows="5"
-                            value={validation.values.group.join("\n")}
-                            onChange={() => {}}
-                          ></textarea>
-                          {validation.touched.group &&
-                          validation.errors.group ? (
-                            <FormFeedback type="invalid">
+                              type="select"
+                              name="group"
+                              id="group"
+                              multiple
+                              onChange={validation.handleChange}
+                              onBlur={validation.handleBlur}
+                              invalid={
+                                (validation.touched.group &&
+                                  validation.errors.group &&
+                                  !selectAll) ||
+                                (selectAll && validation.errors.group)
+                              }
+                              style={{
+                                height: "200px",
+                              }}
+                            >
+                              {demoData.map(item => (
+                                <option
+                                  key={item}
+                                  value={item}
+                                  onClick={() => handleOptionClick(item)}
+                                  style={{
+                                    backgroundColor: selectedOptions.includes(
+                                      item
+                                    )
+                                      ? "#c3e6cb"
+                                      : "inherit",
+                                  }}
+                                >
+                                  {item}
+                                </option>
+                              ))}
+                            </Input>
+                          </div>
+                          {(validation.touched.group &&
+                            validation.errors.group &&
+                            !selectAll) ||
+                          (selectAll && validation.errors.group) ? (
+                            <div className="invalid-feedback d-block">
                               {validation.errors.group}
-                            </FormFeedback>
+                            </div>
                           ) : null}
                         </FormGroup>
                       </Col>
@@ -477,32 +534,17 @@ const MonthlyDep = () => {
                       >
                         <Button
                           type="submit"
-                          color="
-success-subtle"
+                          color="success-subtle"
                           className="btn btn-success-subtle border border-success"
                           style={{
                             paddingTop: "10px",
                             height: "45px",
-                            width: "80px",
+                            width: "90px",
                             marginRight: "30px",
                           }}
                         >
-                          CREATE
+                          PROCESS
                         </Button>
-                        <button
-                          type="button"
-                          className="btn btn-secondary-subtle border border-secondary"
-                          onClick={() => {
-                            navigate("/city");
-                          }}
-                          style={{
-                            paddingTop: "10px",
-                            width: "80px",
-                            height: "45px",
-                          }}
-                        >
-                          <Label>BACK</Label>
-                        </button>
                       </div>
                     </div>
                   </Form>

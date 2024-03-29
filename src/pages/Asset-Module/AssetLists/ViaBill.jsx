@@ -394,10 +394,11 @@ const ViaBill = () => {
                           id="search-bar-0"
                           type="text"
                           className="form-control"
-                          placeholder="search ..."
+                          placeholder="SEARCH ..."
                           value={globalFilter || ""}
-                          onChange={(e) => setGlobalFilter(e.target.value)}
-                        />
+                          onChange={e =>
+                            setGlobalFilter(e.target.value.toUpperCase())
+                          }                         />
                         <i className="bx bx-search-alt search-icon"></i>
                       </label>
                     </div>
@@ -444,10 +445,10 @@ const ViaBill = () => {
                             <td key={cell.column.id} {...cell.getCellProps()}>
                               {cell.column.id !== "SL NO" ? (
                                  <Link to={`/via_bill/${row.original.id}`} state={{ formData: row.original }}>
-                                 {cell.render("Cell")}
-                               </Link>
-                              ) : (
-                                cell.render("Cell")
+                                   {String(cell.value).toUpperCase()}{" "}
+                                  </Link>
+                                ) : (
+                                  String(cell.value).toUpperCase()
                               )}
                             </td>
                           ))}

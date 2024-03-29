@@ -16,14 +16,14 @@ import Orders from "./Orders";
 import SalesByCountry from "./SalesByCountry";
 
 const Sales = () => {
-  document.title = "Sales | Dashonic - React Admin & Dashboard Template";
+  document.title = "ezAtlas ASSET MANAGEMENT";
 
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
           {/* Render Breadcrumbs */}
-          <Breadcrumbs title="AMS" breadcrumbItem="Sales Analytics" />
+          <Breadcrumbs title="ezAtlas" breadcrumbItem="ASSET MANAGEMENT" />
 
           <Row>
             <WidgetData />

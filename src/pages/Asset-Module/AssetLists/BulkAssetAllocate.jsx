@@ -35,7 +35,6 @@ const BulkAssetAllocate = () => {
       allocateType: "Active",
     },
     {
-      slno: 2,
       assetId: "ASSET002",
       assetName: "Desktop",
       allocateTo: "Jane Smith",
@@ -49,6 +48,12 @@ const BulkAssetAllocate = () => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
+      assetId: item.assetId.toUpperCase(), 
+      assetName: item.assetName.toUpperCase(), 
+      allocateTo: item.allocateTo.toUpperCase(), 
+      assetRemarks: item.assetRemarks.toUpperCase(), 
+      allocateType: item.allocateType.toUpperCase(), 
+
     }));
   }, [responseData]);
   const requiredFields = {
@@ -106,8 +111,8 @@ const BulkAssetAllocate = () => {
               handleAllocationTypeChange(row.index, e.target.value)
             }
           >
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
+            <option value="Active"> ACTIVE</option>
+            <option value="Inactive">INACTIVE</option>
           </Input>
         ),
       },
@@ -338,8 +343,8 @@ const BulkAssetAllocate = () => {
 
               <div className="container pt-3">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select">
                       {" "}
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
@@ -362,7 +367,9 @@ const BulkAssetAllocate = () => {
                             className="form-control"
                             placeholder="SEARCH..."
                             value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
+                            onChange={e =>
+                              setGlobalFilter(e.target.value.toUpperCase())
+                            }
                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>

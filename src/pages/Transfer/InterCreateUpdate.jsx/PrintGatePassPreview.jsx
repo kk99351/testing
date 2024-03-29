@@ -121,13 +121,13 @@ const PrintGatePassPreview = () => {
                     <strong>:FROM:</strong>
                   </p>
                   <div className="justify-contend-end">
-                  <p>{formData.companyGroup}</p>
-                  <p>{formData.state}</p>
-                  <p>{formData.city}</p>
-                  <p>{formData.location}</p>
-                  <p>{formData.building}</p>
-                  <p>{formData.floor}</p>
-                  <p>{formData.department}</p>
+                    <p>{formData.companyGroup.toUpperCase()}</p>
+                    <p>{formData.state.toUpperCase()}</p>
+                    <p>{formData.city.toUpperCase()}</p>
+                    <p>{formData.location.toUpperCase()}</p>
+                    <p>{formData.building.toUpperCase()}</p>
+                    <p>{formData.floor.toUpperCase()}</p>
+                    <p>{formData.department.toUpperCase()}</p>
                   </div>
                 </div>
               </Col>
@@ -137,13 +137,13 @@ const PrintGatePassPreview = () => {
                   <p style={{ fontSize: "20px" }}>
                     <strong>:TO:</strong>
                   </p>
-                  <p>{formData.companyGroup}</p>
-                  <p>{formData.state}</p>
-                  <p>{formData.city}</p>
-                  <p>{formData.location}</p>
-                  <p>{formData.building}</p>
-                  <p>{formData.floor}</p>
-                  <p>{formData.department}</p>
+                  <p>{formData.companyGroup.toUpperCase()}</p>
+                  <p>{formData.state.toUpperCase()}</p>
+                  <p>{formData.city.toUpperCase()}</p>
+                  <p>{formData.location.toUpperCase()}</p>
+                  <p>{formData.building.toUpperCase()}</p>
+                  <p>{formData.floor.toUpperCase()}</p>
+                  <p>{formData.department.toUpperCase()}</p>
                 </div>
               </Col>
             </Row>
@@ -197,7 +197,9 @@ const PrintGatePassPreview = () => {
                     {formData.tableData.map((row, index) => (
                       <tr key={index}>
                         {columns.map(column => (
-                          <td key={column.Header}>{row[column.accessor]}</td>
+                          <td key={column.Header}>
+                            {String(row[column.accessor]).toUpperCase()}
+                          </td>
                         ))}
                       </tr>
                     ))}

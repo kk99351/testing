@@ -46,6 +46,11 @@ const AssetLink = () => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
+      assetId: item.assetId.toUpperCase(), 
+      assetName: item.assetName.toUpperCase(), 
+      serialNumber: item.serialNumber.toUpperCase(), 
+      assetRemarks: item.assetRemarks.toUpperCase(), 
+
     }));
   }, [responseData]);
   const requiredFields = {
@@ -85,11 +90,11 @@ const AssetLink = () => {
         width: "6%", // Set the width to 6%
       },
       {
-        Header: "ASSET ID",
+        Header: "ACCESSORIES ID",
         accessor: "assetId",
       },
       {
-        Header: "ASSET NAME",
+        Header: "ACCESSORIES NAME",
         accessor: "assetName",
       },
       {
@@ -97,7 +102,7 @@ const AssetLink = () => {
         accessor: "serialNumber",
       },
       {
-        Header: "ASSET REMARKS",
+        Header: "ACCESSORIES REMARKS",
         accessor: "assetRemarks",
         Cell: ({ row }) => (
           <Input
@@ -225,10 +230,9 @@ const AssetLink = () => {
                       invalid={!!errors.linkTo}
                     >
                       <option value="">SELECT LINK TO</option>
-                      <option value="website">Website</option>
-                      <option value="document">Document</option>
-                      <option value="email">Email</option>
-                      <option value="folder">Folder</option>
+                      <option value="website">CANON (XEROX MACHINE)</option>
+                      <option value="document">E BLOCK EQUIPMENT (POSITIVO)</option>
+                     
                     </Input>
                     <span className="invalid-feedback">{errors.linkTo}</span>
                   </Col>
@@ -312,8 +316,8 @@ const AssetLink = () => {
 
               <div className="container pt-0">
                 <div className="rmb-2 row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select" >
                       {" "}
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
@@ -336,8 +340,9 @@ const AssetLink = () => {
                             className="form-control"
                             placeholder="SEARCH..."
                             value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
-                          />
+                            onChange={e =>
+                              setGlobalFilter(e.target.value.toUpperCase())
+                            }                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
                       </div>

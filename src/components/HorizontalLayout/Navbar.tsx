@@ -174,10 +174,7 @@ const Navbar = (props: any) => {
                               show: geograficalArea,
                             })}
                           >
-                             <Link
-                              to="/entity"
-                              className="dropdown-item "
-                            >
+                            <Link to="/entity" className="dropdown-item ">
                               {props.t("Entity")}
                             </Link>
                             <Link
@@ -341,12 +338,13 @@ const Navbar = (props: any) => {
                         >
                           {props.t("Material-Sub-Group")}
                         </Link>
-                        <Link to="/create_items" className="dropdown-item ">
-                          {props.t("Material")}
-                        </Link>
                         <Link to="/unit" className="dropdown-item ">
                           {props.t("Uom-Master")}
                         </Link>
+                        <Link to="/create_items" className="dropdown-item ">
+                          {props.t("Material")}
+                        </Link>
+
                         <Link to="/uom_conversion" className="dropdown-item ">
                           {props.t("Uom-Conversion")}
                         </Link>
@@ -634,22 +632,34 @@ const Navbar = (props: any) => {
                           show: transferreport,
                         })}
                       >
-                        <Link to="/transfer_request_report" className="dropdown-item">
+                        <Link
+                          to="/transfer_request_report"
+                          className="dropdown-item"
+                        >
                           {props.t("Transfer Request Report")}
                         </Link>
-                        <Link to="/transfer_approval_report" className="dropdown-item">
+                        <Link
+                          to="/transfer_approval_report"
+                          className="dropdown-item"
+                        >
                           {props.t("Transfer Approval Report")}
                         </Link>
                         <Link to="/transfer_report" className="dropdown-item">
                           {props.t("Transfer Report")}
                         </Link>
-                        <Link to="/transfer_recieve_report" className="dropdown-item">
+                        <Link
+                          to="/transfer_recieve_report"
+                          className="dropdown-item"
+                        >
                           {props.t("Transfer Recieve Report")}
                         </Link>
                       </div>
                     </div>
 
-                    <Link to="/accessory_history_report" className="dropdown-item">
+                    <Link
+                      to="/accessory_history_report"
+                      className="dropdown-item"
+                    >
                       {props.t("Accessory/Software History Report")}
                     </Link>
                     <Link to="/asset_history_report" className="dropdown-item">
@@ -664,7 +674,6 @@ const Navbar = (props: any) => {
                   </div>
                 </li>
                 {/* DEPRECIATION MASTER */}
-
 
                 <li className="nav-item dropdown">
                   <Link
@@ -684,7 +693,7 @@ const Navbar = (props: any) => {
                     <Link to="/depreciation_master" className="dropdown-item">
                       {props.t("Depreciation Master")}
                     </Link>
-                    
+
                     <div className="dropdown">
                       <Link
                         to="/#"
@@ -702,13 +711,18 @@ const Navbar = (props: any) => {
                           show: dep,
                         })}
                       >
-                        <Link to="/yearly_depreciation" className="dropdown-item">
+                        <Link
+                          to="/yearly_depreciation"
+                          className="dropdown-item"
+                        >
                           {props.t("Yearly-Depreciation")}
                         </Link>
-                        <Link to="/monthly_depreciation" className="dropdown-item">
+                        <Link
+                          to="/monthly_depreciation"
+                          className="dropdown-item"
+                        >
                           {props.t("Monthly-Depreciation")}
                         </Link>
-                       
                       </div>
                     </div>
                     <div className="dropdown">
@@ -734,48 +748,13 @@ const Navbar = (props: any) => {
                         <Link to="/it_act" className="dropdown-item">
                           {props.t("IT-Act")}
                         </Link>
-                       
                       </div>
                     </div>
                     <Link to="/addition_Deletion" className="dropdown-item">
                       {props.t("Addition/Deletion")}
                     </Link>
-                    
                   </div>
                 </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 {/* 
                 <li className="nav-item dropdown">

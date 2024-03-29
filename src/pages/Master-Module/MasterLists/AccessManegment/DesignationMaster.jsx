@@ -1,5 +1,12 @@
 import React, { useMemo, useEffect, useState, useCallback } from "react";
-import { Container, Button, Card, Input } from "reactstrap";
+import {
+  Container,
+  CardHeader,
+  CardBody,
+  Button,
+  Card,
+  Input,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -76,65 +83,63 @@ const DesignationMaster = () => {
 
   return (
     <React.Fragment>
-      {/* {isLoading ? (
-        <div className="page-content">
-          <Card>
-            <div>
-              <h1>Loading...</h1>
-            </div>
-          </Card>
-        </div>
-      ) : ( */}
       <Container fluid>
         <div className="page-content">
           <Card>
-            <div className="container pt-4">
-              <div className="rmb-2 row">
-                <div className="col-md-1">
-                  <select className="form-select">
-                    <option value="10">Show 10</option>
-                    <option value="20">Show 20</option>
-                    <option value="30">Show 30</option>
-                    <option value="40">Show 40</option>
-                    <option value="50">Show 50</option>
-                  </select>
-                </div>
+            <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+                DESIGNATION DETAILS
+              </h1>
+            </CardHeader>
+            <CardBody>
+              <div className="container pt-0">
+                <div className="rmb-2 row">
+                  <div className="col-md-2">
+                    <select className="form-select">
+                      <option value="10">SHOW 10</option>
+                      <option value="20">SHOW 20</option>
+                      <option value="30">SHOW 30</option>
+                      <option value="40">SHOW 40</option>
+                      <option value="50">SHOW 50</option>
+                    </select>
+                  </div>
 
-                <div className="col-md-4">
-                  <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
-                    <div className="position-relative">
-                      <label htmlFor="search-bar-0" className="search-label">
-                        <span id="search-bar-0-label" className="sr-only">
-                          Search this table
-                        </span>
-                        <input
-                          id="search-bar-0"
-                          type="text"
-                          className="form-control"
-                          placeholder="search ..."
-                          value={globalFilter || ""}
-                          onChange={e => setGlobalFilter(e.target.value)}
-                        />
-                        <i className="bx bx-search-alt search-icon"></i>
-                      </label>
+                  <div className="col-md-4">
+                    <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+                      <div className="position-relative">
+                        <label htmlFor="search-bar-0" className="search-label">
+                          <span id="search-bar-0-label" className="sr-only">
+                            Search this table
+                          </span>
+                          <input
+                            id="search-bar-0"
+                            type="text"
+                            className="form-control"
+                            placeholder="SEARCH ..."
+                            value={globalFilter || ""}
+                            onChange={(e) => setGlobalFilter(e.target.value.toUpperCase())} 
+                          />
+                          <i className="bx bx-search-alt search-icon"></i>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="col-sm-6">
+                    <div className="text-sm-end">
+                      <button
+                        type="button"
+                        className="btn mb-2 me-2 btn btn-primary"
+                        onClick={() => navigate("/createdesignation")}
+                      >
+                        <i className="mdi mdi-plus-circle-outline me-1"></i>
+                        CREATE NEW{" "}
+                      </button>
                     </div>
                   </div>
                 </div>
-
-                <div className="col-sm-7">
-                  <div className="text-sm-end">
-                    <button
-                      type="button"
-                      className="btn mb-2 me-2 btn btn-primary"
-                      onClick={() => navigate("/createdesignation")}
-                    >
-                      <i className="mdi mdi-plus-circle-outline me-1"></i>
-                      Create New
-                    </button>
-                  </div>
-                </div>
               </div>
-            </div>
+            </CardBody>
 
             <div className="table-responsive react-table center">
               <table className="table table-bordered table-hover">
@@ -253,8 +258,6 @@ const DesignationMaster = () => {
             </div>
           </Card>
         </div>
-
-        {/* )} */}
       </Container>
     </React.Fragment>
   );

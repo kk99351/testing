@@ -156,8 +156,8 @@ const EmpWiseReportview = () => {
             </CardHeader>
             <div className="container pt-2">
               <div className="rmb-2 row">
-              <div className="col-md-1">
-                <select className="form-select" style={{ width: "88PX" }}>
+              <div className="col-md-2">
+                <select className="form-select" >
                     <option value="10">SHOW 10</option>
                     <option value="20">SHOW 20</option>
                     <option value="30">SHOW 30</option>
@@ -165,6 +165,7 @@ const EmpWiseReportview = () => {
                     <option value="50">SHOW 50</option>
                   </select>
                 </div>
+
 
                 <div className="col-md-8">
                   <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
@@ -179,8 +180,9 @@ const EmpWiseReportview = () => {
                           className="form-control"
                           placeholder="SEARCH ..."
                           value={globalFilter || ""}
-                          onChange={e => setGlobalFilter(e.target.value)}
-                        />
+                          onChange={e =>
+                            setGlobalFilter(e.target.value.toUpperCase())
+                          }                         />
                         <i className="bx bx-search-alt search-icon"></i>
                       </label>
                     </div>
@@ -220,7 +222,7 @@ const EmpWiseReportview = () => {
             </div>
 
             <div className="table-responsive react-table">
-              <table className="table table-bordered table-hover">
+            <table className="table table-bordered table-hover text-center">
                 <thead className="table-light table-nowrap">
                   {headerGroups.map(headerGroup => (
                     <tr
@@ -264,7 +266,7 @@ const EmpWiseReportview = () => {
                         <tr key={row.id} {...row.getRowProps()}>
                           {row.cells.map(cell => (
                             <td key={cell.column.id} {...cell.getCellProps()}>
-                              {cell.render("Cell")}
+                                    {String(cell.value).toUpperCase()}{" "}
                             </td>
                           ))}
                         </tr>

@@ -227,6 +227,10 @@ const TransferPreview = () => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
+      assetId: item.assetId.toUpperCase(), 
+      assetName: item.assetName.toUpperCase(), 
+      serialNumber: item.serialNumber.toUpperCase(), 
+      assetdes: item.assetdes.toUpperCase(),
     }));
   }, [responseData]);
 
@@ -274,8 +278,8 @@ const TransferPreview = () => {
             <CardBody>
               <div className="container pt-0">
                 <div className="row">
-                  <div className="col-md-1">
-                    <select className="form-select" style={{ width: "88PX" }}>
+                  <div className="col-md-2">
+                    <select className="form-select" >
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
                       <option value="30">SHOW 30</option>
@@ -297,15 +301,16 @@ const TransferPreview = () => {
                             className="form-control"
                             placeholder="SEARCH...."
                             value={globalFilter || ""}
-                            onChange={e => setGlobalFilter(e.target.value)}
-                          />
+                            onChange={e =>
+                              setGlobalFilter(e.target.value.toUpperCase())
+                            }                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
                       </div>
                     </div>
                   </div>
 
-                  <div className="col-sm-7 mb-2">
+                  <div className="col-sm-6 mb-2">
                     <div className="text-sm-end">
                       <Button
                         onClick={createHandle}

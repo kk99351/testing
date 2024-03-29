@@ -329,6 +329,7 @@ import AdditionDeletion from "src/pages/Depreciation/AdditionDeletion";
 import Entity from "src/pages/Master-Module/MasterLists/CompanyRepo/Geographical_Area/Entity";
 import EntityUpdate from "src/pages/Master-Module/UpdatePage/EntityUpdate";
 import Entitycreate from "src/pages/Master-Module/CreatePages/Entitycreate";
+import AdditionDeletionlist from "src/pages/Depreciation/AdditionDeletionlist";
 interface RouteProps {
   path: string;
   component: any;
@@ -345,6 +346,7 @@ const userRoutes: Array<RouteProps> = [
   { path: "/monthly_depreciation", component: <MonthlyDep /> },
   { path: "/yearly_depreciation", component: <YearlyDep /> },
   { path: "/addition_Deletion", component: <AdditionDeletion /> },
+  { path: "/addition_Deletion_view/:id", component: <AdditionDeletionlist /> },
 
   //ASSET MASTER PAGES PATH
   { path: "/add_new_asset", component: <AddNewAsset /> },

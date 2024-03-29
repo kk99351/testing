@@ -196,6 +196,10 @@ const ReturnAknowPreview = () => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
+      fieldName: item.fieldName.toUpperCase(), 
+      oldValue: item.oldValue.toUpperCase(), 
+      newValue: item.newValue.toUpperCase(), 
+      editedBy: item.editedBy.toUpperCase(),
     }));
   }, [responseData]);
 
@@ -374,8 +378,8 @@ const ReturnAknowPreview = () => {
               <Col xl={10}>
                 <div className="container pt-0">
                   <div className="row">
-                    <div className="col-md-1">
-                      <select className="form-select" style={{ width: "84PX" }}>
+                    <div className="col-md-2">
+                      <select className="form-select" >
                         <option value="10">SHOW 10</option>
                         <option value="20">SHOW 20</option>
                         <option value="30">SHOW 30</option>
@@ -384,7 +388,7 @@ const ReturnAknowPreview = () => {
                       </select>
                     </div>
 
-                    <div className="col-md-11 d-flex justify-content-end">
+                    <div className="col-md-10 d-flex justify-content-end">
                       <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
                         <div className="position-relative">
                           <label
@@ -400,8 +404,9 @@ const ReturnAknowPreview = () => {
                               className="form-control"
                               placeholder="SEARCH...."
                               value={globalFilter || ""}
-                              onChange={e => setGlobalFilter(e.target.value)}
-                            />
+                              onChange={e =>
+                                setGlobalFilter(e.target.value.toUpperCase())
+                              }                             />
                             <i className="bx bx-search-alt search-icon"></i>
                           </label>
                         </div>

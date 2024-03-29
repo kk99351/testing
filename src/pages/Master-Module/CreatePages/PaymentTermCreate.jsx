@@ -15,69 +15,68 @@ import { useNavigate } from "react-router-dom";
 
 const PaymentTermCreate = () => {
   const navigate = useNavigate();
-    const requiredFields = {
-      payTerm: "Payment Terms",
-      payMethod: "Payment Code",
-    };
-    const initialFormData = {};
-const initialErrors = {};
-Object.keys(requiredFields).forEach(key => {
+  const requiredFields = {
+    payTerm: "Payment Terms",
+    payMethod: "Payment Code",
+  };
+  const initialFormData = {};
+  const initialErrors = {};
+  Object.keys(requiredFields).forEach(key => {
     initialFormData[key] = "";
     initialErrors[key] = "";
-});
+  });
 
+  const [formData, setFormData] = useState(initialFormData);
+  const [errors, setErrors] = useState(initialErrors);
 
-const [formData, setFormData] = useState(initialFormData);
-const [errors, setErrors] = useState(initialErrors);
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
 
-    const handleInputChange = e => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
+  const handleDropdownChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
+
+  const createHandle = async e => {
+    e.preventDefault();
+    let isValid = true;
+
+    Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
+      if (!formData[fieldName].trim()) {
         setErrors(prevErrors => ({
-            ...prevErrors,
-            [name]: "",
+          ...prevErrors,
+          [fieldName]: `${fieldLabel} is required`,
         }));
-    };
+        isValid = false;
+      }
+    });
 
-    const handleDropdownChange = e => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
-        setErrors(prevErrors => ({
-            ...prevErrors,
-            [name]: "",
-        }));
-    };
-
-    const createHandle = async e => {
-        e.preventDefault();
-        let isValid = true;
-
-        Object.entries(requiredFields).forEach(([fieldName, fieldLabel]) => {
-            if (!formData[fieldName].trim()) {
-                setErrors(prevErrors => ({
-                    ...prevErrors,
-                    [fieldName]: `${fieldLabel} is required`,
-                }));
-                isValid = false;
-            }
-        });
-
-        if (isValid) {
-            try {
-                // await axios.post(`http://localhost:3000/region/`, formData);
-                // navigate("/company_group");
-                console.log("Form submitted successfully");
-            } catch (error) {
-                console.log("error in creating group data" + error);
-            }
-        }
-    };
+    if (isValid) {
+      try {
+        // await axios.post(`http://localhost:3000/region/`, formData);
+        // navigate("/company_group");
+        console.log("Form submitted successfully");
+      } catch (error) {
+        console.log("error in creating group data" + error);
+      }
+    }
+  };
 
   return (
     <React.Fragment>
@@ -99,8 +98,7 @@ const [errors, setErrors] = useState(initialErrors);
                           PAYMENT TERMS<font color="red">*</font>
                         </Label>
                         <Input
-                                                 placeholder="ENTER PAYMENT TERM"
-
+                          placeholder="ENTER PAYMENT TERM"
                           name="payTerm"
                           id="payTerm"
                           value={formData.payTerm}
@@ -120,8 +118,7 @@ const [errors, setErrors] = useState(initialErrors);
                           PAYMENT CODE<font color="red">*</font>
                         </Label>
                         <Input
-                                                 placeholder="ENTER PAYMENT CODE"
-
+                          placeholder="ENTER PAYMENT CODE"
                           name="payMethod"
                           id="payMethod"
                           value={formData.payMethod}

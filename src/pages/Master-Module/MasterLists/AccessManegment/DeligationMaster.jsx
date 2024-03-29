@@ -394,7 +394,7 @@ const DeligationMaster = () => {
                   </div>
                 </div>
 
-                <div className="col-sm-7">
+                <div className="col-sm-6">
                   <div className="text-sm-end">
                     <button
                       type="button"

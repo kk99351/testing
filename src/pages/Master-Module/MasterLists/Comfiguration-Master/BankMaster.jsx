@@ -105,7 +105,7 @@ const BankMaster = () => {
       <Card>
         <div className="container pt-4">
           <div className="rmb-2 row">
-            <div className="col-md-1">
+            <div className="col-md-2">
               <select className="form-select">
                 <option value="10">Show 10</option>
                 <option value="20">Show 20</option>

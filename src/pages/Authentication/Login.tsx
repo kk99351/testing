@@ -16,8 +16,8 @@ import withRouter from "src/components/Common/withRouter";
 import { loginUser, socialLogin } from "../../slices/thunks";
 
 //import images
-import logoDark from "../../assets/images/logo-dark.png";
-import logoLight from "../../assets/images/logo-light.png";
+import logoDark from "../../assets/images/image1.png";
+import logoLight from "../../assets/images/image1.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { createSelector } from "reselect";
@@ -100,20 +100,20 @@ const Login = ({ props }: LoginProps) => {
                       <img
                         src={logoDark}
                         alt=""
-                        height="22"
+                        height="60"
                         className="auth-logo-dark"
                       />
                       <img
                         src={logoLight}
                         alt=""
-                        height="22"
+                        height="60"
                         className="auth-logo-light"
                       />
                     </Link>
                   </div>
                   <div className="mb-4">
                     <h5>Welcome Back !</h5>
-                    <p>Sign in to continue to Dashonic.</p>
+                    <p>Sign in to continue to ezAtlas.</p>
                   </div>
                   {error && error ? (<Alert className="alert-danger"> {error} </Alert>) : null}
                   <Form
@@ -228,8 +228,7 @@ const Login = ({ props }: LoginProps) => {
               <Col xl={12}>
                 <div className="text-center text-muted p-4">
                   <p className="mb-0">
-                    &copy; {new Date().getFullYear()} Dashonic. Crafted with{" "}
-                    <i className="mdi mdi-heart text-danger"></i> by Pichforest
+                    &copy; {new Date().getFullYear()} HOLKAR CONSULTANCY SERVICE TECHNOLOGIES PVT LTD. {" "}
                   </p>
                 </div>
               </Col>
