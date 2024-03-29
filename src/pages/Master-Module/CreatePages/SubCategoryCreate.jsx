@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,9 +16,24 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { GetAllData } from "src/API/Master/GlobalGet";
+import { CreateMaterialSubGroup } from "src/API/Master/MaterialMaster/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const SubCategoryCreate = () => {
   const navigate = useNavigate();
+  const [material, setMaterial] = useState([]);
+
+  useEffect(() => {
+    GetAllData("MaterialGroup").then(res => {
+      console.log("alk", res);
+      if (Array.isArray(res)) {
+        setMaterial(res);
+      } else {
+        setMaterial([]);
+      }
+    });
+  }, []);
   const validation = useFormik({
     enableReinitialize: true,
 
@@ -36,14 +51,34 @@ const SubCategoryCreate = () => {
       // assetprefix: Yup.string().required("Aset Prefix is Required"),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+      
+      CreateMaterialSubGroup([
+        {
+          idsgrp: 0,
+          nmsgrp: values.subcategoryname,
+          cdsgrp: values.subcategorycode,
+          idgrp: {
+            idgrp: values.categoryname,
+            nmgrp: "string",
+            cdgrp: "string",
+          },
+        },
+      ]).then(res => {
+        console.log(res);
+        if (res.ok) {
+          toast("Material Sub Group created successfully");
+          navigate("/create_subcatogries");
+        } else {
+          toast("Material Sub Group already exists");
+        }
+      });
     },
   });
 
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Card className="mt-0">
             <CardHeader>
@@ -66,7 +101,7 @@ const SubCategoryCreate = () => {
                             MATERIAL GROUP NAME<font color="red">*</font>
                           </Label>
                           <Input
-                            name="companygroup"
+                            name="categoryname"
                             type="select"
                             className="form-control"
                             id="validationCustom01"
@@ -78,10 +113,12 @@ const SubCategoryCreate = () => {
                             }
                           >
                             <option value="">SELECT MATERIAL NAME</option>
-                            <option value="Electronics">Electronics</option>
-                            <option value="Clothing">Clothing</option>
-                            <option value="Books">Books</option>
-                            <option value="Furniture">Furniture</option>
+                            {material &&
+                              material.map((item, index) => (
+                                <option key={index} value={item.idgrp}>
+                                  {item.nmgrp}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.categoryname &&
                             validation.errors.categoryname && (

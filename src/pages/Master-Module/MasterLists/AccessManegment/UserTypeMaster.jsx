@@ -24,13 +24,16 @@ const UserTypeMaster = () => {
 
   useEffect(() => {
     GetAllData("Usertype").then(res => {
-      if (res?.length > 0) {
+      console.log(res);
+      if (Array.isArray(res)) {
         setResponseData(res);
+      } else {
+        setResponseData([]);
       }
     });
   }, []);
   const dataWithSlno = useMemo(() => {
-    return responseData.map((item, index) => ({
+    return responseData?.map((item, index) => ({
       ...item,
       slno: index + 1,
     }));

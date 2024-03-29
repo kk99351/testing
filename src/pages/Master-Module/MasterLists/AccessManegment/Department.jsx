@@ -19,16 +19,16 @@ import { useGet } from "src/API/useGet";
 import { GetAllData } from "src/API/Master/GlobalGet";
 
 const Department = () => {
-  
   const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     GetAllData("Dept").then(res => {
-      if(res?.length>0){
+      if (Array.isArray(res)) { 
         setResponseData(res);
+      } else {
+        setResponseData([]); 
       }
-      
     });
   }, []);
 
@@ -52,12 +52,13 @@ const Department = () => {
   );
 
   const dataWithSlno = useMemo(() => {
-    return responseData.map((item, index) => ({
-      ...item,
-      slno: index + 1,
-    }));
+    return (
+      responseData?.map((item, index) => ({
+        ...item,
+        slno: index + 1,
+      })) || []
+    );
   }, [responseData]);
-  console.log(responseData);
   const {
     getTableProps,
     getTableBodyProps,

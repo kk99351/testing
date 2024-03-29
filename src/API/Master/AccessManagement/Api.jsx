@@ -31,11 +31,9 @@ export const CreateDesignation = async payload => {
     return error.message;
   }
 };
-
 //---------------------Create EMPLOYE-------------------------//
 
 //--------------------CReate USER TYPE------------------------//
-
 export const CreateUserType = async payload => {
   try {
     const result = await fetch(`${ApiBaseUrl}/master/Usertype`, {

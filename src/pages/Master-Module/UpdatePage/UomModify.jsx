@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Col,
   Row,
@@ -12,9 +12,16 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { GetSignleData } from "src/API/Master/GlobalGet";
+import { useParams } from "react-router";
+import { CreateUomApis } from "src/API/Master/MaterialMaster/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const UomModify = () => {
   const navigate = useNavigate();
+  const [uom, setUom] = useState([]);
+  const { id } = useParams();
+
   const requiredFields = {
     uom_name: "UNIT OF MEASUREMENT NAME",
     uom_code: "UNIT OF MEASUREMENT CODE ",
@@ -25,9 +32,24 @@ const UomModify = () => {
     initialFormData[key] = "";
     initialErrors[key] = "";
   });
-
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState({
+    uom_name: uom?.nmuom,
+    uom_code: uom?.cduom,
+  });
   const [errors, setErrors] = useState(initialErrors);
+
+  useEffect(() => {
+    GetSignleData("Uom", id).then(res => {
+      setUom(res);
+    });
+  }, [id]);
+
+  useEffect(() => {
+    setFormData({
+      uom_name: uom?.nmuom || "",
+      uom_code: uom?.cduom || "",
+    });
+  }, [uom]);
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -69,8 +91,25 @@ const UomModify = () => {
 
     if (isValid) {
       try {
-        // await axios.post(`http://localhost:3000/region/`, formData);
-        // navigate("/company_group");
+        CreateUomApis([
+          {
+            iduom: id,
+            nmuom: formData.uom_name,
+            cduom: formData.uom_code,
+          },
+        ])
+          .then(res => {
+            console.log(res);
+            if (res.ok) {
+              toast("UOM Updated successfully");
+              navigate("/unit");
+            } else {
+              toast("UOM already exists");
+            }
+          })
+          .catch(err => {
+            toast(err.message);
+          });
         console.log("Form submitted successfully");
       } catch (error) {
         console.log("error in creating group data" + error);
@@ -81,6 +120,7 @@ const UomModify = () => {
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Card className="mt-0">
             <CardHeader>
@@ -107,7 +147,9 @@ const UomModify = () => {
                             errors.uom_name ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="invalid-feedback">{errors.uom_name}</span>
+                        <span className="invalid-feedback">
+                          {errors.uom_name}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
@@ -127,7 +169,9 @@ const UomModify = () => {
                             errors.uom_code ? "is-invalid" : ""
                           }`}
                         />
-                        <span className="invalid-feedback">{errors.uom_code}</span>
+                        <span className="invalid-feedback">
+                          {errors.uom_code}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>

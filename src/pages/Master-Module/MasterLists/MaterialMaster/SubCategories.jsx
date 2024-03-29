@@ -15,29 +15,22 @@ import {
   usePagination,
 } from "react-table";
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 function SubCategories() {
-  const demoData = [
-    { slno: 1, subcategory: "Smartphones", subcategorycode: "SP001" },
-    { slno: 2, subcategory: "Laptops", subcategorycode: "LT002" },
-    { slno: 3, subcategory: "Televisions", subcategorycode: "TV003" },
-    { slno: 4, subcategory: "Tablets", subcategorycode: "TB004" },
-    { slno: 5, subcategory: "Printers", subcategorycode: "PR005" },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/createsubcategories");
-  //   }
-  //   fetch();
-  // }, [getData]);
+  useEffect(() => {
+    GetAllData("MaterialSubGroup").then(res => {
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
@@ -56,13 +49,13 @@ function SubCategories() {
       },
       {
         Header: "MATERIAL SUB-GROUP",
-        accessor: "subcategory",
+        accessor: "nmsgrp",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "MATERIAL SUB-GROUP CODE",
-        accessor: "subcategorycode",
+        accessor: "cdsgrp",
         disableFilters: true,
         filterable: true,
       },
@@ -200,7 +193,9 @@ function SubCategories() {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/modify_subcatogries/${row.original.id}`}>
+                                  <Link
+                                    to={`/modify_subcatogries/${row.original.idsgrp}`}
+                                  >
                                     {cell.render("Cell")}
                                   </Link>
                                 ) : (
@@ -218,7 +213,7 @@ function SubCategories() {
                           style={{ textAlign: "center" }}
                         >
                           {" "}
-                           NO SEARCH RESULTS FOUND
+                          NO SEARCH RESULTS FOUND
                         </td>
                       </tr>
                     )}

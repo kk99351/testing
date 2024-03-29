@@ -15,32 +15,22 @@ import {
   useSortBy,
   usePagination,
 } from "react-table";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const CreateItems = () => {
-  const demoData = [
-    { "slno": 1, "category": "Electronics", "sub_category": "Smartphones", "item_name": "iPhone 12", "item_code": "EL001-SP001-I12", "item_type": "Mobile Phone" },
-    { "slno": 2, "category": "Electronics", "sub_category": "Smartphones", "item_name": "Samsung Galaxy S21", "item_code": "EL001-SP001-SG21", "item_type": "Mobile Phone" },
-    { "slno": 3, "category": "Electronics", "sub_category": "Laptops", "item_name": "MacBook Pro", "item_code": "EL001-LT002-MBP", "item_type": "Laptop" },
-    { "slno": 4, "category": "Electronics", "sub_category": "Laptops", "item_name": "Dell XPS 15", "item_code": "EL001-LT002-XPS15", "item_type": "Laptop" },
-    { "slno": 5, "category": "Clothing", "sub_category": "Men's T-Shirts", "item_name": "Plain White T-Shirt", "item_code": "CL002-MT001-PWT", "item_type": "T-Shirt" }
   
-  ];
-
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/companygroup");
-  //   }
-  //   fetch();
-  // }, [getData]);
-
-  // useEffect(() => {
-  //   const updatedData = data.map((row, index) => ({ ...row, slno: index + 1 }));
-  //   setResponseData(updatedData);
-  // }, [data]);
+  useEffect(() => {
+    GetAllData("Material").then(res => {
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
   const columns = useMemo(
     () => [
       {
@@ -52,31 +42,31 @@ const CreateItems = () => {
       },
       {
         Header: "MATERIAL-GROUP",
-        accessor: "category",
+        accessor: "idsgrp.idgrp.nmgrp",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "MATERIAL SUB-GROUP ",
-        accessor: "sub_category",
+        accessor: "idsgrp.nmsgrp",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "MATERIAL NAME",
-        accessor: "item_name",
+        accessor: "nmmodel",
         disableFilters: true,
         filterable: true,
       },
-      {
-        Header: "MATERIAL CODE",
-        accessor: "item_code",
-        disableFilters: true,
-        filterable: true,
-      },
+      // {
+      //   Header: "MATERIAL CODE",
+      //   accessor: "item_code",
+      //   disableFilters: true,
+      //   filterable: true,
+      // },
       {
         Header: "MATERIAL TYPE",
-        accessor: "item_type",
+        accessor: "typasst",
         disableFilters: true,
         filterable: true,
       },
@@ -116,17 +106,7 @@ const CreateItems = () => {
     usePagination
   );
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/employeemaster");
-  //   }
-  //   fetch();
-  // }, [getData]);
-
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
+ 
 
   return (
     <React.Fragment>
@@ -233,7 +213,7 @@ const CreateItems = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "id" ? (
                                   <Link
-                                    to={`/modifycreateitems/${row.original.id}`}
+                                    to={`/modifycreateitems/${row.original.idmodel}`}
                                   >
                                     {cell.render("Cell")}
                                   </Link>
