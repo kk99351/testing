@@ -146,7 +146,7 @@ const Navbar = (props: any) => {
                           e.preventDefault();
                         }}
                       >
-                        {props.t("Company-Repository")}{" "}
+                        {props.t("Company Repository")}{" "}
                         <div className="arrow-down"></div>
                       </Link>
                       <div
@@ -218,7 +218,7 @@ const Navbar = (props: any) => {
                           e.preventDefault();
                         }}
                       >
-                        {props.t(" Access-Management")}{" "}
+                        {props.t(" Access Management")}{" "}
                         <div className="arrow-down"></div>
                       </Link>
                       <div
@@ -233,16 +233,16 @@ const Navbar = (props: any) => {
                           {props.t("Designation")}
                         </Link>
                         <Link to="/emplyee_master" className="dropdown-item ">
-                          {props.t("Employee-Master")}
+                          {props.t("Employee Master")}
                         </Link>
                         <Link to="/user_type" className="dropdown-item ">
-                          {props.t("Usertype-Master")}
+                          {props.t("Usertype Master")}
                         </Link>
                         <Link to="/user_permission" className="dropdown-item ">
-                          {props.t("User-Permission")}
+                          {props.t("User Permission")}
                         </Link>
                         <Link to="/user_login" className="dropdown-item">
-                          {props.t("User-Login")}
+                          {props.t("User Login")}
                         </Link>
                       </div>
                     </div>
@@ -274,7 +274,7 @@ const Navbar = (props: any) => {
                           to="/deligation_master"
                           className="dropdown-item "
                         >
-                          {props.t("Delegation-Master")}
+                          {props.t("Delegation Master")}
                         </Link>
                         {/* <Link
                           to="/payment_method"
@@ -295,13 +295,13 @@ const Navbar = (props: any) => {
                           {props.t("Bank-Master")}
                         </Link> */}
                         <Link to="/tax_details" className="dropdown-item ">
-                          {props.t("Tax-Configuration")}
+                          {props.t("Tax Configuration")}
                         </Link>
                         <Link to="/financial_year" className="dropdown-item ">
-                          {props.t("Financial-Year")}
+                          {props.t("Financial Year")}
                         </Link>
                         <Link to="/add_currency" className="dropdown-item ">
-                          {props.t("Currency-Master")}
+                          {props.t("Currency Master")}
                         </Link>
                         <Link
                           to="/terms_and_condition"
@@ -321,7 +321,7 @@ const Navbar = (props: any) => {
                           e.preventDefault();
                         }}
                       >
-                        {props.t("Material-Master")}{" "}
+                        {props.t("Material Master")}{" "}
                         <div className="arrow-down"></div>
                       </Link>
                       <div
@@ -330,23 +330,23 @@ const Navbar = (props: any) => {
                         })}
                       >
                         <Link to="/create_catogries" className="dropdown-item ">
-                          {props.t("Material-Group")}
+                          {props.t("Material Group")}
                         </Link>
                         <Link
                           to="/create_subcatogries"
                           className="dropdown-item "
                         >
-                          {props.t("Material-Sub-Group")}
+                          {props.t("Material Sub Group")}
                         </Link>
                         <Link to="/unit" className="dropdown-item ">
-                          {props.t("Uom-Master")}
+                          {props.t("Uom Master")}
                         </Link>
                         <Link to="/create_items" className="dropdown-item ">
                           {props.t("Material")}
                         </Link>
 
                         <Link to="/uom_conversion" className="dropdown-item ">
-                          {props.t("Uom-Conversion")}
+                          {props.t("Uom Conversion")}
                         </Link>
                       </div>
                     </div>
@@ -360,7 +360,7 @@ const Navbar = (props: any) => {
                           e.preventDefault();
                         }}
                       >
-                        {props.t("Supplier-Master")}{" "}
+                        {props.t("Supplier Master")}{" "}
                         <div className="arrow-down"></div>
                       </Link>
                       <div
@@ -369,9 +369,9 @@ const Navbar = (props: any) => {
                         })}
                       >
                         <Link to="/create_vendor" className="dropdown-item ">
-                          {props.t("Create-Supplier")}
+                          {props.t("Create Supplier")}
                         </Link>
-                        <Link to="/vendor_approval" className="dropdown-item ">
+                        {/* <Link to="/vendor_approval" className="dropdown-item ">
                           {props.t("Supplier-Approval L1")}
                         </Link>
                         <Link
@@ -379,7 +379,7 @@ const Navbar = (props: any) => {
                           className="dropdown-item "
                         >
                           {props.t("Approved-Supplier-List ")}
-                        </Link>
+                        </Link> */}
                       </div>
                     </div>
                   </div>
@@ -412,7 +412,7 @@ const Navbar = (props: any) => {
                           setaddtostore(!addtostore);
                         }}
                       >
-                        {props.t("Add-To-Store")}{" "}
+                        {props.t("Add To Store")}{" "}
                         <div className="arrow-down"></div>
                       </Link>
                       <div
@@ -421,13 +421,13 @@ const Navbar = (props: any) => {
                         })}
                       >
                         <Link to="/via_bills" className="dropdown-item">
-                          {props.t("Via-Bill")}
+                          {props.t("Via Bill")}
                         </Link>
                         {/* <Link to="/read-email" className="dropdown-item">
                           {props.t("Without-Bill")}
                         </Link> */}
                         <Link to="/add_new_asset" className="dropdown-item">
-                          {props.t("Add-New-Asset")}
+                          {props.t("Add New Asset")}
                         </Link>
                       </div>
                     </div>
@@ -440,7 +440,7 @@ const Navbar = (props: any) => {
                           settag(!tag);
                         }}
                       >
-                        {props.t("Tag-Printing")}{" "}
+                        {props.t("Tag Printing")}{" "}
                         <div className="arrow-down"></div>
                       </Link>
                       <div
@@ -450,30 +450,30 @@ const Navbar = (props: any) => {
                           {props.t("Barcode")}
                         </Link>
                         <Link to="/qr_code" className="dropdown-item">
-                          {props.t("QR-Code")}
+                          {props.t("QR Code")}
                         </Link>
                       </div>
                     </div>
                     <Link to="/all_asset" className="dropdown-item">
-                      {props.t("All-Assets")}
+                      {props.t("All Assets")}
                     </Link>
                     <Link to="/bulk_asset_allocate" className="dropdown-item">
-                      {props.t("Bulk Asset-Allocate")}
+                      {props.t("Bulk Asset Allocate")}
                     </Link>
                     <Link to="/deallocate" className="dropdown-item">
-                      {props.t("De-Allocate")}
+                      {props.t("De Allocate")}
                     </Link>
                     <Link to="/damaged_asset" className="dropdown-item">
                       {props.t("Damaged Asset")}
                     </Link>
                     <Link to="/approve_damaged_asset" className="dropdown-item">
-                      {props.t("Approve_Damaged_Asset")}
+                      {props.t("Approve Damaged Asset")}
                     </Link>
                     <Link to="/link" className="dropdown-item">
                       {props.t("Link Software/Accessories")}
                     </Link>{" "}
                     <Link to="/delink" className="dropdown-item">
-                      {props.t("De-Link Software/Accessories")}
+                      {props.t("De Link Software/Accessories")}
                     </Link>{" "}
                     <Link to="/asset_maintenance" className="dropdown-item">
                       {props.t("Asset Maintenance")}
@@ -506,7 +506,7 @@ const Navbar = (props: any) => {
                           setintra(!intra);
                         }}
                       >
-                        {props.t("Intra-Transfer")}{" "}
+                        {props.t("Intra Transfer")}{" "}
                         <div className="arrow-down"></div>
                       </Link>
                       <div
@@ -518,13 +518,13 @@ const Navbar = (props: any) => {
                           to="/intra_transfer_request"
                           className="dropdown-item"
                         >
-                          {props.t("Transfer-Request")}
+                          {props.t("Transfer Request")}
                         </Link>
                         <Link
                           to="/intra_transfer_approval"
                           className="dropdown-item"
                         >
-                          {props.t("Transfer-Approval")}
+                          {props.t("Transfer Approval")}
                         </Link>
                         <Link to="/intra_transfer" className="dropdown-item">
                           {props.t("Transfer")}
@@ -533,7 +533,7 @@ const Navbar = (props: any) => {
                           to="/intra_recieve_assets"
                           className="dropdown-item"
                         >
-                          {props.t("Intra-Receive-Assets")}
+                          {props.t("Intra Receive Assets")}
                         </Link>
                       </div>
                     </div>
@@ -546,7 +546,7 @@ const Navbar = (props: any) => {
                           setinter(!inter);
                         }}
                       >
-                        {props.t("Inter-Transfer")}{" "}
+                        {props.t("Inter Transfer")}{" "}
                         <div className="arrow-down"></div>
                       </Link>
                       <div
@@ -556,31 +556,31 @@ const Navbar = (props: any) => {
                           to="/inter_transfer_request"
                           className="dropdown-item"
                         >
-                          {props.t("Transfer-Request")}
+                          {props.t("Transfer Request")}
                         </Link>
                         <Link
                           to="/inter_transfer_approval"
                           className="dropdown-item"
                         >
-                          {props.t("Transfer-Approval")}
+                          {props.t("Transfer Approval")}
                         </Link>
                         <Link to="/inter_transfer" className="dropdown-item">
                           {props.t("Transfer")}
                         </Link>
                         <Link to="/print_gate_pass" className="dropdown-item">
-                          {props.t("Print-Gate-Pass")}
+                          {props.t("Print Gate Pass")}
                         </Link>
                         <Link
                           to="/inter_recieve_assets"
                           className="dropdown-item"
                         >
-                          {props.t("Inter-Receive-Assets")}
+                          {props.t("Inter Receive Assets")}
                         </Link>
                         <Link
                           to="/inter_return_acknowledge"
                           className="dropdown-item"
                         >
-                          {props.t("Return-Acknowledge")}
+                          {props.t("Return Acknowledge")}
                         </Link>
                       </div>
                     </div>

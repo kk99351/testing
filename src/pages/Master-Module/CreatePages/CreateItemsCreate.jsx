@@ -93,7 +93,7 @@ const CreateItemsCreate = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CREATE MATERIAL 
+                CREATE MATERIAL
               </h1>
             </CardHeader>
             <CardBody>
@@ -116,9 +116,9 @@ const CreateItemsCreate = () => {
                         >
                           <option value="">SELECT MATERIAL TYPE</option>
                           <option value="IT">IT</option>
-<option value="NON-IT">NON IT</option>
-<option value="soft">SOFTWARE</option>
-<option value="accessories">ACCESSORIES</option>
+                          <option value="NON-IT">NON IT</option>
+                          <option value="soft">SOFTWARE</option>
+                          <option value="accessories">ACCESSORIES</option>
                         </Input>
                         <span className="invalid-feedback">
                           {errors.item_type}
@@ -195,7 +195,6 @@ const CreateItemsCreate = () => {
                       <hr className="mb-0 mt-3" />
                     </Row>
                     <Row className="mb-2">
-                      
                       <Col md={12}>
                         <Label for="uom">
                           UOM<font color="red">*</font>
