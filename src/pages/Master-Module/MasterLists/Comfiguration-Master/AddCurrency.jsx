@@ -15,45 +15,22 @@ import {
   useSortBy,
   usePagination,
 } from "react-table";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const AddCurrency = () => {
-  const demoData = [
-    {
-      slno: 1,
-      nmCurr: "US Dollar",
-      cdCurr: "USD",
-    },
-    {
-      slno: 2,
-      nmCurr: "Euro",
-      cdCurr: "EUR",
-    },
-    {
-      slno: 3,
-      nmCurr: "British Pound",
-      cdCurr: "GBP",
-    },
-    {
-      slno: 4,
-      nmCurr: "Indian Rupee",
-      cdCurr: "INR",
-    },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/companygroup");
-  //   }
-  //   fetch();
-  // }, [getData]);
+  useEffect(() => {
+    GetAllData("Currency").then(res => {
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   const updatedData = data.map((row, index) => ({ ...row, slno: index + 1 }));
-  //   setResponseData(updatedData);
-  // }, [data]);
   const columns = useMemo(
     () => [
       {
@@ -65,13 +42,13 @@ const AddCurrency = () => {
       },
       {
         Header: "CURRENCY NAME",
-        accessor: "nmCurr",
+        accessor: "nmcurr",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "CURRENCY SYMBOL",
-        accessor: "cdCurr",
+        accessor: "cdcurr",
         disableFilters: true,
         filterable: true,
       },
@@ -229,7 +206,7 @@ const AddCurrency = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "id" ? (
                                   <Link
-                                    to={`/modify_add_currency/${row.original.id}`}
+                                    to={`/modify_add_currency/${row.original.idcurr}`}
                                   >
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>

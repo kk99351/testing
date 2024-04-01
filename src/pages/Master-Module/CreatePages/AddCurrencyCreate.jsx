@@ -12,6 +12,8 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { CreateCurrency } from "src/API/Master/ConfigrationMaster/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddCurrencyCreate = () => {
   const navigate = useNavigate();
@@ -68,10 +70,27 @@ const AddCurrencyCreate = () => {
     });
 
     if (isValid) {
+      console.log("foemdata",formData)
       try {
-        // await axios.post(`http://localhost:3000/region/`, formData);
-        // navigate("/company_group");
-        console.log("Form submitted successfully");
+        CreateCurrency([
+          {
+            idcurr: 0,
+            nmcurr: formData.nmCurr,
+            cdcurr: formData.cdCurr,
+          },
+        ])
+          .then(res => {
+            console.log("alok", res);
+            if (res.ok) {
+              toast("Currency created successfully");
+              navigate("/add_currency");
+            } else {
+              toast("Currency already exists");
+            }
+          })
+          .catch(err => {
+            toast(err.message);
+          });
       } catch (error) {
         console.log("error in creating group data" + error);
       }
@@ -80,12 +99,13 @@ const AddCurrencyCreate = () => {
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-              CREATE CURRENCY
+                CREATE CURRENCY
               </h1>
             </CardHeader>
             <CardBody>
@@ -104,8 +124,7 @@ const AddCurrencyCreate = () => {
                           value={formData.nmCurr}
                           onChange={handleDropdownChange}
                           invalid={!!errors.nmCurr}
-                          style={{ textTransform: 'uppercase' }} 
-
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT CURRENCY NAME</option>
                           <option value="US Dollar">US Dollar</option>
@@ -113,7 +132,9 @@ const AddCurrencyCreate = () => {
                           <option value="British Pound">British Pound</option>
                           <option value="Indian Rupee">Indian Rupee</option>
                         </Input>
-                        <span className="invalid-feedback">{errors.nmCurr}</span>
+                        <span className="invalid-feedback">
+                          {errors.nmCurr}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
@@ -130,8 +151,7 @@ const AddCurrencyCreate = () => {
                           value={formData.cdCurr}
                           onChange={handleDropdownChange}
                           invalid={!!errors.cdCurr}
-                          style={{ textTransform: 'uppercase' }} 
-
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT CURRENCY SYMBOL</option>
                           <option value="USD">USD</option>
@@ -139,7 +159,9 @@ const AddCurrencyCreate = () => {
                           <option value="GBP">GBP</option>
                           <option value="INR">INR</option>
                         </Input>
-                        <span className="invalid-feedback">{errors.cdCurr}</span>
+                        <span className="invalid-feedback">
+                          {errors.cdCurr}
+                        </span>
                       </Col>
 
                       <hr className="mb-0 mt-3" />
