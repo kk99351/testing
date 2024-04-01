@@ -102,7 +102,7 @@ const AmcWarrenttyReportview = () => {
       { Header: "SERIAL NUMBER", accessor: "serial_num" },
       { Header: "ASSET DISCRIPTION", accessor: "ass_dis" },
       { Header: "VENDOR NAME", accessor: "vendor_name"}, 
-      { Header: "COMPANY GROUP", accessor: "cmpny_group" },
+      { Header: "COUNTRY", accessor: "cmpny_group" },
       { Header: "STATUS", accessor: "status" },
       { Header: "CITY", accessor: "city" },
       { Header: "LOCATION", accessor: "location" },

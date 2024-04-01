@@ -15,29 +15,21 @@ import {
   usePagination,
 } from "react-table";
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const DesignationMaster = () => {
-  const demoData = [
-    { dname: "Manager" },
-    { dname: "Assistant Manager" },
-    { dname: "Software Engineer" },
-    { dname: "Sales Representative" },
-    { dname: "HR Coordinator" },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/designationmaster");
-  //   }
-  //   fetch();
-  // }, [getData]);
-
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
+  useEffect(() => {
+    GetAllData("Designation").then(res => {
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
 
   const columns = useMemo(
     () => [
@@ -48,13 +40,17 @@ const DesignationMaster = () => {
       },
       {
         Header: "DESIGNATION NAME",
-        accessor: "dname",
+        accessor: "nmdesign",
+      },
+      {
+        Header: "DESIGNATION CODE",
+        accessor: "cddesign",
       },
     ],
     []
   );
   const dataWithSlno = useMemo(() => {
-    return responseData.map((item, index) => ({
+    return responseData?.map((item, index) => ({
       ...item,
       slno: index + 1,
     }));
@@ -87,15 +83,6 @@ const DesignationMaster = () => {
 
   return (
     <React.Fragment>
-      {/* {isLoading ? (
-        <div className="page-content">
-          <Card>
-            <div>
-              <h1>Loading...</h1>
-            </div>
-          </Card>
-        </div>
-      ) : ( */}
       <Container fluid>
         <div className="page-content">
           <Card>
@@ -131,7 +118,6 @@ const DesignationMaster = () => {
                             placeholder="SEARCH ..."
                             value={globalFilter || ""}
                             onChange={(e) => setGlobalFilter(e.target.value.toUpperCase())} 
-
                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
@@ -154,122 +140,126 @@ const DesignationMaster = () => {
                 </div>
               </div>
 
-              <div className="table-responsive react-table">
-                <table className="table table-bordered table-hover text-center">
-                  <thead className="table-light table-nowrap">
-                    {headerGroups.map(headerGroup => (
-                      <tr
-                        key={headerGroup.id}
-                        {...headerGroup.getHeaderGroupProps()}
-                      >
-                        {headerGroup.headers.map(column => (
-                          <th
-                            key={column.id}
-                            {...column.getHeaderProps(
-                              column.getSortByToggleProps()
-                            )}
-                            style={{ width: column.width }}
-                          >
-                            <div className="d-flex justify-content-center">
-                              <span className="font-weight-bold">
-                                {column.render("Header")}
-                              </span>
-                              <span>
-                                {column.isSorted
-                                  ? column.isSortedDesc
-                                    ? " 🔽"
-                                    : " 🔼"
-                                  : ""}
-                              </span>
-                            </div>
-                          </th>
-                        ))}
-                      </tr>
-                    ))}
-                  </thead>
-                  <tbody {...getTableBodyProps()}>
-                    {page.length > 0 ? (
-                      page.map(row => {
-                        prepareRow(row);
-                        return (
-                          <tr key={row.id} {...row.getRowProps()}>
-                            {row.cells.map(cell => (
-                              <td key={cell.column.id} {...cell.getCellProps()}>
-                                {cell.column.id !== "SL NO" ? (
-                                  <Link
-                                    to={`/modify_designation/${row.original.id}`}
-                                  >
-                                     {String(cell.value).toUpperCase()}{" "}
-  </Link>
-   ) : (
-   String(cell.value).toUpperCase()
-                                )}
-                              </td>
-                            ))}
-                          </tr>
-                        );
-                      })
-                    ) : (
-                      <tr>
-                        <td
-                          colSpan={headerGroups[0].headers.length}
-                          style={{ textAlign: "center" }}
+            <div className="table-responsive react-table center">
+              <table className="table table-bordered table-hover">
+                <thead className="table-light table-nowrap">
+                  {headerGroups.map(headerGroup => (
+                    <tr
+                      key={headerGroup.id}
+                      {...headerGroup.getHeaderGroupProps()}
+                    >
+                      {headerGroup.headers.map(column => (
+                        <th
+                          key={column.id}
+                          {...column.getHeaderProps(
+                            column.getSortByToggleProps()
+                          )}
+                          style={
+                            column.id === "slno"
+                              ? { width: "6%" }
+                              : { backgroundColor: "" }
+                          }
                         >
-                          {" "}
-                          NO SEARCH RESULTS FOUND{" "}
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
+                          <div className="d-flex justify-content-center">
+                            <span className="font-weight-bold">
+                              {column.render("Header")}
+                            </span>
+                            <span>
+                              {column.isSorted
+                                ? column.isSortedDesc
+                                  ? " 🔽"
+                                  : " 🔼"
+                                : ""}
+                            </span>
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                </thead>
+                <tbody {...getTableBodyProps()} style={{ textAlign: "center" }}>
+                  {page.length > 0 ? (
+                    page.map(row => {
+                      prepareRow(row);
+                      return (
+                        <tr key={row.id} {...row.getRowProps()}>
+                          {row.cells.map(cell => (
+                            <td key={cell.column.id} {...cell.getCellProps()}>
+                              {cell.column.id !== "SL NO" ? (
+                                <Link
+                                  to={`/modify_designation/${row.original.iddesign}`}
+                                >
+                                 {String(cell.value).toUpperCase()}{" "}
+                                    {/* Convert to uppercase */}
+                                  </Link>
+                                ) : (
+                                  String(cell.value).toUpperCase()
+                              )}
+                            </td>
+                          ))}
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <tr>
+                      <td
+                        colSpan={headerGroups[0].headers.length}
+                        style={{ textAlign: "center" }}
+                      >
+                        {" "}
+                       NO SEARCH RESULTS FOUND
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
 
-              <div className="row">
-                <div className="col-sm-6">
-                  <p className="ps-2">
-                    Showing {pageIndex + 1} of {pageCount} pages
-                  </p>
-                </div>
-                <div className="col-sm-6">
-                  {" "}
-                  <div className="pagination justify-content-end pb-2 pe-2">
-                    <button
-                      className="btn btn-info"
-                      disabled={pageIndex === 0}
-                      onClick={() => gotoPage(0)}
-                    >
-                      FIRST
-                    </button>
-                    <button
-                      className="btn btn-primary"
-                      disabled={!canPreviousPage}
-                      onClick={previousPage}
-                    >
-                      PRE
-                    </button>
-                    <span className="btn btn-light">{pageIndex + 1}</span>
-                    <button
-                      className="btn btn-primary"
-                      disabled={!canNextPage}
-                      onClick={nextPage}
-                    >
-                      NEXT
-                    </button>
-                    <button
-                      className="btn btn-info"
-                      disabled={pageIndex >= pageCount - 1}
-                      onClick={() => gotoPage(pageCount - 1)}
-                    >
-                      LAST
-                    </button>
-                  </div>
+            <div className="row">
+              <div className="col-sm-6">
+                <p className="ps-2">
+                  Showing {pageIndex + 1} of {pageCount} pages
+                </p>
+              </div>
+              <div className="col-sm-6">
+                {" "}
+                <div className="pagination justify-content-end pb-2 pe-2">
+                  <button
+                    className="btn btn-info"
+                    disabled={pageIndex === 0}
+                    onClick={() => gotoPage(0)}
+                  >
+                    FIRST
+                  </button>
+                  <button
+                    className="btn btn-primary"
+                    disabled={!canPreviousPage}
+                    onClick={previousPage}
+                  >
+                    PRE
+                  </button>
+                  <span className="btn btn-light">{pageIndex + 1}</span>
+                  <button
+                    className="btn btn-primary"
+                    disabled={!canNextPage}
+                    onClick={nextPage}
+                  >
+                    NEXT
+                  </button>
+                  <button
+                    className="btn btn-info"
+                    disabled={pageIndex >= pageCount - 1}
+                    onClick={() => gotoPage(pageCount - 1)}
+                  >
+                    LAST
+                  </button>
                 </div>
               </div>
+            </div>
             </CardBody>
+
           </Card>
         </div>
-
-        {/* )} */}
       </Container>
     </React.Fragment>
   );

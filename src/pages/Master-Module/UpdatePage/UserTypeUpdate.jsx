@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,27 +16,55 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { CreateUserType } from "src/API/Master/AccessManagement/Api";
+import { useParams } from "react-router";
+import { GetSignleData } from "src/API/Master/GlobalGet";
+import { ToastContainer, toast } from "react-toastify";
 
 const UserTypeUpdate = () => {
   const navigate = useNavigate();
+  const [usertype, setUserType] = useState([]);
+  const { id } = useParams();
+
+  useEffect(res => {
+    GetSignleData("Usertype", id).then(res => {
+      setUserType(res);
+    });
+  }, []);
   const validation = useFormik({
     enableReinitialize: true,
-
     initialValues: {
-      usertypename: "",
+      usertypename: usertype?.nmusertype,
     },
 
     validationSchema: Yup.object({
       usertypename: Yup.string().required("USER TYPE IS REQUIRED"),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+      CreateUserType([
+        {
+          idusertype: id,
+          nmusertype: values.usertypename,
+          cdusertype: "",
+        },
+      ])
+        .then(res => {
+          if (res.ok) {
+            toast("User Updated successfully");
+            navigate("/user_type");
+          } else {
+            toast("User already exists");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card className="mt-0">
@@ -66,11 +94,12 @@ const UserTypeUpdate = () => {
                             className="form-control"
                             id="validationCustom03"
                             onChange={validation.handleChange}
+                            value={validation.values.usertypename}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.usertypename &&
                               validation.errors.usertypename
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.usertypename &&
                           validation.errors.usertypename ? (

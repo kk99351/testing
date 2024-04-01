@@ -258,6 +258,7 @@ const ReturnAknowPreview = () => {
                         value={formData.transType}
                         onChange={handleDropdownChange}
                         invalid={!!errors.transType}
+                        style={{ textTransform: "uppercase" }}
                       />
                       <span className="invalid-feedback">
                         {errors.transType}
@@ -274,6 +275,7 @@ const ReturnAknowPreview = () => {
                         value={formData.ComGroup}
                         onChange={handleDropdownChange}
                         invalid={!!errors.ComGroup}
+                        style={{ textTransform: "uppercase" }}
                       ></Input>
                       <span className="invalid-feedback">
                         {errors.ComGroup}
@@ -293,6 +295,7 @@ const ReturnAknowPreview = () => {
                         value={formData.state}
                         onChange={handleDropdownChange}
                         invalid={!!errors.state}
+                        style={{ textTransform: "uppercase" }}
                       ></Input>
                       <span className="invalid-feedback">{errors.state}</span>
                     </Col>
@@ -307,6 +310,7 @@ const ReturnAknowPreview = () => {
                         value={formData.city}
                         onChange={handleDropdownChange}
                         invalid={!!errors.city}
+                        style={{ textTransform: "uppercase" }}
                       ></Input>
                       <span className="invalid-feedback">{errors.city}</span>
                     </Col>
@@ -323,6 +327,7 @@ const ReturnAknowPreview = () => {
                         value={formData.location}
                         onChange={handleDropdownChange}
                         invalid={!!errors.location}
+                        style={{ textTransform: "uppercase" }}
                       ></Input>
                       <span className="invalid-feedback">
                         {errors.location}

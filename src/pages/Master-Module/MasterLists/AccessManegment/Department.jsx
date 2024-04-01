@@ -15,29 +15,22 @@ import {
   useSortBy,
   usePagination,
 } from "react-table";
+import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const Department = () => {
-  const demoData = [
-    { departmentname: "Marketing" },
-    { departmentname: "Sales" },
-    { departmentname: "Human Resources" },
-    { departmentname: "Finance" },
-    { departmentname: "Engineering" },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/department");
-  //   }
-  //   fetch();
-  // }, [getData]);
-
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
+  useEffect(() => {
+    GetAllData("Dept").then(res => {
+      if (Array.isArray(res)) { 
+        setResponseData(res);
+      } else {
+        setResponseData([]); 
+      }
+    });
+  }, []);
 
   const columns = useMemo(
     () => [
@@ -48,19 +41,24 @@ const Department = () => {
       },
       {
         Header: "DEPARTMENT NAME",
-        accessor: "departmentname",
+        accessor: "nmdept",
+      },
+      {
+        Header: "DEPARTMENT CODE",
+        accessor: "cddept",
       },
     ],
     []
   );
 
   const dataWithSlno = useMemo(() => {
-    return responseData.map((item, index) => ({
-      ...item,
-      slno: index + 1,
-    }));
+    return (
+      responseData?.map((item, index) => ({
+        ...item,
+        slno: index + 1,
+      })) || []
+    );
   }, [responseData]);
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -205,7 +203,7 @@ const Department = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "id" ? (
                                   <Link
-                                    to={`/modify_department/${row.original.id}`}
+                                    to={`/modify_department/${row.original.iddept}`}
                                   >
                                     {String(cell.value).toUpperCase()}{" "}
                                     {/* Convert to uppercase */}

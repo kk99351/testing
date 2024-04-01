@@ -228,6 +228,8 @@ const AssetLink = () => {
                       value={formData.linkTo}
                       onChange={handleDropdownChange}
                       invalid={!!errors.linkTo}
+                      style={{ textTransform: "uppercase" }}
+
                     >
                       <option value="">SELECT LINK TO</option>
                       <option value="website">CANON (XEROX MACHINE)</option>
@@ -247,6 +249,8 @@ const AssetLink = () => {
                       value={formData.assetId}
                       onChange={handleDropdownChange}
                       invalid={!!errors.assetId}
+                      style={{ textTransform: "uppercase" }}
+
                     >
                       <option value="">SELECT ASSET-ID</option>
                       <option value="ASSET001">ASSET001</option>
@@ -264,6 +268,8 @@ const AssetLink = () => {
                       value={formData.linkDate}
                       onChange={handleInputChange}
                       invalid={!!errors.linkDate}
+                      style={{ textTransform: "uppercase" }}
+
                     />
                     <span className="invalid-feedback">{errors.linkDate}</span>
                   </Col>

@@ -15,30 +15,21 @@ import {
   useSortBy,
   usePagination,
 } from "react-table";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const UnitOfMesurement = () => {
-  const demoData = [
-    { uom_name: "Kilogram", uom_code: "KG" },
-    { uom_name: "Meter", uom_code: "M" },
-    { uom_name: "Liter", uom_code: "L" },
-    { uom_name: "Each", uom_code: "EA" },
-    { uom_name: "Gallon", uom_code: "GAL" },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/companygroup");
-  //   }
-  //   fetch();
-  // }, [getData]);
-
-  // useEffect(() => {
-  //   const updatedData = data.map((row, index) => ({ ...row, slno: index + 1 }));
-  //   setResponseData(updatedData);
-  // }, [data]);
+  useEffect(() => {
+    GetAllData("Uom").then(res => {
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
   const columns = useMemo(
     () => [
       {
@@ -50,13 +41,13 @@ const UnitOfMesurement = () => {
       },
       {
         Header: "UOM NAME",
-        accessor: "uom_name",
+        accessor: "nmuom",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "UOM CODE",
-        accessor: "uom_code",
+        accessor: "cduom",
         disableFilters: true,
         filterable: true,
       },
@@ -95,18 +86,6 @@ const UnitOfMesurement = () => {
     useSortBy,
     usePagination
   );
-
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/employeemaster");
-  //   }
-  //   fetch();
-  // }, [getData]);
-
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
 
   return (
     <React.Fragment>
@@ -214,7 +193,7 @@ const UnitOfMesurement = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "id" ? (
-                                  <Link to={`/modifyuom/${row.original.id}`}>
+                                  <Link to={`/modifyuom/${row.original.iduom}`}>
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (

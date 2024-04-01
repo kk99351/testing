@@ -333,6 +333,8 @@ import AdditionDeletionlist from "src/pages/Depreciation/AdditionDeletionlist";
 import CreateVendor from "src/pages/Master-Module/CreatePages/VendorCreate";
 import VendorUpdate from "src/pages/Master-Module/UpdatePage/VendorUpdate";
 import VendorCreate from "src/pages/Master-Module/CreatePages/VendorCreate";
+import UserPermissionUpdate from "src/pages/Master-Module/UpdatePage/UserPermissionUpdate";
+import UserPermissionCreate from "src/pages/Master-Module/UpdatePage/UserPermissionUpdate";
 interface RouteProps {
   path: string;
   component: any;
@@ -460,6 +462,9 @@ const userRoutes: Array<RouteProps> = [
 
   { path: "/user_type", component: <UserTypeMaster /> },
   { path: "/user_permission", component: <UserPermission /> },
+  { path: "/create_user_permission", component: <UserPermissionCreate /> },
+  { path: "/modify_user_permission/:id", component: <UserPermissionUpdate /> },
+
   { path: "/user_login", component: <LoginProvision /> },
   { path: "/create_vendor", component: <CreatVendor /> },
   { path: "/vendor_approval", component: <VendorApprovelL1 /> },

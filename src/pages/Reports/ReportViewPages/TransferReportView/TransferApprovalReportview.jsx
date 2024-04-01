@@ -101,8 +101,8 @@ const TransferApprovalReportview = () => {
       { Header: "ASSET NAME", accessor: "asset_name" },
       { Header: "CLIENT NAME", accessor: "employee_name" },
 
-      { Header: "FROM COMPANY GROUP", accessor: "from_country" },
-      { Header: "TO COMPANY GROUP", accessor: "to_country" },
+      { Header: "FROM COUNTRY", accessor: "from_country" },
+      { Header: "TO COUNTRY", accessor: "to_country" },
       { Header: "FROM STATE", accessor: "fromstate" },
       { Header: "TO STATE", accessor: "tostate" },
       { Header: "FROM CITY", accessor: "from_city" },

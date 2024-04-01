@@ -177,7 +177,7 @@ const Navbar = (props: any) => {
                             <Link to="/entity" className="dropdown-item ">
                               {props.t("Entity")}
                             </Link>
-                            <Link
+                            {/* <Link
                               to="/company_group"
                               className="dropdown-item "
                             >
@@ -186,15 +186,15 @@ const Navbar = (props: any) => {
                             <Link to="/region" className="dropdown-item ">
                               {props.t("State")}
                             </Link>
-                            {/* <Link
+                            <Link
                               to="/region"
                               className="dropdown-item "
                             >
                               {props.t("State")}
-                            </Link> */}
+                            </Link>
                             <Link to="/city" className="dropdown-item ">
                               {props.t("City")}
-                            </Link>
+                            </Link> */}
                             <Link to="/branch" className="dropdown-item">
                               {props.t("Location")}
                             </Link>

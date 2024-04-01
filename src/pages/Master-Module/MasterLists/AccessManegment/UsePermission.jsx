@@ -145,7 +145,7 @@ const UserPermission = () => {
                       <button
                         type="button"
                         className="btn mb-2 me-2 btn btn-primary"
-                        onClick={() => navigate("/")}
+                        onClick={() => navigate("/create_user_permission")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
                         CREATE NEW{" "}
@@ -198,7 +198,7 @@ const UserPermission = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/user_permission/${row.original.id}`}
+                                    to={`/modify_user_permission/${row.original.id}`}
                                   >
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>

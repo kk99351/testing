@@ -109,7 +109,7 @@ const TermAndConditionModify = () => {
                           onChange={handleInputChange}
                           className={`form-control ${
                             errors.termAndCond ? "is-invalid" : ""
-                          }`}
+                          }`}style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.termAndCond}
@@ -128,7 +128,7 @@ const TermAndConditionModify = () => {
                           onChange={handleInputChange}
                           className={`form-control ${
                             errors.fileName ? "is-invalid" : ""
-                          }`}
+                          }`}style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.fileName}
@@ -149,7 +149,7 @@ const TermAndConditionModify = () => {
                           onChange={handleInputChange}
                           className={`form-control ${
                             errors.fileName ? "is-invalid" : ""
-                          }`}
+                          }`}style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.descriptionterms}

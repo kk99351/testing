@@ -107,6 +107,7 @@ const DeligationModify = () => {
                           value={formData.id_delgation_by}
                           onChange={handleDropdownChange}
                           invalid={!!errors.id_delgation_by}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT DELEGATION BY</option>
                           <option value="John Doe">John Doe</option>
@@ -129,6 +130,7 @@ const DeligationModify = () => {
                           value={formData.id_delgation_to}
                           onChange={handleDropdownChange}
                           invalid={!!errors.id_delgation_to}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT DELEGATION TO</option>
                           <option value="Manager">Manager</option>
@@ -154,6 +156,7 @@ const DeligationModify = () => {
                           value={formData.dt_start}
                           onChange={handleInputChange}
                           invalid={!!errors.dt_start}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.dt_start}
@@ -170,6 +173,7 @@ const DeligationModify = () => {
                           value={formData.dt_end}
                           onChange={handleInputChange}
                           invalid={!!errors.dt_end}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.dt_end}
@@ -186,6 +190,7 @@ const DeligationModify = () => {
                           placeholder="REMARKS 500 CHARACTERS ONLY"
                           value={formData.remarks}
                           onChange={handleInputChange}
+                          style={{ textTransform: "uppercase" }}
                           className={`form-control ${
                             errors.remarks ? "is-invalid" : ""
                           }`}

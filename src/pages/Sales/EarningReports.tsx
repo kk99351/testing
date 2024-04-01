@@ -30,8 +30,8 @@ const EarningReports = (props: any) => {
 
     return (
         <React.Fragment>
-            <Card>
-                <CardBody>
+           {/* <Card>
+               <CardBody>
                     <Alert
                         color="warning"
                         className="border-0 d-flex align-items-center"
@@ -58,10 +58,69 @@ const EarningReports = (props: any) => {
                         </div>
                     </div>
                 </CardBody>
-            </Card>
+            </Card> */}
             <Card>
                 <CardBody>
                     <div className="float-end">
+                        {/* <Dropdown
+                            isOpen={menu1}
+                            toggle={() => setMenu1(!menu1)}
+                        >
+                            <DropdownToggle tag="a" className="text-reset">
+                                <span className="fw-semibold">Report By:</span> <span
+                                    className="text-muted">Monthly<i
+                                        className="mdi mdi-chevron-down ms-1"></i></span>
+                            </DropdownToggle>
+                            <DropdownMenu className="dropdown-menu-end">
+                                <DropdownItem to="#">Yearly</DropdownItem>
+                                <DropdownItem to="#">Monthly</DropdownItem>
+                                <DropdownItem to="#">Weekly</DropdownItem>
+                                <DropdownItem to="#">Today</DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown> */}
+                    </div>
+
+                    <h4 className="card-title mb-4">MATERIAL GROUP WISE ASSET DETAILS</h4>
+
+                    <div className="row align-items-center">
+                        <div className="col-sm-7">
+                            <div className="row mb-3">
+                                <div className="col-6">
+                                    <p className="text-muted mb-2">This Month</p>
+                                    <h5>1896<small
+                                        className="badge badge-success-subtle font-13 ms-2">+15%</small></h5>
+                                </div>
+
+                                {/* <div className="col-6">
+                                    <p className="text-muted mb-2">Last Month</p>
+                                    <h5>$98,741</h5>
+                                </div> */}
+                            </div>
+                            {props.page && props.page === 'widget' ? '' :
+                                <React.Fragment>
+                                    <p className="text-muted"><span className="text-success me-1"> 25.2%<i
+                                        className="mdi mdi-arrow-up"></i></span>From previous period</p>
+                                </React.Fragment>
+                            }
+                            <div className="mt-4">
+                                <Link to="#" className="btn btn-secondary-subtle btn-sm">Generate Reports <i
+                                    className="mdi mdi-arrow-right ms-1"></i></Link>
+                            </div>
+                        </div>
+                        <div className="col-sm-5">
+                            <div className={props.page ? "" : "mt-4 mt-0"}>
+                                <div id="donut_chart" className="apex-charts" dir="ltr">
+                                    <ReactApexChart options={options} series={series} type="donut" height={130} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </CardBody>
+            </Card>
+            <Card>
+                <CardBody>
+                    {/* <div className="float-end">
                         <Dropdown
                             isOpen={menu1}
                             toggle={() => setMenu1(!menu1)}
@@ -78,23 +137,23 @@ const EarningReports = (props: any) => {
                                 <DropdownItem to="#">Today</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
-                    </div>
+                    </div> */}
 
-                    <h4 className="card-title mb-4">Earning Reports</h4>
+                    <h4 className="card-title mb-4">MATERIAL SUB GROUP WISE ASSET DETAILS</h4>
 
                     <div className="row align-items-center">
                         <div className="col-sm-7">
                             <div className="row mb-3">
                                 <div className="col-6">
                                     <p className="text-muted mb-2">This Month</p>
-                                    <h5>$12,582<small
+                                    <h5>1009<small
                                         className="badge badge-success-subtle font-13 ms-2">+15%</small></h5>
                                 </div>
 
-                                <div className="col-6">
+                                {/* <div className="col-6">
                                     <p className="text-muted mb-2">Last Month</p>
                                     <h5>$98,741</h5>
-                                </div>
+                                </div> */}
                             </div>
                             {props.page && props.page === 'widget' ? '' :
                                 <React.Fragment>

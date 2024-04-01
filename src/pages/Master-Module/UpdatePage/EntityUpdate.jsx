@@ -79,7 +79,7 @@ const EntityUpdate = () => {
                             invalid={
                               validation.touched.company_group &&
                               validation.errors.company_group
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.company_group &&
                           validation.errors.company_group ? (
@@ -108,7 +108,7 @@ const EntityUpdate = () => {
                             invalid={
                               validation.touched.companyGroupCode &&
                               validation.errors.companyGroupCode
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.companyGroupCode &&
                           validation.errors.companyGroupCode ? (

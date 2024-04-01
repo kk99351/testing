@@ -2,6 +2,8 @@ import React from "react";
 import MetaTags from "react-meta-tags";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Col,
   Input,
@@ -15,6 +17,7 @@ import {
   FormFeedback,
   Form,
 } from "reactstrap";
+import { CreateMailConfigration } from "src/API/Master/CompanyRepo/Api";
 
 const MailConfiguration = props => {
   const { fun } = { ...props };
@@ -32,18 +35,40 @@ const MailConfiguration = props => {
       supportMail: "",
     },
     validationSchema: Yup.object({
+      mailPwd: Yup.string().required("PASSWORD IS REQUIRED"),
+      conMailPwd: Yup.string()
+        .oneOf([Yup.ref("mailPwd"), null], "PASSWORD MUST MATCH")
+        .required("CONFIRM PASSWORD IS REQUIRED"),
+
       mailId: Yup.string()
         .email("INVALID EMAIL ADDRESS")
         .required("EMAIL IS REQUIRED"),
-      mailPwd: Yup.string().required("MAIL PASSWORD IS REQUIRED"),
-      conMailPwd: Yup.string().required("CONFIRM MAIL PASSWORD"),
       nmHost: Yup.string().required("NAME OF HOST IS REQUIRED"),
       noPort: Yup.string().required("PORT NUMBER IS REQUIRED "),
     }),
 
     onSubmit: values => {
-      alert("Form validated!");
-      console.log("values", values);
+      console.log("values", values.mailId);
+      CreateMailConfigration({
+        idmailconfig: 0,
+        mailid: values.mailId,
+        mailpwd: values.mailPwd,
+        nmhost: values.nmHost,
+        nmport: values.noPort,
+        supportmail: "",
+        nodays: 0,
+      })
+        .then(res => {
+          console.log(res);
+          if (res.status === 200) {
+            toast("Form submitted successfully");
+          } else {
+            toast("Email already used");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
@@ -61,7 +86,7 @@ const MailConfiguration = props => {
       <MetaTags>
         <title>HCS Technology Private Limited</title>
       </MetaTags>
-
+      <ToastContainer></ToastContainer>
       <Card>
         <CardHeader>
           <h1 className="card-title" style={{ fontSize: "20px" }}>
@@ -95,7 +120,7 @@ const MailConfiguration = props => {
                         onBlur={validation.handleBlur}
                         invalid={
                           validation.touched.mailId && validation.errors.mailId
-                        }
+                        }style={{ textTransform: "uppercase" }}
                       />
                       {validation.touched.mailId && validation.errors.mailId ? (
                         <FormFeedback type="invalid">
@@ -120,7 +145,7 @@ const MailConfiguration = props => {
                         invalid={
                           validation.touched.mailPwd &&
                           validation.errors.mailPwd
-                        }
+                        }style={{ textTransform: "uppercase" }}
                       />
                       {validation.touched.mailPwd &&
                       validation.errors.mailPwd ? (
@@ -150,7 +175,7 @@ const MailConfiguration = props => {
                         invalid={
                           validation.touched.conMailPwd &&
                           validation.errors.conMailPwd
-                        }
+                        }style={{ textTransform: "uppercase" }}
                       />
                       {validation.touched.conMailPwd &&
                       validation.errors.conMailPwd ? (
@@ -175,7 +200,7 @@ const MailConfiguration = props => {
                         onBlur={validation.handleBlur}
                         invalid={
                           validation.touched.nmHost && validation.errors.nmHost
-                        }
+                        }style={{ textTransform: "uppercase" }}
                       />
                       {validation.touched.nmHost && validation.errors.nmHost ? (
                         <FormFeedback type="invalid">
@@ -203,7 +228,7 @@ const MailConfiguration = props => {
                         onBlur={validation.handleBlur}
                         invalid={
                           validation.touched.noPort && validation.errors.noPort
-                        }
+                        }style={{ textTransform: "uppercase" }}
                       />
                       {validation.touched.noPort && validation.errors.noPort ? (
                         <FormFeedback type="invalid">

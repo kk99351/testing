@@ -146,6 +146,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.assetId}
                           onChange={handleInputChange}
                           invalid={!!errors.assetId}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="invalid-feedback">{errors.assetId}</span>
                       </Col>
@@ -159,6 +161,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.assetName}
                           onChange={handleInputChange}
                           invalid={!!errors.assetName}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="text-danger">{errors.assetName}</span>
                       </Col>
@@ -175,6 +179,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.serialNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.serialNumber}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="invalid-feedback">
                           {errors.serialNumber}
@@ -190,6 +196,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.diciceStorage}
                           onChange={handleInputChange}
                           invalid={!!errors.diciceStorage}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="text-danger">
                           {errors.diciceStorage}
@@ -208,6 +216,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.modelNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.modelNumber}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="text-danger">
                           {errors.modelNumber}
@@ -223,6 +233,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.processType}
                           onChange={handleInputChange}
                           invalid={!!errors.processType}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="text-danger">
                           {errors.processType}
@@ -241,6 +253,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.storageType}
                           onChange={handleInputChange}
                           invalid={!!errors.storageType}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="text-danger">
                           {errors.storageType}
@@ -256,6 +270,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.ramType}
                           onChange={handleInputChange}
                           invalid={!!errors.ramType}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="text-danger">{errors.ramType}</span>
                       </Col>
@@ -273,6 +289,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.invoiceNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.invoiceNumber}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="text-danger">
                           {errors.invoiceNumber}
@@ -287,6 +305,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.invoiceDate}
                           onChange={handleInputChange}
                           invalid={!!errors.invoiceDate}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="text-danger">
                           {errors.invoiceDate}
@@ -307,6 +327,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.poNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.poNumber}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="text-danger">{errors.poNumber}</span>
                       </Col>
@@ -319,6 +341,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.poDate}
                           onChange={handleInputChange}
                           invalid={!!errors.poDate}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="text-danger">{errors.poDate}</span>
                       </Col>
@@ -335,6 +359,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.approxCost}
                           onChange={handleInputChange}
                           invalid={!!errors.approxCost}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="invalid-feedback">{errors.approxCost}</span>
                       </Col>
@@ -347,6 +373,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           value={formData.uploadDocument}
                           onChange={handleInputChange}
                           invalid={!!errors.uploadDocument}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="text-danger">{errors.uploadDocument}</span>
                       </Col>
@@ -362,6 +390,8 @@ const ApproveDamagedAssetsUpdate = () => {
                           onChange={handlelogoChange}
                           accept="image/*"
                           invalid={!!errors.attachImage}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="invalid-feedback">
                           {errors.attachImage}

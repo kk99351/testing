@@ -202,6 +202,7 @@ const FinancialYearModify = () => {
                         onChange={handleChange}
                         value={validation.values.fs}
                         onBlur={validation.handleBlur}
+                        style={{ textTransform: "uppercase" }}
                         invalid={
                           validation.touched.fs && !!validation.errors.fs
                         }
@@ -215,6 +216,7 @@ const FinancialYearModify = () => {
                         type="date"
                         value={validation.values.fs1}
                         disabled
+                        style={{ textTransform: "uppercase" }}
                       />
                     </Col>
                     <Col md={3}>
@@ -222,6 +224,7 @@ const FinancialYearModify = () => {
                         type="date"
                         value={validation.values.fs2}
                         disabled
+                        style={{ textTransform: "uppercase" }}
                       />
                     </Col>
                   </Row>
@@ -240,6 +243,7 @@ const FinancialYearModify = () => {
                         value={validation.values.fe}
                         onChange={handleChange}
                         disabled
+                        style={{ textTransform: "uppercase" }}
                       />
                     </Col>
                     <Col md={3}>
@@ -247,6 +251,7 @@ const FinancialYearModify = () => {
                         type="date"
                         value={validation.values.fe1}
                         disabled
+                        style={{ textTransform: "uppercase" }}
                       />
                     </Col>
                     <Col md={3}>
@@ -254,6 +259,7 @@ const FinancialYearModify = () => {
                         type="date"
                         value={validation.values.fe2}
                         disabled
+                        style={{ textTransform: "uppercase" }}
                       />
                     </Col>
                   </Row>
@@ -261,34 +267,8 @@ const FinancialYearModify = () => {
               </CardBody>
             </Card>
 
-            {/* <Card>
-              <CardBody>
-                <Row className="d-flex justify-content-center m-2">
-                  <Col md={2}>
-                    <Label className="mt-1">
-                      <h5>
-                        MONTH GAP <font color="red">*</font>
-                      </h5>
-                    </Label>
-                  </Col>
-                  <Col md={1}>
-                    <Input
-                      type="number"
-                      name="month"
-                      onChange={handleMonthChange}
-                      value={validation.values.month}
-                      onBlur={validation.handleBlur}
-                      invalid={
-                        validation.touched.month && !!validation.errors.month
-                      }
-                    />
-                    {validation.touched.month && validation.errors.month && (
-                      <FormFeedback>{validation.errors.month}</FormFeedback>
-                    )}
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card> */}
+           
+                 
             <Card>
               <Row className="d-flex justify-content-center m-2">
                 <Col md={2}>
@@ -305,6 +285,7 @@ const FinancialYearModify = () => {
                     onChange={handleMonthChange}
                     value={month}
                     onBlur={validation.handleBlur}
+                    
                     invalid={
                       validation.touched.month && validation.errors.month
                     }
@@ -355,27 +336,19 @@ const FinancialYearModify = () => {
                       onBlur={validation.handleBlur}
                       invalid={
                         validation.touched.pfs && !!validation.errors.pfs
-                      }
+                      }style={{ textTransform: "uppercase" }}
                     />
                     {validation.touched.pfs && validation.errors.pfs && (
                       <FormFeedback>{validation.errors.pfs}</FormFeedback>
                     )}
                   </Col>
-                  {/* <Col md={3}>
-                    <Input
-                      type="date"
-                      name="pfs"
-                      value={validation.values.pfs}
-                      onChange={handleChangep}
-                      disabled
-                    />
-                  </Col> */}
-
+               
                   <Col md={3}>
                     <Input
                       type="date"
                       value={validation.values.pfs1}
                       disabled
+                      style={{ textTransform: "uppercase" }}
                     />
                   </Col>
                   <Col md={3}>
@@ -383,6 +356,7 @@ const FinancialYearModify = () => {
                       type="date"
                       value={validation.values.pfs2}
                       disabled
+                      style={{ textTransform: "uppercase" }}
                     />
                   </Col>
                 </Row>
@@ -400,6 +374,7 @@ const FinancialYearModify = () => {
                       value={validation.values.pfe}
                       onChange={handleChangep}
                       disabled
+                      style={{ textTransform: "uppercase" }}
                     />
                   </Col>
 
@@ -408,6 +383,7 @@ const FinancialYearModify = () => {
                       type="date"
                       value={validation.values.pfe1}
                       disabled
+                      style={{ textTransform: "uppercase" }}
                     />
                   </Col>
                   <Col md={3}>
@@ -415,6 +391,7 @@ const FinancialYearModify = () => {
                       type="date"
                       value={validation.values.pfe2}
                       disabled
+                      style={{ textTransform: "uppercase" }}
                     />
                   </Col>
                 </Row>

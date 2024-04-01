@@ -91,7 +91,7 @@ const PlantUpdate= () => {
                           invalid={
                             validation.touched.entity &&
                             validation.errors.entity
-                          }
+                          }style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT ENTITY NAME</option>
                           <option value="US">RA Lmt</option>
@@ -124,7 +124,7 @@ const PlantUpdate= () => {
                             invalid={
                               validation.touched.company_group &&
                               validation.errors.company_group
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT COUNTRY</option>
                             <option value="United States">United States</option>
@@ -162,7 +162,7 @@ const PlantUpdate= () => {
                             invalid={
                               validation.touched.region_name &&
                               validation.errors.region_name
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT STATE</option>
                             <option value="CA">California</option>
@@ -197,7 +197,7 @@ const PlantUpdate= () => {
                             invalid={
                               validation.touched.cityname &&
                               validation.errors.cityname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT CITY</option>
                             <option value="Los Angeles">Los Angeles</option>
@@ -233,7 +233,7 @@ const PlantUpdate= () => {
                             invalid={
                               validation.touched.plantname &&
                               validation.errors.plantname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT LOCATION </option>
                             <option value="Downtown Branch">
@@ -275,7 +275,7 @@ const PlantUpdate= () => {
                             invalid={
                               validation.touched.building &&
                               validation.errors.building
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.building &&
                           validation.errors.building ? (

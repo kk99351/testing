@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,29 +16,60 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router";
+import { GetSignleData } from "src/API/Master/GlobalGet";
+import { CreateDesignation } from "src/API/Master/AccessManagement/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const DesignationUpdate = () => {
   const navigate = useNavigate();
+  const [Designation, setDesignation] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    GetSignleData("Designation", id).then(res => {
+      console.log(res);
+      setDesignation(res);
+    });
+  }, []);
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      designationname: "",
-      designationcode: "",
+      designationname: Designation?.nmdesign,
+      designationcode: Designation?.cddesign,
     },
 
     validationSchema: Yup.object({
       designationname: Yup.string().required("DESIGNATION NAME IS REQUIRED "),
-      designationcode: Yup.string().required("Designation code is Required"),
+      designationcode: Yup.string().required("DESIGNATION CODE IS REQUIRED"),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+      CreateDesignation([
+        {
+          iddesign: id,
+          nmdesign: values.designationname,
+          cddesign: values.designationcode,
+        },
+      ])
+        .then(res => {
+          console.log(res.ok);
+          if (res.ok) {
+            toast("Designation Updated successfully");
+            navigate("/designation");
+          } else {
+            toast("Designation already exists");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card className="mt-0">
@@ -67,12 +98,14 @@ const DesignationUpdate = () => {
                             placeholder="PLEASE ENTER DESIGNATION NAME"
                             className="form-control"
                             id="validationCustom03"
+                            value={validation.values.designationname}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.designationname &&
                               validation.errors.designationname
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.designationname &&
                           validation.errors.designationname ? (
@@ -84,7 +117,7 @@ const DesignationUpdate = () => {
                       </Col>
                       <hr className="mb-2" />
                     </Row>
-                    {/* <Row className="mb-2">
+                    <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="validationCustom03">
@@ -95,12 +128,15 @@ const DesignationUpdate = () => {
                             type="text"
                             className="form-control"
                             id="validationCustom03"
+                            placeholder="PLEASE ENTER DESIGNATION CODE"
+                            value={validation.values.designationcode}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.designationcode &&
                               validation.errors.designationcode
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.designationcode &&
                           validation.errors.designationcode ? (
@@ -110,7 +146,7 @@ const DesignationUpdate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row> */}
+                    </Row>
 
                     <div
                       style={{

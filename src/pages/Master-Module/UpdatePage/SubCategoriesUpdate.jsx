@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,16 +16,35 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router";
+import { GetAllData, GetSignleData } from "src/API/Master/GlobalGet";
+import { ToastContainer, toast } from "react-toastify";
+import { CreateMaterialSubGroup } from "src/API/Master/MaterialMaster/Api";
 
 const SubCategoryUpdate = () => {
   const navigate = useNavigate();
+  const [sub, setSub] = useState([]);
+  const [material, setMaterial] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    GetSignleData("MaterialSubGroup", id).then(res => {
+      setSub(res);
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("MaterialGroup").then(res => {
+      setMaterial(res);
+    });
+  }, []);
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      categoryname: "",
-      subcategoryname: "",
-      subcategorycode: "",
+      categoryname: sub?.idgrp?.idgrp,
+      subcategoryname: sub?.nmsgrp,
+      subcategorycode: sub?.cdsgrp,
       assetprefix: "",
     },
 
@@ -36,14 +55,34 @@ const SubCategoryUpdate = () => {
       // assetprefix: Yup.string().required("Aset Prefix is Required"),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+      console.log(values)
+      CreateMaterialSubGroup([
+        {
+          idsgrp: id,
+          nmsgrp: values.subcategoryname,
+          cdsgrp: values.subcategorycode,
+          idgrp: {
+            idgrp: values.categoryname,
+            nmgrp: "string",
+            cdgrp: "string",
+          },
+        },
+      ]).then(res => {
+        console.log(res);
+        if (res.ok) {
+          toast("Material Sub Group Updated successfully");
+          navigate("/create_subcatogries");
+        } else {
+          toast("Material Sub Group already exists");
+        }
+      });
     },
   });
 
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Card className="mt-0">
             <CardHeader>
@@ -75,15 +114,15 @@ const SubCategoryUpdate = () => {
                             invalid={
                               validation.touched.categoryname &&
                               validation.errors.categoryname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
-                            <option value="">
-                              SELECT MATERIAL GROUP NAME{" "}
-                            </option>
-                            <option value="Electronics">Electronics</option>
-                            <option value="Clothing">Clothing</option>
-                            <option value="Books">Books</option>
-                            <option value="Furniture">Furniture</option>
+                            <option>SELECT MATERIAL GROUP NAME </option>
+                            {material &&
+                              material.map((item, index) => (
+                                <option key={index} value={item.idgrp}>
+                                  {item.nmgrp}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.categoryname &&
                             validation.errors.categoryname && (
@@ -103,12 +142,13 @@ const SubCategoryUpdate = () => {
                             placeholder="PLEASE ENTER MATERIAL SUB-GROUP NAME"
                             type="text"
                             className="form-control"
+                            value={validation.values.subcategoryname}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.subcategoryname &&
                               validation.errors.subcategoryname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.subcategoryname &&
                           validation.errors.subcategoryname ? (
@@ -131,12 +171,13 @@ const SubCategoryUpdate = () => {
                             type="text"
                             placeholder="PLEASE ENTER MATERIAL SUB-GROUP CODE"
                             className="form-control"
+                            value={validation.values.subcategorycode}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.subcategorycode &&
                               validation.errors.subcategorycode
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.subcategorycode &&
                           validation.errors.subcategorycode ? (

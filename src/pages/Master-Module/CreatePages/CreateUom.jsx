@@ -12,6 +12,8 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { CreateUomApis } from "src/API/Master/MaterialMaster/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const CreateUom = () => {
   const navigate = useNavigate();
@@ -66,12 +68,28 @@ const CreateUom = () => {
         isValid = false;
       }
     });
-
+console.log(formData)
     if (isValid) {
       try {
-        // await axios.post(`http://localhost:3000/region/`, formData);
-        // navigate("/company_group");
-        console.log("Form submitted successfully");
+        CreateUomApis([
+          {
+            iduom: 0,
+            nmuom: formData.uom_name,
+            cduom: formData.uom_code,
+          },
+        ])
+          .then(res => {
+            console.log(res)
+            if (res.ok) {
+              toast("UOM created successfully");
+              navigate("/unit");
+            } else {
+              toast("UOM already exists");
+            }
+          })
+          .catch(err => {
+            toast(err.message);
+          });
       } catch (error) {
         console.log("error in creating group data" + error);
       }
@@ -81,6 +99,7 @@ const CreateUom = () => {
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Card className="mt-0">
             <CardHeader>
@@ -106,8 +125,12 @@ const CreateUom = () => {
                           className={`form-control ${
                             errors.uom_name ? "is-invalid" : ""
                           }`}
+                          style={{ textTransform: "uppercase" }}
+
                         />
-                        <span className="invalid-feedback">{errors.uom_name}</span>
+                        <span className="invalid-feedback">
+                          {errors.uom_name}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
@@ -126,8 +149,12 @@ const CreateUom = () => {
                           className={`form-control ${
                             errors.uom_code ? "is-invalid" : ""
                           }`}
+                          style={{ textTransform: "uppercase" }}
+
                         />
-                        <span className="invalid-feedback">{errors.uom_code}</span>
+                        <span className="invalid-feedback">
+                          {errors.uom_code}
+                        </span>
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>

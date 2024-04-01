@@ -15,54 +15,23 @@ import {
   usePagination,
 } from "react-table";
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 function SubCategories() {
-  const demoData = [
-    {
-      slno: 1,
-      category: "Automobile",
-      subcategory: "Smartphones",
-      subcategorycode: "SP001",
-    },
-    {
-      slno: 2,
-      category: "Automobile",
-      subcategory: "Laptops",
-      subcategorycode: "LT002",
-    },
-    {
-      slno: 3,
-      category: "Automobile",
-      subcategory: "Televisions",
-      subcategorycode: "TV003",
-    },
-    {
-      slno: 4,
-      category: "Automobile",
-      subcategory: "Tablets",
-      subcategorycode: "TB004",
-    },
-    {
-      slno: 5,
-      category: "Automobile",
-      subcategory: "Printers",
-      subcategorycode: "PR005",
-    },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/createsubcategories");
-  //   }
-  //   fetch();
-  // }, [getData]);
+  useEffect(() => {
+    GetAllData("MaterialSubGroup").then(res => {
+      if (Array.isArray(res)) {
+        console.log("sub", res);
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
@@ -81,19 +50,19 @@ function SubCategories() {
       },
       {
         Header: "MATERIAL-GROUP",
-        accessor: "category",
+        accessor: "idgrp.nmgrp",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "MATERIAL SUB-GROUP",
-        accessor: "subcategory",
+        accessor: "nmsgrp",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "MATERIAL SUB-GROUP CODE",
-        accessor: "subcategorycode",
+        accessor: "cdsgrp",
         disableFilters: true,
         filterable: true,
       },
@@ -234,12 +203,13 @@ function SubCategories() {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/modify_subcatogries/${row.original.id}`}
+                                    to={`/modify_subcatogries/${row.original.idsgrp}`}
                                   >
-                                    {String(cell.value).toUpperCase()}{" "}
+                                   {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (
                                   String(cell.value).toUpperCase()
+                              
                                 )}
                               </td>
                             ))}

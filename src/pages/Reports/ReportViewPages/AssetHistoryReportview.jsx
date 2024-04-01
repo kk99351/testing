@@ -87,7 +87,7 @@ const AssetHistoryReportview = () => {
       { Header: "CLIENT NAME", accessor: "client_name" },
       { Header: "ALLOCATE DATE", accessor: "allocate_Date" },
       { Header: "DE-ALLOCATE DATE", accessor: "deallocate_date" },
-      { Header: "COMPANY GROUP", accessor: "cmpny_group" },
+      { Header: "COUNTRY", accessor: "cmpny_group" },
       { Header: "STATUS", accessor: "status" },
       { Header: "CITY", accessor: "city" },
       { Header: "LOCATION", accessor: "location" },

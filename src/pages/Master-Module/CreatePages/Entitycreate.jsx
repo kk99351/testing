@@ -80,6 +80,7 @@ const Entitycreate = () => {
                               validation.touched.company_group &&
                               validation.errors.company_group
                             }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.company_group &&
                           validation.errors.company_group ? (
@@ -109,6 +110,7 @@ const Entitycreate = () => {
                               validation.touched.companyGroupCode &&
                               validation.errors.companyGroupCode
                             }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.companyGroupCode &&
                           validation.errors.companyGroupCode ? (

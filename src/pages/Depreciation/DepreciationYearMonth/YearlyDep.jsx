@@ -102,7 +102,7 @@ const YearlyDep = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.type && validation.errors.type
-                            }
+                            }style={{ textTransform: 'uppercase' }} 
                           >
                             <option value="">SELECT DEPRECIATION TYPE </option>
                             <option value="US">COMPANY ACT</option>
@@ -131,7 +131,7 @@ const YearlyDep = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.year && validation.errors.year
-                            }
+                            }style={{ textTransform: 'uppercase' }} 
                           >
                             <option value="">SELECT FINANCIAL YEAR</option>
                             <option value="United States">
@@ -165,6 +165,7 @@ const YearlyDep = () => {
                                 id="selectAll"
                                 checked={selectAll}
                                 onChange={handleSelectAll}
+                                style={{ textTransform: 'uppercase' }} 
                               />
                               <Label
                                 style={{ marginBottom: "8px" }}
@@ -188,7 +189,7 @@ const YearlyDep = () => {
                                 (selectAll && validation.errors.group)
                               }
                               style={{
-                                height: "200px",
+                                height: "200px", textTransform: 'uppercase'
                               }}
                             >
                               {demoData.map(item => (

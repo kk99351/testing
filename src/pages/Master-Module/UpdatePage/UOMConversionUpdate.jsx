@@ -112,6 +112,7 @@ const UOMConversionUpdate = () => {
                           value={formData.material}
                           onChange={handleDropdownChange}
                           invalid={!!errors.material}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT MATERIAL GROUP</option>
                           <option value="group1">Steel</option>
@@ -134,7 +135,7 @@ const UOMConversionUpdate = () => {
                           onChange={handleInputChange}
                           className={`form-control ${
                             errors.qyt ? "is-invalid" : ""
-                          }`}
+                          }`}style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">{errors.qyt}</span>
                       </Col>
@@ -152,6 +153,7 @@ const UOMConversionUpdate = () => {
                           value={formData.uom}
                           onChange={handleDropdownChange}
                           invalid={!!errors.uom}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT UOM</option>
                           <option value="group1">M</option>
@@ -169,6 +171,7 @@ const UOMConversionUpdate = () => {
                           placeholder="PLEASE ENTER UNIT OF MEASUREMENT CONVERSION"
                           value={formData.uomconverted}
                           onChange={handleInputChange}
+                          style={{ textTransform: "uppercase" }}
                           className={`form-control ${
                             errors.uomconverted ? "is-invalid" : ""
                           }`}

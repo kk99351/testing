@@ -92,6 +92,8 @@ const PlantCreate = () => {
                             validation.touched.entity &&
                             validation.errors.entity
                           }
+                          style={{ textTransform: "uppercase" }}
+
                         >
                           <option value="">SELECT ENTITY NAME</option>
                           <option value="US">RA Lmt</option>
@@ -125,6 +127,8 @@ const PlantCreate = () => {
                               validation.touched.company_group &&
                               validation.errors.company_group
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           >
                             <option value="">SELECT COUNTRY</option>
                             <option value="United States">United States</option>
@@ -163,6 +167,8 @@ const PlantCreate = () => {
                               validation.touched.region_name &&
                               validation.errors.region_name
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           >
                             <option value="">SELECT STATE</option>
                             <option value="CA">California</option>
@@ -198,6 +204,8 @@ const PlantCreate = () => {
                               validation.touched.cityname &&
                               validation.errors.cityname
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           >
                             <option value="">SELECT CITY</option>
                             <option value="Los Angeles">Los Angeles</option>
@@ -234,6 +242,8 @@ const PlantCreate = () => {
                               validation.touched.plantname &&
                               validation.errors.plantname
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           >
                             <option value="">SELECT LOCATION </option>
                             <option value="Downtown Branch">
@@ -276,6 +286,8 @@ const PlantCreate = () => {
                               validation.touched.building &&
                               validation.errors.building
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.building &&
                           validation.errors.building ? (

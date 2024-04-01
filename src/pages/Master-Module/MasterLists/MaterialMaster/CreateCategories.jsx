@@ -15,31 +15,23 @@ import {
   usePagination,
 } from "react-table";
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 function CreateCategories() {
-  const demoData = [
-    { slno: 1, category: "Electronics", categoryCode: "EL001" },
-    { slno: 2, category: "Clothing", categoryCode: "CL002" },
-    { slno: 3, category: "Books", categoryCode: "BK003" },
-    { slno: 4, category: "Furniture", categoryCode: "FRN004" },
-    { slno: 5, category: "Automobile", categoryCode: "AUTO005" },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/createcategory");
-  //   }
-  //   fetch();
-  // }, [getData]);
-
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
+  useEffect(() => {
+    GetAllData("MaterialGroup").then(res => {
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
   const dataWithSlno = useMemo(() => {
-    return responseData.map((item, index) => ({
+    return responseData?.map((item, index) => ({
       ...item,
       slno: index + 1,
     }));
@@ -56,13 +48,13 @@ function CreateCategories() {
       },
       {
         Header: "MATERIAL-GROUP",
-        accessor: "category",
+        accessor: "nmgrp",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "MATERIAL-GROUP CODE",
-        accessor: "categoryCode",
+        accessor: "cdgrp",
         disableFilters: true,
         filterable: true,
       },
@@ -203,7 +195,7 @@ function CreateCategories() {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/modify_categories/${row.original.id}`}
+                                    to={`/modify_categories/${row.original.idgrp}`}
                                   >
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>

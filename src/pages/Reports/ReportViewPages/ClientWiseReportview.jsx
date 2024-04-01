@@ -86,7 +86,7 @@ const ClientWiseReportview = () => {
       { Header: "SERIAL NUMBER", accessor: "serial_number" },
       { Header: "ASSET REF.NO", accessor: "ref_no" },
       { Header: "DIVICE STATUS", accessor: "device_status" },
-      { Header: "COMPANY GROUP", accessor: "cmpny_group" },
+      { Header: "COUNTRY", accessor: "cmpny_group" },
       { Header: "STATUS", accessor: "status" },
       { Header: "CITY", accessor: "city" },
       { Header: "LOCATION", accessor: "location" },

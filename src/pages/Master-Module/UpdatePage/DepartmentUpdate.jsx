@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,29 +16,58 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { CreateDepertment } from "src/API/Master/AccessManagement/Api";
+import { useParams } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import { GetSignleData } from "src/API/Master/GlobalGet";
 
 const DepartmentUpdate = () => {
+  const [dept, setDept] = useState([]);
   const navigate = useNavigate();
+  const { id } = useParams();
+  useEffect(() => {
+    GetSignleData("Dept", id).then(res => {
+      setDept(res);
+    });
+  }, []);
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      departmentname: "",
-      departmentcode: "",
+      departmentname: dept?.nmdept,
+      departmentcode: dept?.cddept,
     },
 
     validationSchema: Yup.object({
       departmentname: Yup.string().required("DEPARTMENT IS REQUIRED"),
-      departmentcode: Yup.string().required("department code is Required"),
+      departmentcode: Yup.string().required("DEPARTMENT CODE IS REQUIRED"),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+      CreateDepertment([
+        {
+          iddept: id,
+          nmdept: values.departmentname,
+          cddept: values.departmentcode,
+        },
+      ])
+        .then(res => {
+          console.log(res.ok);
+          if (res.ok) {
+            toast("Department Updated successfully");
+            navigate("/department");
+          } else {
+            toast("Departments already exists");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card>
@@ -66,12 +95,14 @@ const DepartmentUpdate = () => {
                             type="text"
                             placeholder="PLEASE ENTER DEPARTMENT"
                             className="form-control"
+                            value={validation.values.departmentname}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.departmentname &&
                               validation.errors.departmentname
                             }
+                            style={{ textTransform: 'uppercase' }} 
                           />
                           {validation.touched.departmentname &&
                           validation.errors.departmentname ? (
@@ -83,7 +114,7 @@ const DepartmentUpdate = () => {
                       </Col>
                     </Row>
                     <hr className="mb-2" />
-                    {/* <Row className="mb-2">
+                    <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="validationCustom02">
@@ -94,12 +125,14 @@ const DepartmentUpdate = () => {
                             type="text"
                             className="form-control"
                             id="validationCustom02"
+                            value={validation.values.departmentcode}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.departmentcode &&
                               validation.errors.departmentcode
                             }
+                            style={{ textTransform: 'uppercase' }} 
                           />
                           {validation.touched.departmentcode &&
                           validation.errors.departmentcode ? (
@@ -109,7 +142,7 @@ const DepartmentUpdate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row> */}
+                    </Row>
 
                     <div
                       style={{

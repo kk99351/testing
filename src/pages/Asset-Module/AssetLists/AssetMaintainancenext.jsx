@@ -72,7 +72,7 @@ const AssetMaintainancenext = () => {
                     onSubmit={validation.handleSubmit}
                   >
                     <Row className="mb-2">
-                      <Col md={12}>
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="assetId">ASSET ID<font color="red">*</font></Label>
                           <Input
@@ -86,7 +86,7 @@ const AssetMaintainancenext = () => {
                             invalid={
                               validation.touched.assetId &&
                               validation.errors.assetId
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.assetId &&
                           validation.errors.assetId ? (
@@ -96,10 +96,8 @@ const AssetMaintainancenext = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row>
-
-                    <Row className="mb-2">
-                      <Col md={12}>
+                   
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="assetName">ASSET NAME<font color="red">*</font></Label>
                           <Input
@@ -113,7 +111,7 @@ const AssetMaintainancenext = () => {
                             invalid={
                               validation.touched.assetName &&
                               validation.errors.assetName
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.assetName &&
                           validation.errors.assetName ? (
@@ -125,7 +123,7 @@ const AssetMaintainancenext = () => {
                       </Col>
                     </Row>
                     <Row className="mb-2">
-                      <Col md={12}>
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="AssetDiscription">
                             ASSET DESCRIPTION
@@ -141,7 +139,7 @@ const AssetMaintainancenext = () => {
                             invalid={
                               validation.touched.AssetDiscription &&
                               validation.errors.AssetDiscription
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.AssetDiscription &&
                           validation.errors.AssetDiscription ? (
@@ -151,9 +149,8 @@ const AssetMaintainancenext = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={12}>
+                    
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="Maintainancedate">
                           MAINTENANCE DATE
@@ -169,7 +166,7 @@ const AssetMaintainancenext = () => {
                             invalid={
                               validation.touched.Maintainancedate &&
                               validation.errors.Maintainancedate
-                            }
+                            }style={{ textTransform: "uppercase" }}
                             value={validation.values.Maintainancedate}
                           />
                           {validation.touched.Maintainancedate &&
@@ -180,9 +177,8 @@ const AssetMaintainancenext = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={12}>
+                    
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="ammount">
                             AMOUNT MAINTENANCE<font color="red">*</font>
@@ -198,7 +194,7 @@ const AssetMaintainancenext = () => {
                             invalid={
                               validation.touched.ammount &&
                               validation.errors.ammount
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.ammount &&
                           validation.errors.ammount ? (
@@ -208,9 +204,8 @@ const AssetMaintainancenext = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={12}>
+                   
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="remarkss">
                           MAINTENANCE REMARKS<font color="red">*</font>
@@ -226,7 +221,7 @@ const AssetMaintainancenext = () => {
                             invalid={
                               validation.touched.remarkss &&
                               validation.errors.remarkss
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.remarkss &&
                           validation.errors.remarkss ? (

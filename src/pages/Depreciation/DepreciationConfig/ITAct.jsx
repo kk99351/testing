@@ -63,6 +63,7 @@ const ITAct = () => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.slm}
+                          style={{ textTransform: 'uppercase' }} 
                         />
                       </FormGroup>
                     </Col>
@@ -79,6 +80,7 @@ const ITAct = () => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.rate}
+                          style={{ textTransform: 'uppercase' }} 
                         />
                       </FormGroup>
                     </Col>
@@ -96,6 +98,7 @@ const ITAct = () => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.date}
+                          style={{ textTransform: 'uppercase' }} 
                         />
                       </FormGroup>
                     </Col>
@@ -114,6 +117,7 @@ const ITAct = () => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.actual}
+                          style={{ textTransform: 'uppercase' }} 
                         />
                       </FormGroup>
                     </Col>
@@ -133,6 +137,7 @@ const ITAct = () => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.startdate}
+                          style={{ textTransform: 'uppercase' }} 
                         >
                           <option value="Electronics">ACTUAL DATE</option>
                           <option value="Clothing">
@@ -161,6 +166,7 @@ const ITAct = () => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.set}
+                          style={{ textTransform: 'uppercase' }} 
                         />
                       </FormGroup>
                     </Col>
@@ -176,6 +182,7 @@ const ITAct = () => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.month}
+                          style={{ textTransform: 'uppercase' }} 
                         >
                           <option value="">SELECT</option>
                           <option value="Clothing">

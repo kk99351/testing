@@ -108,7 +108,7 @@ const UserLoginUpdate = () => {
                             invalid={
                               validation.touched.EmployeeInitials &&
                               validation.errors.EmployeeInitials
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT EMPLOYEE INITIALS</option>
                             <option value="dept1">ADMIN</option>
@@ -140,7 +140,7 @@ const UserLoginUpdate = () => {
                             invalid={
                               validation.touched.Email &&
                               validation.errors.Email
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.Email &&
                           validation.errors.Email ? (
@@ -169,7 +169,7 @@ const UserLoginUpdate = () => {
                             invalid={
                               validation.touched.LoginName &&
                               validation.errors.LoginName
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.LoginName &&
                           validation.errors.LoginName ? (
@@ -195,7 +195,7 @@ const UserLoginUpdate = () => {
                             invalid={
                               validation.touched.Password &&
                               validation.errors.Password
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.Password &&
                           validation.errors.Password ? (
@@ -224,7 +224,7 @@ const UserLoginUpdate = () => {
                             invalid={
                               validation.touched.ConfirmPassword &&
                               validation.errors.ConfirmPassword
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.ConfirmPassword &&
                           validation.errors.ConfirmPassword ? (
@@ -250,7 +250,7 @@ const UserLoginUpdate = () => {
                             invalid={
                               validation.touched.UserType &&
                               validation.errors.UserType
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT USER TYPE</option>
                             <option value="dept1">ADMIN</option>
@@ -291,7 +291,7 @@ const UserLoginUpdate = () => {
                                 onChange={validation.handleChange}
                                 checked={
                                   validation.values.Status === "Inactive"
-                                }
+                                }style={{ textTransform: "uppercase" }}
                               />
                               <Label check>DISABLED</Label>
                             </FormGroup>
@@ -330,7 +330,7 @@ const UserLoginUpdate = () => {
                               invalid={
                                 validation.touched.DisabledDate &&
                                 validation.errors.DisabledDate
-                              }
+                              }style={{ textTransform: "uppercase" }}
                             />
                             {validation.touched.DisabledDate &&
                             validation.errors.DisabledDate ? (

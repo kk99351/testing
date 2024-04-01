@@ -16,6 +16,8 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { CreateDesignation } from "src/API/Master/AccessManagement/Api";
 
 const DesignationCreate = () => {
   const navigate = useNavigate();
@@ -28,17 +30,35 @@ const DesignationCreate = () => {
     },
 
     validationSchema: Yup.object({
-      designationname: Yup.string().required("DESIGNATION NAME IS REQUIRED "),
+      designationname: Yup.string().required("Designation name is Required"),
       designationcode: Yup.string().required("Designation code is Required"),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+      CreateDesignation([
+        {
+          iddesign: 0,
+          nmdesign: values.designationname,
+          cddesign: values.designationcode,
+        },
+      ])
+        .then(res => {
+          console.log(res.ok);
+          if (res.ok) {
+            toast("Designation created successfully");
+            navigate("/designation");
+          } else {
+            toast("Designation already exists");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card className="mt-0">
@@ -64,15 +84,16 @@ const DesignationCreate = () => {
                           <Input
                             name="designationname"
                             type="text"
-                            placeholder="PLEASE ENTER DESIGNATION NAME"
                             className="form-control"
                             id="validationCustom03"
+                            placeholder="PLEASE ENTER DESIGNATION NAME"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.designationname &&
                               validation.errors.designationname
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.designationname &&
                           validation.errors.designationname ? (
@@ -84,7 +105,7 @@ const DesignationCreate = () => {
                       </Col>
                       <hr className="mb-2" />
                     </Row>
-                    {/* <Row className="mb-2">
+                    <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="validationCustom03">
@@ -95,12 +116,14 @@ const DesignationCreate = () => {
                             type="text"
                             className="form-control"
                             id="validationCustom03"
+                            placeholder="PLEASE ENTER DESIGNATION CODE"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.designationcode &&
                               validation.errors.designationcode
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.designationcode &&
                           validation.errors.designationcode ? (
@@ -110,7 +133,7 @@ const DesignationCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row> */}
+                    </Row>
 
                     <div
                       style={{

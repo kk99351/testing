@@ -98,7 +98,7 @@ const FloorUpdate = () => {
                         invalid={
                           validation.touched.entity &&
                           validation.errors.entity
-                        }
+                        }style={{ textTransform: "uppercase" }}
                       >
                         <option value="">SELECT ENTITY NAME</option>
                         <option value="US">RA Lmt</option>
@@ -130,7 +130,7 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.company_group &&
                               validation.errors.company_group
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT COUNTRY</option>
                             <option value="United States">United States</option>
@@ -163,7 +163,7 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.region_name &&
                               validation.errors.region_name
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT STATE</option>
                             <option value="CA">California</option>
@@ -198,7 +198,7 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.cityname &&
                               validation.errors.cityname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT CITY</option>
                             <option value="Los Angeles">Los Angeles</option>
@@ -230,7 +230,7 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.plantname &&
                               validation.errors.plantname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT LOCATION </option>
                             <option value="Downtown Branch">
@@ -270,7 +270,7 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.building &&
                               validation.errors.building
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT BUILDING </option>
                             <option value="Central Tower">Central Tower</option>
@@ -307,7 +307,7 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.floor &&
                               validation.errors.floor
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.floor &&
                           validation.errors.floor ? (
@@ -336,7 +336,7 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.doornumber &&
                               validation.errors.doornumber
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.doornumber &&
                           validation.errors.doornumber ? (
@@ -362,7 +362,7 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.pincode &&
                               validation.errors.pincode
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.pincode &&
                           validation.errors.pincode ? (

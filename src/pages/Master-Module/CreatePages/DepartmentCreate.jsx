@@ -16,6 +16,8 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { CreateDepertment } from "src/API/Master/AccessManagement/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const DepartmentCreate = () => {
   const navigate = useNavigate();
@@ -29,22 +31,39 @@ const DepartmentCreate = () => {
 
     validationSchema: Yup.object({
       departmentname: Yup.string().required("DEPARTMENT IS REQUIRED"),
-      departmentcode: Yup.string().required("department code is Required"),
+      departmentcode: Yup.string().required("DEPARTMENT IS REQUIRED"),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+      CreateDepertment([
+        {
+          iddept: 0,
+          nmdept: values.departmentname,
+          cddept: values.departmentcode,
+        },
+      ])
+        .then(res => {
+          if (res.ok) {
+            toast("Department created successfully");
+            navigate("/department");
+          } else {
+            toast("Departments already exists");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CREATE DEPARTMENT 
+                CREATE DEPARTMENT
               </h1>
             </CardHeader>
 
@@ -72,6 +91,8 @@ const DepartmentCreate = () => {
                               validation.touched.departmentname &&
                               validation.errors.departmentname
                             }
+                            style={{ textTransform: 'uppercase' }} 
+
                           />
                           {validation.touched.departmentname &&
                           validation.errors.departmentname ? (
@@ -83,7 +104,7 @@ const DepartmentCreate = () => {
                       </Col>
                     </Row>
                     <hr className="mb-2" />
-                    {/* <Row className="mb-2">
+                    <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="validationCustom02">
@@ -94,12 +115,15 @@ const DepartmentCreate = () => {
                             type="text"
                             className="form-control"
                             id="validationCustom02"
+                            placeholder="PLEASE ENTER DEPARTMENT CODE"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.departmentcode &&
                               validation.errors.departmentcode
                             }
+                            style={{ textTransform: 'uppercase' }} 
+
                           />
                           {validation.touched.departmentcode &&
                           validation.errors.departmentcode ? (
@@ -109,7 +133,7 @@ const DepartmentCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row> */}
+                    </Row>
 
                     <div
                       style={{

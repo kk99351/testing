@@ -16,6 +16,8 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { CreateMaterialGroup } from "src/API/Master/MaterialMaster/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const CreateMaterial = () => {
   const navigate = useNavigate();
@@ -36,13 +38,29 @@ const CreateMaterial = () => {
       ),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+      CreateMaterialGroup([
+        {
+          idgrp: 0,
+          nmgrp: values.categoryname,
+          cdgrp: values.categorycode,
+        },
+      ]).then(res => {
+        console.log(res);
+        if (res.ok) {
+          toast("Material Group created successfully");
+          navigate("/create_catogries");
+        } else {
+          toast("Material Group already exists");
+        }
+      }).catch((err)=>{
+        toast(err.message);
+      })
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card className="mt-0">
@@ -65,7 +83,7 @@ const CreateMaterial = () => {
                             MATERIAL-GROUP NAME<font color="red">*</font>
                           </Label>
                           <Input
-                            name="companygroup"
+                            name="categoryname"
                             type="text"
                             placeholder="PLEASE ENTER MATERIAL-GROUP NAME "
                             className="form-control"
@@ -76,6 +94,8 @@ const CreateMaterial = () => {
                               validation.touched.categoryname &&
                               validation.errors.categoryname
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
 
                           {validation.touched.categoryname &&
@@ -94,7 +114,7 @@ const CreateMaterial = () => {
                             MATERIAL-GROUP CODE<font color="red">*</font>
                           </Label>
                           <Input
-                            name="region"
+                            name="categorycode"
                             type="text"
                             placeholder="PLEASE ENTER MATERIAL-GROUP CODE "
                             className="form-control"
@@ -105,6 +125,8 @@ const CreateMaterial = () => {
                               validation.touched.categorycode &&
                               validation.errors.categorycode
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.categorycode &&
                           validation.errors.categorycode ? (
@@ -122,7 +144,7 @@ const CreateMaterial = () => {
                             MATERIAL-GROUP DESCRIPTION
                           </Label>
                           <Input
-                            name="cityname"
+                            name="categorydescription"
                             type="text"
                             placeholder="PLEASE ENTER MATERIAL-GROUP DESCRIPTION "
                             className="form-control"
@@ -132,6 +154,8 @@ const CreateMaterial = () => {
                               validation.touched.categorydescription &&
                               validation.errors.categorydescription
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.categorydescription &&
                           validation.errors.categorydescription ? (

@@ -64,11 +64,11 @@ const VendorMasterCreate = () => {
         excludeEmptyString: true, // Exclude empty string from validation
       }),
     phone: Yup.string()
-    .required("Alternate Contact Number is required")
-    .matches(/^[0-9]{10}$/, {
-      message: "Alternate Contact Number must be exactly 10 digits",
-      excludeEmptyString: true, // Exclude empty string from validation
-    }),
+      .required("Alternate Contact Number is required")
+      .matches(/^[0-9]{10}$/, {
+        message: "Alternate Contact Number must be exactly 10 digits",
+        excludeEmptyString: true, // Exclude empty string from validation
+      }),
     mailid: Yup.string()
       .email("Invalid email")
       .required("Email ID is required"),

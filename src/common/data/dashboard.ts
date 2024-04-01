@@ -19,36 +19,36 @@ interface DashboardProps {
 const WidgetsData : Array<DashboardProps> = [
     {
         id: 1,
-        title: "Total Revenue",
-        price: "$46.34k",
-        subtitle: "Earning this month",
+        title: "TOTAL ALLOCATED ASSETS",
+        price: "6",
+        subtitle: "",
         charttype: "bar",
         fotmat: "Monthly",
         series: [10, 20, 15, 40, 20, 50, 70, 60, 90, 70, 110]
     },
     {
         id: 2,
-        title: "Total REFUNDS",
-        price: "$895.02",
-        subtitle: "Refunds this month",
+        title: "ASSETS IN STORE",
+        price: "113",
+        subtitle: "",
         charttype: "area",
         fotmat: "Monthly",
         series: [10, 90, 30, 60, 50, 90, 25, 55, 30, 40]
     },
     {
         id: 3,
-        title: "Active Users",
-        price: "6,985",
-        subtitle: "Users this Week",
+        title: "AVAILABLE ACCESSORIES",
+        price: "180",
+        subtitle: "",
         charttype: "bar",
         fotmat: "Weekly",
         series: [40, 20, 30, 40, 20, 60, 55, 70, 95, 65, 110]
     },
     {
         id: 4,
-        title: "All Time Orders",
-        price: "12,584",
-        subtitle: "Total Number of Orders",
+        title: "DAMAGED ASSETS ",
+        price: "17",
+        subtitle: "",
         charttype: "area",
         fotmat: "Yearly",
         series: [10, 90, 30, 60, 50, 90, 25, 55, 30, 40]

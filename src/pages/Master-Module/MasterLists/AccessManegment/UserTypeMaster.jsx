@@ -16,30 +16,24 @@ import {
 } from "react-table";
 
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const UserTypeMaster = () => {
-  const demoData = [
-    { nmUsertype: "Admin" },
-    { nmUsertype: "Manager" },
-    { nmUsertype: "Staff" },
-    { nmUsertype: "Guest" },
-    { nmUsertype: "Supervisor" },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/usertypemaster");
-  //   }
-  //   fetch();
-  // }, [getData]);
 
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
+  useEffect(() => {
+    GetAllData("Usertype").then(res => {
+      console.log(res);
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
   const dataWithSlno = useMemo(() => {
-    return responseData.map((item, index) => ({
+    return responseData?.map((item, index) => ({
       ...item,
       slno: index + 1,
     }));
@@ -54,7 +48,7 @@ const UserTypeMaster = () => {
       },
       {
         Header: "USER TYPE",
-        accessor: "nmUsertype",
+        accessor: "nmusertype",
         disableFilters: true,
         filterable: true,
       },
@@ -210,7 +204,7 @@ const UserTypeMaster = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/modify_user_type/${row.original.id}`}
+                                    to={`/modify_user_type/${row.original.idusertype}`}
                                   >
                                       {String(cell.value).toUpperCase()}{" "}
   </Link>

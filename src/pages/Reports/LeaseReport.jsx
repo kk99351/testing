@@ -62,7 +62,7 @@ const LeaseReport = () => {
     const headers = [
       "ASSET ID",
       "CLIENT NAME",
-      "COMPANY GROUP",
+      "COUNTRY",
       "STATE",
       "CITY",
       "LOCATION",
@@ -136,7 +136,7 @@ const LeaseReport = () => {
                             invalid={
                               validation.touched.fromdate &&
                               validation.errors.fromdate
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.materialgroup &&
                           validation.errors.materialgroup ? (
@@ -162,7 +162,7 @@ const LeaseReport = () => {
                             invalid={
                               validation.touched.enddate &&
                               validation.errors.enddate
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.enddate &&
                           validation.errors.enddate ? (

@@ -135,7 +135,7 @@ const ClientWiseReport = () => {
                             invalid={
                               validation.touched.client &&
                               validation.errors.client
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL </option>
                             <option value="group1">Company Group 1</option>
@@ -153,7 +153,7 @@ const ClientWiseReport = () => {
                     <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="companygroup">COMPANY GROUP</Label>
+                          <Label htmlFor="companygroup">COUNTRY</Label>
                           <Input
                             type="select"
                             name="companygroup"
@@ -164,7 +164,7 @@ const ClientWiseReport = () => {
                             invalid={
                               validation.touched.companygroup &&
                               validation.errors.companygroup
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -193,7 +193,7 @@ const ClientWiseReport = () => {
                             invalid={
                               validation.touched.state &&
                               validation.errors.state
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -221,7 +221,7 @@ const ClientWiseReport = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.city && validation.errors.city
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -247,7 +247,7 @@ const ClientWiseReport = () => {
                             invalid={
                               validation.touched.location &&
                               validation.errors.location
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -277,7 +277,7 @@ const ClientWiseReport = () => {
                             invalid={
                               validation.touched.building &&
                               validation.errors.building
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -304,7 +304,7 @@ const ClientWiseReport = () => {
                             invalid={
                               validation.touched.floor &&
                               validation.errors.floor
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>

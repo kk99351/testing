@@ -356,6 +356,7 @@ const TransferPreview = () => {
                           value={formData.tDate}
                           onChange={handleInputChange}
                           invalid={!!errors.tDate}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">{errors.tDate}</span>
                       </Col>

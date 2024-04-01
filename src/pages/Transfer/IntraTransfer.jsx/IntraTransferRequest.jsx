@@ -302,7 +302,7 @@ const IntraTransferRequest = () => {
                             invalid={
                               validation.touched.companygroup &&
                               validation.errors.companygroup
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">
                               SELECT COUNTRY
@@ -334,7 +334,7 @@ const IntraTransferRequest = () => {
                             invalid={
                               validation.touched.statename &&
                               validation.errors.statename
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT STATE NAME</option>
                             <option value="Alabama">Alabama</option>
@@ -365,7 +365,7 @@ const IntraTransferRequest = () => {
                             invalid={
                               validation.touched.cityname &&
                               validation.errors.cityname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT CITY NAME</option>
                             <option value="New York">New York</option>
@@ -396,7 +396,7 @@ const IntraTransferRequest = () => {
                             invalid={
                               validation.touched.plantname &&
                               validation.errors.plantname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT LOCATION NAME</option>
                             <option value="NewYork">New York</option>
@@ -427,7 +427,7 @@ const IntraTransferRequest = () => {
                             invalid={
                               validation.touched.building &&
                               validation.errors.building
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT BUILDING NAME</option>
                             <option value="EmpireState">
@@ -556,6 +556,7 @@ const IntraTransferRequest = () => {
                           value={formData.floor}
                           onChange={handleDropdownChange}
                           invalid={!!errors.floor}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT FLOOR</option>
                           <option value="group1">2st floor</option>
