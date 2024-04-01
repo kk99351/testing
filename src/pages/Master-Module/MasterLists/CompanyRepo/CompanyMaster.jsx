@@ -67,7 +67,6 @@ const CompanyMaster = props => {
       cin: companyFormData?.cin || "",
       assetPrefix: companyFormData?.assetPrefix || "",
       logo: companyFormData?.logo || null,
-      
     },
 
     validationSchema: Yup.object({
@@ -369,7 +368,9 @@ const CompanyMaster = props => {
                   <Row>
                     <Col md="6">
                       <FormGroup className="mb-3">
-                        <Label htmlFor="validationCustom07">PIN<font color="red">*</font></Label>
+                        <Label htmlFor="validationCustom07">
+                          PIN<font color="red">*</font>
+                        </Label>
                         <Input
                           name="pin"
                           placeholder="PLEASE ENTER PIN"
@@ -585,7 +586,6 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="licenseNumber"
-                          disabled
                           placeholder="PLEASE ENTER LICENSE NUMBER"
                           type="text"
                           className="form-control"
@@ -601,8 +601,7 @@ const CompanyMaster = props => {
                         <Input
                           name="lidt"
                           placeholder="PLEASE ENTER LICENSE DATE"
-                          type="date"
-                          disabled
+                          type="text"
                           className="form-control"
                           value={validation.values.lidt}
                           onChange={handleChange}

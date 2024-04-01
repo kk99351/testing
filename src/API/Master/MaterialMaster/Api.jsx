@@ -50,7 +50,6 @@ export const CreateMaterial = async payload => {
   }
 };
 
-
 //---------------------Create UOM-------------------------------//
 export const CreateUomApis = async payload => {
   try {
@@ -66,7 +65,6 @@ export const CreateUomApis = async payload => {
     return error.message;
   }
 };
-
 
 //---------------------Create UOM Coversion------------------//
 

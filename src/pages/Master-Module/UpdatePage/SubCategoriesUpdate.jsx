@@ -55,7 +55,6 @@ const SubCategoryUpdate = () => {
       // assetprefix: Yup.string().required("Aset Prefix is Required"),
     }),
     onSubmit: values => {
-      console.log(values)
       CreateMaterialSubGroup([
         {
           idsgrp: id,

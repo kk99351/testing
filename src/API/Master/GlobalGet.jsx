@@ -17,7 +17,6 @@ export const GetAllData = async dept => {
 };
 
 //------------------Get Single data by Id-----------------//
-
 export const GetSignleData = async (dept, id) => {
   try {
     let result = await fetch(
