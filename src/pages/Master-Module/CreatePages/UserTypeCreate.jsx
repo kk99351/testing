@@ -92,6 +92,8 @@ const UserTypeCreate = () => {
                               validation.touched.usertypename &&
                               validation.errors.usertypename
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.usertypename &&
                           validation.errors.usertypename ? (

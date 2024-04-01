@@ -702,6 +702,8 @@ const BulkAssetUpdate = () => {
                           value={formData.assignTo}
                           onChange={handleDropdownChange}
                           invalid={!!errors.assignTo}
+                          style={{ textTransform: "uppercase" }}
+
                         >
                           <option value="">SELECT ASSIGN TO</option>
                           <option value="group1">Group 1</option>
@@ -720,6 +722,8 @@ const BulkAssetUpdate = () => {
                           value={formData.flr}
                           onChange={handleDropdownChange}
                           invalid={!!errors.flr}
+                          style={{ textTransform: "uppercase" }}
+
                         >
                           <option value="">SELECT FLOOR</option>
                           <option value="group1">Group 1</option>
@@ -736,6 +740,8 @@ const BulkAssetUpdate = () => {
                           value={formData.alocationDate}
                           onChange={handleInputChange}
                           invalid={!!errors.alocationDate}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="text-danger">
                           {errors.alocationDate}

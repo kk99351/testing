@@ -69,7 +69,7 @@ const AssetStatusReport = () => {
                             invalid={
                               validation.touched.designation &&
                               !!validation.errors.designation
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="admin">Admin</option>

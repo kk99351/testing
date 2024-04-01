@@ -55,7 +55,7 @@ const UserLoginCreate = () => {
       LoginName: Yup.string().required("LOGINNAME IS REQUIRED"),
       Password: Yup.string().required("PASSWORD IS REQUIRED"),
       ConfirmPassword: Yup.string()
-        .oneOf([Yup.ref("Password"), null], "Passwords must match")
+        .oneOf([Yup.ref("Password"), null], "PASSWORD MUST MATCH")
         .required("CONFIRM PASSWORD IS REQUIRED"),
       Status: Yup.string().required("STATUS IS REQUIRED"),
       UserType: Yup.string().required("USER TYPE IS REQUIRED"),
@@ -109,6 +109,8 @@ const UserLoginCreate = () => {
                               validation.touched.EmployeeInitials &&
                               validation.errors.EmployeeInitials
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           >
                             <option value="">SELECT EMPLOYEE INITIALS</option>
                             <option value="dept1">ADMIN</option>
@@ -141,6 +143,8 @@ const UserLoginCreate = () => {
                               validation.touched.Email &&
                               validation.errors.Email
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.Email &&
                           validation.errors.Email ? (
@@ -170,6 +174,8 @@ const UserLoginCreate = () => {
                               validation.touched.LoginName &&
                               validation.errors.LoginName
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.LoginName &&
                           validation.errors.LoginName ? (
@@ -196,6 +202,8 @@ const UserLoginCreate = () => {
                               validation.touched.Password &&
                               validation.errors.Password
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.Password &&
                           validation.errors.Password ? (
@@ -225,6 +233,8 @@ const UserLoginCreate = () => {
                               validation.touched.ConfirmPassword &&
                               validation.errors.ConfirmPassword
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.ConfirmPassword &&
                           validation.errors.ConfirmPassword ? (
@@ -251,6 +261,8 @@ const UserLoginCreate = () => {
                               validation.touched.UserType &&
                               validation.errors.UserType
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           >
                             <option value="">SELECT USER TYPE</option>
                             <option value="dept1">ADMIN</option>
@@ -292,6 +304,8 @@ const UserLoginCreate = () => {
                                 checked={
                                   validation.values.Status === "Inactive"
                                 }
+                                style={{ textTransform: "uppercase" }}
+
                               />
                               <Label check>DISABLED</Label>
                             </FormGroup>
@@ -331,6 +345,8 @@ const UserLoginCreate = () => {
                                 validation.touched.DisabledDate &&
                                 validation.errors.DisabledDate
                               }
+                              style={{ textTransform: "uppercase" }}
+
                             />
                             {validation.touched.DisabledDate &&
                             validation.errors.DisabledDate ? (

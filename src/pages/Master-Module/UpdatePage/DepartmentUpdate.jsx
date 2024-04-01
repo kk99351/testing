@@ -40,7 +40,7 @@ const DepartmentUpdate = () => {
 
     validationSchema: Yup.object({
       departmentname: Yup.string().required("DEPARTMENT IS REQUIRED"),
-      departmentcode: Yup.string().required("department code is Required"),
+      departmentcode: Yup.string().required("DEPARTMENT CODE IS REQUIRED"),
     }),
     onSubmit: values => {
       CreateDepertment([
@@ -102,6 +102,7 @@ const DepartmentUpdate = () => {
                               validation.touched.departmentname &&
                               validation.errors.departmentname
                             }
+                            style={{ textTransform: 'uppercase' }} 
                           />
                           {validation.touched.departmentname &&
                           validation.errors.departmentname ? (
@@ -131,6 +132,7 @@ const DepartmentUpdate = () => {
                               validation.touched.departmentcode &&
                               validation.errors.departmentcode
                             }
+                            style={{ textTransform: 'uppercase' }} 
                           />
                           {validation.touched.departmentcode &&
                           validation.errors.departmentcode ? (

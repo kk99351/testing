@@ -34,7 +34,7 @@ const AdditionDeletionlist = () => {
       Installation: "",
       city: "",
       location: "",
-      Remarks:""
+      Remarks: "",
     },
 
     validationSchema: Yup.object({
@@ -85,6 +85,7 @@ const AdditionDeletionlist = () => {
                               validation.touched.aasetId &&
                               validation.errors.aasetId
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.aasetId &&
                           validation.errors.aasetId ? (
@@ -108,6 +109,7 @@ const AdditionDeletionlist = () => {
                               validation.touched.assetName &&
                               validation.errors.assetName
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.assetName &&
                           validation.errors.assetName ? (
@@ -133,6 +135,7 @@ const AdditionDeletionlist = () => {
                               validation.touched.Description &&
                               validation.errors.Description
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.Description &&
                           validation.errors.Description ? (
@@ -156,6 +159,7 @@ const AdditionDeletionlist = () => {
                               validation.touched.Installation &&
                               validation.errors.Installation
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.Installation &&
                           validation.errors.Installation ? (
@@ -180,6 +184,7 @@ const AdditionDeletionlist = () => {
                             invalid={
                               validation.touched.city && validation.errors.city
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.city && validation.errors.city ? (
                             <FormFeedback type="invalid">
@@ -202,6 +207,7 @@ const AdditionDeletionlist = () => {
                               validation.touched.Installation &&
                               validation.errors.Installation
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.Installation &&
                           validation.errors.Installation ? (
@@ -227,6 +233,7 @@ const AdditionDeletionlist = () => {
                               validation.touched.Assigned &&
                               validation.errors.Assigned
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.Assigned &&
                           validation.errors.Assigned ? (
@@ -250,6 +257,7 @@ const AdditionDeletionlist = () => {
                               validation.touched.Value &&
                               validation.errors.Value
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.Value &&
                           validation.errors.Value ? (
@@ -260,7 +268,7 @@ const AdditionDeletionlist = () => {
                         </FormGroup>
                       </Col>
                     </Row>
-<hr className="mb-2"/>
+                    <hr className="mb-2" />
                     <CardHeader className="mb-3">
                       <h1
                         className="card-title"
@@ -287,6 +295,7 @@ const AdditionDeletionlist = () => {
                             invalid={
                               validation.touched.add && validation.errors.add
                             }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT ADDITION/DELETION</option>
                             <option value="option1">ADDITION</option>
@@ -317,6 +326,7 @@ const AdditionDeletionlist = () => {
                             invalid={
                               validation.touched.date && validation.errors.date
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.date && validation.errors.date ? (
                             <FormFeedback type="invalid">
@@ -341,10 +351,13 @@ const AdditionDeletionlist = () => {
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.amount && validation.errors.amount
+                              validation.touched.amount &&
+                              validation.errors.amount
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
-                          {validation.touched.amount && validation.errors.amount ? (
+                          {validation.touched.amount &&
+                          validation.errors.amount ? (
                             <FormFeedback type="invalid">
                               {validation.errors.amount}
                             </FormFeedback>
@@ -355,9 +368,7 @@ const AdditionDeletionlist = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label>
-                            ADDITION/DELETION REMARKS
-                          </Label>
+                          <Label>ADDITION/DELETION REMARKS</Label>
                           <Input
                             name="Remarks"
                             type="textarea"
@@ -366,10 +377,12 @@ const AdditionDeletionlist = () => {
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.Remarks && validation.errors.Remarks
-                            }
+                              validation.touched.Remarks &&
+                              validation.errors.Remarks
+                            }style={{ textTransform: 'uppercase' }}
                           />
-                          {validation.touched.Remarks && validation.errors.Remarks ? (
+                          {validation.touched.Remarks &&
+                          validation.errors.Remarks ? (
                             <FormFeedback type="invalid">
                               {validation.errors.Remarks}
                             </FormFeedback>

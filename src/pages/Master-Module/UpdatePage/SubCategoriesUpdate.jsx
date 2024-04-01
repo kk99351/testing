@@ -113,7 +113,7 @@ const SubCategoryUpdate = () => {
                             invalid={
                               validation.touched.categoryname &&
                               validation.errors.categoryname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option>SELECT MATERIAL GROUP NAME </option>
                             {material &&
@@ -147,7 +147,7 @@ const SubCategoryUpdate = () => {
                             invalid={
                               validation.touched.subcategoryname &&
                               validation.errors.subcategoryname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.subcategoryname &&
                           validation.errors.subcategoryname ? (
@@ -176,7 +176,7 @@ const SubCategoryUpdate = () => {
                             invalid={
                               validation.touched.subcategorycode &&
                               validation.errors.subcategorycode
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.subcategorycode &&
                           validation.errors.subcategorycode ? (

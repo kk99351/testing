@@ -97,7 +97,7 @@ const MasterReportview = () => {
       { Header: "SL NO", accessor: "slno" },
       { Header: "ASSET ID", accessor: "asset_id" },
       { Header: "CLIENT NAME", accessor: "client_name" },
-      { Header: "COMPANY GROUP", accessor: "company_group" },
+      { Header: "COUNTRY", accessor: "company_group" },
       { Header: "STATE", accessor: "state" },
       { Header: "CITY", accessor: "city" },
       { Header: "LOCATION", accessor: "location" },

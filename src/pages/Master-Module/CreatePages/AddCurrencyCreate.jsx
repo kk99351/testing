@@ -104,6 +104,8 @@ const AddCurrencyCreate = () => {
                           value={formData.nmCurr}
                           onChange={handleDropdownChange}
                           invalid={!!errors.nmCurr}
+                          style={{ textTransform: 'uppercase' }} 
+
                         >
                           <option value="">SELECT CURRENCY NAME</option>
                           <option value="US Dollar">US Dollar</option>
@@ -128,6 +130,8 @@ const AddCurrencyCreate = () => {
                           value={formData.cdCurr}
                           onChange={handleDropdownChange}
                           invalid={!!errors.cdCurr}
+                          style={{ textTransform: 'uppercase' }} 
+
                         >
                           <option value="">SELECT CURRENCY SYMBOL</option>
                           <option value="USD">USD</option>

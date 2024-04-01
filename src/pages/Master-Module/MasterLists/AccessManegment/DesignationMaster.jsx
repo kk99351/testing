@@ -139,7 +139,6 @@ const DesignationMaster = () => {
                   </div>
                 </div>
               </div>
-            </CardBody>
 
             <div className="table-responsive react-table center">
               <table className="table table-bordered table-hover">
@@ -190,10 +189,11 @@ const DesignationMaster = () => {
                                 <Link
                                   to={`/modify_designation/${row.original.iddesign}`}
                                 >
-                                  {cell.render("Cell")}
-                                </Link>
-                              ) : (
-                                cell.render("Cell")
+                                 {String(cell.value).toUpperCase()}{" "}
+                                    {/* Convert to uppercase */}
+                                  </Link>
+                                ) : (
+                                  String(cell.value).toUpperCase()
                               )}
                             </td>
                           ))}
@@ -207,7 +207,7 @@ const DesignationMaster = () => {
                         style={{ textAlign: "center" }}
                       >
                         {" "}
-                        No search results found.
+                       NO SEARCH RESULTS FOUND
                       </td>
                     </tr>
                   )}
@@ -256,6 +256,8 @@ const DesignationMaster = () => {
                 </div>
               </div>
             </div>
+            </CardBody>
+
           </Card>
         </div>
       </Container>

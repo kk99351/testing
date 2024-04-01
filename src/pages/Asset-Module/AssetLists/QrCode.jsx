@@ -149,6 +149,7 @@ const QrCode = () => {
                             invalid={
                               validation.touched.cat && validation.errors.cat
                             }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT MATERIAL GROUP</option>
                             <option value="electronics">Electronics</option>
@@ -179,6 +180,7 @@ const QrCode = () => {
                               validation.touched.subCat &&
                               validation.errors.subCat
                             }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT MATERIAL SUB GROUP</option>
                             <option value="electronics">
@@ -211,6 +213,7 @@ const QrCode = () => {
                             invalid={
                               validation.touched.poNo && validation.errors.poNo
                             }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT PO.NUMBER</option>
                             <option value="PO123456">PO123456</option>
@@ -240,6 +243,7 @@ const QrCode = () => {
                               validation.touched.invoiceNo &&
                               validation.errors.invoiceNo
                             }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT INVOICE NUMBER</option>
                             <option value="INV2024001">INV2024001</option>
@@ -400,8 +404,8 @@ const QrCode = () => {
                   <CardBody>
                     <h3>Generated QR Code {index + 1}</h3>
                     <p>Location: BANGLORE</p>
-                    <p>Asset ID: {data.assetId}</p>
-                    <p>Serial No: {data.serialNumber}</p>
+                    <p>Asset ID: {data.assetId.toUpperCase()}</p>
+                    <p>Serial No: {data.serialNumber.toUpperCase()}</p>
                     <p>Model No: E BLOCK EQUIPMENT (POSITIVO)</p>
                     <QRCode value={data.assetId} />
                   </CardBody>

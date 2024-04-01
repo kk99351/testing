@@ -88,7 +88,7 @@ const WidgetData = (props : any) => {
                                     </h4>
                                     <div className="text-muted"> {widget["subtitle"]} </div>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <UncontrolledDropdown>
                                         <DropdownToggle tag="a" className="dropdown-toggle btn btn-light btn-sm">
                                             <span className="text-muted">{widget["fotmat"]}<i
@@ -100,7 +100,7 @@ const WidgetData = (props : any) => {
                                             <DropdownItem to="#">Weekly</DropdownItem>
                                         </DropdownMenu>
                                     </UncontrolledDropdown>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="apex-charts mt-3">
                             <ReactApexChart

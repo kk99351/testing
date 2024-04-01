@@ -58,7 +58,7 @@ const AccessoryHistoryReport = () => {
     const headers = [
       "ASSET ID",
       "CLIENT NAME",
-      "COMPANY GROUP",
+      "COUNTRY",
       "STATE",
       "CITY",
       "LOCATION",
@@ -133,7 +133,7 @@ const AccessoryHistoryReport = () => {
                             invalid={
                               validation.touched.materialgroup &&
                               validation.errors.materialgroup
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL </option>
                             <option value="group1">Company Group 1</option>
@@ -164,7 +164,7 @@ const AccessoryHistoryReport = () => {
                             invalid={
                               validation.touched.submaterial &&
                               validation.errors.submaterial
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -193,7 +193,7 @@ const AccessoryHistoryReport = () => {
                             invalid={
                               validation.touched.material &&
                               validation.errors.material
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>

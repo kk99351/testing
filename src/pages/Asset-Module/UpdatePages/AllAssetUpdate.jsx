@@ -88,20 +88,20 @@ const AllAssetUpdate = () => {
   const demoData = useMemo(
     () => [
       {
-        "slno": 1,
-        "fieldName": "Product Status",
-        "oldValue": "In Store",
-        "newValue": "Allocated to Employee",
-        "editedBy": "John Doe",
-        "editDate": "2024-03-25"
+        slno: 1,
+        fieldName: "Product Status",
+        oldValue: "In Store",
+        newValue: "Allocated to Employee",
+        editedBy: "John Doe",
+        editDate: "2024-03-25",
       },
       {
-        "slno": 2,
-        "fieldName": "Location",
-        "oldValue": "Warehouse A",
-        "newValue": "Warehouse B",
-        "editedBy": "Jane Smith",
-        "editDate": "2024-03-24"
+        slno: 2,
+        fieldName: "Location",
+        oldValue: "Warehouse A",
+        newValue: "Warehouse B",
+        editedBy: "Jane Smith",
+        editDate: "2024-03-24",
       },
     ],
     []
@@ -267,6 +267,7 @@ const AllAssetUpdate = () => {
                           value={formData.assetId}
                           onChange={handleInputChange}
                           invalid={!!errors.assetId}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.assetId}
@@ -282,6 +283,7 @@ const AllAssetUpdate = () => {
                           value={formData.invoiceNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.invoiceNumber}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.invoiceNumber}
@@ -297,6 +299,7 @@ const AllAssetUpdate = () => {
                           value={formData.invoiceDate}
                           onChange={handleInputChange}
                           invalid={!!errors.invoiceDate}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.invoiceDate}
@@ -315,6 +318,7 @@ const AllAssetUpdate = () => {
                           value={formData.poNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.poNumber}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.poNumber}
@@ -330,6 +334,7 @@ const AllAssetUpdate = () => {
                           value={formData.poDate}
                           onChange={handleInputChange}
                           invalid={!!errors.poDate}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.poDate}
@@ -345,6 +350,7 @@ const AllAssetUpdate = () => {
                           value={formData.serialNumber}
                           onChange={handleInputChange}
                           invalid={!!errors.serialNumber}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.serialNumber}
@@ -364,6 +370,7 @@ const AllAssetUpdate = () => {
                           value={formData.assetRef}
                           onChange={handleInputChange}
                           invalid={!!errors.assetRef}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.assetRef}
@@ -379,6 +386,7 @@ const AllAssetUpdate = () => {
                           value={formData.diviceStatus}
                           onChange={handleInputChange}
                           invalid={!!errors.diviceStatus}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.diviceStatus}
@@ -394,6 +402,7 @@ const AllAssetUpdate = () => {
                           value={formData.processType}
                           onChange={handleInputChange}
                           invalid={!!errors.processType}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.processType}
@@ -413,6 +422,7 @@ const AllAssetUpdate = () => {
                           value={formData.storageType}
                           onChange={handleInputChange}
                           invalid={!!errors.storageType}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.storageType}
@@ -428,6 +438,7 @@ const AllAssetUpdate = () => {
                           value={formData.ramType}
                           onChange={handleInputChange}
                           invalid={!!errors.ramType}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.ramType}
@@ -443,6 +454,7 @@ const AllAssetUpdate = () => {
                           value={formData.assetName}
                           onChange={handleInputChange}
                           invalid={!!errors.assetName}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.assetName}
@@ -461,6 +473,7 @@ const AllAssetUpdate = () => {
                           value={formData.assetRemarks}
                           onChange={handleInputChange}
                           invalid={!!errors.assetRemarks}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.assetRemarks}
@@ -475,6 +488,7 @@ const AllAssetUpdate = () => {
                           value={formData.serviceVendor}
                           onChange={handleDropdownChange}
                           invalid={!!errors.serviceVendor}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT SERVICE VENDOR</option>
                           <option value="apple">Apple Inc.</option>
@@ -498,6 +512,7 @@ const AllAssetUpdate = () => {
                           value={formData.assetDescription}
                           onChange={handleInputChange}
                           invalid={!!errors.assetDescription}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.assetDescription}
@@ -517,6 +532,7 @@ const AllAssetUpdate = () => {
                           value={formData.taggable}
                           onChange={handleDropdownChange}
                           invalid={!!errors.taggable}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT TAGGABLE OR NOT</option>
                           <option value="group1">YES</option>
@@ -537,6 +553,7 @@ const AllAssetUpdate = () => {
                           value={formData.typeOfProc}
                           onChange={handleDropdownChange}
                           invalid={!!errors.typeOfProc}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT TYPE OF PROCUREMENT</option>
                           <option value="group1">OUTRIGHT PURCHASE</option>
@@ -556,6 +573,7 @@ const AllAssetUpdate = () => {
                           value={formData.amc}
                           onChange={handleDropdownChange}
                           invalid={!!errors.amc}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT AMC / WARRENTY</option>
                           <option value="no">NO</option>
@@ -579,6 +597,7 @@ const AllAssetUpdate = () => {
                               value={formData.amcStartDate}
                               onChange={handleInputChange}
                               invalid={!!errors.amcStartDate}
+                              style={{ textTransform: "uppercase" }}
                             />
                             <span className="invalid-feedback">
                               {errors.amcStartDate}
@@ -601,6 +620,7 @@ const AllAssetUpdate = () => {
                               value={formData.amcEndDate}
                               onChange={handleInputChange}
                               invalid={!!errors.amcEndDate}
+                              style={{ textTransform: "uppercase" }}
                             />
                             <span className="invalid-feedback">
                               {errors.amcEndDate}
@@ -622,6 +642,7 @@ const AllAssetUpdate = () => {
                           value={formData.leaseStatus}
                           onChange={handleDropdownChange}
                           invalid={!!errors.leaseStatus}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT LEASE STATUS</option>
                           <option value="Notunderlease">NOT UNDER LEASE</option>
@@ -646,6 +667,7 @@ const AllAssetUpdate = () => {
                               value={formData.leaseStartDate}
                               onChange={handleInputChange}
                               invalid={!!errors.leaseStartDate}
+                              style={{ textTransform: "uppercase" }}
                             />
                             <span className="invalid-feedback">
                               {errors.leaseStartDate}
@@ -664,6 +686,7 @@ const AllAssetUpdate = () => {
                               value={formData.leaseEndDate}
                               onChange={handleInputChange}
                               invalid={!!errors.leaseEndDate}
+                              style={{ textTransform: "uppercase" }}
                             />
                             <span className="invalid-feedback">
                               {errors.leaseEndDate}
@@ -683,6 +706,7 @@ const AllAssetUpdate = () => {
                           value={formData.license}
                           onChange={handleDropdownChange}
                           invalid={!!errors.license}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT LICENSE</option>
                           <option value="Yes">YES</option>
@@ -707,6 +731,7 @@ const AllAssetUpdate = () => {
                               value={formData.licenseStartDate}
                               onChange={handleInputChange}
                               invalid={!!errors.licenseStartDate}
+                              style={{ textTransform: "uppercase" }}
                             />
                             <span className="invalid-feedback">
                               {errors.licenseStartDate}
@@ -725,6 +750,7 @@ const AllAssetUpdate = () => {
                               value={formData.licenseEndDate}
                               onChange={handleInputChange}
                               invalid={!!errors.licenseEndDate}
+                              style={{ textTransform: "uppercase" }}
                             />
                             <span className="invalid-feedback">
                               {errors.licenseEndDate}
@@ -743,6 +769,7 @@ const AllAssetUpdate = () => {
                               value={formData.policyNumber}
                               onChange={handleInputChange}
                               invalid={!!errors.policyNumber}
+                              style={{ textTransform: "uppercase" }}
                             />
                             <span className="invalid-feedback">
                               {errors.policyNumber}
@@ -761,6 +788,7 @@ const AllAssetUpdate = () => {
                               value={formData.providerName}
                               onChange={handleInputChange}
                               invalid={!!errors.providerName}
+                              style={{ textTransform: "uppercase" }}
                             />
                             <span className="invalid-feedback">
                               {errors.providerName}
@@ -781,6 +809,7 @@ const AllAssetUpdate = () => {
                           value={formData.additionalCost}
                           onChange={handleInputChange}
                           invalid={!!errors.additionalCost}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.additionalCost}
@@ -796,6 +825,7 @@ const AllAssetUpdate = () => {
                           value={formData.totalUnitPrice}
                           onChange={handleInputChange}
                           invalid={!!errors.totalUnitPrice}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.totalUnitPrice}
@@ -811,6 +841,7 @@ const AllAssetUpdate = () => {
                           value={formData.netValue}
                           onChange={handleInputChange}
                           invalid={!!errors.netValue}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.netValue}
@@ -869,10 +900,10 @@ const AllAssetUpdate = () => {
                 <Col xl={10}>
                   <div className="container pt-0">
                     <div className="row">
-                      <div className="col-md-1">
+                      <div className="col-md-2">
                         <select
                           className="form-select"
-                          style={{ width: "84PX" }}
+                        
                         >
                           <option value="10">SHOW 10</option>
                           <option value="20">SHOW 20</option>
@@ -882,7 +913,7 @@ const AllAssetUpdate = () => {
                         </select>
                       </div>
 
-                      <div className="col-md-11 d-flex justify-content-end">
+                      <div className="col-md-10 d-flex justify-content-end">
                         <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
                           <div className="position-relative">
                             <label
@@ -959,8 +990,8 @@ const AllAssetUpdate = () => {
                                       ? // <Link to={`/modify_all_asset/${row.original.id}`}>
                                         //      {cell.render("Cell")}
                                         //    </Link>
-                                        cell.render("Cell")
-                                      : cell.render("Cell")}
+                                        String(cell.value).toUpperCase()
+                                      : String(cell.value).toUpperCase()}
                                   </td>
                                 ))}
                               </tr>

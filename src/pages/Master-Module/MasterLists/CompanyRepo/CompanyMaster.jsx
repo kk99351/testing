@@ -221,6 +221,7 @@ const CompanyMaster = props => {
                             validation.touched.companyname &&
                             validation.errors.companyname
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.companyname &&
                         validation.errors.companyname ? (
@@ -247,6 +248,7 @@ const CompanyMaster = props => {
                             validation.touched.address1 &&
                             validation.errors.address1
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.address1 &&
                         validation.errors.address1 ? (
@@ -276,6 +278,7 @@ const CompanyMaster = props => {
                           invalid={
                             validation.touched.city && validation.errors.city
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.city && validation.errors.city ? (
                           <FormFeedback type="invalid">
@@ -301,6 +304,7 @@ const CompanyMaster = props => {
                             validation.touched.address2 &&
                             validation.errors.address2
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.address2 &&
                         validation.errors.address2 ? (
@@ -330,6 +334,7 @@ const CompanyMaster = props => {
                           invalid={
                             validation.touched.state && validation.errors.state
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.state && validation.errors.state ? (
                           <FormFeedback type="invalid">
@@ -354,6 +359,7 @@ const CompanyMaster = props => {
                           invalid={
                             validation.touched.email && validation.errors.email
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.email && validation.errors.email ? (
                           <FormFeedback type="invalid">
@@ -382,6 +388,7 @@ const CompanyMaster = props => {
                           invalid={
                             validation.touched.pin && validation.errors.pin
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.pin && validation.errors.pin ? (
                           <FormFeedback type="invalid">
@@ -407,6 +414,7 @@ const CompanyMaster = props => {
                             validation.touched.country &&
                             validation.errors.country
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.country &&
                         validation.errors.country ? (
@@ -446,6 +454,7 @@ const CompanyMaster = props => {
                           onChange={value => {
                             validation.setFieldValue("phone", value);
                           }}
+                          style={{ textTransform: "uppercase" }}
                           isValid={(value, country) => {
                             if (value.match(/12345/)) {
                               return (
@@ -490,6 +499,7 @@ const CompanyMaster = props => {
                             validation.touched.contactPerson &&
                             validation.errors.contactPerson
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.contactPerson &&
                         validation.errors.contactPerson ? (
@@ -515,6 +525,7 @@ const CompanyMaster = props => {
                           invalid={
                             validation.touched.gst && validation.errors.gst
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.gst && validation.errors.gst ? (
                           <FormFeedback type="invalid">
@@ -543,6 +554,7 @@ const CompanyMaster = props => {
                           invalid={
                             validation.touched.pan && validation.errors.pan
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.pan && validation.errors.pan ? (
                           <FormFeedback type="invalid">
@@ -567,6 +579,7 @@ const CompanyMaster = props => {
                           invalid={
                             validation.touched.cin && validation.errors.cin
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.cin && validation.errors.cin ? (
                           <FormFeedback type="invalid">
@@ -592,6 +605,7 @@ const CompanyMaster = props => {
                           value={validation.values.licenseNumber}
                           onChange={handleChange}
                           onBlur={validation.handleBlur}
+                          style={{ textTransform: "uppercase" }}
                         />
                       </FormGroup>
                     </Col>
@@ -606,6 +620,7 @@ const CompanyMaster = props => {
                           value={validation.values.lidt}
                           onChange={handleChange}
                           onBlur={validation.handleBlur}
+                          style={{ textTransform: "uppercase" }}
                         />
                       </FormGroup>
                     </Col>
@@ -655,6 +670,7 @@ const CompanyMaster = props => {
                           invalid={
                             validation.touched.logo && validation.errors.logo
                           }
+                          style={{ textTransform: "uppercase" }}
                         />
 
                         {validation.touched.logo && validation.errors.logo && (

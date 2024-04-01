@@ -112,6 +112,8 @@ const UOMConversionCreate = () => {
                           value={formData.material}
                           onChange={handleDropdownChange}
                           invalid={!!errors.material}
+                          style={{ textTransform: "uppercase" }}
+
                         >
                           <option value="">SELECT MATERIAL GROUP</option>
                           <option value="group1">Steel</option>
@@ -135,6 +137,8 @@ const UOMConversionCreate = () => {
                           className={`form-control ${
                             errors.qyt ? "is-invalid" : ""
                           }`}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="invalid-feedback">{errors.qyt}</span>
                       </Col>
@@ -152,6 +156,8 @@ const UOMConversionCreate = () => {
                           value={formData.uom}
                           onChange={handleDropdownChange}
                           invalid={!!errors.uom}
+                          style={{ textTransform: "uppercase" }}
+
                         >
                           <option value="">SELECT UOM</option>
                           <option value="group1">M</option>
@@ -172,6 +178,8 @@ const UOMConversionCreate = () => {
                           className={`form-control ${
                             errors.uomconverted ? "is-invalid" : ""
                           }`}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="invalid-feedback">
                           {errors.uomconverted}

@@ -296,6 +296,7 @@ const InterRecieveAssetsPreview = () => {
                           value={formData.rDate}
                           onChange={handleInputChange}
                           invalid={!!errors.rDate}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">{errors.rDate}</span>
                       </Col>

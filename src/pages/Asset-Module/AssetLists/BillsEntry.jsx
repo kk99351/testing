@@ -148,6 +148,7 @@ const BillsEntry = () => {
                   placeholder="From Date"
                   value={startDate}
                   onChange={handleStartDateChange}
+                  style={{ textTransform: "uppercase" }}
                 />
               </Col>
               <Col md={5}>
@@ -161,6 +162,7 @@ const BillsEntry = () => {
                   placeholder="To Date"
                   value={endDate}
                   onChange={handleEndDateChange}
+                  style={{ textTransform: "uppercase" }}
                 />
               </Col>
               <Col md={2} className="d-flex align-items-end">

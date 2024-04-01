@@ -45,17 +45,7 @@ const CreatVendor = () => {
   ];
   const [responseData, setResponseData] = useState(demoData);
   const navigate = useNavigate();
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/vendormaster");
-  //   }
-  //   fetch();
-  // }, [getData]);
 
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
@@ -179,7 +169,7 @@ const CreatVendor = () => {
                       <button
                         type="button"
                         className="btn mb-2 me-2 btn btn-primary"
-                        onClick={() => navigate("/create_vendormaster")}
+                        onClick={() => navigate("/vendor_create")}
                       >
                         <i className="mdi mdi-plus-circle-outline me-1"></i>
                         CREATE NEW
@@ -188,17 +178,28 @@ const CreatVendor = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-sm-12">
-                <div className="col-sm-10">
-                  {" "}
-                  <Input
-                    type="email"
-                    placeholder="ADD NEW SUPPLIER THROUGH EMAIL"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                  />
+              {/* <div className="row">
+                <div className="col-sm-12 d-flex align-items-center">
+                  <div className="col-sm-11">
+                    <Input
+                      type="email"
+                      placeholder="ADD NEW SUPPLIER THROUGH EMAIL"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-sm-2">
+                    <Button
+                      type="button"
+                      className="btn btn-success-subtle border border-success"
+                      onClick={handleSendLink}
+                    >
+                      SEND LINK
+                    </Button>
+                  </div>
                 </div>
-              </div>
+              </div> */}
+
               <div className="table-responsive react-table">
                 <table className="table table-bordered table-hover text-center">
                   <thead className="table-light table-nowrap">
@@ -242,7 +243,7 @@ const CreatVendor = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/vendor_master/${row.original.id}`}
+                                    to={`/modify_vendor/${row.original.id}`}
                                   >
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>

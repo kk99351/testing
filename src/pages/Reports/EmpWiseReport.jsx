@@ -137,7 +137,7 @@ const EmpWiseReport = () => {
                             invalid={
                               validation.touched.assetmaterial &&
                               validation.errors.assetmaterial
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL </option>
                             <option value="group1">Company Group 1</option>
@@ -156,7 +156,7 @@ const EmpWiseReport = () => {
                     <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="companygroup">COMPANY GROUP</Label>
+                          <Label htmlFor="companygroup">COUNTRY</Label>
                           <Input
                             type="select"
                             name="companygroup"
@@ -167,7 +167,7 @@ const EmpWiseReport = () => {
                             invalid={
                               validation.touched.companygroup &&
                               validation.errors.companygroup
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -196,7 +196,7 @@ const EmpWiseReport = () => {
                             invalid={
                               validation.touched.state &&
                               validation.errors.state
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -224,7 +224,7 @@ const EmpWiseReport = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.city && validation.errors.city
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -250,7 +250,7 @@ const EmpWiseReport = () => {
                             invalid={
                               validation.touched.location &&
                               validation.errors.location
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -280,7 +280,7 @@ const EmpWiseReport = () => {
                             invalid={
                               validation.touched.building &&
                               validation.errors.building
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -307,7 +307,7 @@ const EmpWiseReport = () => {
                             invalid={
                               validation.touched.floor &&
                               validation.errors.floor
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>

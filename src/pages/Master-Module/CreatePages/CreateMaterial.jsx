@@ -94,6 +94,8 @@ const CreateMaterial = () => {
                               validation.touched.categoryname &&
                               validation.errors.categoryname
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
 
                           {validation.touched.categoryname &&
@@ -123,6 +125,8 @@ const CreateMaterial = () => {
                               validation.touched.categorycode &&
                               validation.errors.categorycode
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.categorycode &&
                           validation.errors.categorycode ? (
@@ -150,6 +154,8 @@ const CreateMaterial = () => {
                               validation.touched.categorydescription &&
                               validation.errors.categorydescription
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.categorydescription &&
                           validation.errors.categorydescription ? (

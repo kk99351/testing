@@ -111,6 +111,8 @@ const SubCategoryCreate = () => {
                               validation.touched.categoryname &&
                               validation.errors.categoryname
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           >
                             <option value="">SELECT MATERIAL NAME</option>
                             {material &&
@@ -144,6 +146,8 @@ const SubCategoryCreate = () => {
                               validation.touched.subcategoryname &&
                               validation.errors.subcategoryname
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.subcategoryname &&
                           validation.errors.subcategoryname ? (
@@ -172,6 +176,8 @@ const SubCategoryCreate = () => {
                               validation.touched.subcategorycode &&
                               validation.errors.subcategorycode
                             }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.subcategorycode &&
                           validation.errors.subcategorycode ? (
@@ -181,31 +187,7 @@ const SubCategoryCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                      {/* <Col md={6}>
-                        <FormGroup className="mb-3">
-                          <Label>
-                            ASSET PREFIX<font color="red">*</font>
-                          </Label>
-                          <Input
-                            name="assetprefix"
-                            type="text"
-                            className="form-control"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.assetprefix &&
-                              validation.errors.assetprefix
-                            }
-                          />
-                          {validation.touched.assetprefix &&
-                          validation.errors.assetprefix ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.assetprefix}
-                            </FormFeedback>
-                          ) : null}
-                        </FormGroup>
-                      </Col> */}
-                    </Row>
+                     </Row>
 
                     <div
                       style={{

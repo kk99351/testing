@@ -99,7 +99,7 @@ const UserTypeUpdate = () => {
                             invalid={
                               validation.touched.usertypename &&
                               validation.errors.usertypename
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.usertypename &&
                           validation.errors.usertypename ? (

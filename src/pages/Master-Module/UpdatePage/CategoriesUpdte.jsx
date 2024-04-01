@@ -101,7 +101,7 @@ const CategoriesUpdte = () => {
                             invalid={
                               validation.touched.categoryname &&
                               validation.errors.categoryname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
 
                           {validation.touched.categoryname &&
@@ -131,7 +131,7 @@ const CategoriesUpdte = () => {
                             invalid={
                               validation.touched.categorycode &&
                               validation.errors.categorycode
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.categorycode &&
                           validation.errors.categorycode ? (
@@ -158,7 +158,7 @@ const CategoriesUpdte = () => {
                             invalid={
                               validation.touched.categorydescription &&
                               validation.errors.categorydescription
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.categorydescription &&
                           validation.errors.categorydescription ? (

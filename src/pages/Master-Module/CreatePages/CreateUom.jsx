@@ -125,6 +125,8 @@ const CreateUom = () => {
                           className={`form-control ${
                             errors.uom_name ? "is-invalid" : ""
                           }`}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="invalid-feedback">
                           {errors.uom_name}
@@ -147,6 +149,8 @@ const CreateUom = () => {
                           className={`form-control ${
                             errors.uom_code ? "is-invalid" : ""
                           }`}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="invalid-feedback">
                           {errors.uom_code}

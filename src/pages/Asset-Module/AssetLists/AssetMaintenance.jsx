@@ -51,7 +51,7 @@ const AssetMaintenance = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                ASSET FOR MAINTENANCE 
+                ASSET FOR MAINTENANCE
               </h1>
             </CardHeader>
 
@@ -63,7 +63,7 @@ const AssetMaintenance = () => {
                     onSubmit={validation.handleSubmit}
                   >
                     <Row className="mb-2">
-                      <Col md={12}>
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="assetMaterial">
                             ASSET MATERIAL-GROUP <font color="red">*</font>
@@ -78,6 +78,7 @@ const AssetMaintenance = () => {
                               validation.touched.assetMaterial &&
                               validation.errors.assetMaterial
                             }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">
                               SELECT ASSET MATERIAL GROUP
@@ -94,9 +95,8 @@ const AssetMaintenance = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={12}>
+                    
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="assetSubMaterial">
                             ASSET MATERIAL SUB GROUP <font color="red">*</font>
@@ -111,6 +111,7 @@ const AssetMaintenance = () => {
                               validation.touched.assetSubMaterial &&
                               validation.errors.assetSubMaterial
                             }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">
                               SELECT ASSET MATERIAL SUB GROUP
@@ -129,7 +130,7 @@ const AssetMaintenance = () => {
                       </Col>
                     </Row>
                     <Row className="mb-2">
-                      <Col md={12}>
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="asset">
                             ASSET <font color="red">*</font>
@@ -144,6 +145,7 @@ const AssetMaintenance = () => {
                               validation.touched.asset &&
                               validation.errors.asset
                             }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT ASSET</option>
                             <option value="Laptop">Laptop</option>
@@ -157,9 +159,8 @@ const AssetMaintenance = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={12}>
+                   
+                      <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="assetId">
                             ASSET ID <font color="red">*</font>
@@ -174,6 +175,7 @@ const AssetMaintenance = () => {
                               validation.touched.assetId &&
                               validation.errors.assetId
                             }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT ASSET ID</option>
                             <option value="ASSET001">ASSET001</option>

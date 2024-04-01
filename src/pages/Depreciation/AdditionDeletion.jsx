@@ -282,7 +282,7 @@ const AdditionDeletion = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.year && validation.errors.year
-                            }
+                            }style={{ textTransform: 'uppercase' }}
                           >
                             <option value="">SELECT FINANCIAL YEAR</option>
                             <option value="2023">2023</option>
@@ -313,7 +313,7 @@ const AdditionDeletion = () => {
                             invalid={
                               validation.touched.group &&
                               validation.errors.group
-                            }
+                            }style={{ textTransform: 'uppercase' }}
                           >
                             <option value="">
                               SELECT ASSET MATERIAL GROUP{" "}
@@ -348,7 +348,7 @@ const AdditionDeletion = () => {
                             invalid={
                               validation.touched.subgroup &&
                               validation.errors.subgroup
-                            }
+                            }style={{ textTransform: 'uppercase' }}
                           >
                             <option value="">
                               SELECT ASSET MATERIAL SUB GROUP{" "}

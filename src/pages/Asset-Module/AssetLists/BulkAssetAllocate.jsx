@@ -254,6 +254,8 @@ const BulkAssetAllocate = () => {
                       value={formData.assignTo}
                       onChange={handleDropdownChange}
                       invalid={!!errors.assignTo}
+                      style={{ textTransform: "uppercase" }}
+
                     >
                       <option value="">SELECT ASSIGN TO</option>
                       <option value="JohnDoe">John Doe</option>
@@ -273,6 +275,8 @@ const BulkAssetAllocate = () => {
                       value={formData.flr}
                       onChange={handleDropdownChange}
                       invalid={!!errors.flr}
+                      style={{ textTransform: "uppercase" }}
+
                     >
                       <option value="">SELECT FLOOR</option>
                       <option value="group1">1ST FLOOR</option>
@@ -289,6 +293,8 @@ const BulkAssetAllocate = () => {
                       value={formData.alocationDate}
                       onChange={handleInputChange}
                       invalid={!!errors.alocationDate}
+                      style={{ textTransform: "uppercase" }}
+
                     />
                     <span className="invalid-feedback">
                       {errors.alocationDate}

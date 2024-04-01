@@ -181,12 +181,13 @@ const CreateItemsCreate = () => {
                           value={formData.item_type}
                           onChange={handleDropdownChange}
                           invalid={!!errors.item_type}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT MATERIAL TYPE</option>
                           <option value="IT">IT</option>
                           <option value="NON-IT">NON IT</option>
                           <option value="soft">SOFTWARE</option>
-                          <option value="accessories">ACCESSORIES</option> 
+                          <option value="accessories">ACCESSORIES</option>
                         </Input>
                         <span className="invalid-feedback">
                           {errors.item_type}
@@ -204,11 +205,10 @@ const CreateItemsCreate = () => {
                           value={formData.item_name}
                           onChange={handleInputChange}
                           invalid={!!errors.item_name}
+                          style={{ textTransform: "uppercase" }}
                         />
-                        <span className="text-danger">{errors.item_name}</span>
+                        <span className="invalid-feedback">{errors.item_name}</span>
                       </Col>
-
-                      <hr className="mb-0 mt-3" />
                     </Row>
                     <Row className="mb-2">
                       <Col md={6}>
@@ -222,6 +222,7 @@ const CreateItemsCreate = () => {
                           value={formData.category}
                           onChange={handleDropdownChange}
                           invalid={!!errors.category}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT MATERIAL GROUP</option>
                           {material &&
@@ -246,6 +247,7 @@ const CreateItemsCreate = () => {
                           value={formData.sub_category}
                           onChange={handleDropdownChange}
                           invalid={!!errors.sub_category}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value=""> SELECT MATERIAL SUB GROUPL</option>
                           {submaterial &&
@@ -259,28 +261,9 @@ const CreateItemsCreate = () => {
                           {errors.sub_category}
                         </span>
                       </Col>
-
-                      <hr className="mb-0 mt-3" />
                     </Row>
                     <Row className="mb-2">
-                      {/* <Col md={6}>
-                        <Label for="item_code">
-                          MATERIAL CODE<font color="red">*</font>
-                        </Label>
-                        <Input
-                          type="text"
-                          placeholder="PLEASE ENTER MATERIAL CODE"
-                          name="item_code"
-                          id="item_code"
-                          value={formData.item_code}
-                          onChange={handleInputChange}
-                          invalid={!!errors.item_code}
-                        />
-                        <span className="invalid-feedback">
-                          {errors.item_code}
-                        </span>
-                      </Col> */}
-                      <Col md={6}>
+                      <Col md={12}>
                         <Label for="uom">
                           UOM<font color="red">*</font>
                         </Label>
@@ -291,6 +274,7 @@ const CreateItemsCreate = () => {
                           value={formData.uom}
                           onChange={handleDropdownChange}
                           invalid={!!errors.uom}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT UOM</option>
                           {uom &&
@@ -314,12 +298,10 @@ const CreateItemsCreate = () => {
                           value={formData.model}
                           onChange={handleInputChange}
                           invalid={!!errors.model}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">{errors.model}</span>
                       </Col>
-                      <hr className="mb-0 mt-3" />
-                    </Row>
-                    <Row className="mb-2">
                       <Col md={6}>
                         <Label for="discription">
                           DESCRIPTION<font color="red">*</font>
@@ -332,6 +314,7 @@ const CreateItemsCreate = () => {
                           value={formData.discription}
                           onChange={handleInputChange}
                           invalid={!!errors.discription}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.discription}
@@ -339,6 +322,7 @@ const CreateItemsCreate = () => {
                       </Col>
                       <hr className="mb-0 mt-3" />
                     </Row>
+
                     <div
                       style={{
                         display: "flex",

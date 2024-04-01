@@ -322,7 +322,7 @@ const InterTarnsferReq = () => {
                             invalid={
                               validation.touched.companygroup &&
                               validation.errors.companygroup
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT COUNTRY</option>
                             <option value="USA">United States</option>
@@ -352,7 +352,7 @@ const InterTarnsferReq = () => {
                             invalid={
                               validation.touched.statename &&
                               validation.errors.statename
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT STATE NAME</option>
                             <option value="Alabama">Alabama</option>
@@ -383,7 +383,7 @@ const InterTarnsferReq = () => {
                             invalid={
                               validation.touched.cityname &&
                               validation.errors.cityname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT CITY NAME</option>
                             <option value="New York">New York</option>
@@ -414,7 +414,7 @@ const InterTarnsferReq = () => {
                             invalid={
                               validation.touched.plantname &&
                               validation.errors.plantname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT LOCATION NAME</option>
                             <option value="NewYork">New York</option>
@@ -445,7 +445,7 @@ const InterTarnsferReq = () => {
                             invalid={
                               validation.touched.building &&
                               validation.errors.building
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT BUILDING NAME</option>
                             <option value="EmpireState">
@@ -480,7 +480,7 @@ const InterTarnsferReq = () => {
                             invalid={
                               validation.touched.floor &&
                               validation.errors.floor
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT FLOOR</option>
                             <option value="building1">1st floor</option>
@@ -509,7 +509,7 @@ const InterTarnsferReq = () => {
                             invalid={
                               validation.touched.department &&
                               validation.errors.department
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT DEPARTMENT</option>
                             <option value="Marketing">Marketing</option>
@@ -584,6 +584,7 @@ const InterTarnsferReq = () => {
                           value={formData.transType}
                           onChange={handleDropdownChange}
                           invalid={!!errors.transType}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT TRANSFER TYPE</option>
                           <option value="Internal">Internal Transfer</option>
@@ -605,6 +606,7 @@ const InterTarnsferReq = () => {
                           value={formData.ComGroup}
                           onChange={handleDropdownChange}
                           invalid={!!errors.ComGroup}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT COMPANY GROUP/COUNTRY</option>
                           <option value="USA">United States</option>
@@ -626,6 +628,7 @@ const InterTarnsferReq = () => {
                           value={formData.state}
                           onChange={handleDropdownChange}
                           invalid={!!errors.state}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT STATE</option>
                           <option value="Alabama">Alabama</option>
@@ -644,6 +647,7 @@ const InterTarnsferReq = () => {
                           value={formData.city}
                           onChange={handleDropdownChange}
                           invalid={!!errors.city}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT CITY</option>
                           <option value="New York">New York</option>
@@ -664,6 +668,7 @@ const InterTarnsferReq = () => {
                           value={formData.location}
                           onChange={handleDropdownChange}
                           invalid={!!errors.location}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT LOCATION</option>
                           <option value="NewYork">New York</option>
@@ -686,6 +691,7 @@ const InterTarnsferReq = () => {
                           value={formData.building}
                           onChange={handleDropdownChange}
                           invalid={!!errors.building}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT BUILDING</option>
                           <option value="EmpireState">
@@ -714,6 +720,7 @@ const InterTarnsferReq = () => {
                           value={formData.floor}
                           onChange={handleDropdownChange}
                           invalid={!!errors.floor}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT FLOOR</option>
                           <option value="Notunderlease">1st floor</option>
@@ -732,6 +739,7 @@ const InterTarnsferReq = () => {
                           value={formData.department}
                           onChange={handleDropdownChange}
                           invalid={!!errors.department}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT DEPARTMENT</option>
                           <option value="Marketing">Marketing</option>
@@ -758,6 +766,7 @@ const InterTarnsferReq = () => {
                           value={formData.RDate}
                           onChange={handleInputChange}
                           invalid={!!errors.RDate}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">{errors.RDate}</span>
                       </Col>

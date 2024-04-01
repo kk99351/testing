@@ -216,6 +216,7 @@ const CreateItemsModify = () => {
                           value={formData.item_type}
                           onChange={handleDropdownChange}
                           invalid={!!errors.item_type}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT MATERIAL TYPE</option>
                           <option value="IT">IT</option>
@@ -239,6 +240,7 @@ const CreateItemsModify = () => {
                           value={formData.item_name}
                           onChange={handleInputChange}
                           invalid={!!errors.item_name}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="text-danger">{errors.item_name}</span>
                       </Col>
@@ -257,6 +259,7 @@ const CreateItemsModify = () => {
                           value={formData.category}
                           onChange={handleDropdownChange}
                           invalid={!!errors.category}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT MATERIAL GROUP</option>
                           {material &&
@@ -281,6 +284,7 @@ const CreateItemsModify = () => {
                           value={formData.sub_category}
                           onChange={handleDropdownChange}
                           invalid={!!errors.sub_category}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value=""> SELECT MATERIAL SUB GROUPL</option>
                           {submaterial &&
@@ -327,6 +331,7 @@ const CreateItemsModify = () => {
                           value={formData.model}
                           onChange={handleInputChange}
                           invalid={!!errors.model}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">{errors.model}</span>
                       </Col>
@@ -341,6 +346,7 @@ const CreateItemsModify = () => {
                           value={formData.uom}
                           onChange={handleDropdownChange}
                           invalid={!!errors.uom}
+                          style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT UOM</option>
                           {uom &&
@@ -367,6 +373,7 @@ const CreateItemsModify = () => {
                           value={formData.discription}
                           onChange={handleInputChange}
                           invalid={!!errors.discription}
+                          style={{ textTransform: "uppercase" }}
                         />
                         <span className="invalid-feedback">
                           {errors.discription}

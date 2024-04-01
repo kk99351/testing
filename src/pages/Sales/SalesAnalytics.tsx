@@ -62,7 +62,7 @@ const SalesAnalytics = () => {
         },
         yaxis: {
             title: {
-                text: 'Sales Analytics',
+                text: 'AMC/WARRENTY',
                 style: {
                     fontWeight: 500,
                 },
@@ -92,7 +92,7 @@ const SalesAnalytics = () => {
     return (
         <Card className="card-h-100">
             <CardBody>
-                <div className="float-end">
+                {/* <div className="float-end">
                     <Dropdown
                         isOpen={menu1}
                         toggle={() => setMenu1(!menu1)}
@@ -110,27 +110,27 @@ const SalesAnalytics = () => {
                             <DropdownItem to="#">Today</DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
-                </div>
-                <h4 className="card-title mb-4">Sales Analytics</h4>
+                </div> */}
+                <h4 className="card-title mb-4">AMC/WARRENTY DETAILS</h4>
 
                 <div className="mt-1">
                     <ul className="list-inline main-chart mb-0 text-center">
-                        <li className="list-inline-item chart-border-left me-0 border-0">
+                        {/* <li className="list-inline-item chart-border-left me-0 border-0">
                             <h3 className="text-primary">
                                 <span><CountUp prefix="$" suffix="k" start={0} end={3.85} decimals={2} duration={2.75} /></span>
                                 <span className="text-muted d-inline-block fw-normal font-size-15 ms-2">Income</span>
                             </h3>
-                        </li>
-                        <li className="list-inline-item chart-border-left me-0">
+                        </li> */}
+                        {/* <li className="list-inline-item chart-border-left me-0">
                             <h3><span><CountUp start={0} end={258} duration={2.75} /></span>
                                 <span className="text-muted d-inline-block fw-normal font-size-15 ms-2">Sales</span>
                             </h3>
-                        </li>
-                        <li className="list-inline-item chart-border-left me-0">
+                        </li> */}
+                        {/* <li className="list-inline-item chart-border-left me-0">
                             <h3><span><CountUp start={0} end={52} suffix="k" duration={2.75} /></span>
                                 <span className="text-muted d-inline-block fw-normal font-size-15 ms-2">Users</span>
                             </h3>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
 

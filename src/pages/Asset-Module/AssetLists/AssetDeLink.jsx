@@ -128,6 +128,8 @@ const AssetDeLink = () => {
           <Input
             type="date"
             value={row.original.allocateDate}
+            style={{ textTransform: "uppercase" }}
+
             onChange={e =>
               handleAllocationDateChange(row.index, e.target.value)
             }

@@ -205,10 +205,11 @@ function SubCategories() {
                                   <Link
                                     to={`/modify_subcatogries/${row.original.idsgrp}`}
                                   >
-                                    {cell.render("Cell")}
+                                   {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (
                                   String(cell.value).toUpperCase()
+                              
                                 )}
                               </td>
                             ))}

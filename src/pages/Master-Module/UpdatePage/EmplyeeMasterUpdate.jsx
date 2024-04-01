@@ -103,6 +103,7 @@ const EmplyeeMasterUpdate = () => {
                               validation.touched.employeeName &&
                               !!validation.errors.employeeName
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           <div className="invalid-feedback">
                             {validation.touched.employeeName &&
@@ -127,6 +128,7 @@ const EmplyeeMasterUpdate = () => {
                               validation.touched.employeeCode &&
                               !!validation.errors.employeeCode
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           <div className="invalid-feedback">
                             {validation.touched.employeeCode &&
@@ -154,6 +156,7 @@ const EmplyeeMasterUpdate = () => {
                               validation.touched.officialMailId &&
                               !!validation.errors.officialMailId
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           <div className="invalid-feedback">
                             {validation.touched.officialMailId &&
@@ -178,6 +181,7 @@ const EmplyeeMasterUpdate = () => {
                               validation.touched.contactNo &&
                               !!validation.errors.contactNo
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           <div className="invalid-feedback">
                             {validation.touched.contactNo &&
@@ -204,6 +208,7 @@ const EmplyeeMasterUpdate = () => {
                               validation.touched.designation &&
                               !!validation.errors.designation
                             }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT DESIGNATION</option>
                             <option value="Manager">Manager</option>
@@ -242,7 +247,7 @@ const EmplyeeMasterUpdate = () => {
                             invalid={
                               validation.touched.reportingManager &&
                               !!validation.errors.reportingManager
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT REPORTING MANAGER</option>
                             <option value="Project Manager ">Manager 1</option>
@@ -272,7 +277,7 @@ const EmplyeeMasterUpdate = () => {
                             invalid={
                               validation.touched.department &&
                               !!validation.errors.department
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT DEPARTMENT</option>
                             <option value="Sales">Sales</option>
@@ -303,7 +308,7 @@ const EmplyeeMasterUpdate = () => {
                             invalid={
                               validation.touched.employeeType &&
                               !!validation.errors.employeeType
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="" disabled>
                               SELEECT EMPLOYEE TYPE
@@ -335,7 +340,7 @@ const EmplyeeMasterUpdate = () => {
                             invalid={
                               validation.touched.company_group &&
                               !!validation.errors.company_group
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT COUNTRY </option>
                             <option value="United States">United States</option>
@@ -366,7 +371,7 @@ const EmplyeeMasterUpdate = () => {
                             invalid={
                               validation.touched.region_name &&
                               !!validation.errors.region_name
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT STATE</option>
                             <option value="CA">California</option>
@@ -399,7 +404,7 @@ const EmplyeeMasterUpdate = () => {
                             invalid={
                               validation.touched.cityname &&
                               !!validation.errors.cityname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT CITY</option>
                             <option value="Los Angeles">Los Angeles</option>
@@ -429,7 +434,7 @@ const EmplyeeMasterUpdate = () => {
                             invalid={
                               validation.touched.plantname &&
                               !!validation.errors.plantname
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="" disabled>
                               SELEECT LOCATION
@@ -468,7 +473,7 @@ const EmplyeeMasterUpdate = () => {
                             invalid={
                               validation.touched.building &&
                               !!validation.errors.building
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT BUILDING</option>
                             <option value="Central Tower">Central Tower</option>
@@ -502,7 +507,7 @@ const EmplyeeMasterUpdate = () => {
                             invalid={
                               validation.touched.floor &&
                               !!validation.errors.floor
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELEECT FLOOR</option>
                             <option value="1">1st Floor</option>

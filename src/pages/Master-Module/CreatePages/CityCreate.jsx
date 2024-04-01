@@ -76,6 +76,8 @@ const CityCreate = () => {
                           validation.touched.entity &&
                           validation.errors.entity
                         }
+                        style={{ textTransform: 'uppercase' }} 
+
                       >
                         <option value="">SELECT ENTITY NAME</option>
                         <option value="US">RA Lmt</option>
@@ -109,6 +111,8 @@ const CityCreate = () => {
                               validation.touched.company_group &&
                               validation.errors.company_group
                             }
+                            style={{ textTransform: 'uppercase' }} 
+
                           >
                             <option value="">SELECT COUNTRY</option>
                             <option value="United States">United States</option>
@@ -147,6 +151,7 @@ const CityCreate = () => {
                               validation.touched.region_name &&
                               validation.errors.region_name
                             }
+                            style={{ textTransform: 'uppercase' }} 
                           >
                             <option value="">SELECT STATE</option>
                             <option value="CA">California</option>
@@ -183,6 +188,7 @@ const CityCreate = () => {
                               validation.touched.cityname &&
                               validation.errors.cityname
                             }
+                            style={{ textTransform: 'uppercase' }} 
                           />
                           {validation.touched.cityname &&
                           validation.errors.cityname ? (

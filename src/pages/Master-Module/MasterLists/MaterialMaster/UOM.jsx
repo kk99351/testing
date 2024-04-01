@@ -87,8 +87,6 @@ const UnitOfMesurement = () => {
     usePagination
   );
 
-  
-
   return (
     <React.Fragment>
       <Container fluid>
@@ -196,7 +194,7 @@ const UnitOfMesurement = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "id" ? (
                                   <Link to={`/modifyuom/${row.original.iduom}`}>
-                                    {cell.render("Cell")}
+                                    {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (
                                   String(cell.value).toUpperCase()

@@ -91,6 +91,8 @@ const DepartmentCreate = () => {
                               validation.touched.departmentname &&
                               validation.errors.departmentname
                             }
+                            style={{ textTransform: 'uppercase' }} 
+
                           />
                           {validation.touched.departmentname &&
                           validation.errors.departmentname ? (
@@ -120,6 +122,8 @@ const DepartmentCreate = () => {
                               validation.touched.departmentcode &&
                               validation.errors.departmentcode
                             }
+                            style={{ textTransform: 'uppercase' }} 
+
                           />
                           {validation.touched.departmentcode &&
                           validation.errors.departmentcode ? (

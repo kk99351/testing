@@ -108,9 +108,12 @@ const TermAndConditionCreate = () => {
                           id="termAndCond"
                           value={formData.termAndCond}
                           onChange={handleInputChange}
+                          
                           className={`form-control ${
                             errors.termAndCond ? "is-invalid" : ""
                           }`}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="invalid-feedback">{errors.termAndCond}</span>
                       </Col>
@@ -127,6 +130,8 @@ const TermAndConditionCreate = () => {
                           name="fileName"
                           id="fileName"
                           onChange={handleInputChange}
+                          style={{ textTransform: "uppercase" }}
+
                           className={`form-control ${
                             errors.fileName ? "is-invalid" : ""
                           }`}
@@ -150,6 +155,8 @@ const TermAndConditionCreate = () => {
                           className={`form-control ${
                             errors.fileName ? "is-invalid" : ""
                           }`}
+                          style={{ textTransform: "uppercase" }}
+
                         />
                         <span className="invalid-feedback">{errors.descriptionterms}</span>
                       </Col>

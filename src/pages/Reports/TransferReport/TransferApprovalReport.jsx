@@ -71,7 +71,7 @@ const TransferApprovalReport = () => {
     const headers = [
       "ASSET ID",
       "CLIENT NAME",
-      "COMPANY GROUP",
+      "COUNTRY",
       "STATE",
       "CITY",
       "LOCATION",
@@ -133,7 +133,7 @@ const TransferApprovalReport = () => {
                     <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="companygroup">COMPANY GROUP</Label>
+                          <Label htmlFor="companygroup">COUNTRY</Label>
                           <Input
                             type="select"
                             name="companygroup"
@@ -144,7 +144,7 @@ const TransferApprovalReport = () => {
                             invalid={
                               validation.touched.companygroup &&
                               validation.errors.companygroup
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -173,7 +173,7 @@ const TransferApprovalReport = () => {
                             invalid={
                               validation.touched.state &&
                               validation.errors.state
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -201,7 +201,7 @@ const TransferApprovalReport = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.city && validation.errors.city
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -227,7 +227,7 @@ const TransferApprovalReport = () => {
                             invalid={
                               validation.touched.location &&
                               validation.errors.location
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -257,7 +257,7 @@ const TransferApprovalReport = () => {
                             invalid={
                               validation.touched.building &&
                               validation.errors.building
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -284,7 +284,7 @@ const TransferApprovalReport = () => {
                             invalid={
                               validation.touched.floor &&
                               validation.errors.floor
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -315,7 +315,7 @@ const TransferApprovalReport = () => {
                             invalid={
                               validation.touched.materialgroup &&
                               validation.errors.materialgroup
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL </option>
                             <option value="group1">Company Group 1</option>
@@ -344,7 +344,7 @@ const TransferApprovalReport = () => {
                             invalid={
                               validation.touched.submaterial &&
                               validation.errors.submaterial
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL</option>
                             <option value="group1">Company Group 1</option>
@@ -374,7 +374,7 @@ const TransferApprovalReport = () => {
                             invalid={
                               validation.touched.fromdate &&
                               validation.errors.fromdate
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.materialgroup &&
                           validation.errors.materialgroup ? (
@@ -398,7 +398,7 @@ const TransferApprovalReport = () => {
                             invalid={
                               validation.touched.enddate &&
                               validation.errors.enddate
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.enddate &&
                           validation.errors.enddate ? (

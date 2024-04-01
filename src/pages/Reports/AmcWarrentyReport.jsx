@@ -60,7 +60,7 @@ const AmcWarrentyReport = () => {
     const headers = [
       "ASSET ID",
       "CLIENT NAME",
-      "COMPANY GROUP",
+      "COUNTRY",
       "STATE",
       "CITY",
       "LOCATION",
@@ -135,7 +135,7 @@ const AmcWarrentyReport = () => {
                             invalid={
                               validation.touched.amc &&
                               validation.errors.amc
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           >
                             <option value="">ALL </option>
                             <option value="group1">Company Group 1</option>
@@ -165,7 +165,7 @@ const AmcWarrentyReport = () => {
                             invalid={
                               validation.touched.fromdate &&
                               validation.errors.fromdate
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.materialgroup &&
                           validation.errors.materialgroup ? (
@@ -191,7 +191,7 @@ const AmcWarrentyReport = () => {
                             invalid={
                               validation.touched.enddate &&
                               validation.errors.enddate
-                            }
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.enddate &&
                           validation.errors.enddate ? (

@@ -35,11 +35,14 @@ const MailConfiguration = props => {
       supportMail: "",
     },
     validationSchema: Yup.object({
+      mailPwd: Yup.string().required("PASSWORD IS REQUIRED"),
+      conMailPwd: Yup.string()
+        .oneOf([Yup.ref("mailPwd"), null], "PASSWORD MUST MATCH")
+        .required("CONFIRM PASSWORD IS REQUIRED"),
+
       mailId: Yup.string()
         .email("INVALID EMAIL ADDRESS")
         .required("EMAIL IS REQUIRED"),
-      mailPwd: Yup.string().required("MAIL PASSWORD IS REQUIRED"),
-      conMailPwd: Yup.string().required("CONFIRM MAIL PASSWORD"),
       nmHost: Yup.string().required("NAME OF HOST IS REQUIRED"),
       noPort: Yup.string().required("PORT NUMBER IS REQUIRED "),
     }),
@@ -117,7 +120,7 @@ const MailConfiguration = props => {
                         onBlur={validation.handleBlur}
                         invalid={
                           validation.touched.mailId && validation.errors.mailId
-                        }
+                        }style={{ textTransform: "uppercase" }}
                       />
                       {validation.touched.mailId && validation.errors.mailId ? (
                         <FormFeedback type="invalid">
@@ -142,7 +145,7 @@ const MailConfiguration = props => {
                         invalid={
                           validation.touched.mailPwd &&
                           validation.errors.mailPwd
-                        }
+                        }style={{ textTransform: "uppercase" }}
                       />
                       {validation.touched.mailPwd &&
                       validation.errors.mailPwd ? (
@@ -172,7 +175,7 @@ const MailConfiguration = props => {
                         invalid={
                           validation.touched.conMailPwd &&
                           validation.errors.conMailPwd
-                        }
+                        }style={{ textTransform: "uppercase" }}
                       />
                       {validation.touched.conMailPwd &&
                       validation.errors.conMailPwd ? (
@@ -197,7 +200,7 @@ const MailConfiguration = props => {
                         onBlur={validation.handleBlur}
                         invalid={
                           validation.touched.nmHost && validation.errors.nmHost
-                        }
+                        }style={{ textTransform: "uppercase" }}
                       />
                       {validation.touched.nmHost && validation.errors.nmHost ? (
                         <FormFeedback type="invalid">
@@ -225,7 +228,7 @@ const MailConfiguration = props => {
                         onBlur={validation.handleBlur}
                         invalid={
                           validation.touched.noPort && validation.errors.noPort
-                        }
+                        }style={{ textTransform: "uppercase" }}
                       />
                       {validation.touched.noPort && validation.errors.noPort ? (
                         <FormFeedback type="invalid">

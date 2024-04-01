@@ -42,7 +42,7 @@ const DesignationUpdate = () => {
 
     validationSchema: Yup.object({
       designationname: Yup.string().required("DESIGNATION NAME IS REQUIRED "),
-      designationcode: Yup.string().required("Designation code is Required"),
+      designationcode: Yup.string().required("DESIGNATION CODE IS REQUIRED"),
     }),
     onSubmit: values => {
       CreateDesignation([
@@ -105,6 +105,7 @@ const DesignationUpdate = () => {
                               validation.touched.designationname &&
                               validation.errors.designationname
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.designationname &&
                           validation.errors.designationname ? (
@@ -135,6 +136,7 @@ const DesignationUpdate = () => {
                               validation.touched.designationcode &&
                               validation.errors.designationcode
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.designationcode &&
                           validation.errors.designationcode ? (

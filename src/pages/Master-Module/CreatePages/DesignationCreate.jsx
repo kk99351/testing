@@ -93,6 +93,7 @@ const DesignationCreate = () => {
                               validation.touched.designationname &&
                               validation.errors.designationname
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.designationname &&
                           validation.errors.designationname ? (
@@ -122,6 +123,7 @@ const DesignationCreate = () => {
                               validation.touched.designationcode &&
                               validation.errors.designationcode
                             }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.designationcode &&
                           validation.errors.designationcode ? (

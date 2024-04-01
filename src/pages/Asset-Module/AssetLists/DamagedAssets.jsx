@@ -238,10 +238,10 @@ const DamagedAssets = () => {
                                   <Link
                                     to={`/modify_damaged_asset/${row.original.id}`}
                                   >
-                                    {cell.render("Cell")}
+                                    {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (
-                                  cell.render("Cell")
+                                  String(cell.value).toUpperCase()
                                 )}
                               </td>
                             ))}
