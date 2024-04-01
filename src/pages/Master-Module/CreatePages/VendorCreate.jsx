@@ -652,7 +652,7 @@ const VendorCreate = () => {
                       <hr className="mb-2" />
                     </Row>
 
-                    <Row className="mb-2">
+                    {/* <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="nature">
@@ -766,7 +766,7 @@ const VendorCreate = () => {
                         </FormGroup>
                       </Col>
                       <hr className="mb-2" />
-                    </Row>
+                    </Row> */}
 
                     {/* <CardHeader className="mb-2">
                       <h1
