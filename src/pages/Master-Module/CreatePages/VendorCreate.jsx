@@ -122,7 +122,7 @@ const VendorCreate = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CREATE SUPPLIER
+                SUPPLIER DETAILS
               </h1>
             </CardHeader>
 
@@ -134,6 +134,51 @@ const VendorCreate = () => {
                     onSubmit={validation.handleSubmit}
                   >
                     <Row className="mb-2">
+                      <Col md={6}>
+                        <FormGroup className="mb-3">
+                          <Label> TYPE OF SUPPLIER</Label>
+                          <div>
+                          <div style={{ marginRight: "10px" }}>
+                                  <Input
+                                    type="checkbox"
+                                    id="manufacturer"
+                                    name="manufacturer"
+                                  />
+                                  <Label
+                                    for="manufacturer"
+                                    style={{ marginLeft: "5px" }}
+                                  >
+                                    SERVICE
+                                  </Label>
+                                </div>
+                            <div style={{ marginRight: "10px" }}>
+                              <Input
+                                type="checkbox"
+                                id="manufacturer"
+                                name="manufacturer"
+                              />
+                              <Label
+                                for="manufacturer"
+                                style={{ marginLeft: "5px" }}
+                              >
+                                PROCURED{" "}
+                              </Label>
+                            </div>
+                          </div>
+                          {validation.errors.manufacturer &&
+                            validation.touched.manufacturer && (
+                              <div className="text-danger">
+                                {validation.errors.manufacturer}
+                              </div>
+                            )}
+                          {validation.errors.dealer &&
+                            validation.touched.dealer && (
+                              <div className="text-danger">
+                                {validation.errors.dealer}
+                              </div>
+                            )}
+                        </FormGroup>
+                      </Col>
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="nmven">
@@ -152,7 +197,6 @@ const VendorCreate = () => {
                               validation.errors.nmven
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.nmven &&
                           validation.errors.nmven ? (
@@ -162,6 +206,11 @@ const VendorCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
+
+                      <hr className="mb-2" />
+                    </Row>
+
+                    <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="vencode">
@@ -180,7 +229,6 @@ const VendorCreate = () => {
                               validation.errors.vencode
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.vencode &&
                           validation.errors.vencode ? (
@@ -190,10 +238,6 @@ const VendorCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                      <hr className="mb-2" />
-                    </Row>
-
-                    <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="add1">
@@ -211,7 +255,6 @@ const VendorCreate = () => {
                               validation.touched.add1 && validation.errors.add1
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.add1 && validation.errors.add1 ? (
                             <FormFeedback type="invalid">
@@ -220,6 +263,11 @@ const VendorCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
+
+                      <hr className="mb-2" />
+                    </Row>
+
+                    <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="add2">
@@ -237,39 +285,10 @@ const VendorCreate = () => {
                               validation.touched.add2 && validation.errors.add2
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.add2 && validation.errors.add2 ? (
                             <FormFeedback type="invalid">
                               {validation.errors.add2}
-                            </FormFeedback>
-                          ) : null}
-                        </FormGroup>
-                      </Col>
-                      <hr className="mb-2" />
-                    </Row>
-
-                    <Row className="mb-2">
-                      <Col md={6}>
-                        <FormGroup className="mb-3">
-                          <Label htmlFor="add3">ADDRESS 3</Label>
-                          <Input
-                            type="text"
-                            placeholder="PLEASE ENTER  ADDRESS 3"
-                            name="add3"
-                            id="add3"
-                            className="form-control"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.add3 && validation.errors.add3
-                            }
-                            style={{ textTransform: "uppercase" }}
-
-                          ></Input>
-                          {validation.touched.add3 && validation.errors.add3 ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.add3}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
@@ -291,7 +310,6 @@ const VendorCreate = () => {
                               validation.touched.cou && validation.errors.cou
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.cou && validation.errors.cou ? (
                             <FormFeedback type="invalid">
@@ -322,7 +340,6 @@ const VendorCreate = () => {
                               validation.errors.state
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.state &&
                           validation.errors.state ? (
@@ -349,7 +366,6 @@ const VendorCreate = () => {
                               validation.touched.city && validation.errors.city
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.city && validation.errors.city ? (
                             <FormFeedback type="invalid">
@@ -380,7 +396,6 @@ const VendorCreate = () => {
                               validation.errors.poscode
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.poscode &&
                           validation.errors.poscode ? (
@@ -407,7 +422,6 @@ const VendorCreate = () => {
                               validation.touched.tele && validation.errors.tele
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.tele && validation.errors.tele ? (
                             <FormFeedback type="invalid">
@@ -438,7 +452,6 @@ const VendorCreate = () => {
                               validation.errors.mobile
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.mobile &&
                           validation.errors.mobile ? (
@@ -466,7 +479,6 @@ const VendorCreate = () => {
                               validation.errors.email
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.email &&
                           validation.errors.email ? (
@@ -496,8 +508,6 @@ const VendorCreate = () => {
                             invalid={
                               validation.touched.gst && validation.errors.gst
                             }
-                            style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.gst && validation.errors.gst ? (
                             <FormFeedback type="invalid">
@@ -523,7 +533,6 @@ const VendorCreate = () => {
                               validation.touched.tin && validation.errors.tin
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.tin && validation.errors.tin ? (
                             <FormFeedback type="invalid">
@@ -553,7 +562,6 @@ const VendorCreate = () => {
                               validation.touched.cin && validation.errors.cin
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.cin && validation.errors.cin ? (
                             <FormFeedback type="invalid">
@@ -579,7 +587,6 @@ const VendorCreate = () => {
                               validation.touched.msme && validation.errors.msme
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.msme && validation.errors.msme ? (
                             <FormFeedback type="invalid">
@@ -609,7 +616,6 @@ const VendorCreate = () => {
                               validation.touched.pan && validation.errors.pan
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.pan && validation.errors.pan ? (
                             <FormFeedback type="invalid">
@@ -635,7 +641,6 @@ const VendorCreate = () => {
                               validation.touched.tan && validation.errors.tan
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.tan && validation.errors.tan ? (
                             <FormFeedback type="invalid">
@@ -666,7 +671,6 @@ const VendorCreate = () => {
                               validation.errors.nature
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.nature &&
                           validation.errors.nature ? (
@@ -694,7 +698,6 @@ const VendorCreate = () => {
                               validation.touched.year && validation.errors.year
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.year && validation.errors.year ? (
                             <FormFeedback type="invalid">
@@ -725,7 +728,6 @@ const VendorCreate = () => {
                               validation.errors.payterm
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.payterm &&
                           validation.errors.payterm ? (
@@ -754,7 +756,6 @@ const VendorCreate = () => {
                               validation.errors.invoice
                             }
                             style={{ textTransform: "uppercase" }}
-
                           ></Input>
                           {validation.touched.invoice &&
                           validation.errors.invoice ? (
@@ -767,12 +768,12 @@ const VendorCreate = () => {
                       <hr className="mb-2" />
                     </Row>
 
-                    <CardHeader className="mb-2">
+                    {/* <CardHeader className="mb-2">
                       <h1
                         className="card-title"
                         style={{ fontSize: "20px", textAlign: "center" }}
                       >
-                        BANK ACCOUND DETAILS{" "}
+                        BANK ACCOUNT DETAILS{" "}
                       </h1>
                     </CardHeader>
 
@@ -792,9 +793,7 @@ const VendorCreate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.ifse && validation.errors.ifse
-                            }
-                            style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.ifse && validation.errors.ifse ? (
                             <FormFeedback type="invalid">
@@ -820,9 +819,7 @@ const VendorCreate = () => {
                             invalid={
                               validation.touched.accno &&
                               validation.errors.accno
-                            }
-                            style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.accno &&
                           validation.errors.accno ? (
@@ -852,9 +849,7 @@ const VendorCreate = () => {
                             invalid={
                               validation.touched.nameofacc &&
                               validation.errors.nameofacc
-                            }
-                            style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.nameofacc &&
                           validation.errors.nameofacc ? (
@@ -881,9 +876,7 @@ const VendorCreate = () => {
                             invalid={
                               validation.touched.nmBank &&
                               validation.errors.nmBank
-                            }
-                            style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.nmBank &&
                           validation.errors.nmBank ? (
@@ -913,9 +906,7 @@ const VendorCreate = () => {
                             invalid={
                               validation.touched.bankbranch &&
                               validation.errors.bankbranch
-                            }
-                            style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.payterm &&
                           validation.errors.bankbranch ? (
@@ -941,9 +932,7 @@ const VendorCreate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.micr && validation.errors.micr
-                            }
-                            style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.micr && validation.errors.micr ? (
                             <FormFeedback type="invalid">
@@ -971,9 +960,7 @@ const VendorCreate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.add && validation.errors.add
-                            }
-                            style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.add && validation.errors.add ? (
                             <FormFeedback type="invalid">
@@ -997,9 +984,7 @@ const VendorCreate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.cou1 && validation.errors.cou1
-                            }
-                            style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.cou1 && validation.errors.cou1 ? (
                             <FormFeedback type="invalid">
@@ -1028,9 +1013,7 @@ const VendorCreate = () => {
                             invalid={
                               validation.touched.city1 &&
                               validation.errors.city1
-                            }
-                            style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.city1 &&
                           validation.errors.city1 ? (
@@ -1056,9 +1039,7 @@ const VendorCreate = () => {
                             invalid={
                               validation.touched.cou1 &&
                               validation.errors.state1
-                            }
-                            style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.state1 &&
                           validation.errors.state1 ? (
@@ -1087,9 +1068,7 @@ const VendorCreate = () => {
                             invalid={
                               validation.touched.postalcode &&
                               validation.errors.postalcode
-                            }
-                            style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.postalcode &&
                           validation.errors.postalcode ? (
@@ -1115,9 +1094,7 @@ const VendorCreate = () => {
                             invalid={
                               validation.touched.telephone &&
                               validation.errors.telephone
-                            }
-                            style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.telephone &&
                           validation.errors.telephone ? (
@@ -1145,8 +1122,7 @@ const VendorCreate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.fax1 && validation.errors.fax1
-                            }                          style={{ textTransform: "uppercase" }}
-
+                            }style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.fax1 && validation.errors.fax1 ? (
                             <FormFeedback type="invalid">
@@ -1154,10 +1130,9 @@ const VendorCreate = () => {
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
-                      </Col>
-
-                      <hr className="mb-2" />
-                    </Row>
+                      </Col> */}
+                    {/* <hr className="mb-2" />
+                    </Row> */}
                     <div
                       style={{
                         display: "flex",
