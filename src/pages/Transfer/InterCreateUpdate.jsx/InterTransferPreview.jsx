@@ -23,7 +23,7 @@ import {
   useSortBy,
   usePagination,
 } from "react-table";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types"; 
 
 const InterTransferPreview = () => {
   const validation = useFormik({

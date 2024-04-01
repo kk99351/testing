@@ -12,67 +12,76 @@ import { saveAs } from "file-saver";
 import { CSVLink } from "react-csv";
 import { PDFDownloadLink, Document, Page, Text } from "@react-pdf/renderer";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { FaCopy, FaFilePdf, FaFileExcel } from "react-icons/fa";
+import {
+  FaFilePdf,
+  FaFileExcel,
+  FaFileCsv,
+  FaPrint,
+  FaCopy,
+} from "react-icons/fa";
+import * as XLSX from "xlsx";
 
 const TransferRecieveReportview = () => {
   const demoData = [
     {
-      "slno": 1,
-      "req_no": "REQ001",
-      "req_date": "2024-03-10",
-      "asset_id": "ASSET001",
-      "asset_name": "Laptop",
-      "employee_name": "John Doe",
-      "from_country": "Tech Division",
-      "to_country": "Finance Division",
-      "fromstate": "New York",
-      "tostate": "California",
-      "from_city": "New York City",
-      "to_city": "Los Angeles",
-      "loc": "Headquarters",
-      "toloc": "Branch Office",
-      "frombuilding": "Main Building",
-      "tobuilding": "Finance Building",
-      "fromfloor": "10th Floor",
-      "tofloor": "3rd Floor"
-    },{
-      "slno": 1,
-      "req_no": "REQ001",
-      "req_date": "2024-03-10",
-      "asset_id": "ASSET001",
-      "asset_name": "Laptop",
-      "employee_name": "John Doe",
-      "from_country": "Tech Division",
-      "to_country": "Finance Division",
-      "fromstate": "New York",
-      "tostate": "California",
-      "from_city": "New York City",
-      "to_city": "Los Angeles",
-      "loc": "Headquarters",
-      "toloc": "Branch Office",
-      "frombuilding": "Main Building",
-      "tobuilding": "Finance Building",
-      "fromfloor": "10th Floor",
-      "tofloor": "3rd Floor"
-    },{
-      "slno": 1,
-      "req_no": "REQ001",
-      "req_date": "2024-03-10",
-      "asset_id": "ASSET001",
-      "asset_name": "Laptop",
-      "employee_name": "John Doe",
-      "from_country": "Tech Division",
-      "to_country": "Finance Division",
-      "fromstate": "New York",
-      "tostate": "California",
-      "from_city": "New York City",
-      "to_city": "Los Angeles",
-      "loc": "Headquarters",
-      "toloc": "Branch Office",
-      "frombuilding": "Main Building",
-      "tobuilding": "Finance Building",
-      "fromfloor": "10th Floor",
-      "tofloor": "3rd Floor"
+      slno: 1,
+      req_no: "REQ001",
+      req_date: "2024-03-10",
+      asset_id: "ASSET001",
+      asset_name: "Laptop",
+      employee_name: "John Doe",
+      from_country: "Tech Division",
+      to_country: "Finance Division",
+      fromstate: "New York",
+      tostate: "California",
+      from_city: "New York City",
+      to_city: "Los Angeles",
+      loc: "Headquarters",
+      toloc: "Branch Office",
+      frombuilding: "Main Building",
+      tobuilding: "Finance Building",
+      fromfloor: "10th Floor",
+      tofloor: "3rd Floor",
+    },
+    {
+      slno: 1,
+      req_no: "REQ001",
+      req_date: "2024-03-10",
+      asset_id: "ASSET001",
+      asset_name: "Laptop",
+      employee_name: "John Doe",
+      from_country: "Tech Division",
+      to_country: "Finance Division",
+      fromstate: "New York",
+      tostate: "California",
+      from_city: "New York City",
+      to_city: "Los Angeles",
+      loc: "Headquarters",
+      toloc: "Branch Office",
+      frombuilding: "Main Building",
+      tobuilding: "Finance Building",
+      fromfloor: "10th Floor",
+      tofloor: "3rd Floor",
+    },
+    {
+      slno: 1,
+      req_no: "REQ001",
+      req_date: "2024-03-10",
+      asset_id: "ASSET001",
+      asset_name: "Laptop",
+      employee_name: "John Doe",
+      from_country: "Tech Division",
+      to_country: "Finance Division",
+      fromstate: "New York",
+      tostate: "California",
+      from_city: "New York City",
+      to_city: "Los Angeles",
+      loc: "Headquarters",
+      toloc: "Branch Office",
+      frombuilding: "Main Building",
+      tobuilding: "Finance Building",
+      fromfloor: "10th Floor",
+      tofloor: "3rd Floor",
     },
   ];
 
@@ -113,8 +122,6 @@ const TransferRecieveReportview = () => {
       { Header: "TO BUILDING", accessor: "tobuilding" },
       { Header: "FROM FLOOR", accessor: "fromfloor" },
       { Header: "TO FLOOR", accessor: "tofloor" },
-
-
     ],
     []
   );
@@ -150,6 +157,57 @@ const TransferRecieveReportview = () => {
     useSortBy,
     usePagination
   );
+  const exportToExcel = () => {
+    const sheetName = "Asset_Status_Report";
+    const fileType =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
+
+    const formattedData = responseData.map(item => ({
+      "SL NO": item.slno,
+      "REQUEST NUMBER": item.req_no,
+      "REQUEST DATE": item.req_date,
+      "ASSET ID": item.asset_id,
+      "ASSET NAME": item.asset_name,
+      "CLIENT NAME": item.employee_name,
+      "FROM COUNTRY": item.from_country,
+      "TO COUNTRY": item.to_country,
+      "FROM STATE": item.fromstate,
+      "TO STATE": item.tostate,
+      "FROM CITY": item.from_city,
+      "TO CITY": item.to_city,
+      "FROM LOCATION": item.loc,
+      "TO LOCATION": item.toloc,
+      "FROM BUILDING": item.frombuilding,
+      "TO BUILDING": item.tobuilding,
+      "FROM FLOOR": item.fromfloor,
+      "TO FLOOR": item.tofloor,
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(formattedData);
+    const wb = { Sheets: { [sheetName]: ws }, SheetNames: [sheetName] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
+    saveAs(data, sheetName + fileExtension);
+  };
+
+  const handleCopy = () => {
+    const headers = columns
+      .map(column => column.Header)
+      .filter(header => header !== "SL NO")
+      .join("\t");
+    const data = responseData
+      .map(row => {
+        const rowData = Object.entries(row).filter(
+          ([key, value]) => key !== "slno"
+        );
+        return rowData.map(([key, value]) => value).join("\t");
+      })
+      .join("\n");
+    const textToCopy = `${headers}\n${data}`;
+
+    navigator.clipboard.writeText(textToCopy);
+  };
 
   return (
     <React.Fragment>
@@ -167,13 +225,13 @@ const TransferRecieveReportview = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-              GENERATED TRANSFER RECIEVE REPORT DETAILS{" "}
+                GENERATED TRANSFER RECIEVE REPORT DETAILS{" "}
               </h1>
             </CardHeader>
             <div className="container pt-2">
               <div className="rmb-2 row">
-              <div className="col-md-2">
-                <select className="form-select" >
+                <div className="col-md-2">
+                  <select className="form-select">
                     <option value="10">SHOW 10</option>
                     <option value="20">SHOW 20</option>
                     <option value="30">SHOW 30</option>
@@ -182,8 +240,7 @@ const TransferRecieveReportview = () => {
                   </select>
                 </div>
 
-
-                <div className="col-md-8">
+                <div className="col-md-3">
                   <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
                     <div className="position-relative">
                       <label htmlFor="search-bar-0" className="search-label">
@@ -198,47 +255,53 @@ const TransferRecieveReportview = () => {
                           value={globalFilter || ""}
                           onChange={e =>
                             setGlobalFilter(e.target.value.toUpperCase())
-                          }                         />
+                          }
+                        />
                         <i className="bx bx-search-alt search-icon"></i>
                       </label>
                     </div>
                   </div>
                 </div>
-                {/* <div className="col-sm-2 mb-2">
-                  <div className="text-sm-end d-flex justify-content-between">
-                    <div>
-                      <CopyToClipboard text="data to be copied">
-                        <FaCopy className="icon" />
-                      </CopyToClipboard>
-                      <PDFDownloadLink
-                        document={<MyDocument />}
-                        fileName="report.pdf"
-                      >
-                        {({ blob, url, loading, error }) =>
-                          loading ? (
-                            <span>Loading...</span>
-                          ) : (
-                            <FaFilePdf className="icon" />
-                          )
-                        }
-                      </PDFDownloadLink>
-
-                      <CSVLink
-                        data={demoData}
-                        filename={"report.csv"}
-                        className="btn btn-primary"
-                        target="_blank"
-                      >
-                        <FaFileExcel className="icon" />
-                      </CSVLink>
-                    </div>
+                <div className="col-md-7">
+                  <div className="d-flex justify-content-end">
+                    <Button
+                      className="btn btn-secondary-subtle border border-secondary"
+                      onClick={exportToExcel}
+                    >
+                      <FaFileExcel />
+                      EXCEL
+                    </Button>
+                    <CSVLink data={responseData}>
+                      <Button className="btn btn-secondary-subtle border border-secondary">
+                        <FaFileCsv />
+                        CSV
+                      </Button>
+                    </CSVLink>
+                    <Button
+                      className="btn btn-secondary-subtle border border-secondary"
+                      onClick={handleCopy}
+                    >
+                      <FaCopy /> COPY
+                    </Button>
+                    <Button
+                      className="btn btn-secondary-subtle border border-secondary"
+                      onClick={() => navigate("/transfer_recieve_report")}
+                      style={{
+                        paddingTop: "5px",
+                        width: "80px",
+                        height: "37px",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      BACK{" "}
+                    </Button>{" "}
                   </div>
-                </div> */}
+                </div>
               </div>
             </div>
 
             <div className="table-responsive react-table">
-            <table className="table table-bordered table-hover text-center">
+              <table className="table table-bordered table-hover text-center">
                 <thead className="table-light table-nowrap">
                   {headerGroups.map(headerGroup => (
                     <tr
@@ -282,7 +345,7 @@ const TransferRecieveReportview = () => {
                         <tr key={row.id} {...row.getRowProps()}>
                           {row.cells.map(cell => (
                             <td key={cell.column.id} {...cell.getCellProps()}>
-                                    {String(cell.value).toUpperCase()}{" "}
+                              {String(cell.value).toUpperCase()}{" "}
                             </td>
                           ))}
                         </tr>
@@ -353,4 +416,3 @@ const TransferRecieveReportview = () => {
 };
 
 export default TransferRecieveReportview;
-

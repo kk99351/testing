@@ -122,8 +122,8 @@ const VendorUpdate = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                 SUPPLIER DETAILS
-             </h1>
+                SUPPLIER DETAILS
+              </h1>
             </CardHeader>
 
             <CardBody>
@@ -134,6 +134,51 @@ const VendorUpdate = () => {
                     onSubmit={validation.handleSubmit}
                   >
                     <Row className="mb-2">
+                      <Col md={6}>
+                        <FormGroup className="mb-3">
+                          <Label> TYPE OF SUPPLIER</Label>
+                          <div>
+                          <div style={{ marginRight: "10px" }}>
+                                  <Input
+                                    type="checkbox"
+                                    id="manufacturer"
+                                    name="manufacturer"
+                                  />
+                                  <Label
+                                    for="manufacturer"
+                                    style={{ marginLeft: "5px" }}
+                                  >
+                                    SERVICE
+                                  </Label>
+                                </div>
+                            <div style={{ marginRight: "10px" }}>
+                              <Input
+                                type="checkbox"
+                                id="manufacturer"
+                                name="manufacturer"
+                              />
+                              <Label
+                                for="manufacturer"
+                                style={{ marginLeft: "5px" }}
+                              >
+                                PROCURED{" "}
+                              </Label>
+                            </div>
+                          </div>
+                          {validation.errors.manufacturer &&
+                            validation.touched.manufacturer && (
+                              <div className="text-danger">
+                                {validation.errors.manufacturer}
+                              </div>
+                            )}
+                          {validation.errors.dealer &&
+                            validation.touched.dealer && (
+                              <div className="text-danger">
+                                {validation.errors.dealer}
+                              </div>
+                            )}
+                        </FormGroup>
+                      </Col>
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="nmven">
@@ -150,7 +195,8 @@ const VendorUpdate = () => {
                             invalid={
                               validation.touched.nmven &&
                               validation.errors.nmven
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.nmven &&
                           validation.errors.nmven ? (
@@ -160,6 +206,11 @@ const VendorUpdate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
+
+                      <hr className="mb-2" />
+                    </Row>
+
+                    <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="vencode">
@@ -176,7 +227,8 @@ const VendorUpdate = () => {
                             invalid={
                               validation.touched.vencode &&
                               validation.errors.vencode
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.vencode &&
                           validation.errors.vencode ? (
@@ -186,10 +238,6 @@ const VendorUpdate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                      <hr className="mb-2" />
-                    </Row>
-
-                    <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="add1">
@@ -205,7 +253,8 @@ const VendorUpdate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.add1 && validation.errors.add1
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.add1 && validation.errors.add1 ? (
                             <FormFeedback type="invalid">
@@ -214,6 +263,11 @@ const VendorUpdate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
+
+                      <hr className="mb-2" />
+                    </Row>
+
+                    <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="add2">
@@ -229,37 +283,12 @@ const VendorUpdate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.add2 && validation.errors.add2
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.add2 && validation.errors.add2 ? (
                             <FormFeedback type="invalid">
                               {validation.errors.add2}
-                            </FormFeedback>
-                          ) : null}
-                        </FormGroup>
-                      </Col>
-                      <hr className="mb-2" />
-                    </Row>
-
-                    <Row className="mb-2">
-                      <Col md={6}>
-                        <FormGroup className="mb-3">
-                          <Label htmlFor="add3">ADDRESS 3</Label>
-                          <Input
-                            type="text"
-                            placeholder="PLEASE ENTER  ADDRESS 3"
-                            name="add3"
-                            id="add3"
-                            className="form-control"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.add3 && validation.errors.add3
-                            }style={{ textTransform: "uppercase" }}
-                          ></Input>
-                          {validation.touched.add3 && validation.errors.add3 ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.add3}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
@@ -279,7 +308,8 @@ const VendorUpdate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.cou && validation.errors.cou
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.cou && validation.errors.cou ? (
                             <FormFeedback type="invalid">
@@ -308,7 +338,8 @@ const VendorUpdate = () => {
                             invalid={
                               validation.touched.state &&
                               validation.errors.state
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.state &&
                           validation.errors.state ? (
@@ -333,7 +364,8 @@ const VendorUpdate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.city && validation.errors.city
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.city && validation.errors.city ? (
                             <FormFeedback type="invalid">
@@ -362,7 +394,8 @@ const VendorUpdate = () => {
                             invalid={
                               validation.touched.poscode &&
                               validation.errors.poscode
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.poscode &&
                           validation.errors.poscode ? (
@@ -387,7 +420,8 @@ const VendorUpdate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.tele && validation.errors.tele
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.tele && validation.errors.tele ? (
                             <FormFeedback type="invalid">
@@ -416,7 +450,8 @@ const VendorUpdate = () => {
                             invalid={
                               validation.touched.mobile &&
                               validation.errors.mobile
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.mobile &&
                           validation.errors.mobile ? (
@@ -442,7 +477,8 @@ const VendorUpdate = () => {
                             invalid={
                               validation.touched.email &&
                               validation.errors.email
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.email &&
                           validation.errors.email ? (
@@ -495,7 +531,8 @@ const VendorUpdate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.tin && validation.errors.tin
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.tin && validation.errors.tin ? (
                             <FormFeedback type="invalid">
@@ -523,7 +560,8 @@ const VendorUpdate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.cin && validation.errors.cin
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.cin && validation.errors.cin ? (
                             <FormFeedback type="invalid">
@@ -547,7 +585,8 @@ const VendorUpdate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.msme && validation.errors.msme
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.msme && validation.errors.msme ? (
                             <FormFeedback type="invalid">
@@ -575,7 +614,8 @@ const VendorUpdate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.pan && validation.errors.pan
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.pan && validation.errors.pan ? (
                             <FormFeedback type="invalid">
@@ -599,7 +639,8 @@ const VendorUpdate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.tan && validation.errors.tan
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.tan && validation.errors.tan ? (
                             <FormFeedback type="invalid">
@@ -611,7 +652,7 @@ const VendorUpdate = () => {
                       <hr className="mb-2" />
                     </Row>
 
-                    <Row className="mb-2">
+                    {/* <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="nature">
@@ -628,7 +669,8 @@ const VendorUpdate = () => {
                             invalid={
                               validation.touched.nature &&
                               validation.errors.nature
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.nature &&
                           validation.errors.nature ? (
@@ -654,7 +696,8 @@ const VendorUpdate = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.year && validation.errors.year
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.year && validation.errors.year ? (
                             <FormFeedback type="invalid">
@@ -683,7 +726,8 @@ const VendorUpdate = () => {
                             invalid={
                               validation.touched.payterm &&
                               validation.errors.payterm
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.payterm &&
                           validation.errors.payterm ? (
@@ -710,7 +754,8 @@ const VendorUpdate = () => {
                             invalid={
                               validation.touched.invoice &&
                               validation.errors.invoice
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.invoice &&
                           validation.errors.invoice ? (
@@ -721,14 +766,14 @@ const VendorUpdate = () => {
                         </FormGroup>
                       </Col>
                       <hr className="mb-2" />
-                    </Row>
+                    </Row> */}
 
-                    <CardHeader className="mb-2">
+                    {/* <CardHeader className="mb-2">
                       <h1
                         className="card-title"
                         style={{ fontSize: "20px", textAlign: "center" }}
                       >
-                        BANK ACCOUND DETAILS{" "}
+                        BANK ACCOUNT DETAILS{" "}
                       </h1>
                     </CardHeader>
 
@@ -1085,10 +1130,9 @@ const VendorUpdate = () => {
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
-                      </Col>
-
-                      <hr className="mb-2" />
-                    </Row>
+                      </Col> */}
+                    {/* <hr className="mb-2" />
+                    </Row> */}
                     <div
                       style={{
                         display: "flex",

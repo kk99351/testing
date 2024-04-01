@@ -74,6 +74,7 @@ const DepreciationMaster = () => {
           <Input
             type="text"
             value={row.original.inf}
+            style={{ textAlign: "center" }} 
             onChange={e => handleIncomeTaxChange(row.index, e.target.value)}
             className="form-control"
           />
@@ -86,6 +87,7 @@ const DepreciationMaster = () => {
           <Input
             type="text"
             value={row.original.csv}
+            style={{ textAlign: "center" }} 
             onChange={e => handleCompanyActChange(row.index, e.target.value)}
             className="form-control"
           />
