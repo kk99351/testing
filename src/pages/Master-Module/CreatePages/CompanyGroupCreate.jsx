@@ -26,7 +26,7 @@ const CompanyGroupCreate = () => {
     initialValues: {
       company_group: "",
       companyGroupCode: "",
-      entity:"",
+      entity: "",
     },
 
     validationSchema: Yup.object({
@@ -85,7 +85,7 @@ const CompanyGroupCreate = () => {
                             <option value="">SELECT ENTITY NAME</option>
                             <option value="US">RA Lmt</option>
                             <option value="UK">PR Enterprises</option>
-                            <option value="CA">CA  Corporation</option>
+                            <option value="CA">CA Corporation</option>
                           </Input>
                           {validation.touched.entity &&
                           validation.errors.entity ? (

@@ -18,7 +18,7 @@ import "simplebar/dist/simplebar.min.css";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const UserPermissionCreate = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [leftItems, setLeftItems] = useState([]);
   const [rightItems, setRightItems] = useState([]);
@@ -324,10 +324,7 @@ const UserPermissionCreate = () => {
     owner: Yup.array().min(1, "ASSET OWNER IS REQUIRED"),
     department: Yup.array().min(1, "DEPARTMENT IS REQUIRED"),
     location: Yup.array().min(1, "CITY IS REQUIRED"),
-    sublocation: Yup.array().min(
-      1,
-      "LOCATION IS REQUIRED"
-    ),
+    sublocation: Yup.array().min(1, "LOCATION IS REQUIRED"),
   });
 
   // Initialize formik
@@ -829,7 +826,7 @@ const UserPermissionCreate = () => {
                   </Col>
                   <Col md={3} className="text-center">
                     <FormGroup>
-                      <Label >
+                      <Label>
                         LOCATION<font color="red">*</font>
                       </Label>
                       <Input

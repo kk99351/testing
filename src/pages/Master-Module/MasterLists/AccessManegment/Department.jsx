@@ -29,7 +29,7 @@ const Department = () => {
       } else {
         setResponseData([]); 
       }
-    });
+    })
   }, []);
 
   const columns = useMemo(

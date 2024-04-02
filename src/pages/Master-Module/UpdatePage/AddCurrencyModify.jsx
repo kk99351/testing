@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Col,
   Row,
@@ -12,9 +12,15 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router";
+import { GetSignleData } from "src/API/Master/GlobalGet";
+import { CreateCurrency } from "src/API/Master/ConfigrationMaster/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddCurrencyModify = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [currency, setCurrency] = useState([]);
   const requiredFields = {
     nmCurr: "CURRENCY NAME",
     cdCurr: "CURRENCY SYMBOL",
@@ -26,8 +32,24 @@ const AddCurrencyModify = () => {
     initialErrors[key] = "";
   });
 
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState({
+    nmCurr: "CURRENCY NAME",
+    cdCurr: "CURRENCY SYMBOL",
+  });
   const [errors, setErrors] = useState(initialErrors);
+
+  useEffect(() => {
+    GetSignleData("Currency", id).then(res => {
+      setCurrency(res);
+    });
+  }, [id]);
+
+  useEffect(() => {
+    setFormData({
+      nmCurr: currency?.nmcurr || "",
+      cdCurr: currency?.cdcurr || "",
+    });
+  }, [currency]);
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -69,9 +91,25 @@ const AddCurrencyModify = () => {
 
     if (isValid) {
       try {
-        // await axios.post(`http://localhost:3000/region/`, formData);
-        // navigate("/company_group");
-        console.log("Form submitted successfully");
+        CreateCurrency([
+          {
+            idcurr: id,
+            nmcurr: formData.nmCurr,
+            cdcurr: formData.cdCurr,
+          },
+        ])
+          .then(res => {
+            console.log("alok", res);
+            if (res.ok) {
+              toast("Currency Updated successfully");
+              navigate("/add_currency");
+            } else {
+              toast("Currency already exists");
+            }
+          })
+          .catch(err => {
+            toast(err.message);
+          });
       } catch (error) {
         console.log("error in creating group data" + error);
       }
@@ -81,6 +119,7 @@ const AddCurrencyModify = () => {
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Card className="mt-0">
             <CardHeader>

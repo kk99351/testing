@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Form,
@@ -15,9 +15,56 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { CreateEmploye } from "src/API/Master/AccessManagement/Api";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const EmplyeeMasterCreate = () => {
   const navigate = useNavigate();
+  const [deperatment, setDeperatment] = useState([]);
+  const [deligations, setDeligations] = useState([]);
+  const [floor, setFloor] = useState([]);
+  const [emp, setEmp] = useState([]);
+
+  useEffect(() => {
+    GetAllData("Dept").then(res => {
+      if (Array.isArray(res)) {
+        setDeperatment(res);
+      } else {
+        setDeperatment([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Designation").then(res => {
+      if (Array.isArray(res)) {
+        setDeligations(res);
+      } else {
+        setDeligations([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Floor").then(res => {
+      if (Array.isArray(res)) {
+        setFloor(res);
+      } else {
+        setFloor([]);
+      }
+    });
+  }, []);
+
+  // useEffect(() => {
+  //   GetAllData("Employee").then(res => {
+  //     if (Array.isArray(res)) {
+  //       setEmp(res);
+  //     } else {
+  //       setEmp([]);
+  //     }
+  //   });
+  // }, []);
+
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -64,8 +111,60 @@ const EmplyeeMasterCreate = () => {
       floor: Yup.string().required("FLOOR NUMBER IS REQUIRED"),
     }),
     onSubmit: values => {
-      alert("Form validated!");
-      // Add your form submission logic here
+      CreateEmploye([
+        {
+          idempuser: 0,
+          nmemp: "string",
+          cdemp: "string",
+          idemp: "string",
+          contno: "string",
+          iddesign: {
+            iddesign: 0,
+            nmdesign: "string",
+            cddesign: "string",
+          },
+          repomngr: "string",
+          iddept: {
+            iddept: 0,
+            nmdept: "string",
+            cddept: "string",
+          },
+          idflr: {
+            idflr: 0,
+            nmflr: "string",
+            cdflr: "string",
+            idbuilding: {
+              idbuilding: 0,
+              nmbuilding: "string",
+              cdbuilding: "string",
+              idsloc: {
+                idsloc: 0,
+                nmSubl: "string",
+                cdSubl: "string",
+                idloc: {
+                  idloc: 0,
+                  nmLoc: "string",
+                  cdLoc: "string",
+                  idcountry: {
+                    idcountry: 0,
+                    nmCountry: "string",
+                    cdCountry: "string",
+                  },
+                },
+              },
+            },
+          },
+          emptype: "string",
+          status_emp: "string",
+          idcc: {
+            idcc: 0,
+            nmcc: "string",
+          },
+          empimage: "string",
+        },
+      ])
+        .then(res => {})
+        .catch(err => {});
     },
   });
 
@@ -226,6 +325,12 @@ const EmplyeeMasterCreate = () => {
                             <option value="Sales Representative">
                               Sales Representative
                             </option>
+                            {/* {deligations &&
+                              deligations.map((item, index) => (
+                                <option key={index} value={item.nmdept}>
+                                  {item.iddept}
+                                </option>
+                              ))} */}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.designation &&
@@ -283,12 +388,12 @@ const EmplyeeMasterCreate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT DEPARTMENT</option>
-                            <option value="Sales">Sales</option>
-                            <option value="Human Resources">
-                              Human Resources
-                            </option>
-                            <option value="Finance">Finance</option>
-                            <option value="Engineering">Engineering</option>
+                            {deperatment &&
+                              deperatment.map((item, index) => (
+                                <option key={index} value={item.nmdept}>
+                                  {item.iddept}
+                                </option>
+                              ))}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.department &&
@@ -519,11 +624,12 @@ const EmplyeeMasterCreate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELEECT FLOOR</option>
-                            <option value="1">1st Floor</option>
-                            <option value="2">2nd Floor</option>
-                            <option value="3">3rd Floor</option>
-                            <option value="4">4th Floor</option>
-                            <option value="5">5th Floor</option>
+                            {floor &&
+                              floor.map((item, index) => (
+                                <option key={index} value={item.idflr}>
+                                  {item.nmflr}
+                                </option>
+                              ))}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.errors.floor}

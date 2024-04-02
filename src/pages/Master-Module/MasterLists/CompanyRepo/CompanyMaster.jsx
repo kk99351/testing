@@ -599,7 +599,6 @@ const CompanyMaster = props => {
                         </Label>
                         <Input
                           name="licenseNumber"
-                          disabled
                           placeholder="PLEASE ENTER LICENSE NUMBER"
                           type="text"
                           className="form-control"
@@ -616,8 +615,7 @@ const CompanyMaster = props => {
                         <Input
                           name="lidt"
                           placeholder="PLEASE ENTER LICENSE DATE"
-                          type="date"
-                          disabled
+                          type="text"
                           className="form-control"
                           value={validation.values.lidt}
                           onChange={handleChange}

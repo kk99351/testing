@@ -2,6 +2,7 @@ import { ApiBaseUrl } from "src/API/ApiBaseUrl";
 
 //-----------------------Create Depearmnent-------------------------//
 export const CreateDepertment = async payload => {
+  console.log("payloaf",payload)
   try {
     const result = await fetch(`${ApiBaseUrl}/master/Dept`, {
       method: "POST",
@@ -32,7 +33,20 @@ export const CreateDesignation = async payload => {
   }
 };
 //---------------------Create EMPLOYE-------------------------//
-
+export const CreateEmploye = async payload => {
+  try {
+    const result = await fetch(`${ApiBaseUrl}/master/Empuser`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
 //--------------------CReate USER TYPE------------------------//
 export const CreateUserType = async payload => {
   try {

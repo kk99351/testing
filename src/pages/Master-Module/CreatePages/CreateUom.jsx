@@ -68,7 +68,7 @@ const CreateUom = () => {
         isValid = false;
       }
     });
-console.log(formData)
+    
     if (isValid) {
       try {
         CreateUomApis([
@@ -79,7 +79,7 @@ console.log(formData)
           },
         ])
           .then(res => {
-            console.log(res)
+            console.log(res);
             if (res.ok) {
               toast("UOM created successfully");
               navigate("/unit");
