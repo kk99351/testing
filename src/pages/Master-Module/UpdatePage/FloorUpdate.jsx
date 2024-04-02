@@ -83,7 +83,7 @@ const FloorUpdate = () => {
                     className="needs-validation"
                     onSubmit={validation.handleSubmit}
                   ><Row className="mb-2">
-                  <Col md={12}>
+                  <Col md={6}>
                     <FormGroup className="mb-3">
                       <Label htmlFor="entity">
                         ENTITY NAME <font color="red">*</font>
@@ -98,7 +98,9 @@ const FloorUpdate = () => {
                         invalid={
                           validation.touched.entity &&
                           validation.errors.entity
-                        }style={{ textTransform: "uppercase" }}
+                        }
+                        style={{ textTransform: "uppercase" }}
+
                       >
                         <option value="">SELECT ENTITY NAME</option>
                         <option value="US">RA Lmt</option>
@@ -113,8 +115,7 @@ const FloorUpdate = () => {
                       ) : null}
                     </FormGroup>
                   </Col>
-                </Row>
-                     <Row className="mb-2">
+                    {/* <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="company_group">
@@ -130,7 +131,9 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.company_group &&
                               validation.errors.company_group
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
+
                           >
                             <option value="">SELECT COUNTRY</option>
                             <option value="United States">United States</option>
@@ -163,7 +166,9 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.region_name &&
                               validation.errors.region_name
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
+
                           >
                             <option value="">SELECT STATE</option>
                             <option value="CA">California</option>
@@ -198,7 +203,9 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.cityname &&
                               validation.errors.cityname
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
+
                           >
                             <option value="">SELECT CITY</option>
                             <option value="Los Angeles">Los Angeles</option>
@@ -214,7 +221,7 @@ const FloorUpdate = () => {
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
-                      </Col>
+                      </Col> */}
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="plantname">
@@ -230,7 +237,9 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.plantname &&
                               validation.errors.plantname
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
+
                           >
                             <option value="">SELECT LOCATION </option>
                             <option value="Downtown Branch">
@@ -270,7 +279,9 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.building &&
                               validation.errors.building
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
+
                           >
                             <option value="">SELECT BUILDING </option>
                             <option value="Central Tower">Central Tower</option>
@@ -307,7 +318,9 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.floor &&
                               validation.errors.floor
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.floor &&
                           validation.errors.floor ? (
@@ -319,7 +332,7 @@ const FloorUpdate = () => {
                       </Col>
                       <hr className="mb-2" />
                     </Row>
-                    <Row className="mb-2">
+                    {/* <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="doornumber">
@@ -336,7 +349,9 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.doornumber &&
                               validation.errors.doornumber
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.doornumber &&
                           validation.errors.doornumber ? (
@@ -362,7 +377,9 @@ const FloorUpdate = () => {
                             invalid={
                               validation.touched.pincode &&
                               validation.errors.pincode
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
+
                           />
                           {validation.touched.pincode &&
                           validation.errors.pincode ? (
@@ -374,9 +391,8 @@ const FloorUpdate = () => {
                       </Col>
 
                       <hr className="mb-2" />
-                    </Row>
-                   
-                    
+                    </Row> */}
+
                     <div
                       style={{
                         display: "flex",

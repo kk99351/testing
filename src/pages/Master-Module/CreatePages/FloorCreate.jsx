@@ -82,7 +82,7 @@ const FloorCreate = () => {
                     className="needs-validation"
                     onSubmit={validation.handleSubmit}
                   ><Row className="mb-2">
-                  <Col md={12}>
+                  <Col md={6}>
                     <FormGroup className="mb-3">
                       <Label htmlFor="entity">
                         ENTITY NAME <font color="red">*</font>
@@ -114,8 +114,7 @@ const FloorCreate = () => {
                       ) : null}
                     </FormGroup>
                   </Col>
-                </Row>
-                    <Row className="mb-2">
+                    {/* <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="company_group">
@@ -221,7 +220,7 @@ const FloorCreate = () => {
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
-                      </Col>
+                      </Col> */}
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="plantname">
@@ -332,7 +331,7 @@ const FloorCreate = () => {
                       </Col>
                       <hr className="mb-2" />
                     </Row>
-                    <Row className="mb-2">
+                    {/* <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="doornumber">
@@ -391,7 +390,7 @@ const FloorCreate = () => {
                       </Col>
 
                       <hr className="mb-2" />
-                    </Row>
+                    </Row> */}
 
                     <div
                       style={{

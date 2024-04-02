@@ -110,7 +110,7 @@ const PlantCreate = () => {
                     </Col>
                   </Row>
 
-                    <Row className="mb-2">
+                    {/* <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="company_group">
@@ -223,7 +223,7 @@ const PlantCreate = () => {
                         </FormGroup>
                       </Col>
                       <hr className="mb-2" />
-                    </Row>
+                    </Row> */}
 
                     <Row className="mb-2">
                       <Col md={12}>

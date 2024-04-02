@@ -107,7 +107,7 @@ const PlantUpdate= () => {
                       </FormGroup>
                     </Col>
                   </Row>
-
+{/* 
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
@@ -215,7 +215,7 @@ const PlantUpdate= () => {
                         </FormGroup>
                       </Col>
                       <hr className="mb-2" />
-                    </Row>
+                    </Row> */}
 
                     <Row className="mb-2">
                       <Col md={12}>
@@ -255,7 +255,6 @@ const PlantUpdate= () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                      <hr className="mb-2" />
                     </Row>
 
                     <Row className="mb-2">
