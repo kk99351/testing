@@ -24,62 +24,64 @@ import * as XLSX from "xlsx";
 const TransferReportview = () => {
   const demoData = [
     {
-      "slno": 1,
-      "req_no": "REQ001",
-      "req_date": "2024-03-10",
-      "asset_id": "ASSET001",
-      "asset_name": "Laptop",
-      "employee_name": "John Doe",
-      "from_country": "Tech Division",
-      "to_country": "Finance Division",
-      "fromstate": "New York",
-      "tostate": "California",
-      "from_city": "New York City",
-      "to_city": "Los Angeles",
-      "loc": "Headquarters",
-      "toloc": "Branch Office",
-      "frombuilding": "Main Building",
-      "tobuilding": "Finance Building",
-      "fromfloor": "10th Floor",
-      "tofloor": "3rd Floor"
-    },{
-      "slno": 1,
-      "req_no": "REQ001",
-      "req_date": "2024-03-10",
-      "asset_id": "ASSET001",
-      "asset_name": "Laptop",
-      "employee_name": "John Doe",
-      "from_country": "Tech Division",
-      "to_country": "Finance Division",
-      "fromstate": "New York",
-      "tostate": "California",
-      "from_city": "New York City",
-      "to_city": "Los Angeles",
-      "loc": "Headquarters",
-      "toloc": "Branch Office",
-      "frombuilding": "Main Building",
-      "tobuilding": "Finance Building",
-      "fromfloor": "10th Floor",
-      "tofloor": "3rd Floor"
-    },{
-      "slno": 1,
-      "req_no": "REQ001",
-      "req_date": "2024-03-10",
-      "asset_id": "ASSET001",
-      "asset_name": "Laptop",
-      "employee_name": "John Doe",
-      "from_country": "Tech Division",
-      "to_country": "Finance Division",
-      "fromstate": "New York",
-      "tostate": "California",
-      "from_city": "New York City",
-      "to_city": "Los Angeles",
-      "loc": "Headquarters",
-      "toloc": "Branch Office",
-      "frombuilding": "Main Building",
-      "tobuilding": "Finance Building",
-      "fromfloor": "10th Floor",
-      "tofloor": "3rd Floor"
+      slno: 1,
+      req_no: "REQ001",
+      req_date: "2024-03-10",
+      asset_id: "ASSET001",
+      asset_name: "Laptop",
+      employee_name: "John Doe",
+      from_country: "Tech Division",
+      to_country: "Finance Division",
+      fromstate: "New York",
+      tostate: "California",
+      from_city: "New York City",
+      to_city: "Los Angeles",
+      loc: "Headquarters",
+      toloc: "Branch Office",
+      frombuilding: "Main Building",
+      tobuilding: "Finance Building",
+      fromfloor: "10th Floor",
+      tofloor: "3rd Floor",
+    },
+    {
+      slno: 1,
+      req_no: "REQ001",
+      req_date: "2024-03-10",
+      asset_id: "ASSET001",
+      asset_name: "Laptop",
+      employee_name: "John Doe",
+      from_country: "Tech Division",
+      to_country: "Finance Division",
+      fromstate: "New York",
+      tostate: "California",
+      from_city: "New York City",
+      to_city: "Los Angeles",
+      loc: "Headquarters",
+      toloc: "Branch Office",
+      frombuilding: "Main Building",
+      tobuilding: "Finance Building",
+      fromfloor: "10th Floor",
+      tofloor: "3rd Floor",
+    },
+    {
+      slno: 1,
+      req_no: "REQ001",
+      req_date: "2024-03-10",
+      asset_id: "ASSET001",
+      asset_name: "Laptop",
+      employee_name: "John Doe",
+      from_country: "Tech Division",
+      to_country: "Finance Division",
+      fromstate: "New York",
+      tostate: "California",
+      from_city: "New York City",
+      to_city: "Los Angeles",
+      loc: "Headquarters",
+      toloc: "Branch Office",
+      frombuilding: "Main Building",
+      tobuilding: "Finance Building",
+      fromfloor: "10th Floor",
+      tofloor: "3rd Floor",
     },
   ];
 
@@ -120,8 +122,6 @@ const TransferReportview = () => {
       { Header: "TO BUILDING", accessor: "tobuilding" },
       { Header: "FROM FLOOR", accessor: "fromfloor" },
       { Header: "TO FLOOR", accessor: "tofloor" },
-
-
     ],
     []
   );
@@ -224,13 +224,13 @@ const TransferReportview = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-              GENERATED TRANSFER  REPORT DETAILS{" "}
+                GENERATED TRANSFER REPORT DETAILS{" "}
               </h1>
             </CardHeader>
             <div className="container pt-2">
               <div className="rmb-2 row">
-              <div className="col-md-2">
-                <select className="form-select" >
+                <div className="col-md-2">
+                  <select className="form-select">
                     <option value="10">SHOW 10</option>
                     <option value="20">SHOW 20</option>
                     <option value="30">SHOW 30</option>
@@ -239,8 +239,7 @@ const TransferReportview = () => {
                   </select>
                 </div>
 
-
-                <div className="col-md-8">
+                <div className="col-md-3">
                   <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
                     <div className="position-relative">
                       <label htmlFor="search-bar-0" className="search-label">
@@ -255,7 +254,8 @@ const TransferReportview = () => {
                           value={globalFilter || ""}
                           onChange={e =>
                             setGlobalFilter(e.target.value.toUpperCase())
-                          }                         />
+                          }
+                        />
                         <i className="bx bx-search-alt search-icon"></i>
                       </label>
                     </div>
@@ -284,7 +284,7 @@ const TransferReportview = () => {
                     </Button>
                     <Button
                       className="btn btn-secondary-subtle border border-secondary"
-                      onClick={() => navigate("/transfer_recieve_report")}
+                      onClick={() => navigate("/transfer_report")}
                       style={{
                         paddingTop: "5px",
                         width: "80px",
@@ -300,7 +300,7 @@ const TransferReportview = () => {
             </div>
 
             <div className="table-responsive react-table">
-            <table className="table table-bordered table-hover text-center">
+              <table className="table table-bordered table-hover text-center">
                 <thead className="table-light table-nowrap">
                   {headerGroups.map(headerGroup => (
                     <tr
@@ -344,7 +344,7 @@ const TransferReportview = () => {
                         <tr key={row.id} {...row.getRowProps()}>
                           {row.cells.map(cell => (
                             <td key={cell.column.id} {...cell.getCellProps()}>
-                                    {String(cell.value).toUpperCase()}{" "}
+                              {String(cell.value).toUpperCase()}{" "}
                             </td>
                           ))}
                         </tr>

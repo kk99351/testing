@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { Country, State, City } from "country-state-city";
 import {
   Button,
   Col,
@@ -17,294 +17,317 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-
 const BranchCreate = () => {
   const navigate = useNavigate();
+
+  const [countryData, setCountryData] = useState([]);
+  const [stateData, setStateData] = useState([]);
+  const [cityData, setCityData] = useState([]);
+
+  const [country, setCountry] = useState(null);
+  const [state, setState] = useState(null);
+  const [city, setCity] = useState(null);
+
   const validation = useFormik({
     enableReinitialize: true,
-
     initialValues: {
-      company_group: "",
-      region_name: "",
-      cityname: "",
-      entity:'',
-      plantname: "",
+      entity: "",
+      country: "",
+      state: "",
+      city: "",
+      location: "",
+      building: "",
+      floor: "",
     },
-    // validationSchema: Yup.object({
-    //   companyGroup: Yup.string().required("Company Group is Required"),
-    //   companyGroupCode: Yup.string().required("Company Group Code is Required"),
-    // }),.
-    validationSchema: Yup.object({
-      company_group: Yup.string().required("COUNTRY NAME IS REQUIRED"),
-      region_name: Yup.string().required("STATE NAME IS REQUIRED"),
-      cityname: Yup.string().required("CITY NAME IS REQUIRED"),
-      plantname: Yup.string().required("LOCATION NAME IS REQUIRED"),
-      entity: Yup.string().required("ENTITY NAME IS REQUIRED"),
 
+    validationSchema: Yup.object({
+      entity: Yup.string().required("ENTITY IS REQUIRED"),
+      country: Yup.string().required("COUNTRY IS REQUIRED"),
+      state: Yup.string().required("STATE IS REQUIRED"),
+      city: Yup.string().required("CITY IS REQUIRED"),
+      location: Yup.string().required("LOCATION IS REQUIRED"),
+      building: Yup.string().required("BUILDING IS REQUIRED"),
+      floor: Yup.string().required("FLOOR IS REQUIRED"),
     }),
 
-    onSubmit: async values => {
-      // console.log(values)
-      alert("validated !");
-      // try {
-      //   await axios.post(`http://localhost:3000/companygroup/`, values);
-      //   navigate("/companygroup");
-      // } catch (error) {
-      //   console.log("error in creating companygroup data: " + error);
-      // }
+    onSubmit: values => {
+      alert("Form submitted!");
+      console.log("Form values:", values);
     },
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const countries = await Country.getAllCountries();
+      setCountryData(countries);
+      setCountry(countries[0]);
+      console.log(countries);
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (country) {
+      const states = State.getStatesOfCountry(country.isoCode);
+      setStateData(states);
+      setState(states[0]);
+    }
+  }, [country]);
+
+  useEffect(() => {
+    if (state) {
+      const cities = City.getCitiesOfState(country.isoCode, state.isoCode);
+      setCityData(cities);
+      setCity(cities[0]);
+    }
+  }, [state, country]);
+
+  const handleChange = event => {
+    const fieldName = event.target.name;
+    const inputValue = event.target.value;
+    const uppercaseValue = inputValue ? inputValue.toUpperCase() : "";
+
+    validation.handleChange(event);
+    validation.setFieldValue(fieldName, uppercaseValue);
+  };
+
   return (
-    <React.Fragment>
+    <div className="page-content">
       <Container fluid>
-        <div className="page-content">
-          <Card className="mt-0">
-            <CardHeader>
-              <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CREATE LOCATION
-              </h1>
-            </CardHeader>
-
-            <CardBody>
-              <Row className="justify-content-center">
+        <Card>
+          <CardHeader>
+            <h1 className="card-title" style={{ fontSize: "20px" }}>
+             CREATE LOCATION
+            </h1>
+          </CardHeader>
+          
+          <CardBody>
+          <Row className="justify-content-center">
                 <Col xl={10}>
-                  <Form
-                    className="needs-validation"
-                    onSubmit={validation.handleSubmit}
-                  >
-                  <Row className="mb-2">
-                    <Col md={12}>
-                      <FormGroup className="mb-3">
-                        <Label htmlFor="entity">
-                          ENTITY NAME <font color="red">*</font>
-                        </Label>
-                        <Input
-                          type="select"
-                          name="entity"
-                          id="entity"
-                          className="form-control"
-                          onChange={validation.handleChange}
-                          onBlur={validation.handleBlur}
-                          invalid={
-                            validation.touched.entity &&
-                            validation.errors.entity
-                          }
-                          style={{ textTransform: 'uppercase' }} 
-
-                        >
-                          <option value="">SELECT ENTITY NAME</option>
-                          <option value="US">RA Lmt</option>
-                          <option value="UK">PR Enterprises</option>
-                          <option value="CA">CA  Corporation</option>
-                        </Input>
-                        {validation.touched.entity &&
-                        validation.errors.entity ? (
-                          <FormFeedback type="invalid">
-                            {validation.errors.entity}
-                          </FormFeedback>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-
-                    <Row className="mb-2">
-                      <Col md={12}>
-                        <FormGroup className="mb-3">
-                          <Label htmlFor="company_group">
-                            COUNTRY NAME<font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            name="company_group"
-                            id="company_group"
-                            className="form-control"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.company_group &&
-                              validation.errors.company_group
-                            }
-                            style={{ textTransform: 'uppercase' }} 
-
-                          >
-                            <option value="">SELECT COUNTRY</option>
-                            <option value="United States">United States</option>
-                            <option value="United Kingdom">
-                              United Kingdom
-                            </option>
-                            <option value="Canada">Canada</option>
-                            <option value="Australia">Australia</option>
-                          </Input>
-                          {validation.touched.company_group &&
-                          validation.errors.company_group ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.company_group}
-                            </FormFeedback>
-                          ) : null}
-                        </FormGroup>
-                      </Col>
-
-                      <hr className="mb-2" />
-                    </Row>
-
-                    <Row className="mb-2">
-                      <Col md={12}>
-                        <FormGroup className="mb-3">
-                          <Label htmlFor="region_name">
-                            STATE NAME<font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            name="region_name"
-                            id="region_name"
-                            className="form-control"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.region_name &&
-                              validation.errors.region_name
-                            }
-                            style={{ textTransform: 'uppercase' }} 
-                          >
-                            <option value="">SELECT STATE</option>
-                            <option value="CA">California</option>
-                            <option value="NY">New York</option>
-                            <option value="ENG">England</option>
-                            <option value="ON">Ontario</option>
-                            <option value="NSW">New South Wales</option>
-                          </Input>
-                          {validation.touched.region_name &&
-                          validation.errors.region_name ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.region_name}
-                            </FormFeedback>
-                          ) : null}
-                        </FormGroup>
-                      </Col>
-                      <hr className="mb-2" />
-                    </Row>
-                    <Row className="mb-2">
-                      <Col md={12}>
-                        <FormGroup className="mb-3">
-                          <Label htmlFor="cityname">
-                            CITY NAME<font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            name="cityname"
-                            id="cityname"
-                            className="form-control"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.cityname &&
-                              validation.errors.cityname
-                            }
-                            style={{ textTransform: 'uppercase' }} 
-
-                          >
-                            <option value="">SELECT CITY</option>
-                            <option value="Los Angeles">Los Angeles</option>
-                            <option value="New York City">New York City</option>
-                            <option value="London">London</option>
-                            <option value="Toronto">Toronto</option>
-                            <option value="Sydney">Sydney</option>
-                          </Input>
-                          {validation.touched.cityname &&
-                          validation.errors.cityname ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.cityname}
-                            </FormFeedback>
-                          ) : null}
-                        </FormGroup>
-                      </Col>
-                      <hr className="mb-2" />
-                    </Row>
-
-                    <Row className="mb-2">
-                      <Col md={12}>
-                        <FormGroup className="mb-3">
-                          <Label htmlFor="plantname">
-                            LOCATION NAME<font color="red">*</font>
-                          </Label>
-                          <Input
-                            name="plantname"
-                            type="text"
-                            placeholder="PLEASE ENTER LOCATION NAME"
-                            className="form-control"
-                            id="plantname"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.plantname &&
-                              validation.errors.plantname
-                            }
-                            style={{ textTransform: 'uppercase' }} 
-
-                          />
-                          {validation.touched.plantname &&
-                          validation.errors.plantname ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.plantname}
-                            </FormFeedback>
-                          ) : null}
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <hr className="mb-2" />
-
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        marginBottom: "20px",
+            <Form
+              className="needs-validation"
+              onSubmit={validation.handleSubmit}
+            >
+              <Row className="mb-2">
+                <Col md={6}>
+                  <FormGroup>
+                    <Label>
+                      ENTITY<font color="red">*</font>
+                    </Label>
+                    <Input
+                      type="text"
+                      name="entity"
+                      placeholder="PLEASE ENTER ENTITY"
+                      onChange={handleChange}
+                      value={validation.values.entity}
+                      onBlur={validation.handleBlur}
+                      invalid={
+                        validation.touched.entity && validation.errors.entity
+                      }
+                      style={{ textTransform: "uppercase" }}
+                    />
+                    {validation.touched.entity && validation.errors.entity ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.entity}
+                      </FormFeedback>
+                    ) : null}
+                  </FormGroup>
+                </Col>
+                <Col md={6}>
+                  <FormGroup className="mb-3">
+                    <Label htmlFor="validationCustom01">
+                      COUNTRY NAME<font color="red">*</font>
+                    </Label>
+                    <Input
+                      type="select"
+                      name="country"
+                      value={validation.values.country}
+                      onChange={e => {
+                        setCountry(
+                          countryData.find(c => c.isoCode === e.target.value)
+                        );
+                        handleChange(e);
                       }}
+                      onBlur={validation.handleBlur}
+                      invalid={
+                        validation.touched.country && validation.errors.country
+                      }
+                      style={{ textTransform: "uppercase" }}
                     >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-around",
-                        }}
-                      >
-                        <Button
-                          type="submit"
-                          color="success-subtle"
-                          className="btn btn-success-subtle border border-success"
-                          style={{
-                            paddingTop: "10px",
-                            height: "45px",
-                            width: "80px",
-                            marginRight: "30px",
-                          }}
-                        >
-                          CREATE
-                        </Button>
-                        <button
-                          type="button"
-                          className="btn btn-secondary-subtle border border-secondary"
-                          onClick={() => {
-                            navigate("/branch");
-                          }}
-                          style={{
-                            paddingTop: "10px",
-                            width: "80px",
-                            height: "45px",
-                          }}
-                        >
-                          <Label>BACK</Label>
-                        </button>
-                      </div>
-                    </div>
-                  </Form>
+                      <option>SELECT COUNTRY</option>
+                      {countryData.map(c => (
+                        <option key={c.isoCode} value={c.isoCode}>
+                          {c.name}
+                        </option>
+                      ))}
+                    </Input>
+                    {validation.touched.country && validation.errors.country ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.country}
+                      </FormFeedback>
+                    ) : null}
+                  </FormGroup>
                 </Col>
               </Row>
-            </CardBody>
-          </Card>
-        </div>
+              <Row className="mb-2">
+                <Col md={6}>
+                  <FormGroup className="mb-3">
+                    <Label htmlFor="validationCustom01">
+                      STATE NAME<font color="red">*</font>
+                    </Label>
+                    <Input
+                      type="select"
+                      id="state"
+                      name="state"
+                      value={validation.values.state}
+                      onChange={e => {
+                        setState(
+                          stateData.find(s => s.isoCode === e.target.value)
+                        );
+                        handleChange(e);
+                      }}
+                      onBlur={validation.handleBlur}
+                      invalid={
+                        validation.touched.state && validation.errors.state
+                      }
+                      style={{ textTransform: "uppercase" }}
+                    >
+                      <option>SELECT STATE</option>
+                      {stateData.map(s => (
+                        <option key={s.isoCode} value={s.isoCode}>
+                          {s.name}
+                        </option>
+                      ))}
+                    </Input>
+                    {validation.touched.state && validation.errors.state ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.state}
+                      </FormFeedback>
+                    ) : null}
+                  </FormGroup>
+                </Col>
+
+                <Col md={6}>
+                  <FormGroup className="mb-3">
+                    <Label htmlFor="validationCustom01">
+                      CITY NAME<font color="red">*</font>
+                    </Label>
+                    <Input
+                      type="select"
+                      id="city"
+                      name="city"
+                      value={validation.values.city}
+                      onChange={e => {
+                        setCity(
+                          cityData.find(
+                            city => city.id === parseInt(e.target.value)
+                          )
+                        );
+                        handleChange(e);
+                      }}
+                      onBlur={validation.handleBlur}
+                      invalid={
+                        validation.touched.city && validation.errors.city
+                      }
+                      style={{ textTransform: "uppercase" }}
+                    >
+                      <option>SELECT CITY</option>
+                      {cityData.map(city => (
+                        <option key={city.id} value={city.id}>
+                          {city.name}
+                        </option>
+                      ))}
+                    </Input>
+                    {validation.touched.city && validation.errors.city ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.city}
+                      </FormFeedback>
+                    ) : null}
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row className="mb-2">
+                <Col md={12}>
+                  <FormGroup>
+                    <Label>
+                      LOCATION<font color="red">*</font>
+                    </Label>
+                    <Input
+                      type="text"
+                      name="location"
+                      onChange={handleChange}
+                      placeholder="PLEASE ENTER LOCATION "
+
+                      value={validation.values.location}
+                      onBlur={validation.handleBlur}
+                      invalid={
+                        validation.touched.location &&
+                        validation.errors.location
+                      }
+                      style={{ textTransform: "uppercase" }}
+                    />
+                    {validation.touched.location &&
+                    validation.errors.location ? (
+                      <FormFeedback type="invalid">
+                        {validation.errors.location}
+                      </FormFeedback>
+                    ) : null}
+                  </FormGroup>
+                </Col>
+              </Row>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "20px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Button
+                    type="submit"
+                    color="success-subtle"
+                    className="border border-success"
+                    style={{
+                      paddingTop: "10px",
+                      height: "45px",
+                      width: "80px",
+                      marginRight: "30px",
+                    }}
+                  >
+                    CREATE
+                  </Button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary-subtle border border-secondary"
+                    
+                    onClick={() => {
+                      navigate("/branch");
+                    }}
+                    style={{
+                      paddingTop: "10px",
+                      width: "80px",
+                      height: "45px",
+                    }}
+                  >
+                    <Label>BACK</Label>
+                  </button>
+                </div>
+              </div>
+            </Form>
+            </Col>
+            </Row>
+          </CardBody>
+        </Card>
       </Container>
-    </React.Fragment>
+    </div>
   );
 };
 
