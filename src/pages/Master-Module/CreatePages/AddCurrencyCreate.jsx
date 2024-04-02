@@ -70,7 +70,6 @@ const AddCurrencyCreate = () => {
     });
 
     if (isValid) {
-      console.log("foemdata",formData)
       try {
         CreateCurrency([
           {
@@ -80,7 +79,6 @@ const AddCurrencyCreate = () => {
           },
         ])
           .then(res => {
-            console.log("alok", res);
             if (res.ok) {
               toast("Currency created successfully");
               navigate("/add_currency");

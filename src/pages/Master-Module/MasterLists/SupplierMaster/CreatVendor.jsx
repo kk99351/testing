@@ -8,43 +8,23 @@ import {
   usePagination,
 } from "react-table";
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const CreatVendor = () => {
   const [email, setEmail] = useState(""); // State to store the entered email
 
-  const handleSendLink = () => {
-    // Logic to send link to the entered email address
-    // For now, let's just log the email to console
-    console.log("Email:", email);
-  };
-  const demoData = [
-    {
-      slno: 1,
-      nm_ven: "CA Supplies",
-      cd_ven: "ABC001",
-      mailid: "abc@example.com",
-      nm_contact: "John Smith",
-      status: "123-456-7890",
-    },
-    {
-      slno: 2,
-      nm_ven: "HCL Corp",
-      cd_ven: "XYZ002",
-      mailid: "xyz@example.com",
-      nm_contact: "Emily Johnson",
-      status: "987-654-3210",
-    },
-    {
-      slno: 3,
-      nm_ven: "Global Merchants",
-      cd_ven: "GM003",
-      mailid: "info@globalmerchants.com",
-      nm_contact: "Michael Brown",
-      status: "555-555-5555",
-    },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    GetAllData("Vendor").then(res => {
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
 
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
@@ -62,24 +42,24 @@ const CreatVendor = () => {
       },
       {
         Header: "SUPPLIER NAME",
-        accessor: "nm_ven",
+        accessor: "nmven",
       },
       {
         Header: "SUPPLIER CODE",
-        accessor: "cd_ven",
+        accessor: "cdven",
       },
       {
         Header: "SUPPLIER MAIL ID",
         accessor: "mailid",
       },
-      {
-        Header: "CONTACT PERSON",
-        accessor: "nm_contact",
-      },
-      {
-        Header: "MOBILE NUMBER",
-        accessor: "status",
-      },
+      // {
+      //   Header: "CONTACT PERSON",
+      //   accessor: "nm_contact",
+      // },
+      // {
+      //   Header: "MOBILE NUMBER",
+      //   accessor: "status",
+      // },
     ],
     []
   );
@@ -243,7 +223,7 @@ const CreatVendor = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/modify_vendor/${row.original.id}`}
+                                    to={`/modify_vendor/${row.original.idven}`}
                                   >
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>

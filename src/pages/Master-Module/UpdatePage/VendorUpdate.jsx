@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -17,107 +17,150 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { GetSignleData } from "src/API/Master/GlobalGet";
+import { useParams } from "react-router";
+import { CreateSuppliers } from "src/API/Master/SupplierMaster/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const VendorUpdate = () => {
   const navigate = useNavigate();
+  const [vendor, setVendor] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    GetSignleData("Vendor", id).then(res => {
+      setVendor(res);
+    });
+  }, []);
+
+  const [manufacturerChecked, setManufacturerChecked] = useState(
+    vendor && vendor.service === "true"
+  );
+  const [procuredChecked, setProcuredChecked] = useState(
+    vendor && vendor.procured === "true"
+  );
+
+  const handleManufacturerCheckboxChange = () => {
+    setManufacturerChecked(!manufacturerChecked);
+  };
+
+  const handleProcuredCheckboxChange = () => {
+    setProcuredChecked(!procuredChecked);
+  };
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      nmven: "",
-      vencode: "",
-      add1: "",
-      add2: "",
-      add3: "",
-      cou: "",
-      state: "",
-      city: "",
-      poscode: "",
-      tele: "",
-      mobile: "",
-      email: "",
-      gst: "",
-      tin: "",
-      cin: "",
-      msme: "",
-      pan: "",
-      tan: "",
-      nature: "",
-      year: "",
-      payterm: "",
-      invoice: "",
+      nmven: vendor?.nmven,
+      vencode: vendor?.cdven,
+      add1: vendor?.add1,
+      // add2: "",
+      // add3: "",
+      // cou: "",
+      // state: "",
+      // city: "",
+      // poscode: "",
+      // tele: "",
+      // mobile: "",
+      email: vendor?.mailid,
+      // gst: "",
+      // tin: "",
+      // cin: "",
+      // msme: "",
+      pan: vendor?.pin,
+      // tan: "",
+      // nature: "",
+      // year: "",
+      // payterm: "",
+      // invoice: "",
 
-      ifse: "",
-      city1: "",
-      accno: "",
-      nameofacc: "",
-      state1: "",
-      postalcode: "",
-      telephone: "",
-      nmBank: "",
-      bankbranch: "",
-      fax1: "",
-      micr: "",
-      add: "",
-      cou1: "",
+      // ifse: "",
+      // city1: "",
+      // accno: "",
+      // nameofacc: "",
+      // state1: "",
+      // postalcode: "",
+      // telephone: "",
+      // nmBank: "",
+      // bankbranch: "",
+      // fax1: "",
+      // micr: "",
+      // add: "",
+      // cou1: "",
     },
 
     validationSchema: Yup.object({
       nmven: Yup.string().required("SUPPLIER NAME IS REQUIRED"),
       vencode: Yup.string().required("SUPPLIER CODE IS REQUIRED"),
       add1: Yup.string().required("ADDRESS1 IS REQUIRED"),
-      add2: Yup.string().required("ADDRESS2  IS REQUIRED"),
-      cou: Yup.string().required("COUNTRY  IS REQUIRED"),
-      state: Yup.string().required("STATE  IS REQUIRED"),
-      city: Yup.string().required("CITY  IS REQUIRED"),
-      poscode: Yup.string().required("POSTAL CODE  IS REQUIRED"),
-      tele: Yup.string().required("TELEPHONE NUMBER  IS REQUIRED"),
-      mobile: Yup.string().required("MOBILE NUMBER  IS REQUIRED"),
+      // add2: Yup.string().required("ADDRESS2  IS REQUIRED"),
+      // cou: Yup.string().required("COUNTRY  IS REQUIRED"),
+      // state: Yup.string().required("STATE  IS REQUIRED"),
+      // city: Yup.string().required("CITY  IS REQUIRED"),
+      // poscode: Yup.string().required("POSTAL CODE  IS REQUIRED"),
+      // tele: Yup.string().required("TELEPHONE NUMBER  IS REQUIRED"),
+      // mobile: Yup.string().required("MOBILE NUMBER  IS REQUIRED"),
       email: Yup.string().required("EMAIL ID  IS REQUIRED"),
-      gst: Yup.string().required("GST NUMBER  IS REQUIRED"),
-      tin: Yup.string().required("TIN NUMBER  IS REQUIRED"),
-      cin: Yup.string().required("CIN NUMBER  IS REQUIRED"),
-      msme: Yup.string().required("MSME NUMBER  IS REQUIRED"),
+      // gst: Yup.string().required("GST NUMBER  IS REQUIRED"),
+      // tin: Yup.string().required("TIN NUMBER  IS REQUIRED"),
+      // cin: Yup.string().required("CIN NUMBER  IS REQUIRED"),
+      // msme: Yup.string().required("MSME NUMBER  IS REQUIRED"),
       pan: Yup.string().required("PAN  IS REQUIRED"),
-      nature: Yup.string().required("NATURE OF BUSINESS  IS REQUIRED"),
-      year: Yup.string().required(
-        "YEAR OF INC./IN BUSINESS SINCE  IS REQUIRED"
-      ),
-      invoice: Yup.string().required(
-        "INVOICE AND PAYMENT CURRENCY  IS REQUIRED"
-      ),
-      tan: Yup.string().required("TAN  IS REQUIRED"),
-      payterm: Yup.string().required("PAYMENT TERMS  IS REQUIRED"),
+      // nature: Yup.string().required("NATURE OF BUSINESS  IS REQUIRED"),
+      // year: Yup.string().required(
+      //   "YEAR OF INC./IN BUSINESS SINCE  IS REQUIRED"
+      // ),
+      // invoice: Yup.string().required(
+      //   "INVOICE AND PAYMENT CURRENCY  IS REQUIRED"
+      // ),
+      // tan: Yup.string().required("TAN  IS REQUIRED"),
+      // payterm: Yup.string().required("PAYMENT TERMS  IS REQUIRED"),
 
-      ifse: Yup.string().required("IFSE CODE  IS REQUIRED"),
-      city1: Yup.string().required("CITY IS REQUIRED"),
-      accno: Yup.string().required("ACCOUNT NUMBER IS REQUIRED"),
-      nameofacc: Yup.string().required("NAME OF ACCOUNT  IS REQUIRED"),
-      state1: Yup.string().required("STATE IS REQUIRED"),
-      postalcode: Yup.string().required("POSTAL CODE  IS REQUIRED"),
-      telephone: Yup.string().required("TELEPHONE  IS REQUIRED"),
-      nmBank: Yup.string().required("BANK NAME  IS REQUIRED"),
-      bankbranch: Yup.string().required("BANK BRANCH  IS REQUIRED"),
-      fax1: Yup.string().required("FAX  IS REQUIRED"),
-      micr: Yup.string().required("MICR IS REQUIRED"),
-      add: Yup.string().required("ADDRESS IS REQUIRED"),
-      cou1: Yup.string().required("COUNTRY IS REQUIRED"),
+      // ifse: Yup.string().required("IFSE CODE  IS REQUIRED"),
+      // city1: Yup.string().required("CITY IS REQUIRED"),
+      // accno: Yup.string().required("ACCOUNT NUMBER IS REQUIRED"),
+      // nameofacc: Yup.string().required("NAME OF ACCOUNT  IS REQUIRED"),
+      // state1: Yup.string().required("STATE IS REQUIRED"),
+      // postalcode: Yup.string().required("POSTAL CODE  IS REQUIRED"),
+      // telephone: Yup.string().required("TELEPHONE  IS REQUIRED"),
+      // nmBank: Yup.string().required("BANK NAME  IS REQUIRED"),
+      // bankbranch: Yup.string().required("BANK BRANCH  IS REQUIRED"),
+      // fax1: Yup.string().required("FAX  IS REQUIRED"),
+      // micr: Yup.string().required("MICR IS REQUIRED"),
+      // add: Yup.string().required("ADDRESS IS REQUIRED"),
+      // cou1: Yup.string().required("COUNTRY IS REQUIRED"),
     }),
     onSubmit: async values => {
-      // console.log(values)
-      alert("validated !");
-      // try {
-      //   await axios.post(`http://localhost:3000/companygroup/`, values);
-      //   navigate("/companygroup");
-      // } catch (error) {
-      //   console.log("error in creating companygroup data: " + error);
-      // }
+      CreateSuppliers([
+        {
+          idven: id,
+          nmven: values.nmven,
+          cdven: values.vencode,
+          add1: values.add1,
+          service: manufacturerChecked ? "true" : "false",
+          procured: procuredChecked ? "true" : "false",
+          pin: values.pan,
+          mailid: values.email,
+        },
+      ])
+        .then(res => {
+          if (res.ok) {
+            toast("Vendor Updated successfully");
+            navigate("/create_vendor");
+          } else {
+            toast("Vendor already exists");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Card className="mt-0">
             <CardHeader>
@@ -138,24 +181,28 @@ const VendorUpdate = () => {
                         <FormGroup className="mb-3">
                           <Label> TYPE OF SUPPLIER</Label>
                           <div>
-                          <div style={{ marginRight: "10px" }}>
-                                  <Input
-                                    type="checkbox"
-                                    id="manufacturer"
-                                    name="manufacturer"
-                                  />
-                                  <Label
-                                    for="manufacturer"
-                                    style={{ marginLeft: "5px" }}
-                                  >
-                                    SERVICE
-                                  </Label>
-                                </div>
                             <div style={{ marginRight: "10px" }}>
                               <Input
                                 type="checkbox"
                                 id="manufacturer"
                                 name="manufacturer"
+                                checked={manufacturerChecked}
+                                onChange={handleManufacturerCheckboxChange}
+                              />
+                              <Label
+                                for="manufacturer"
+                                style={{ marginLeft: "5px" }}
+                              >
+                                SERVICE
+                              </Label>
+                            </div>
+                            <div style={{ marginRight: "10px" }}>
+                              <Input
+                                type="checkbox"
+                                id="manufacturer"
+                                name="manufacturer"
+                                checked={procuredChecked}
+                                onChange={handleProcuredCheckboxChange}
                               />
                               <Label
                                 for="manufacturer"
@@ -191,6 +238,7 @@ const VendorUpdate = () => {
                             id="nmven"
                             className="form-control"
                             onChange={validation.handleChange}
+                            value={validation.values.nmven}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.nmven &&
@@ -221,6 +269,7 @@ const VendorUpdate = () => {
                             placeholder="PLEASE ENTER SUPPLIER CODE"
                             name="vencode"
                             id="vencode"
+                            value={validation.values.vencode}
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
@@ -249,6 +298,7 @@ const VendorUpdate = () => {
                             name="add1"
                             id="add1"
                             className="form-control"
+                            value={validation.values.add1}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -472,6 +522,7 @@ const VendorUpdate = () => {
                             name="email"
                             id="email"
                             className="form-control"
+                            value={validation.values.email}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -610,6 +661,7 @@ const VendorUpdate = () => {
                             name="pan"
                             id="pan"
                             className="form-control"
+                            value={validation.values.pan}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
