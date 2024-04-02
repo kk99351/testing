@@ -12,7 +12,14 @@ import { saveAs } from "file-saver";
 import { CSVLink } from "react-csv";
 import { PDFDownloadLink, Document, Page, Text } from "@react-pdf/renderer";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { FaCopy, FaFilePdf, FaFileExcel } from "react-icons/fa";
+import {
+  FaFilePdf,
+  FaFileExcel,
+  FaFileCsv,
+  FaPrint,
+  FaCopy,
+} from "react-icons/fa";
+import * as XLSX from "xlsx";
 
 const AccessoryHistoryReportview = () => {
   const demoData = [
@@ -181,7 +188,51 @@ const AccessoryHistoryReportview = () => {
     useSortBy,
     usePagination
   );
+  const exportToExcel = () => {
+    const sheetName = "Asset_Status_Report";
+    const fileType =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
 
+    const formattedData = responseData.map(item => ({
+      "SL NO": item.slno,
+      "ACCESSORY ID": item.access_id,
+      "ACCESSORY NAME": item.access_name,
+      "ASSET ID": item.asset_id,
+      "ASSET NAME": item.asset_name,
+      "ACCESSORY SERIAL NUMBER": item.serial_number,
+      "ASSET SERIAL NUMBER": item.ass_serial_number,
+      "MATERIAL GROUP NAME": item.mat_name,
+      "MATERIAL SUB GROUP NAME": item.mat_sub_name,
+      "LINK DATE": item.assigned_date,
+      "DELINK DATE": item.delink_date,
+      "CLIENT NAME": item.employee_name,
+    }));
+    
+    const ws = XLSX.utils.json_to_sheet(formattedData);
+    const wb = { Sheets: { [sheetName]: ws }, SheetNames: [sheetName] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
+    saveAs(data, sheetName + fileExtension);
+  };
+
+  const handleCopy = () => {
+    const headers = columns
+      .map(column => column.Header)
+      .filter(header => header !== "SL NO")
+      .join("\t");
+    const data = responseData
+      .map(row => {
+        const rowData = Object.entries(row).filter(
+          ([key, value]) => key !== "slno"
+        );
+        return rowData.map(([key, value]) => value).join("\t");
+      })
+      .join("\n");
+    const textToCopy = `${headers}\n${data}`;
+
+    navigator.clipboard.writeText(textToCopy);
+  };
   return (
     <React.Fragment>
       {/* {isLoading ? (
@@ -213,7 +264,7 @@ const AccessoryHistoryReportview = () => {
                   </select>
                 </div>
 
-                <div className="col-md-8">
+                <div className="col-md-3">
                   <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
                     <div className="position-relative">
                       <label htmlFor="search-bar-0" className="search-label">
@@ -233,6 +284,41 @@ const AccessoryHistoryReportview = () => {
                         <i className="bx bx-search-alt search-icon"></i>
                       </label>
                     </div>
+                  </div>
+                </div>
+                <div className="col-md-7">
+                  <div className="d-flex justify-content-end">
+                    <Button
+                      className="btn btn-secondary-subtle border border-secondary"
+                      onClick={exportToExcel}
+                    >
+                      <FaFileExcel />
+                      EXCEL
+                    </Button>
+                    <CSVLink data={responseData}>
+                      <Button className="btn btn-secondary-subtle border border-secondary">
+                        <FaFileCsv />
+                        CSV
+                      </Button>
+                    </CSVLink>
+                    <Button
+                      className="btn btn-secondary-subtle border border-secondary"
+                      onClick={handleCopy}
+                    >
+                      <FaCopy /> COPY
+                    </Button>
+                    <Button
+                      className="btn btn-secondary-subtle border border-secondary"
+                      onClick={() => navigate("/accessory_history_report")}
+                      style={{
+                        paddingTop: "5px",
+                        width: "80px",
+                        height: "37px",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      BACK{" "}
+                    </Button>{" "}
                   </div>
                 </div>
               </div>

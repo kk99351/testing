@@ -12,7 +12,14 @@ import { saveAs } from "file-saver";
 import { CSVLink } from "react-csv";
 import { PDFDownloadLink, Document, Page, Text } from "@react-pdf/renderer";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { FaCopy, FaFilePdf, FaFileExcel } from "react-icons/fa";
+import {
+  FaFilePdf,
+  FaFileExcel,
+  FaFileCsv,
+  FaPrint,
+  FaCopy,
+} from "react-icons/fa";
+import * as XLSX from "xlsx";
 
 const MasterReportview = () => {
   const demoData = [
@@ -157,7 +164,68 @@ const MasterReportview = () => {
     useSortBy,
     usePagination
   );
+  const exportToExcel = () => {
+    const sheetName = "Asset_Status_Report";
+    const fileType =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
 
+    const formattedData = responseData.map(item => ({
+      "SL NO": item.slno,
+      "ASSET ID": item.asset_id,
+      "CLIENT NAME": item.client_name,
+      "COUNTRY": item.company_group,
+      "STATE": item.state,
+      "CITY": item.city,
+      "LOCATION": item.location,
+      "BUILDING": item.building,
+      "FLOOR": item.floor,
+      "SALES/RENTAL": item.sales_rental,
+      "DEPARTMENT": item.department,
+      "COST CENTER": item.cost_center,
+      "PO.NO": item.po_no,
+      "GROUP NAME": item.group_name,
+      "SUB GROUP NAME": item.sub_group_name,
+      "ITEM NAME": item.item_name,
+      "ITEM PRICE": item.item_price,
+      "SERIAL NO": item.serial_no,
+      "ASSET REMARKS": item.asset_remarks,
+      "PROCESS TYPE": item.process_type,
+      "STORAGE TYPE": item.storage_type,
+      "RAM TYPE": item.ram_type,
+      "STATUS": item.status,
+      "ALLOCATED TO": item.allocated_to,
+      "INVOICE NUMBER": item.invoice_number,
+      "INVOICE DATE": item.invoice_date,
+      "ALLOCATION DATE": item.allocation_date,
+      "WARRANTY END": item.warranty_end,
+    }));
+    
+    
+    const ws = XLSX.utils.json_to_sheet(formattedData);
+    const wb = { Sheets: { [sheetName]: ws }, SheetNames: [sheetName] };
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const data = new Blob([excelBuffer], { type: fileType });
+    saveAs(data, sheetName + fileExtension);
+  };
+
+  const handleCopy = () => {
+    const headers = columns
+      .map(column => column.Header)
+      .filter(header => header !== "SL NO")
+      .join("\t");
+    const data = responseData
+      .map(row => {
+        const rowData = Object.entries(row).filter(
+          ([key, value]) => key !== "slno"
+        );
+        return rowData.map(([key, value]) => value).join("\t");
+      })
+      .join("\n");
+    const textToCopy = `${headers}\n${data}`;
+
+    navigator.clipboard.writeText(textToCopy);
+  };
   return (
     <React.Fragment>
       {/* {isLoading ? (
@@ -190,7 +258,7 @@ const MasterReportview = () => {
                 </div>
 
 
-                <div className="col-md-8">
+                <div className="col-md-3">
                   <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
                     <div className="position-relative">
                       <label htmlFor="search-bar-0" className="search-label">
@@ -211,36 +279,41 @@ const MasterReportview = () => {
                     </div>
                   </div>
                 </div>
-                {/* <div className="col-sm-2 mb-2">
-                  <div className="text-sm-end d-flex justify-content-between">
-                    <div>
-                      <CopyToClipboard text="data to be copied">
-                        <FaCopy className="icon" />
-                      </CopyToClipboard>
-                      <PDFDownloadLink
-                        document={<MyDocument />}
-                        fileName="report.pdf"
-                      >
-                        {({ blob, url, loading, error }) =>
-                          loading ? (
-                            <span>Loading...</span>
-                          ) : (
-                            <FaFilePdf className="icon" />
-                          )
-                        }
-                      </PDFDownloadLink>
-
-                      <CSVLink
-                        data={demoData}
-                        filename={"report.csv"}
-                        className="btn btn-primary"
-                        target="_blank"
-                      >
-                        <FaFileExcel className="icon" />
-                      </CSVLink>
-                    </div>
+                <div className="col-md-7">
+                  <div className="d-flex justify-content-end">
+                    <Button
+                      className="btn btn-secondary-subtle border border-secondary"
+                      onClick={exportToExcel}
+                    >
+                      <FaFileExcel />
+                      EXCEL
+                    </Button>
+                    <CSVLink data={responseData}>
+                      <Button className="btn btn-secondary-subtle border border-secondary">
+                        <FaFileCsv />
+                        CSV
+                      </Button>
+                    </CSVLink>
+                    <Button
+                      className="btn btn-secondary-subtle border border-secondary"
+                      onClick={handleCopy}
+                    >
+                      <FaCopy /> COPY
+                    </Button>
+                    <Button
+                      className="btn btn-secondary-subtle border border-secondary"
+                      onClick={() => navigate("/master_report")}
+                      style={{
+                        paddingTop: "5px",
+                        width: "80px",
+                        height: "37px",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      BACK{" "}
+                    </Button>{" "}
                   </div>
-                </div> */}
+                </div>            
               </div>
             </div>
 
