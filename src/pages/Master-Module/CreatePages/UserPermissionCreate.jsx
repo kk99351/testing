@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
@@ -16,6 +16,7 @@ import {
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const UserPermissionCreate = () => {
   const navigate = useNavigate();
@@ -56,6 +57,20 @@ const UserPermissionCreate = () => {
   const departments = ["ACTIVITY ROOM", "ACE ACADEMY", "ADMIN"];
   const locations = ["BENGALORE", "CHITRADURGA", "MYSORE"];
   const sublocations = ["KALYAN NAGARA", "CHALLAKERE", "VIJAYA NAGARA"];
+
+  const [userType, setUserType] = useState([]);
+
+  useEffect(() => {
+    GetAllData("Usertype").then(res => {
+      console.log("userType", res);
+      if (Array.isArray(res)) {
+        setUserType(res);
+      } else {
+        setUserType([]);
+      }
+    });
+  }, []);
+
   const handleDepreciationMoveRight = () => {
     const selectedItems = depreciationLeftItems.filter((_, index) => {
       const option = document.getElementById(`depreciationLeftItem${index}`);
@@ -368,8 +383,10 @@ const UserPermissionCreate = () => {
                     value={formik.values.userType}
                   >
                     <option value="">SELECT USER TYPE</option>
-                    <option value="ADMIN">ADMIN</option>
-                    <option value="DEMO">DEMO</option>
+                    {userType &&
+                      userType.map(item => (
+                        <option value="ADMIN">ADMIN</option>
+                      ))}
                   </Input>
                   {formik.touched.userType && formik.errors.userType ? (
                     <div style={{ color: "red", fontSize: "12px" }}>

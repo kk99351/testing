@@ -38,6 +38,7 @@ const SubCategoryUpdate = () => {
       setMaterial(res);
     });
   }, []);
+
   const validation = useFormik({
     enableReinitialize: true,
 
@@ -113,9 +114,12 @@ const SubCategoryUpdate = () => {
                             invalid={
                               validation.touched.categoryname &&
                               validation.errors.categoryname
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
-                            <option>SELECT MATERIAL GROUP NAME </option>
+                            <option value={validation.values.categoryname}>
+                              SELECT MATERIAL GROUP NAME{" "}
+                            </option>
                             {material &&
                               material.map((item, index) => (
                                 <option key={index} value={item.idgrp}>
@@ -147,7 +151,8 @@ const SubCategoryUpdate = () => {
                             invalid={
                               validation.touched.subcategoryname &&
                               validation.errors.subcategoryname
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.subcategoryname &&
                           validation.errors.subcategoryname ? (
@@ -176,7 +181,8 @@ const SubCategoryUpdate = () => {
                             invalid={
                               validation.touched.subcategorycode &&
                               validation.errors.subcategorycode
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.subcategorycode &&
                           validation.errors.subcategorycode ? (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
@@ -16,9 +16,11 @@ import {
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const UserPermissionCreate = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  
 
   const [leftItems, setLeftItems] = useState([]);
   const [rightItems, setRightItems] = useState([]);
@@ -56,6 +58,20 @@ const UserPermissionCreate = () => {
   const departments = ["ACTIVITY ROOM", "ACE ACADEMY", "ADMIN"];
   const locations = ["BENGALORE", "CHITRADURGA", "MYSORE"];
   const sublocations = ["KALYAN NAGARA", "CHALLAKERE", "VIJAYA NAGARA"];
+
+  const [userType, setUserType] = useState([]);
+
+  useEffect(() => {
+    GetAllData("Usertype").then(res => {
+      console.log("userType", res);
+      if (Array.isArray(res)) {
+        setUserType(res);
+      } else {
+        setUserType([]);
+      }
+    });
+  }, []);
+
   const handleDepreciationMoveRight = () => {
     const selectedItems = depreciationLeftItems.filter((_, index) => {
       const option = document.getElementById(`depreciationLeftItem${index}`);
@@ -324,10 +340,7 @@ const UserPermissionCreate = () => {
     owner: Yup.array().min(1, "ASSET OWNER IS REQUIRED"),
     department: Yup.array().min(1, "DEPARTMENT IS REQUIRED"),
     location: Yup.array().min(1, "CITY IS REQUIRED"),
-    sublocation: Yup.array().min(
-      1,
-      "LOCATION IS REQUIRED"
-    ),
+    sublocation: Yup.array().min(1, "LOCATION IS REQUIRED"),
   });
 
   // Initialize formik
@@ -371,8 +384,12 @@ const UserPermissionCreate = () => {
                     value={formik.values.userType}
                   >
                     <option value="">SELECT USER TYPE</option>
-                    <option value="ADMIN">ADMIN</option>
-                    <option value="DEMO">DEMO</option>
+                    {userType &&
+                      userType.map((item, index) => (
+                        <option key={index} value={item.idusertype}>
+                          {item.nmusertype}
+                        </option>
+                      ))}
                   </Input>
                   {formik.touched.userType && formik.errors.userType ? (
                     <div style={{ color: "red", fontSize: "12px" }}>
@@ -382,6 +399,9 @@ const UserPermissionCreate = () => {
                 </Col>
               </Row>
               <hr className="mb-3 mt-3" />
+
+              {/* //------------------------Master--------------------------------// */}
+
               <Row className="m-2">
                 <Col md={2} style={{ display: "flex", alignItems: "center" }}>
                   <Input
@@ -428,6 +448,10 @@ const UserPermissionCreate = () => {
                   </select>
                 </Col>
               </Row>
+
+              {/* //-----------------------------------Master End-----------------------// */}
+
+
               <Row className="m-2">
                 <Col md={2} style={{ display: "flex", alignItems: "center" }}>
                   <Input
@@ -829,7 +853,7 @@ const UserPermissionCreate = () => {
                   </Col>
                   <Col md={3} className="text-center">
                     <FormGroup>
-                      <Label >
+                      <Label>
                         LOCATION<font color="red">*</font>
                       </Label>
                       <Input
