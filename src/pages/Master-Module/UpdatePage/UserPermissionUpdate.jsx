@@ -15,12 +15,20 @@ import {
 } from "reactstrap";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { GetAllData } from "src/API/Master/GlobalGet";
+import { useNavigate } from "react-router-dom";
+import {
+  GetAllData,
+  GetSignleData,
+  GetSubModule,
+} from "src/API/Master/GlobalGet";
+import { CreateUserPermission } from "src/API/Master/AccessManagement/Api";
+import { ToastContainer, toast } from "react-toastify";
+import { useParams } from "react-router";
 
 const UserPermissionCreate = () => {
   const navigate = useNavigate();
-  
+  const { id } = useParams();
+  const [permission, setPermission] = useState([]);
 
   const [leftItems, setLeftItems] = useState([]);
   const [rightItems, setRightItems] = useState([]);
@@ -60,10 +68,31 @@ const UserPermissionCreate = () => {
   const sublocations = ["KALYAN NAGARA", "CHALLAKERE", "VIJAYA NAGARA"];
 
   const [userType, setUserType] = useState([]);
+  const [module, setModule] = useState([]);
+  const [submodule, setSubmodule] = useState([]);
+  const [dept, setDept] = useState([]);
+  const [city, setCity] = useState([]);
+  const [location, setLocation] = useState([]);
+
+  useEffect(() => {
+    GetSignleData("UPermission", id).then(data => {
+      console.log("item", data);
+      data.submodules.forEach(item => {
+        switch (item.idmodule.nmModule) {
+          case "MASTER": {
+            setRightItems(prevLeftItems => [...prevLeftItems, item]);
+            break;
+          }
+          case "ASSET\n": {
+            setAssetsRightItems(prevLeftItems => [...prevLeftItems, item]);
+          }
+        }
+      });
+    });
+  }, []);
 
   useEffect(() => {
     GetAllData("Usertype").then(res => {
-      console.log("userType", res);
       if (Array.isArray(res)) {
         setUserType(res);
       } else {
@@ -71,6 +100,76 @@ const UserPermissionCreate = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    GetAllData("Module").then(res => {
+      if (Array.isArray(res)) {
+        setModule(res);
+      } else {
+        setModule([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("SubModule").then(res => {
+      if (Array.isArray(res)) {
+        console.log(res);
+        setSubmodule(res);
+      } else {
+        setSubmodule([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Dept").then(res => {
+      if (Array.isArray(res)) {
+        console.log(res);
+        setDept(res);
+      } else {
+        setDept([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Location").then(res => {
+      if (Array.isArray(res)) {
+        console.log(res);
+        setLocation(res);
+      } else {
+        setLocation([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("City").then(res => {
+      if (Array.isArray(res)) {
+        console.log(res);
+        setCity(res);
+      } else {
+        setCity([]);
+      }
+    });
+  }, []);
+
+  // const submoduleMap = submodule.reduce((acc, submodule) => {
+  //   const moduleId = submodule.idmodule.idmodule;
+  //   if (!acc[moduleId]) {
+  //     acc[moduleId] = [];
+  //   }
+  //   acc[moduleId].push(submodule);
+  //   return acc;
+  // }, {});
+
+  // const Modulelist = module.map(module => ({
+  //   ...module,
+  //   submodules: submoduleMap[module.idmodule] || [],
+  // }));
+
+  //---------------------------Depreciation Control------------------------------//
 
   const handleDepreciationMoveRight = () => {
     const selectedItems = depreciationLeftItems.filter((_, index) => {
@@ -104,13 +203,22 @@ const UserPermissionCreate = () => {
       setDepreciationRightItems([]);
     }
   };
+
+  //----------------------------------Depreciation Control End------------------------------//
+
+  //------------------------Master Control-------------------------------//
+
   const handleMasterMoveRight = () => {
     const selectedItems = leftItems.filter((_, index) => {
       const option = document.getElementById(`leftItem${index}`);
       return option.selected;
     });
-    setRightItems([...rightItems, ...selectedItems]);
+
+    setRightItems(prevRightItems => [...prevRightItems, ...selectedItems]);
     setLeftItems(leftItems.filter(item => !selectedItems.includes(item)));
+    setRightItems(prevRightItems => {
+      return prevRightItems;
+    });
   };
 
   const handleMasterMoveLeft = () => {
@@ -122,15 +230,25 @@ const UserPermissionCreate = () => {
     setRightItems(rightItems.filter(item => !selectedItems.includes(item)));
   };
 
+  //---------------------------Master Control End---------------------------//
+
+  //---------------------------Assets Control ------------------------------//
+
   const handleAssetsMoveRight = () => {
     const selectedItems = assetsLeftItems.filter((_, index) => {
       const option = document.getElementById(`assetsLeftItem${index}`);
       return option.selected;
     });
-    setAssetsRightItems([...assetsRightItems, ...selectedItems]);
+    setAssetsRightItems(prevRightItems => [
+      ...prevRightItems,
+      ...selectedItems,
+    ]);
     setAssetsLeftItems(
       assetsLeftItems.filter(item => !selectedItems.includes(item))
     );
+    setAssetsRightItems(prevRightItems => {
+      return prevRightItems;
+    });
   };
 
   const handleAssetsMoveLeft = () => {
@@ -143,6 +261,10 @@ const UserPermissionCreate = () => {
       assetsRightItems.filter(item => !selectedItems.includes(item))
     );
   };
+
+  //---------------------------Assets Control End------------------------------//
+
+  //---------------------------Transer Control ------------------------------//
 
   const handleTransferMoveRight = () => {
     const selectedItems = transfersLeftItems.filter((_, index) => {
@@ -166,6 +288,10 @@ const UserPermissionCreate = () => {
     );
   };
 
+  //---------------------------Transer Control End ------------------------------//
+
+  //---------------------------Tags Control ------------------------------//
+
   const handleTagsMoveRight = () => {
     const selectedItems = tagsLeftItems.filter((_, index) => {
       const option = document.getElementById(`tagsLeftItem${index}`);
@@ -188,6 +314,9 @@ const UserPermissionCreate = () => {
     );
   };
 
+  //---------------------------Tags Control End------------------------------//
+
+  //---------------------------Reports Control------------------------------//
   const handleReportsMoveRight = () => {
     const selectedItems = reportsLeftItems.filter((_, index) => {
       const option = document.getElementById(`reportsLeftItem${index}`);
@@ -210,6 +339,8 @@ const UserPermissionCreate = () => {
     );
   };
 
+  //---------------------------Reports Control End------------------------------//
+
   const handleReportCheckboxChange = event => {
     setShowAllReports(event.target.checked);
     if (event.target.checked) {
@@ -228,17 +359,18 @@ const UserPermissionCreate = () => {
 
   const handleAssetsCheckboxChange = event => {
     setShowAllasset(event.target.checked);
+    let newAssets = submodule.filter(res => {
+      return res.idmodule.nmModule === "ASSET\n";
+    });
+
     if (event.target.checked) {
-      setAssetsLeftItems([
-        "ADD NEW ASSET",
-        "APPROVE NEW ASSET ",
-        "ALLOCATE ASSETS",
-        "DE-ALLOCATE ASSETS",
-        "BULK ASSET ALLOCATION",
-        "DAMAGED ASSET",
-        "APPROVE DAMAGED ASSET",
-      ]);
-      setAssetsRightItems([]);
+      const notPresentInData2 = newAssets.filter(
+        item1 =>
+          !assetsRightItems.some(
+            item2 => item1.nmSubmodule === item2.nmSubmodule
+          )
+      );
+      setAssetsLeftItems(notPresentInData2);
     } else {
       setAssetsLeftItems([]);
       setAssetsRightItems([]);
@@ -247,21 +379,18 @@ const UserPermissionCreate = () => {
 
   const handleMasterCheckboxChange = event => {
     setShowAll(event.target.checked);
+    let newMaster = submodule.filter(res => {
+      return res.idmodule.nmModule === "MASTER";
+    });
+
     if (event.target.checked) {
-      setLeftItems([
-        "COMPANY MASTER",
-        "BRANCH",
-        "PLANT",
-        "DESIGNATION MASTER",
-        "EMPLOYEE MASTER",
-        "UOM",
-        "UOM CONVERSION",
-        "DOA",
-      ]);
-      setRightItems([]);
+      const notPresentInData2 = newMaster.filter(
+        item1 =>
+          !rightItems.some(item2 => item1.nmSubmodule === item2.nmSubmodule)
+      );
+      setLeftItems(notPresentInData2);
     } else {
       setLeftItems([]);
-      setRightItems([]);
     }
   };
 
@@ -328,6 +457,7 @@ const UserPermissionCreate = () => {
       setDashboardRightItems([]);
     }
   };
+
   const handleOptionClick = (item, setter) => {
     setter(prevOptions =>
       prevOptions.includes(item)
@@ -343,7 +473,6 @@ const UserPermissionCreate = () => {
     sublocation: Yup.array().min(1, "LOCATION IS REQUIRED"),
   });
 
-  // Initialize formik
   const formik = useFormik({
     initialValues: {
       userType: "",
@@ -354,14 +483,110 @@ const UserPermissionCreate = () => {
     },
     validationSchema: validationSchema,
     onSubmit: values => {
-      // Submit logic goes here
-      alert("Form validated and submitted!");
+      let subMod = rightItems.map(value => {
+        return {
+          idSubmodule: value.idSubmodule,
+          nmSubmodule: value.nmSubmodule,
+          idmodule: {
+            idmodule: value.idmodule.idmodule,
+            nmModule: value.idmodule.nmModule,
+          },
+        };
+      });
+
+      const depts = dept.map(res => {
+        return {
+          iddept: res.iddept,
+          nmdept: "string",
+          cddept: "string",
+        };
+      });
+
+      const Location = location.map(item => {
+        return {
+          idlocs: [
+            {
+              idloc: 6,
+              nmLoc: "string",
+              cdLoc: "string",
+              idcountry: {
+                idcountry: 0,
+                nmCountry: "string",
+                cdCountry: "string",
+              },
+            },
+          ],
+        };
+      });
+
+      console.log("sub", subMod);
+
+      // const SubLocation=SubLocation.map((res)=>{
+      //   return {
+
+      //   }
+      // })
+
+      CreateUserPermission([
+        {
+          idpermission: 0,
+          typasst: values.owner[0],
+          idccs: "string",
+          usertype: {
+            idusertype: Number(values.userType),
+            nmusertype: "string",
+          },
+          submodules: subMod,
+          iddept: depts,
+          idlocs: [
+            {
+              idloc: 6,
+              nmLoc: "string",
+              cdLoc: "string",
+              idcountry: {
+                idcountry: 0,
+                nmCountry: "string",
+                cdCountry: "string",
+              },
+            },
+          ],
+          idsubls: [
+            {
+              idsloc: 2,
+              nmSubl: "string",
+              cdSubl: "string",
+              idloc: {
+                idloc: 0,
+                nmLoc: "string",
+                cdLoc: "string",
+                idcountry: {
+                  idcountry: 0,
+                  nmCountry: "string",
+                  cdCountry: "string",
+                },
+              },
+            },
+          ],
+        },
+      ])
+        .then(res => {
+          if (res.ok) {
+            toast("UserPermission Created successfully");
+            navigate("/user_permission");
+          } else {
+            toast("UserPermission already exists");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
   });
 
   return (
     <div className="page-content">
       <div className="container-fluid">
+        <ToastContainer></ToastContainer>
         <Card>
           <CardHeader>
             <h4>USER PERMISSION</h4>
@@ -399,9 +624,7 @@ const UserPermissionCreate = () => {
                 </Col>
               </Row>
               <hr className="mb-3 mt-3" />
-
               {/* //------------------------Master--------------------------------// */}
-
               <Row className="m-2">
                 <Col md={2} style={{ display: "flex", alignItems: "center" }}>
                   <Input
@@ -410,7 +633,7 @@ const UserPermissionCreate = () => {
                     id="formrow-customCheck"
                     onChange={handleMasterCheckboxChange}
                   />
-                  <Label style={{ marginBottom: "0" }}>MASTER</Label>
+                  <Label style={{ marginBottom: "0" }}>Master</Label>
                 </Col>
                 <Col md={4}>
                   <select
@@ -419,11 +642,12 @@ const UserPermissionCreate = () => {
                     style={{ minHeight: "150px" }}
                     disabled={!showAll}
                   >
-                    {leftItems.map((item, index) => (
-                      <option key={index} id={`leftItem${index}`}>
-                        {item}
-                      </option>
-                    ))}
+                    {leftItems &&
+                      leftItems.map((item, index) => (
+                        <option key={index} id={`leftItem${index}`}>
+                          {item.nmSubmodule}
+                        </option>
+                      ))}
                   </select>
                 </Col>
                 <Col
@@ -442,16 +666,13 @@ const UserPermissionCreate = () => {
                   >
                     {rightItems.map((item, index) => (
                       <option key={index} id={`rightItem${index}`}>
-                        {item}
+                        {item.nmSubmodule}
                       </option>
                     ))}
                   </select>
                 </Col>
               </Row>
-
               {/* //-----------------------------------Master End-----------------------// */}
-
-
               <Row className="m-2">
                 <Col md={2} style={{ display: "flex", alignItems: "center" }}>
                   <Input
@@ -471,7 +692,7 @@ const UserPermissionCreate = () => {
                   >
                     {assetsLeftItems.map((item, index) => (
                       <option key={index} id={`assetsLeftItem${index}`}>
-                        {item}
+                        {item.nmSubmodule}
                       </option>
                     ))}
                   </select>
@@ -492,7 +713,7 @@ const UserPermissionCreate = () => {
                   >
                     {assetsRightItems.map((item, index) => (
                       <option key={index} id={`assetsRightItem${index}`}>
-                        {item}
+                        {item.nmSubmodule}
                       </option>
                     ))}
                   </select>
@@ -786,20 +1007,25 @@ const UserPermissionCreate = () => {
                         }
                         style={{ height: "200px" }}
                       >
-                        {departments.map(item => (
+                        {dept.map(item => (
                           <option
-                            key={item}
-                            value={item}
+                            key={item.iddept}
+                            value={item.iddept}
                             onClick={() =>
-                              handleOptionClick(item, setSelectedDepartment)
+                              handleOptionClick(
+                                item.iddept,
+                                setSelectedDepartment
+                              )
                             }
                             style={{
-                              backgroundColor: selectedDepartment.includes(item)
+                              backgroundColor: selectedDepartment.includes(
+                                item.iddept
+                              )
                                 ? "#c3e6cb"
                                 : "inherit",
                             }}
                           >
-                            {item}
+                            {item.nmdept}
                           </option>
                         ))}
                       </Input>
@@ -869,22 +1095,25 @@ const UserPermissionCreate = () => {
                         }
                         style={{ height: "200px" }}
                       >
-                        {sublocations.map(item => (
+                        {location.map(item => (
                           <option
                             key={item}
-                            value={item}
+                            value={item.idLoc}
                             onClick={() =>
-                              handleOptionClick(item, setSelectedSublocation)
+                              handleOptionClick(
+                                item.idLoc,
+                                setSelectedSublocation
+                              )
                             }
                             style={{
                               backgroundColor: selectedSublocation.includes(
-                                item
+                                item.idLoc
                               )
                                 ? "#c3e6cb"
                                 : "inherit",
                             }}
                           >
-                            {item}
+                            {item.nmLoc}
                           </option>
                         ))}
                       </Input>

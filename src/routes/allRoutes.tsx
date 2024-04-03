@@ -334,7 +334,7 @@ import CreateVendor from "src/pages/Master-Module/CreatePages/VendorCreate";
 import VendorUpdate from "src/pages/Master-Module/UpdatePage/VendorUpdate";
 import VendorCreate from "src/pages/Master-Module/CreatePages/VendorCreate";
 import UserPermissionUpdate from "src/pages/Master-Module/UpdatePage/UserPermissionUpdate";
-import UserPermissionCreate from "src/pages/Master-Module/UpdatePage/UserPermissionUpdate";
+import UserPermissionCreate from "src/pages/Master-Module/CreatePages/UserPermissionCreate";
 interface RouteProps {
   path: string;
   component: any;
@@ -462,7 +462,7 @@ const userRoutes: Array<RouteProps> = [
 
   { path: "/user_type", component: <UserTypeMaster /> },
   { path: "/user_permission", component: <UserPermission /> },
-  { path: "/create_user_permission", component: <UserPermissionCreate /> },
+  { path: "/create_user_permission", component: <UserPermissionCreate></UserPermissionCreate> },
   { path: "/modify_user_permission/:id", component: <UserPermissionUpdate /> },
 
   { path: "/user_login", component: <LoginProvision /> },

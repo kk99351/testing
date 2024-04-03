@@ -17,6 +17,8 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { CreateEntity } from "src/API/Master/GeoGraphicalArea.js/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const Entitycreate = () => {
   const navigate = useNavigate();
@@ -33,20 +35,28 @@ const Entitycreate = () => {
       companyGroupCode: Yup.string().required("ENTITY CODE IS REQUIRED"),
     }),
     onSubmit: async values => {
-      // console.log(values)
-      alert("validated !");
-      // try {
-      //   await axios.post(`http://localhost:3000/companygroup/`, values);
-      //   navigate("/companygroup");
-      // } catch (error) {
-      //   console.log("error in creating companygroup data: " + error);
-      // }
+      CreateEntity([
+        {
+          identity: 0,
+          nmentity: values.company_group,
+          cdentity: values.companyGroupCode,
+        },
+      ]).then(res => {
+        console.log(res);
+        if (res.ok) {
+          toast("Entity created successfully");
+          navigate("/entity");
+        } else {
+          toast("Failed to create entity");
+        }
+      });
     },
   });
 
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Card className="mt-0">
             <CardHeader>

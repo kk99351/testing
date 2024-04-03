@@ -31,3 +31,20 @@ export const GetSignleData = async (dept, id) => {
     return error.message;
   }
 };
+
+//-----------------Get Submodule Data-------------------------//
+
+export const GetSubModule = async id => {
+  try {
+    let result = await fetch(
+      `${ApiBaseUrl}/master/MasterGetSubDropDdownData?ParentId=${id}&mastername=Submodule`,
+      {
+        method: "GET",
+      }
+    );
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};

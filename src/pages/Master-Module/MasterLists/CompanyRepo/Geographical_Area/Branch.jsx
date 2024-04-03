@@ -16,69 +16,21 @@ import {
   usePagination,
 } from "react-table";
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const Branch = () => {
-  const demoData = [
-    {
-      slno: 1,
-      companygroup: "United States",
-      region: "California",
-      entityName: "PR Limited",
-
-      city: "Los Angeles",
-      branch: "Downtown Branch",
-    },
-    {
-      slno: 2,
-      companygroup: "United States",
-      region: "New York",
-      city: "New York City",
-      entityName: "PR Limited",
-
-      branch: "Midtown Branch",
-    },
-    {
-      slno: 3,
-      companygroup: "United Kingdom",
-      region: "England",
-      city: "London",
-      entityName: "AR Corporation",
-
-      branch: "Westminster Branch",
-    },
-    {
-      slno: 4,
-      companygroup: "Canada",
-      region: "Ontario",
-      entityName: "AR Corporation",
-
-      city: "Toronto",
-      branch: "Downtown Branch",
-    },
-    {
-      slno: 5,
-      companygroup: "Australia",
-      region: "New South Wales",
-      entityName: "AR Corporation",
-
-      city: "Sydney",
-      branch: "CBD Branch",
-    },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/branch");
-  //   }
-  //   fetch();
-  // }, [getData]);
-
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
+  useEffect(() => {
+    GetAllData("Location").then(res => {
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
 
   const columns = useMemo(
     () => [
@@ -91,31 +43,31 @@ const Branch = () => {
       },
       {
         Header: "ENTITY",
-        accessor: "entityName",
+        accessor: "identity.nmentity",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "COUNTRY",
-        accessor: "companygroup",
+        accessor: "nmcountry",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "STATE ",
-        accessor: "region",
+        accessor: "nmstate",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "CITY ",
-        accessor: "city",
+        accessor: "nmcity",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "LOCATION NAME",
-        accessor: "branch",
+        accessor: "nmLoc",
         disableFilters: true,
         filterable: true,
       },
@@ -268,7 +220,7 @@ const Branch = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/branch/${row.original.id}`}>
+                                  <Link to={`/branch/${row.original.idloc}`}>
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (

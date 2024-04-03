@@ -10,44 +10,23 @@ import {
 } from "react-table";
 import Create from "src/pages/Buttons/Create";
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const Entity = () => {
-  const demoData = [
-    {
-      entityName: "AR Corporation",
-      entityCode: "AR001",
-      industry: "Technology",
-      country: "United States",
-    },
-    {
-      entityName: "HCL Ltd",
-      entityCode: "HCL002",
-      industry: "Finance",
-      country: "United Kingdom",
-    },
-    {
-      entityName: "RA Enterprises",
-      entityCode: "RA003",
-      industry: "Manufacturing",
-      country: "Germany",
-    },
-    // Add more entries as needed
-  ];
-
-  const [responseData, setResponseData] = useState(demoData);
+  
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/companygroup");
-  //   }
-  //   fetch();
-  // }, [getData]);
+  useEffect(() => {
+    GetAllData("Entity").then(res => {
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
   const columns = useMemo(
     () => [
       {
@@ -59,13 +38,13 @@ const Entity = () => {
       },
       {
         Header: "ENTITY NAME",
-        accessor: "entityName",
+        accessor: "nmentity",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "ENTITY CODE",
-        accessor: "entityCode",
+        accessor: "cdentity",
         disableFilters: true,
         filterable: true,
       },
@@ -208,7 +187,7 @@ const Entity = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/entity_update/${row.original.id}`}
+                                    to={`/entity_update/${row.original.identity}`}
                                   >
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>

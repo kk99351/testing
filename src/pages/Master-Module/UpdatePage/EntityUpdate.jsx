@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -17,15 +17,27 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { GetSignleData } from "src/API/Master/GlobalGet";
+import { useParams } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import { CreateEntity } from "src/API/Master/GeoGraphicalArea.js/Api";
 
 const EntityUpdate = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [entity, setEntity] = useState([]);
+
+  useEffect(() => {
+    GetSignleData("Entity", id).then(res => {
+      setEntity(res);
+    });
+  }, []);
+
   const validation = useFormik({
     enableReinitialize: true,
-
     initialValues: {
-      company_group: "",
-      companyGroupCode: "",
+      company_group: entity?.nmentity,
+      companyGroupCode: entity?.cdentity,
     },
 
     validationSchema: Yup.object({
@@ -33,19 +45,27 @@ const EntityUpdate = () => {
       companyGroupCode: Yup.string().required("ENTITY CODE IS REQUIRED"),
     }),
     onSubmit: async values => {
-      // console.log(values)
-      alert("validated !");
-      // try {
-      //   await axios.post(`http://localhost:3000/companygroup/`, values);
-      //   navigate("/companygroup");
-      // } catch (error) {
-      //   console.log("error in creating companygroup data: " + error);
-      // }
+     CreateEntity([
+        {
+          identity: id,
+          nmentity: values.company_group,
+          cdentity: values.companyGroupCode,
+        },
+      ]).then(res => {
+        console.log(res);
+        if (res.ok) {
+         toast("Entity created successfully");
+          navigate("/entity");
+        } else {
+          toast("Failed to create entity");
+        }
+      });
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card className="mt-0">
@@ -74,12 +94,14 @@ const EntityUpdate = () => {
                             id="company_group"
                             placeholder="PLEASE ENTER ENTITY NAME"
                             className="form-control"
+                            value={validation.values.company_group}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.company_group &&
                               validation.errors.company_group
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.company_group &&
                           validation.errors.company_group ? (
@@ -103,12 +125,14 @@ const EntityUpdate = () => {
                             name="companyGroupCode"
                             id="companyGroupCode"
                             className="form-control"
+                            value={validation.values.companyGroupCode}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.companyGroupCode &&
                               validation.errors.companyGroupCode
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           ></Input>
                           {validation.touched.companyGroupCode &&
                           validation.errors.companyGroupCode ? (
@@ -175,5 +199,3 @@ const EntityUpdate = () => {
 };
 
 export default EntityUpdate;
-
- 
