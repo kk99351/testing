@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from "react";
-import { Button,CardHeader, Card, Input } from "reactstrap";
+import { Button, CardHeader, Card, Input, CardBody } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
@@ -9,32 +9,32 @@ import {
 } from "react-table";
 import { useGet } from "src/API/useGet";
 
-const ViaBill = () => {
+const AddNewAssett = () => {
   const [responseData, setResponseData] = useState([
     {
-      id: 1,
-      bill_no: "B001",
-      dt_bill: "2024-03-10",
-      no_zoho: "Z001",
-      nm_model: "Item 1",
+      slno: 1,
+      bill_no0: "B001",
+      bill_no: "2024-03-10",
+      bill_noOO: "Z001",
+      dt_bill: "Item 1",
       nm_ven: "Vendor A",
       qty: 5,
     },
     {
-      id: 2,
-      bill_no: "B002",
-      dt_bill: "2024-03-11",
-      no_zoho: "Z002",
-      nm_model: "Item 2",
+      slno: 2,
+      bill_no0: "B002",
+      bill_no: "2024-03-11",
+      bill_noOO: "Z002",
+      dt_bill: "Item 2",
       nm_ven: "Vendor B",
       qty: 10,
     },
     {
-      id: 3,
-      bill_no: "B003",
-      dt_bill: "2024-03-12",
-      no_zoho: "Z003",
-      nm_model: "Item 3",
+      slno: 3,
+      bill_no0: "B003",
+      bill_no: "2024-03-12",
+      bill_noOO: "Z003",
+      dt_bill: "Item 3",
       nm_ven: "Vendor C",
       qty: 8,
     },
@@ -46,32 +46,32 @@ const ViaBill = () => {
       {
         Header: "SL NO",
         accessor: "slno",
-        width:"6%",
+        width: "6%",
       },
       {
-        Header: "BILL NUMBER",
+        Header: "INVOICE NUMBER",
+        accessor: "bill_no0",
+      },
+      {
+        Header: "INVOICE DATE",
         accessor: "bill_no",
       },
       {
-        Header: "BILL DATE",
+        Header: "REQUEST BY",
+        accessor: "bill_noOO",
+      },
+      {
+        Header: "ASSET NAME",
         accessor: "dt_bill",
       },
       {
-        Header: "ZOHO BILL NUMBER",
-        accessor: "no_zoho",
-      },
-      {
-        Header: "ITEM NAME",
-        accessor: "nm_model",
-      },
-      {
-        Header: "VENDOR NAME",
+        Header: "SUPPLIER NAME",
         accessor: "nm_ven",
       },
       {
-        Header: "TOTAL QTY",
+        Header: "QYT",
         accessor: "qty",
-      }
+      },
     ],
     []
   );
@@ -112,12 +112,13 @@ const ViaBill = () => {
       <div className="page-content">
         <div className="container-fluid">
           <Card>
-          <CardHeader>
+            <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                VIA-BILL DETAILS
+                ADD NEW ASSET DETAILS
               </h1>
             </CardHeader>
-            <div className="container pt-4">
+            <CardBody>
+            <div className="container pt-0">
               <div className="rmb-2 row">
                 <div className="col-md-2">
                   <select className="form-select">
@@ -144,10 +145,23 @@ const ViaBill = () => {
                           value={globalFilter || ""}
                           onChange={e =>
                             setGlobalFilter(e.target.value.toUpperCase())
-                          }                         />
+                          }
+                        />
                         <i className="bx bx-search-alt search-icon"></i>
                       </label>
                     </div>
+                  </div>
+                </div>
+                <div className="col-sm-6">
+                  <div className="text-sm-end">
+                    <button
+                      type="button"
+                      className="btn mb-2 me-2 btn btn-primary"
+                      onClick={() => navigate("/create_new_asset")}
+                    >
+                      <i className="mdi mdi-plus-circle-outline me-1"></i>
+                      CREATE NEW{" "}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -162,10 +176,15 @@ const ViaBill = () => {
                       {...headerGroup.getHeaderGroupProps()}
                     >
                       {headerGroup.headers.map(column => (
-                          <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} style={{ width: column.width }}>
-
+                        <th
+                          key={column.id}
+                          {...column.getHeaderProps(
+                            column.getSortByToggleProps()
+                          )}
+                          style={{ width: column.width }}
+                        >
                           <div className="d-flex justify-content-center">
-                                <span className="font-weight-bold">
+                            <span className="font-weight-bold">
                               {column.render("Header")}
                             </span>
                             <span>
@@ -190,11 +209,14 @@ const ViaBill = () => {
                           {row.cells.map(cell => (
                             <td key={cell.column.id} {...cell.getCellProps()}>
                               {cell.column.id !== "SL NO" ? (
-                                 <Link to={`/via_bill/${row.original.id}`} state={{ formData: row.original }}>
-                                   {String(cell.value).toUpperCase()}{" "}
-                                  </Link>
-                                ) : (
-                                  String(cell.value).toUpperCase()
+                                <Link
+                                  to={`/modify_add_new_asset/${row.original.id}`}
+                                  state={{ formData: row.original }}
+                                >
+                                  {String(cell.value).toUpperCase()}{" "}
+                                </Link>
+                              ) : (
+                                String(cell.value).toUpperCase()
                               )}
                             </td>
                           ))}
@@ -257,6 +279,7 @@ const ViaBill = () => {
                 </div>
               </div>
             </div>
+            </CardBody>
           </Card>
         </div>
       </div>
@@ -264,4 +287,4 @@ const ViaBill = () => {
   );
 };
 
-export default ViaBill;
+export default AddNewAssett;

@@ -242,12 +242,12 @@ import FinancialYearModify from "src/pages/Master-Module/UpdatePage/FinancialYea
 import AddCurrencyModify from "src/pages/Master-Module/UpdatePage/AddCurrencyModify";
 import TermAndConditionModify from "src/pages/Master-Module/UpdatePage/TermAndConditionModify";
 //Asset Pages
-import AddNewAsset from "src/pages/Asset-Module/AssetLists/AddNewAsset";
+import AddNewAsset from "src/pages/Asset-Module/UpdatePages/UpdateAddNewAsset";
 import AddNewAssetCreate from "src/pages/Asset-Module/CreatePages/AddNewAssetCreate";
-import AddNewAssetUpdate from "src/pages/Asset-Module/UpdatePages/AddNewAssetUpdate";
+// import AddNewAssetUpdate from "src/pages/Asset-Module/UpdatePages/AddNewAssetUpdate";
 import AllAsset from "src/pages/Asset-Module/AssetLists/AllAsset";
 import BillsEntry from "src/pages/Asset-Module/AssetLists/BillsEntry";
-import ViaBill from "src/pages/Asset-Module/AssetLists/ViaBill";
+import ViaBill from "src/pages/Asset-Module/AssetLists/AddNewAssett";
 import Barcode from "src/pages/Asset-Module/AssetLists/Barcode";
 import QrCode from "src/pages/Asset-Module/AssetLists/QrCode";
 import BulkAssetAllocate from "src/pages/Asset-Module/AssetLists/BulkAssetAllocate";
@@ -335,6 +335,12 @@ import VendorUpdate from "src/pages/Master-Module/UpdatePage/VendorUpdate";
 import VendorCreate from "src/pages/Master-Module/CreatePages/VendorCreate";
 import UserPermissionUpdate from "src/pages/Master-Module/UpdatePage/UserPermissionUpdate";
 import UserPermissionCreate from "src/pages/Master-Module/UpdatePage/UserPermissionUpdate";
+
+import AddNewAssett from "src/pages/Asset-Module/AssetLists/AddNewAssett";
+import UpdateAddNewAsset from "src/pages/Asset-Module/UpdatePages/UpdateAddNewAsset";
+import ApproveNewAsset from "src/pages/Asset-Module/AssetLists/ApproveNewAsset";
+import ApproveNewAssetCreate from "src/pages/Asset-Module/CreatePages/ApproveNewAssetCreate";
+import CustomTagPrinting from "src/pages/Master-Module/MasterLists/CustomTagPrinting";
 interface RouteProps {
   path: string;
   component: any;
@@ -354,10 +360,12 @@ const userRoutes: Array<RouteProps> = [
   { path: "/addition_Deletion_view/:id", component: <AdditionDeletionlist /> },
 
   //ASSET MASTER PAGES PATH
-  { path: "/add_new_asset", component: <AddNewAsset /> },
+  { path: "/create_new_asset", component: <AddNewAssetCreate /> },
+
+  // { path: "/add_new_asset/:id", component: <AddNewAsset /> },
   { path: "/all_asset", component: <AllAsset /> },
   { path: "/bills_entry", component: <BillsEntry /> },
-  { path: "/via_bills", component: <ViaBill /> },
+  { path: "/Add_new_asset", component: <AddNewAssett /> },
   // { path: "/barcode", component: <Barcode toggleCheckbox={function (...args: any[]) {
   //   throw new Error("Function not implemented.");
   // } } /> },
@@ -380,7 +388,9 @@ const userRoutes: Array<RouteProps> = [
   { path: "/create_all_asset", component: <AllAssetCreate /> },
 
   //ASSET MASTER MODIFY PATH
-  { path: "/modify_add_new_asset/:id", component: <AddNewAssetUpdate /> },
+  { path: "/approve_new_asset", component: <ApproveNewAsset /> },
+
+  { path: "/modify_add_new_asset/:id", component: <UpdateAddNewAsset /> },
   { path: "/modify_all_asset/:id", component: <AllAssetUpdate /> },
   { path: "/modify_bulk_asset_allocate/:id", component: <BulkAssetUpdate /> },
   { path: "/modify_damaged_asset/:id", component: <DamagedAssetUpdate /> },
@@ -564,6 +574,7 @@ const userRoutes: Array<RouteProps> = [
   { path: "/entity", component: <Entity /> },
   { path: "/entity_create", component: <Entitycreate /> },
   { path: "/entity_update/:id", component: <EntityUpdate /> },
+  { path: "/custom_tag_printing", component: <CustomTagPrinting /> },
 
   { path: "/updateplant/:id", component: <PlantUpdate /> },
   { path: "/createcity", component: <CityCreate /> },
@@ -590,6 +601,7 @@ const userRoutes: Array<RouteProps> = [
   //AssetsSraban
   { path: "/bill_entry/:id", component: <DisplayBillEntryDetails /> },
   { path: "/via_bill/:id", component: <DisplayViaBillEntryDetails /> },
+  { path: "/create_approve_new_asset/:id", component: <ApproveNewAssetCreate /> },
 
   //dashboard
   { path: "/sales", component: <Sales /> },

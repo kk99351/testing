@@ -381,7 +381,11 @@ const Navbar = (props: any) => {
                           {props.t("Approved-Supplier-List ")}
                         </Link> */}
                       </div>
+                      <Link to="/custom_tag_printing" className="dropdown-item ">
+                          {props.t("Custom Tag Printing")}
+                        </Link>
                     </div>
+
                   </div>
                 </li>
 
@@ -420,15 +424,15 @@ const Navbar = (props: any) => {
                           show: addtostore,
                         })}
                       >
-                        <Link to="/via_bills" className="dropdown-item">
-                          {props.t("Via Bill")}
+                        <Link to="/Add_new_asset" className="dropdown-item">
+                          {props.t("Add New Asset")}
+                        </Link>
+                        <Link to="/approve_new_asset" className="dropdown-item">
+                          {props.t("Approve New Asset")}
                         </Link>
                         {/* <Link to="/read-email" className="dropdown-item">
                           {props.t("Without-Bill")}
                         </Link> */}
-                        <Link to="/add_new_asset" className="dropdown-item">
-                          {props.t("Add New Asset")}
-                        </Link>
                       </div>
                     </div>
                     <div className="dropdown">

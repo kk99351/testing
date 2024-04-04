@@ -17,7 +17,7 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
-const AddNewAssetCreate = () => {
+const UpdateAddNewAsset = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const navigate = useNavigate();
@@ -48,19 +48,19 @@ const AddNewAssetCreate = () => {
     initialFormData[key] = "";
     initialErrors[key] = "";
   });
-  const handlelogoChange = event => {
+  const handlelogoChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
-    setErrors(prevErrors => ({
+    setErrors((prevErrors) => ({
       ...prevErrors,
-      attachImage: "",
+      attachImage: "", 
     }));
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      attachImage: file,
+      attachImage: file, 
     }));
   };
-
+  
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
   const [showAmcDates, setShowAmcDates] = useState(false);
@@ -312,6 +312,34 @@ const AddNewAssetCreate = () => {
                           </FormGroup>
                         </Col>
                       </Row>
+                      <Row className="mb-2">
+                      <Col md={6}>
+                        <Label for="attachImage">ATTACH IMAGE</Label>
+                        <Input
+                          type="file"
+                          name="attachImage"
+                          id="attachImage"
+                          onChange={handlelogoChange}
+                          accept="image/*"
+                          invalid={!!errors.attachImage}
+                          style={{ textTransform: "uppercase" }}
+
+                        />
+                        <span className="invalid-feedback">
+                          {errors.attachImage}
+                        </span>
+                      </Col>
+                      <Col md={6}>
+                        {selectedFile && (
+                          <img
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected"
+                            style={{ maxWidth: "100%", maxHeight: "100px" }}
+                          />
+                        )}
+                      </Col>
+                      <hr className="mb-0 mt-3" />
+                    </Row>
                     </Form>
                   </Col>
                 </Row>
@@ -545,7 +573,7 @@ const AddNewAssetCreate = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CREATE ADD NEW ASSET{" "}
+                ADD NEW ASSET DETAILS{" "}
               </h1>
             </CardHeader>
 
@@ -1319,7 +1347,8 @@ const AddNewAssetCreate = () => {
                               ) : null}
                             </FormGroup>
                           </Col>
-                          <Row className="mb-2">
+                        </Row>
+                        <Row className="mb-2">
                             <Col md={6}>
                               <Label for="attachImage">UPLOAD FILE</Label>
                               <Input
@@ -1349,7 +1378,6 @@ const AddNewAssetCreate = () => {
                             </Col>
                             <hr className="mb-0 mt-3" />
                           </Row>
-                        </Row>
                       </Col>
                     </Row>
                   </Form>
@@ -1387,7 +1415,7 @@ const AddNewAssetCreate = () => {
                   marginRight: "30px",
                 }}
               >
-                SAVE{" "}
+                UPDATE{" "}
               </Button>
               <button
                 type="button"
@@ -1411,6 +1439,6 @@ const AddNewAssetCreate = () => {
   );
 };
 
-export default AddNewAssetCreate;
+export default UpdateAddNewAsset;
 
 // upload:"",

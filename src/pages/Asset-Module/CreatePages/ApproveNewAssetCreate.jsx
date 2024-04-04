@@ -17,7 +17,7 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
-const AddNewAssetCreate = () => {
+const ApproveNewAssetCreate = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const navigate = useNavigate();
@@ -48,19 +48,19 @@ const AddNewAssetCreate = () => {
     initialFormData[key] = "";
     initialErrors[key] = "";
   });
-  const handlelogoChange = event => {
+  const handlelogoChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
-    setErrors(prevErrors => ({
+    setErrors((prevErrors) => ({
       ...prevErrors,
-      attachImage: "",
+      attachImage: "", 
     }));
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      attachImage: file,
+      attachImage: file, 
     }));
   };
-
+  
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
   const [showAmcDates, setShowAmcDates] = useState(false);
@@ -312,6 +312,34 @@ const AddNewAssetCreate = () => {
                           </FormGroup>
                         </Col>
                       </Row>
+                      <Row className="mb-2">
+                      <Col md={6}>
+                        <Label for="attachImage">ATTACH IMAGE</Label>
+                        <Input
+                          type="file"
+                          name="attachImage"
+                          id="attachImage"
+                          onChange={handlelogoChange}
+                          accept="image/*"
+                          invalid={!!errors.attachImage}
+                          style={{ textTransform: "uppercase" }}
+
+                        />
+                        <span className="invalid-feedback">
+                          {errors.attachImage}
+                        </span>
+                      </Col>
+                      <Col md={6}>
+                        {selectedFile && (
+                          <img
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected"
+                            style={{ maxWidth: "100%", maxHeight: "100px" }}
+                          />
+                        )}
+                      </Col>
+                      <hr className="mb-0 mt-3" />
+                    </Row>
                     </Form>
                   </Col>
                 </Row>
@@ -545,7 +573,7 @@ const AddNewAssetCreate = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CREATE ADD NEW ASSET{" "}
+                APPROVE NEW ASSET DETAILS{" "}
               </h1>
             </CardHeader>
 
@@ -745,7 +773,7 @@ const AddNewAssetCreate = () => {
                         </FormGroup>
                       </Col>
                     </Row>
-                    <Row className="mt-0">
+                    {/* <Row className="mt-0">
                       <Col md={6}>
                         <Label for="amc">
                           AMC/WARRENTY<font color="red">*</font>
@@ -873,8 +901,8 @@ const AddNewAssetCreate = () => {
                           </Col>
                         </>
                       )}
-                    </Row>
-                    <Row className="mb-1 mt-0">
+                    </Row> */}
+                    {/* <Row className="mb-1 mt-0">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="proc">
@@ -932,7 +960,7 @@ const AddNewAssetCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row>
+                    </Row> */}
                     <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
@@ -1045,6 +1073,32 @@ const AddNewAssetCreate = () => {
                           {validation.touched.item && validation.errors.item ? (
                             <FormFeedback type="invalid">
                               {validation.errors.item}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row className="mb-1">
+
+                    <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="remark">REMARKS<font color="red">*</font></Label>
+                          <Input
+                            type="textarea"
+                            name="remark"
+                            id="remark"
+                            placeholder="PLEASE ENTER DESCRIPTION"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.remark && validation.errors.remark
+                            }
+                            style={{ textTransform: "uppercase" }}
+                          ></Input>
+                          {validation.touched.remark && validation.errors.remark ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.remark}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
@@ -1266,7 +1320,7 @@ const AddNewAssetCreate = () => {
                           </Col>
 
                           <Col md={4}>
-                            <FormGroup className="mb-3">
+                            <FormGroup className="mb-1">
                               <Label htmlFor="dcDate">DC DATE</Label>
                               <Input
                                 type="date"
@@ -1319,7 +1373,8 @@ const AddNewAssetCreate = () => {
                               ) : null}
                             </FormGroup>
                           </Col>
-                          <Row className="mb-2">
+                        </Row>
+                        <Row className="mb-2">
                             <Col md={6}>
                               <Label for="attachImage">UPLOAD FILE</Label>
                               <Input
@@ -1349,7 +1404,6 @@ const AddNewAssetCreate = () => {
                             </Col>
                             <hr className="mb-0 mt-3" />
                           </Row>
-                        </Row>
                       </Col>
                     </Row>
                   </Form>
@@ -1358,9 +1412,7 @@ const AddNewAssetCreate = () => {
             </CardBody>
           </Card>
           {renderAssetTypeContent()}
-          <Card>
-            <CardBody>{renderInputFields()}</CardBody>
-          </Card>
+          
           <div
             style={{
               display: "flex",
@@ -1387,13 +1439,13 @@ const AddNewAssetCreate = () => {
                   marginRight: "30px",
                 }}
               >
-                SAVE{" "}
+                UPDATE{" "}
               </Button>
               <button
                 type="button"
                 className="btn btn-secondary-subtle border border-secondary"
                 onClick={() => {
-                  navigate("/Add_new_asset");
+                  navigate("/approve_new_asset");
                 }}
                 style={{
                   paddingTop: "10px",
@@ -1411,6 +1463,6 @@ const AddNewAssetCreate = () => {
   );
 };
 
-export default AddNewAssetCreate;
+export default ApproveNewAssetCreate;
 
 // upload:"",
