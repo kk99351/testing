@@ -15,29 +15,23 @@ import {
   usePagination,
 } from "react-table";
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const UserPermission = () => {
-  const demoData = [
-    { nmUsertype: "Admin" },
-    { nmUsertype: "Manager" },
-    { nmUsertype: "Staff" },
-    { nmUsertype: "Guest" },
-    { nmUsertype: "Supervisor" },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/userpermission");
-  //   }
-  //   fetch();
-  // }, [getData]);
+  useEffect(() => {
+    GetAllData("UPermission").then(res => {
+      console.log(res);
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
@@ -54,7 +48,7 @@ const UserPermission = () => {
       },
       {
         Header: "USER TYPE",
-        accessor: "nmUsertype",
+        accessor: "usertype.nmusertype",
       },
     ],
     []
@@ -198,7 +192,7 @@ const UserPermission = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/modify_user_permission/${row.original.id}`}
+                                    to={`/modify_user_permission/${row.original.idpermission}`}
                                   >
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>

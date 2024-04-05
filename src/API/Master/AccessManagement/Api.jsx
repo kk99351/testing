@@ -2,7 +2,7 @@ import { ApiBaseUrl } from "src/API/ApiBaseUrl";
 
 //-----------------------Create Depearmnent-------------------------//
 export const CreateDepertment = async payload => {
-  console.log("payloaf",payload)
+  console.log("payloaf", payload);
   try {
     const result = await fetch(`${ApiBaseUrl}/master/Dept`, {
       method: "POST",
@@ -16,7 +16,6 @@ export const CreateDepertment = async payload => {
     return error.message;
   }
 };
-
 //----------------------Create DESIGNATION-------------------------//
 export const CreateDesignation = async payload => {
   try {
@@ -64,6 +63,20 @@ export const CreateUserType = async payload => {
 };
 
 //-----------------Create Permissions---------------------------//
+export const CreateUserPermission = async payload => {
+  try {
+    const result = await fetch(`${ApiBaseUrl}/master/UserPermission`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
 
 //-----------------Create User Login---------------------------//
 export const CreateUserLogin = async payload => {

@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { CreateFinanicialYear } from "src/API/Master/ConfigrationMaster/Api";
 
 const FinancialYearCreate = () => {
   const navigate = useNavigate();
@@ -33,13 +34,44 @@ const FinancialYearCreate = () => {
       pfs: Yup.date().required("SELECT MONTH GAP TO FILL START DATE"),
 
       month: Yup.number()
-        // .required("Month gap is required")
         .min(-12, "MONTH GAP SHOULD BE BETWEEN -12 AND 12 ")
         .max(12, "MONTH GAP SHOULD BE BETWEEN 12 AND -12"),
     }),
 
     onSubmit: async values => {
-      alert("Validated");
+      if (!month) {
+        toast("Plaese Give Month Gap");
+        return false;
+      }
+      CreateFinanicialYear([
+        {
+          idfinance: 0,
+          stdfinance: values?.fs,
+          endfinance: values?.fe,
+          stdtfirst: values?.fs1,
+          endtfirst: values?.fs2,
+          stdtsecond: values?.fe1,
+          endtsecond: values?.fe2,
+          currentyear: "",
+          activeyear: 0,
+          mnthgap: month,
+          parstdfin: values?.pfs,
+          parendfin: values?.pfe,
+          parstdfirst: values?.pfs1,
+          parendfirst: values?.pfs2,
+          parstdsecond: values?.pfe1,
+          parendsecond: values?.pfe2,
+        },
+      ]).then(res => {
+        if (res.ok) {
+          toast("Floor created successfully");
+          navigate("/financial_year");
+        } else if (res.status === 400) {
+          toast("Failed to create Floor");
+        } else {
+          toast("already created Floor");
+        }
+      });
     },
   });
 
@@ -109,11 +141,10 @@ const FinancialYearCreate = () => {
     }
   };
 
-  const [month, setMonth] = useState();
+  const [month, setMonth] = useState("");
 
   const handleMonthChange = e => {
     setMonth(e.target.value);
-
     if (!validation.values.fs) {
       // Financial year start date not selected
       return;
@@ -161,6 +192,7 @@ const FinancialYearCreate = () => {
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Form className="needs-validation" onSubmit={validation.handleSubmit}>
             <Card>
@@ -323,6 +355,7 @@ const FinancialYearCreate = () => {
                     <Input
                       type="date"
                       name="pfs"
+                      disabled
                       onChange={handleChangep}
                       value={validation.values.pfs}
                       onBlur={validation.handleBlur}

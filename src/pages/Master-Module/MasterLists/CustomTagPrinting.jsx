@@ -243,10 +243,10 @@ const CustomTagPrinting = () => {
     const updatedAttributes = [...attributes];
     updatedAttributes.splice(index, 1);
     setAttributes(updatedAttributes);
-    toast.dismiss(); // Dismiss the confirmation toast first
+    toast.dismiss(); 
     setTimeout(() => {
-      toast.success("Attribute deleted successfully!", { autoClose: 4000 }); // Show success toast for 5 seconds
-    }, ); // Delay for 1 second before showing the success toast
+      toast.success("Attribute deleted successfully!", { autoClose: 4000 }); 
+    }, );
   };
   
 

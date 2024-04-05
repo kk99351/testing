@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -18,55 +17,112 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { GetAllData, GetSignleData } from "src/API/Master/GlobalGet";
+import { useParams } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import { CreateFloor } from "src/API/Master/GeoGraphicalArea.js/Api";
 
 const FloorUpdate = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [floor, setFloor] = useState([]);
+
+  const [entityAl, setEntityAl] = useState([]);
+  const [locationAl, setLocationAl] = useState([]);
+  const [buildingAl, setBuildingAl] = useState([]);
+
+  useEffect(() => {
+    GetAllData("Entity").then(res => {
+      if (Array.isArray(res)) {
+        setEntityAl(res);
+      } else {
+        setEntityAl([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Location").then(res => {
+      if (Array.isArray(res)) {
+        setLocationAl(res);
+      } else {
+        setLocationAl([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Building").then(res => {
+      if (Array.isArray(res)) {
+        setBuildingAl(res);
+      } else {
+        setBuildingAl([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetSignleData("Floor", id).then(res => {
+      setFloor(res);
+    });
+  }, []);
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      company_group: "",
-      region_name: "",
-      cityname: "",
-      plantname: "",
-      building: "",
-      floor: "",
-      pincode: "",
-      doornumber: "",
-      entity:"",
+      plantname: floor?.idbuilding?.idloc?.idloc,
+      building: floor?.idbuilding?.idbuilding,
+      floor: floor?.nmflr,
+      entity: floor?.idbuilding?.idloc?.identity?.identity,
     },
-    // validationSchema: Yup.object({
-    //   companyGroup: Yup.string().required("Company Group is Required"),
-    //   companyGroupCode: Yup.string().required("Company Group Code is Required"),
-    // }),.
+
     validationSchema: Yup.object({
-      company_group: Yup.string().required("COUNTRY NAME IS REQUIRED"),
-      region_name: Yup.string().required("STATE NAME IS REQUIRED"),
-      cityname: Yup.string().required("CITY NAME IS REQUIRED"),
       entity: Yup.string().required("ENTITY NAME IS REQUIRED"),
 
       plantname: Yup.string().required("LOCATION NAME IS REQUIRED"),
       building: Yup.string().required("BUILDING NAME IS REQUIRED"),
       floor: Yup.string().required("FLOOR NUMBER IS REQUIRED"),
-      pincode: Yup.string().required("PINCODE IS REQUIRED"),
-      doornumber: Yup.string().required("DOOR NUMBER IS REQUIRED"),
-    
     }),
 
     onSubmit: async values => {
-      // console.log(values)
-      alert("validated !");
-      // try {
-      //   await axios.post(`http://localhost:3000/companygroup/`, values);
-      //   navigate("/companygroup");
-      // } catch (error) {
-      //   console.log("error in creating companygroup data: " + error);
-      // }
+      console.log("values", values);
+      CreateFloor([
+        {
+          idflr: id,
+          nmflr: values.floor,
+          idbuilding: {
+            idbuilding: Number(values.building),
+            nmbuilding: "string",
+            idloc: {
+              idloc: Number(values.plantname),
+              nmLoc: "string",
+              nmcountry: "string",
+              nmstate: "string",
+              nmcity: "string",
+              identity: {
+                identity: Number(values.entity),
+                nmentity: "string",
+                cdentity: "string",
+              },
+            },
+          },
+        },
+      ]).then(res => {
+        if (res.ok) {
+          toast("Floor created successfully");
+          navigate("/floor");
+        } else if (res.status === 400) {
+          toast("Failed to create Floor");
+        } else {
+          toast("already created Floor");
+        }
+      });
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card className="mt-0">
@@ -82,40 +138,44 @@ const FloorUpdate = () => {
                   <Form
                     className="needs-validation"
                     onSubmit={validation.handleSubmit}
-                  ><Row className="mb-2">
-                  <Col md={6}>
-                    <FormGroup className="mb-3">
-                      <Label htmlFor="entity">
-                        ENTITY NAME <font color="red">*</font>
-                      </Label>
-                      <Input
-                        type="select"
-                        name="entity"
-                        id="entity"
-                        className="form-control"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        invalid={
-                          validation.touched.entity &&
-                          validation.errors.entity
-                        }
-                        style={{ textTransform: "uppercase" }}
-
-                      >
-                        <option value="">SELECT ENTITY NAME</option>
-                        <option value="US">RA Lmt</option>
-                        <option value="UK">PR Enterprises</option>
-                        <option value="CA">CA  Corporation</option>
-                      </Input>
-                      {validation.touched.entity &&
-                      validation.errors.entity ? (
-                        <FormFeedback type="invalid">
-                          {validation.errors.entity}
-                        </FormFeedback>
-                      ) : null}
-                    </FormGroup>
-                  </Col>
-                    {/* <Row className="mb-2">
+                  >
+                    <Row className="mb-2">
+                      <Col md={6}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="entity">
+                            ENTITY NAME <font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            name="entity"
+                            id="entity"
+                            value={validation.values.entity}
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.entity &&
+                              validation.errors.entity
+                            }
+                            style={{ textTransform: "uppercase" }}
+                          >
+                            <option value="">SELECT ENTITY NAME</option>
+                            {entityAl &&
+                              entityAl.map((item, index) => (
+                                <option key={index} value={item.identity}>
+                                  {item.nmentity}
+                                </option>
+                              ))}
+                          </Input>
+                          {validation.touched.entity &&
+                          validation.errors.entity ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.entity}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                      {/* <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="company_group">
@@ -232,6 +292,7 @@ const FloorUpdate = () => {
                             name="plantname"
                             id="plantname"
                             // className="form-control"
+                            value={validation.values.plantname}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -239,19 +300,14 @@ const FloorUpdate = () => {
                               validation.errors.plantname
                             }
                             style={{ textTransform: "uppercase" }}
-
                           >
                             <option value="">SELECT LOCATION </option>
-                            <option value="Downtown Branch">
-                              Downtown Branch
-                            </option>
-                            <option value="Midtown Branch">
-                              Midtown Branch
-                            </option>
-                            <option value="Westminster Branch">
-                              Westminster Branch
-                            </option>
-                            <option value="CBD Branch">CBD Branch</option>
+                            {locationAl &&
+                              locationAl.map((item, index) => (
+                                <option key={index} value={item.idloc}>
+                                  {item.nmLoc}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.plantname &&
                           validation.errors.plantname ? (
@@ -274,6 +330,7 @@ const FloorUpdate = () => {
                             name="building"
                             id="building"
                             // className="form-control"
+                            value={validation.values.building}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -281,18 +338,14 @@ const FloorUpdate = () => {
                               validation.errors.building
                             }
                             style={{ textTransform: "uppercase" }}
-
                           >
                             <option value="">SELECT BUILDING </option>
-                            <option value="Central Tower">Central Tower</option>
-                            <option value="Empire State Building">
-                              Empire State Building
-                            </option>
-                            <option value="Westminster Palace">
-                              Westminster Palace
-                            </option>
-                            <option value="CN Tower">CN Tower</option>
-                            <option value="Sydney Tower">Sydney Tower</option>
+                            {buildingAl &&
+                              buildingAl.map((item, index) => (
+                                <option key={index} value={item.idbuilding}>
+                                  {item.nmbuilding}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.building &&
                           validation.errors.building ? (
@@ -313,6 +366,7 @@ const FloorUpdate = () => {
                             placeholder="PLEASE ENTER FLOOR NUMBER"
                             // className="form-control"
                             id="floor"
+                            value={validation.values.floor}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -320,7 +374,6 @@ const FloorUpdate = () => {
                               validation.errors.floor
                             }
                             style={{ textTransform: "uppercase" }}
-
                           />
                           {validation.touched.floor &&
                           validation.errors.floor ? (

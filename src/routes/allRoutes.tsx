@@ -268,7 +268,7 @@ import DesignationUpdate from "src/pages/Master-Module/UpdatePage/DesignationUpd
 import CreateMaterial from "src/pages/Master-Module/CreatePages/CreateMaterial";
 import VendorMasterUpdate from "src/pages/Master-Module/UpdatePage/VendorMasterUpdate";
 import VendorMasterCreate from "src/pages/Master-Module/CreatePages/VendorMaster";
-import  PlantUpdate  from "src/pages/Master-Module/UpdatePage/PlantUpdate";
+import PlantUpdate from "src/pages/Master-Module/UpdatePage/PlantUpdate";
 import Floor from "src/pages/Master-Module/MasterLists/CompanyRepo/Geographical_Area/Floor";
 import FlooeCreate from "src/pages/Master-Module/CreatePages/FloorCreate";
 import FloorUpdate from "src/pages/Master-Module/UpdatePage/FloorUpdate";
@@ -334,13 +334,14 @@ import CreateVendor from "src/pages/Master-Module/CreatePages/VendorCreate";
 import VendorUpdate from "src/pages/Master-Module/UpdatePage/VendorUpdate";
 import VendorCreate from "src/pages/Master-Module/CreatePages/VendorCreate";
 import UserPermissionUpdate from "src/pages/Master-Module/UpdatePage/UserPermissionUpdate";
-import UserPermissionCreate from "src/pages/Master-Module/UpdatePage/UserPermissionUpdate";
+// import UserPermissionCreate from "src/pages/Master-Module/UpdatePage/UserPermissionUpdate";
 
 import AddNewAssett from "src/pages/Asset-Module/AssetLists/AddNewAssett";
 import UpdateAddNewAsset from "src/pages/Asset-Module/UpdatePages/UpdateAddNewAsset";
 import ApproveNewAsset from "src/pages/Asset-Module/AssetLists/ApproveNewAsset";
 import ApproveNewAssetCreate from "src/pages/Asset-Module/CreatePages/ApproveNewAssetCreate";
 import CustomTagPrinting from "src/pages/Master-Module/MasterLists/CustomTagPrinting";
+import UserPermissionCreate from "src/pages/Master-Module/CreatePages/UserPermissionCreate";
 interface RouteProps {
   path: string;
   component: any;
@@ -394,10 +395,10 @@ const userRoutes: Array<RouteProps> = [
   { path: "/modify_all_asset/:id", component: <AllAssetUpdate /> },
   { path: "/modify_bulk_asset_allocate/:id", component: <BulkAssetUpdate /> },
   { path: "/modify_damaged_asset/:id", component: <DamagedAssetUpdate /> },
-  { path: "/modify_approve_damaged_asset/:id", component: <ApproveDamagedAssetsUpdate /> },
-
-
-
+  {
+    path: "/modify_approve_damaged_asset/:id",
+    component: <ApproveDamagedAssetsUpdate />,
+  },
 
   //TRANSFER MASTER PAGES PATH
   { path: "/inter_transfer_request", component: <InterTarnsferReq /> },
@@ -407,55 +408,77 @@ const userRoutes: Array<RouteProps> = [
   { path: "/inter_recieve_assets", component: <ReceiveAssets /> },
   { path: "/inter_return_acknowledge", component: <ReturnAknow /> },
 
-  { path: "/inter_transfer_approval_preview/:id", component: <InterTransferApprovePreview /> },
+  {
+    path: "/inter_transfer_approval_preview/:id",
+    component: <InterTransferApprovePreview />,
+  },
   { path: "/inter_transfer_preview/:id", component: <InterTransferPreview /> },
-  { path: "/inter_recieve_asset_preview/:id", component: <InterRecieveAssetsPreview /> },
-  { path: "/inter_return_acknowledge_preview/:id", component: <ReturnAknowPreview /> },
-  {path:"/print_gate_pass_preview/:id", component:< PrintGatePassPreview/>},
+  {
+    path: "/inter_recieve_asset_preview/:id",
+    component: <InterRecieveAssetsPreview />,
+  },
+  {
+    path: "/inter_return_acknowledge_preview/:id",
+    component: <ReturnAknowPreview />,
+  },
+  { path: "/print_gate_pass_preview/:id", component: <PrintGatePassPreview /> },
 
   { path: "/intra_transfer_request", component: <IntraTransferRequest /> },
   { path: "/intra_transfer_approval", component: <IntraTransferApproval /> },
   { path: "/intra_transfer", component: <IntraTransfer /> },
   { path: "/intra_recieve_assets", component: <IntraRecieveAssets /> },
 
-  { path: "/intra_transfer_approval_preview/:id", component: <TransferApprovalPreview /> },
+  {
+    path: "/intra_transfer_approval_preview/:id",
+    component: <TransferApprovalPreview />,
+  },
   { path: "/intra_transfer_preview/:id", component: <TransferPreview /> },
-  { path: "/intra_recieve_asset_preview/:id", component: <RecieveAssetPreview /> },
-
-
-
+  {
+    path: "/intra_recieve_asset_preview/:id",
+    component: <RecieveAssetPreview />,
+  },
 
   //ANALYTICS/REPORT PATH
   { path: "/master_report", component: <MasterReport /> },
-  { path: "/master_report_view", component: <MasterReportview/> },
-  { path: "/asset_status_report", component: <AssetStatusReport/> },
-  { path: "/asset_status_report_view", component: <AssetStatusReportview/> },
-  { path: "/employee_wise_report", component: <EmpWiseReport/> },
-  { path: "/employee_wise_report_view", component: <EmpWiseReportview/> },
-  { path: "/client_wise_report", component: <ClientWiseReport/> },
-  { path: "/client_wise_report_view", component: <ClientWiseReportview/> },
-  { path: "/accessory_history_report", component: <AccessoryHistoryReport/> },
-  { path: "/accessory_history_report_view", component: <AccessoryHistoryReportview/> },
-  { path: "/asset_history_report", component: <AssetHistoryReport/> },
-  { path: "/asset_history_report_view", component: <AssetHistoryReportview/> },
-  { path: "/amc_warrenty_report", component: <AmcWarrentyReport/> },
-  { path: "/amc_warrenty_report_view", component: <AmcWarrenttyReportview/> },
-  { path: "/lease_report", component: <LeaseReport/> },
-  { path: "/lease_report_view", component: <LeaseReportView/> },
+  { path: "/master_report_view", component: <MasterReportview /> },
+  { path: "/asset_status_report", component: <AssetStatusReport /> },
+  { path: "/asset_status_report_view", component: <AssetStatusReportview /> },
+  { path: "/employee_wise_report", component: <EmpWiseReport /> },
+  { path: "/employee_wise_report_view", component: <EmpWiseReportview /> },
+  { path: "/client_wise_report", component: <ClientWiseReport /> },
+  { path: "/client_wise_report_view", component: <ClientWiseReportview /> },
+  { path: "/accessory_history_report", component: <AccessoryHistoryReport /> },
+  {
+    path: "/accessory_history_report_view",
+    component: <AccessoryHistoryReportview />,
+  },
+  { path: "/asset_history_report", component: <AssetHistoryReport /> },
+  { path: "/asset_history_report_view", component: <AssetHistoryReportview /> },
+  { path: "/amc_warrenty_report", component: <AmcWarrentyReport /> },
+  { path: "/amc_warrenty_report_view", component: <AmcWarrenttyReportview /> },
+  { path: "/lease_report", component: <LeaseReport /> },
+  { path: "/lease_report_view", component: <LeaseReportView /> },
 
-  { path: "/transfer_request_report", component: <TransferRequestReport/> },
-  { path: "/transfer_request_report_view", component: <TransferRequestReportview/> },
+  { path: "/transfer_request_report", component: <TransferRequestReport /> },
+  {
+    path: "/transfer_request_report_view",
+    component: <TransferRequestReportview />,
+  },
 
-  { path: "/transfer_report", component: <TransferReport/> },
-  { path: "/transfer_report_view", component: <TransferReportview/> },
+  { path: "/transfer_report", component: <TransferReport /> },
+  { path: "/transfer_report_view", component: <TransferReportview /> },
 
-  { path: "/transfer_recieve_report", component: <TransferRecieveReport/> },
-  { path: "/transfer_recieve_report_view", component: <TransferRecieveReportview/> },
+  { path: "/transfer_recieve_report", component: <TransferRecieveReport /> },
+  {
+    path: "/transfer_recieve_report_view",
+    component: <TransferRecieveReportview />,
+  },
 
-  { path: "/transfer_approval_report", component: <TransferApprovalReport/> },
-  { path: "/transfer_approval_report_view", component: <TransferApprovalReportview/> },
-
-
+  { path: "/transfer_approval_report", component: <TransferApprovalReport /> },
+  {
+    path: "/transfer_approval_report_view",
+    component: <TransferApprovalReportview />,
+  },
 
   //master-list
   { path: "/formDetails", component: <FormDetails /> },
@@ -472,7 +495,10 @@ const userRoutes: Array<RouteProps> = [
 
   { path: "/user_type", component: <UserTypeMaster /> },
   { path: "/user_permission", component: <UserPermission /> },
-  { path: "/create_user_permission", component: <UserPermissionCreate /> },
+  {
+    path: "/create_user_permission",
+    component: <UserPermissionCreate></UserPermissionCreate>,
+  },
   { path: "/modify_user_permission/:id", component: <UserPermissionUpdate /> },
 
   { path: "/user_login", component: <LoginProvision /> },

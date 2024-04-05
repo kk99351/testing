@@ -15,6 +15,8 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { CreateTax } from "src/API/Master/ConfigrationMaster/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const TaxConfigurationCreate = () => {
   const navigate = useNavigate();
@@ -41,22 +43,41 @@ const TaxConfigurationCreate = () => {
       taxname: Yup.string().required("TAX NAME IS REQUIRED"),
       rate: Yup.string().required("TAX RATE IS REQUIRED"),
       taxtype: Yup.string().required("TAX TYPE IS REQUIRED"),
-
     }),
     onSubmit: async values => {
-      alert("form validated !");
-      console.log("values", values);
+      CreateTax([
+        {
+          idtax: 0,
+          nmtax: values.taxname,
+          pertax: values.rate,
+          typtax: values.taxtype,
+        },
+      ])
+        .then(res => {
+          if (res.ok) {
+            toast("Tax created successfully");
+            navigate("/tax_details");
+          } else if (res.status === 400) {
+            toast("Failed to create Tax");
+          } else {
+            toast("already created Tax");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-               CREATE TAX CONFIGURATION
+                CREATE TAX CONFIGURATION
               </h1>
             </CardHeader>
             <CardBody>
@@ -83,7 +104,6 @@ const TaxConfigurationCreate = () => {
                             validation.errors.taxname
                           }
                           style={{ textTransform: "uppercase" }}
-
                         />
                         {validation.touched.taxname &&
                         validation.errors.taxname ? (
@@ -125,7 +145,7 @@ const TaxConfigurationCreate = () => {
                       <Col md={12}>
                         {" "}
                         <Label>
-                        TAX TYPE<font color="red">*</font>
+                          TAX TYPE<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -134,10 +154,11 @@ const TaxConfigurationCreate = () => {
                           onChange={handleChange}
                           onBlur={validation.handleBlur}
                           style={{ textTransform: "uppercase" }}
-
                           invalid={
-                            validation.touched.taxtype && validation.errors.taxtype
-                          }                        >
+                            validation.touched.taxtype &&
+                            validation.errors.taxtype
+                          }
+                        >
                           <option value="">SELECT TAX TYPE</option>
                           <option value="CGST">CGST</option>
                           <option value="SGST">SGST</option>
@@ -145,7 +166,8 @@ const TaxConfigurationCreate = () => {
                           <option value="UTGST">UTGST</option>
                           <option value="CESS">CESS</option>
                         </Input>
-                        {validation.touched.taxtype && validation.errors.taxtype ? (
+                        {validation.touched.taxtype &&
+                        validation.errors.taxtype ? (
                           <FormFeedback type="invalid">
                             {validation.errors.taxtype}
                           </FormFeedback>

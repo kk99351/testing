@@ -103,6 +103,7 @@ const CreateItemsModify = () => {
 
   const handleInputChange = e => {
     const { name, value } = e.target;
+
     setFormData(prevData => ({
       ...prevData,
       [name]: value,
@@ -115,6 +116,9 @@ const CreateItemsModify = () => {
 
   const handleDropdownChange = e => {
     const { name, value } = e.target;
+    if (name === "category") {
+      handleUpdate(value);
+    }
     setFormData(prevData => ({
       ...prevData,
       [name]: value,
@@ -186,6 +190,20 @@ const CreateItemsModify = () => {
         console.log("error in creating group data" + error);
       }
     }
+  };
+
+  const handleUpdate = id => {
+    GetAllData("MaterialSubGroup").then(response => {
+      if (Array.isArray(response)) {
+        let filterdata = response.filter(res => {
+          return Number(res.idgrp.idgrp) === Number(id);
+        });
+        console.log(filterdata);
+        setSubmaterial(filterdata);
+      } else {
+        setSubmaterial([]);
+      }
+    });
   };
 
   return (

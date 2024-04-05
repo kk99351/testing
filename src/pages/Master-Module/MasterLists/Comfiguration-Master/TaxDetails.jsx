@@ -15,43 +15,23 @@ import {
   useSortBy,
   usePagination,
 } from "react-table";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const TaxDetails = () => {
-  const demoData = [
-    {
-      slno: 1,
-      nmTax1: "Sales Tax",
-      perTax1: "7%",
-      nmTax2: "IGST",
-    },
-    {
-      slno: 2,
-      nmTax1: "VAT",
-      perTax1: "20%",
-      nmTax2: "SGST",
-    },
-    {
-      slno: 3,
-      nmTax1: "Income Tax",
-      perTax1: "25%",
-      nmTax2: "CGST",
-    },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/companygroup");
-  //   }
-  //   fetch();
-  // }, [getData]);
+  useEffect(() => {
+    GetAllData("Tax").then(res => {
+      console.log("tax", res);
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   const updatedData = data.map((row, index) => ({ ...row, slno: index + 1 }));
-  //   setResponseData(updatedData);
-  // }, [data]);
   const columns = useMemo(
     () => [
       {
@@ -63,19 +43,19 @@ const TaxDetails = () => {
       },
       {
         Header: "TAX NAME",
-        accessor: "nmTax1",
+        accessor: "nmtax",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "RATE",
-        accessor: "perTax1",
+        accessor: "pertax",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "TAX TYPE",
-        accessor: "nmTax2",
+        accessor: "typtax",
         disableFilters: true,
         filterable: true,
       },
@@ -233,12 +213,12 @@ const TaxDetails = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "id" ? (
                                   <Link
-                                    to={`/modify_tax_configuration/${row.original.id}`}
+                                    to={`/modify_tax_configuration/${row.original.idtax}`}
                                   >
-                                      {String(cell.value).toUpperCase()}{" "}
-  </Link>
-   ) : (
-   String(cell.value).toUpperCase()
+                                    {String(cell.value).toUpperCase()}{" "}
+                                  </Link>
+                                ) : (
+                                  String(cell.value).toUpperCase()
                                 )}
                               </td>
                             ))}

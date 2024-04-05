@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -17,54 +17,100 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { GetAllData, GetSignleData } from "src/API/Master/GlobalGet";
+import { useParams } from "react-router";
+import { CreateBuilding } from "src/API/Master/GeoGraphicalArea.js/Api";
+import { ToastContainer, toast } from "react-toastify";
 
-const PlantUpdate= () => {
+const PlantUpdate = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [entityAl, setEntityAl] = useState([]);
+  const [locationAl, setLocationAl] = useState([]);
+  const [buildingAl, setBuildingAl] = useState([]);
+
+  useEffect(() => {
+    GetAllData("Entity").then(res => {
+      console.log("entity", res);
+      if (Array.isArray(res)) {
+        setEntityAl(res);
+      } else {
+        setEntityAl([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Location").then(res => {
+      console.log("entity", res);
+      if (Array.isArray(res)) {
+        setLocationAl(res);
+      } else {
+        setLocationAl([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetSignleData("Building", id).then(res => {
+      setBuildingAl(res);
+    });
+  }, []);
+
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      company_group: "",
-      region_name: "",
-      cityname: "",
-      plantname: "",
-      building: "",
-      entity:"",
+      plantname: Number(buildingAl?.idloc?.idloc),
+      building: buildingAl?.nmbuilding,
+      entity: Number(buildingAl?.idloc?.identity?.identity),
     },
-    // validationSchema: Yup.object({
-    //   companyGroup: Yup.string().required("Company Group is Required"),
-    //   companyGroupCode: Yup.string().required("Company Group Code is Required"),
-    // }),.
     validationSchema: Yup.object({
-      company_group: Yup.string().required("COUNTRY NAME IS REQUIRED"),
-      region_name: Yup.string().required("STATE NAME IS REQUIRED"),
-      cityname: Yup.string().required("CITY NAME IS REQUIRED"),
       plantname: Yup.string().required("LOCATION NAME IS REQUIRED"),
       building: Yup.string().required("BUILDING NAME IS REQUIRED"),
       entity: Yup.string().required("ENTITY NAME IS REQUIRED"),
-
-     }),
+    }),
 
     onSubmit: async values => {
-      // console.log(values)
-      alert("validated !");
-      // try {
-      //   await axios.post(`http://localhost:3000/companygroup/`, values);
-      //   navigate("/companygroup");
-      // } catch (error) {
-      //   console.log("error in creating companygroup data: " + error);
-      // }
+      CreateBuilding([
+        {
+          idbuilding: id,
+          nmbuilding: values.building,
+          idloc: {
+            idloc: Number(values.plantname),
+            nmLoc: "string",
+            nmcountry: "string",
+            nmstate: "string",
+            nmcity: "string",
+            identity: {
+              identity: Number(values.entity),
+              nmentity: "string",
+              cdentity: "string",
+            },
+          },
+        },
+      ]).then(res => {
+        if (res.ok) {
+          toast("Building created successfully");
+          navigate("/plant");
+        } else if (res.status === 400) {
+          toast("Failed to create Building");
+        } else {
+          toast("already created Building");
+        }
+      });
     },
   });
 
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-              BUILDING DETAILS
+                BUILDING DETAILS
               </h1>
             </CardHeader>
 
@@ -75,39 +121,46 @@ const PlantUpdate= () => {
                     className="needs-validation"
                     onSubmit={validation.handleSubmit}
                   >
-                  <Row className="mb-2">
-                    <Col md={12}>
-                      <FormGroup className="mb-3">
-                        <Label htmlFor="entity">
-                          ENTITY NAME <font color="red">*</font>
-                        </Label>
-                        <Input
-                          type="select"
-                          name="entity"
-                          id="entity"
-                          className="form-control"
-                          onChange={validation.handleChange}
-                          onBlur={validation.handleBlur}
-                          invalid={
-                            validation.touched.entity &&
-                            validation.errors.entity
-                          }style={{ textTransform: "uppercase" }}
-                        >
-                          <option value="">SELECT ENTITY NAME</option>
-                          <option value="US">RA Lmt</option>
-                          <option value="UK">PR Enterprises</option>
-                          <option value="CA">CA  Corporation</option>
-                        </Input>
-                        {validation.touched.entity &&
-                        validation.errors.entity ? (
-                          <FormFeedback type="invalid">
-                            {validation.errors.entity}
-                          </FormFeedback>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-{/* 
+                    <Row className="mb-2">
+                      <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="entity">
+                            ENTITY NAME <font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            name="entity"
+                            id="entity"
+                            className="form-control"
+                            value={validation.values.entity}
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.entity &&
+                              validation.errors.entity
+                            }
+                            style={{ textTransform: "uppercase" }}
+                          >
+                            <option value="">
+                            selct entity
+                            </option>
+                            {entityAl &&
+                              entityAl.map((item, index) => (
+                                <option key={index} value={item?.identity}>
+                                  {item.nmentity}
+                                </option>
+                              ))}
+                          </Input>
+                          {validation.touched.entity &&
+                          validation.errors.entity ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.entity}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    {/* 
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
@@ -228,24 +281,24 @@ const PlantUpdate= () => {
                             name="plantname"
                             id="plantname"
                             className="form-control"
+                            value={validation.values.plantname}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.plantname &&
                               validation.errors.plantname
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
-                            <option value="">SELECT LOCATION </option>
-                            <option value="Downtown Branch">
-                              Downtown Branch
+                            <option value="">
+                              Select Location
                             </option>
-                            <option value="Midtown Branch">
-                              Midtown Branch
-                            </option>
-                            <option value="Westminster Branch">
-                              Westminster Branch
-                            </option>
-                            <option value="CBD Branch">CBD Branch</option>
+                            {locationAl &&
+                              locationAl.map((item, index) => (
+                                <option key={index} value={item.idloc}>
+                                  {item.nmLoc}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.plantname &&
                           validation.errors.plantname ? (
@@ -266,6 +319,7 @@ const PlantUpdate= () => {
                           <Input
                             name="building"
                             type="text"
+                            value={validation.values.building}
                             placeholder="PLEASE ENTER BUILDING NAME"
                             className="form-control"
                             id="building"
@@ -274,7 +328,8 @@ const PlantUpdate= () => {
                             invalid={
                               validation.touched.building &&
                               validation.errors.building
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.building &&
                           validation.errors.building ? (

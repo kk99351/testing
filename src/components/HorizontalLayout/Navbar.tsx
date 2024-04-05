@@ -381,11 +381,11 @@ const Navbar = (props: any) => {
                           {props.t("Approved-Supplier-List ")}
                         </Link> */}
                       </div>
-                      <Link to="/custom_tag_printing" className="dropdown-item ">
+                      
+                    </div>
+                    <Link to="/custom_tag_printing" className="dropdown-item ">
                           {props.t("Custom Tag Printing")}
                         </Link>
-                    </div>
-
                   </div>
                 </li>
 

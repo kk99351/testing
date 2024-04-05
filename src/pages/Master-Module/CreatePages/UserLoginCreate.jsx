@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,6 +16,7 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import "simplebar/dist/simplebar.min.css";
 
 const UserLoginCreate = () => {
   const getCurrentDate = () => {
@@ -60,7 +61,6 @@ const UserLoginCreate = () => {
       Status: Yup.string().required("STATUS IS REQUIRED"),
       UserType: Yup.string().required("USER TYPE IS REQUIRED"),
 
-      
       DisabledDate: Yup.string().test(
         "disabledDate",
         "INVALID DISABLED DATE",
@@ -72,6 +72,37 @@ const UserLoginCreate = () => {
       // console.log("values", values);
     },
   });
+  const [leftItems, setLeftItems] = useState([
+    "Company Master",
+    "Branch",
+    "Plant",
+    "Designation Master",
+    "Employee Master",
+    "Login Provision",
+    "Approved Vendor List",
+    "DOA",
+    "Bank Master",
+    "Payment Terms",
+  ]);
+  const [rightItems, setRightItems] = useState([]);
+
+  const handleMoveRight = () => {
+    const selectedItems = leftItems.filter((_, index) => {
+      const option = document.getElementById(`leftItem${index}`);
+      return option.selected;
+    });
+    setRightItems([...rightItems, ...selectedItems]);
+    setLeftItems(leftItems.filter(item => !selectedItems.includes(item)));
+  };
+
+  const handleMoveLeft = () => {
+    const selectedItems = rightItems.filter((_, index) => {
+      const option = document.getElementById(`rightItem${index}`);
+      return option.selected;
+    });
+    setLeftItems([...leftItems, ...selectedItems]);
+    setRightItems(rightItems.filter(item => !selectedItems.includes(item)));
+  };
 
   return (
     <React.Fragment>
@@ -80,7 +111,7 @@ const UserLoginCreate = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CREATE USER LOGIN 
+                CREATE USER LOGIN
               </h1>
             </CardHeader>
 
@@ -110,7 +141,6 @@ const UserLoginCreate = () => {
                               validation.errors.EmployeeInitials
                             }
                             style={{ textTransform: "uppercase" }}
-
                           >
                             <option value="">SELECT EMPLOYEE INITIALS</option>
                             <option value="dept1">ADMIN</option>
@@ -144,7 +174,6 @@ const UserLoginCreate = () => {
                               validation.errors.Email
                             }
                             style={{ textTransform: "uppercase" }}
-
                           />
                           {validation.touched.Email &&
                           validation.errors.Email ? (
@@ -175,7 +204,6 @@ const UserLoginCreate = () => {
                               validation.errors.LoginName
                             }
                             style={{ textTransform: "uppercase" }}
-
                           />
                           {validation.touched.LoginName &&
                           validation.errors.LoginName ? (
@@ -203,7 +231,6 @@ const UserLoginCreate = () => {
                               validation.errors.Password
                             }
                             style={{ textTransform: "uppercase" }}
-
                           />
                           {validation.touched.Password &&
                           validation.errors.Password ? (
@@ -234,7 +261,6 @@ const UserLoginCreate = () => {
                               validation.errors.ConfirmPassword
                             }
                             style={{ textTransform: "uppercase" }}
-
                           />
                           {validation.touched.ConfirmPassword &&
                           validation.errors.ConfirmPassword ? (
@@ -246,15 +272,15 @@ const UserLoginCreate = () => {
                       </Col>
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="validationCustom06">USER TYPE<font color="red">*</font></Label>
+                          <Label htmlFor="validationCustom06">
+                            USER TYPE<font color="red">*</font>
+                          </Label>
                           <Input
                             name="UserType"
                             type="select"
                             placeholder="PLEASE ENTER USER TYPE"
                             className="form-control"
                             id="validationCustom06"
-
-                            
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -262,7 +288,6 @@ const UserLoginCreate = () => {
                               validation.errors.UserType
                             }
                             style={{ textTransform: "uppercase" }}
-
                           >
                             <option value="">SELECT USER TYPE</option>
                             <option value="dept1">ADMIN</option>
@@ -305,7 +330,6 @@ const UserLoginCreate = () => {
                                   validation.values.Status === "Inactive"
                                 }
                                 style={{ textTransform: "uppercase" }}
-
                               />
                               <Label check>DISABLED</Label>
                             </FormGroup>
@@ -346,7 +370,6 @@ const UserLoginCreate = () => {
                                 validation.errors.DisabledDate
                               }
                               style={{ textTransform: "uppercase" }}
-
                             />
                             {validation.touched.DisabledDate &&
                             validation.errors.DisabledDate ? (
@@ -358,6 +381,57 @@ const UserLoginCreate = () => {
                         </Col>
                       </Row>
                     )}
+                    <Row className="justify-content-center">
+                      <Col xl={12}>
+                        <Row className="m-2">
+                          <Col
+                            md={2}
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <Label style={{ marginBottom: "0" }}>
+                              LOCATION
+                            </Label>
+                          </Col>
+                          <Col md={4}>
+                            <select
+                              multiple
+                              className="w-100 h-100"
+                              style={{ minHeight: "150px" }}
+                            >
+                              {leftItems.map((item, index) => (
+                                <option key={index} id={`leftItem${index}`}>
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
+                          </Col>
+                          <Col
+                            md={2}
+                            className="d-flex justify-content-evenly align-items-center"
+                          >
+                            <Button onClick={handleMoveRight}>Right »</Button>
+                            <Button onClick={handleMoveLeft}>« Left</Button>
+                          </Col>
+                          <Col md={4}>
+                            <select
+                              multiple
+                              className="w-100 h-100"
+                              style={{ minHeight: "150px" }}
+                            >
+                              <Label style={{ marginBottom: "0" }}>
+                              LOCATION
+                            </Label>
+                              {rightItems.map((item, index) => (
+                                <option key={index} id={`rightItem${index}`}>
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                    <hr className="mb-2" />
 
                     <div
                       style={{

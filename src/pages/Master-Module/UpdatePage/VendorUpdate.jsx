@@ -33,12 +33,32 @@ const VendorUpdate = () => {
     });
   }, []);
 
-  const [manufacturerChecked, setManufacturerChecked] = useState(
-    vendor && vendor.service === "true"
-  );
-  const [procuredChecked, setProcuredChecked] = useState(
-    vendor && vendor.procured === "true"
-  );
+  const service = vendor.service
+    ? vendor.service.trim().toLowerCase() === "true"
+    : false;
+
+  const procedure = vendor.service
+    ? vendor.procured.trim().toLowerCase() === "true"
+    : false;
+
+  console.log("Before");
+  console.log(service);
+  console.log(procedure);
+
+  const [manufacturerChecked, setManufacturerChecked] = useState(false);
+  const [procuredChecked, setProcuredChecked] = useState(false);
+
+  useEffect(() => {
+    const service = vendor.service
+      ? vendor.service.trim().toLowerCase() === "true"
+      : false;
+    const procedure = vendor.procured
+      ? vendor.procured.trim().toLowerCase() === "true"
+      : false;
+
+    setManufacturerChecked(service);
+    setProcuredChecked(procedure);
+  }, [vendor.service, vendor.procured]);
 
   const handleManufacturerCheckboxChange = () => {
     setManufacturerChecked(!manufacturerChecked);

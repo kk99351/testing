@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -16,22 +16,52 @@ import {
   Container,
   Card,
 } from "reactstrap";
+import { GetAllData, GetSignleData } from "src/API/Master/GlobalGet";
+
+import { useParams } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+
 import { useNavigate } from "react-router-dom";
 
 const AssetMaintenance = () => {
+  const { id } = useParams();
+  const [material, setMaterial] = useState([]);
+  const [submaterial, setSubmaterial] = useState([]);
   const navigate = useNavigate();
+  const [currentData, setCurrentData] = useState([]);
+
+
+   useEffect(() => {
+    GetAllData("MaterialGroup").then(res => {
+      if (Array.isArray(res)) {
+        setMaterial(res);
+      } else {
+        setMaterial([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("MaterialSubGroup").then(res => {
+      if (Array.isArray(res)) {
+        setSubmaterial(res);
+      } else {
+        setSubmaterial([]);
+      }
+    });
+  }, []);
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      assetMaterial: "",
-      assetSubMaterial: "",
+      category: currentData?.idsgrp?.idgrp?.idgrp,
+      sub_category: currentData?.idsgrp?.idgrp?.idgrp,
       asset: "",
       assetId: "",
     },
     validationSchema: Yup.object({
-      assetMaterial: Yup.string().required("ASSET MATERIAL GROUP IS REQUIRED"),
-      assetSubMaterial: Yup.string().required(
+      category: Yup.string().required("ASSET MATERIAL GROUP IS REQUIRED"),
+      sub_category: Yup.string().required(
         "ASSET MATERIAL SUB GROUP IS REQUIRED"
       ),
       asset: Yup.string().required("ASSET IS REQUIRED"),
@@ -65,32 +95,34 @@ const AssetMaintenance = () => {
                     <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="assetMaterial">
+                          <Label htmlFor="category">
                             ASSET MATERIAL-GROUP <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="assetMaterial"
-                            id="assetMaterial"
+                            name="category"
+                            id="category"
+                            value={validation.values.category}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.assetMaterial &&
-                              validation.errors.assetMaterial
+                              validation.touched.category &&
+                              validation.errors.category
                             }
                             style={{ textTransform: "uppercase" }}
                           >
-                            <option value="">
-                              SELECT ASSET MATERIAL GROUP
-                            </option>
-                            <option value="Electronics">Electronics</option>
-                            <option value="Furniture">Furniture</option>
-                            <option value="Hardware">Hardware</option>
+                            <option value="">SELECT MATERIAL GROUP</option>
+                          {material &&
+                            material.map((item, index) => (
+                              <option key={index} value={item.idgrp}>
+                                {item.nmgrp}
+                              </option>
+                            ))}
                           </Input>
-                          {validation.touched.assetMaterial &&
-                          validation.errors.assetMaterial ? (
+                          {validation.touched.category &&
+                          validation.errors.category ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.assetMaterial}
+                              {validation.errors.category}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
@@ -98,32 +130,35 @@ const AssetMaintenance = () => {
                     
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="assetSubMaterial">
+                          <Label htmlFor="sub_category">
                             ASSET MATERIAL SUB GROUP <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="assetSubMaterial"
-                            id="assetSubMaterial"
+                            name="sub_category"
+                            id="sub_category"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.assetSubMaterial &&
-                              validation.errors.assetSubMaterial
+                              validation.touched.sub_category &&
+                              validation.errors.sub_category
                             }
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">
                               SELECT ASSET MATERIAL SUB GROUP
                             </option>
-                            <option value="Electronics">Electronics</option>
-                            <option value="Furniture">Furniture</option>
-                            <option value="Hardware">Hardware</option>
+                            {submaterial &&
+                            submaterial.map((item, index) => (
+                              <option key={index} value={item.idsgrp}>
+                                {item.nmsgrp}
+                              </option>
+                            ))}
                           </Input>
-                          {validation.touched.assetSubMaterial &&
-                          validation.errors.assetSubMaterial ? (
+                          {validation.touched.sub_category &&
+                          validation.errors.sub_category ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.assetSubMaterial}
+                              {validation.errors.sub_category}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>

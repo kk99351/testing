@@ -34,6 +34,7 @@ const CreateItemsCreate = () => {
 
   useEffect(() => {
     GetAllData("MaterialSubGroup").then(res => {
+      console.log("sub", res);
       if (Array.isArray(res)) {
         setSubmaterial(res);
       } else {
@@ -84,6 +85,11 @@ const CreateItemsCreate = () => {
 
   const handleDropdownChange = e => {
     const { name, value } = e.target;
+    if (name === "category") {
+      console.log("category");
+      handleUpdate(value);
+    }
+    console.log(name);
     setFormData(prevData => ({
       ...prevData,
       [name]: value,
@@ -153,6 +159,19 @@ const CreateItemsCreate = () => {
     }
   };
 
+  const handleUpdate = id => {
+    GetAllData("MaterialSubGroup").then(response => {
+      if (Array.isArray(response)) {
+        let filterdata = response.filter(res => {
+          return Number(res.idgrp.idgrp) === Number(id);
+        });
+        setSubmaterial(filterdata);
+      } else {
+        setSubmaterial([]);
+      }
+    });
+  };
+
   return (
     <React.Fragment>
       <Container fluid>
@@ -207,7 +226,9 @@ const CreateItemsCreate = () => {
                           invalid={!!errors.item_name}
                           style={{ textTransform: "uppercase" }}
                         />
-                        <span className="invalid-feedback">{errors.item_name}</span>
+                        <span className="invalid-feedback">
+                          {errors.item_name}
+                        </span>
                       </Col>
                     </Row>
                     <Row className="mb-2">
@@ -249,7 +270,7 @@ const CreateItemsCreate = () => {
                           invalid={!!errors.sub_category}
                           style={{ textTransform: "uppercase" }}
                         >
-                          <option value=""> SELECT MATERIAL SUB GROUPL</option>
+                          <option value=""> SELECT MATERIAL SUB GROUP</option>
                           {submaterial &&
                             submaterial.map((item, index) => (
                               <option key={index} value={item.idsgrp}>
