@@ -34,6 +34,7 @@ const BranchCreate = () => {
   const [location, setLocation] = useState([]);
   const { id } = useParams();
   const [entityAl, setEntityAl] = useState([]);
+  const [initialState, setInitialState] = useState("");
 
   useEffect(() => {
     GetAllData("Entity").then(res => {
@@ -48,7 +49,6 @@ const BranchCreate = () => {
 
   useEffect(() => {
     GetSignleData("Location", id).then(res => {
-      console.log("Location", res);
       setLocation(res);
     });
   }, []);
@@ -72,13 +72,14 @@ const BranchCreate = () => {
     }),
 
     onSubmit: values => {
-      console.log(values);
+      let con = countryData.find(res => res.isoCode === values.country);
+      let stat = stateData.find(res => res.isoCode === values.state);
       CreateLocation([
         {
           idloc: id,
           nmLoc: values.location,
-          nmcountry: values.country,
-          nmstate: values.state,
+          nmcountry: con != undefined ? con.name : values.country,
+          nmstate: stat != undefined ? stat.name : values.state,
           nmcity: values.city,
           identity: {
             identity: Number(values.entity),
@@ -89,7 +90,7 @@ const BranchCreate = () => {
       ]).then(res => {
         console.log(res);
         if (res.ok) {
-          toast("Location created successfully");
+          toast("Location Updated successfully");
           navigate("/branch");
         } else if (res.status === 400) {
           toast("Location Already Exists");
@@ -105,9 +106,7 @@ const BranchCreate = () => {
       const countries = await Country.getAllCountries();
       setCountryData(countries);
       setCountry(countries[0]);
-      console.log(countries);
     };
-
     fetchData();
   }, []);
 
@@ -118,6 +117,8 @@ const BranchCreate = () => {
       setState(states[0]);
     }
   }, [country]);
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     if (state) {

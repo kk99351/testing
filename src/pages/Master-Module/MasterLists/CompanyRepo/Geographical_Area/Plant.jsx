@@ -15,65 +15,25 @@ import {
   useGlobalFilter,
 } from "react-table";
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
+import { Country } from "country-state-city";
 
 const plant = () => {
-  const demoData = [
-    {
-      companygroup: "United States",
-      region: "California",
-      entityName: "PR Limited",
-
-      city: "Los Angeles",
-      branch: "Downtown Branch",
-      building: "Central Tower",
-    },
-    {
-      companygroup: "United States",
-      region: "New York",
-      city: "New York City",
-      entityName: "AR Corporation",
-
-      branch: "Midtown Branch",
-      building: "Empire State Building",
-    },
-    {
-      companygroup: "United Kingdom",
-      region: "England",
-      city: "London",
-      entityName: "PR Limited",
-
-      branch: "Westminster Branch",
-      building: "Westminster Palace",
-    },
-    {
-      companygroup: "Canada",
-      region: "Ontario",
-      city: "Toronto",
-      entityName: "AR Corporation",
-
-      branch: "Downtown Branch",
-      building: "CN Tower",
-    },
-    {
-      companygroup: "Australia",
-      region: "New South Wales",
-      entityName: "AR Corporation",
-
-      city: "Sydney",
-      branch: "CBD Branch",
-      building: "Sydney Tower",
-    },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
+  const [country, setCountry] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   fetch("http://localhost:3000/plant")
-  //     .then(response => response.json())
-  //     .then(data => setResponseData(data))
-  //     .catch(error => console.error("Error fetching users:", error));
-  // }, []);
+  useEffect(() => {
+    GetAllData("Building").then(res => {
+      console.log("res", res[1]);
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
+
 
   const columns = useMemo(
     () => [
@@ -86,37 +46,37 @@ const plant = () => {
       },
       {
         Header: "ENTITY",
-        accessor: "entityName",
+        accessor: "idloc.identity.nmentity",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "COUNTRY",
-        accessor: "companygroup",
+        accessor: "idloc.nmcountry",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "STATE ",
-        accessor: "region",
+        accessor: "idloc.nmstate",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "CITY ",
-        accessor: "city",
+        accessor: "idloc.nmcity",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "LOCATION NAME",
-        accessor: "branch",
+        accessor: "idloc.nmLoc",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "BUILDING NAME",
-        accessor: "building",
+        accessor: "nmbuilding",
         disableFilters: true,
         filterable: true,
       },
@@ -267,7 +227,7 @@ const plant = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/updateplant/${row.original.id}`}>
+                                  <Link to={`/updateplant/${row.original.idbuilding}`}>
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (

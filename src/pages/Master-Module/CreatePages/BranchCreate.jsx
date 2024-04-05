@@ -66,12 +66,14 @@ const BranchCreate = () => {
     }),
 
     onSubmit: values => {
+      let con = countryData.find(res => res.isoCode === values.country);
+      let stat = stateData.find(res => res.isoCode === values.state);
       CreateLocation([
         {
           idloc: 0,
           nmLoc: values.location,
-          nmcountry: values.country,
-          nmstate: values.state,
+          nmcountry: con.name,
+          nmstate: stat.name,
           nmcity: values.city,
           identity: {
             identity: Number(values.entity),

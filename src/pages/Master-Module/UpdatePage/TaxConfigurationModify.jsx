@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -15,9 +15,21 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { GetSignleData } from "src/API/Master/GlobalGet";
+import { useParams } from "react-router";
+import { CreateTax } from "src/API/Master/ConfigrationMaster/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const TaxConfigurationModify = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [tax, setTax] = useState([]);
+
+  useEffect(() => {
+    GetSignleData("Tax", id).then(res => {
+      setTax(res);
+    });
+  }, []);
 
   const handleChange = event => {
     const fieldName = event.target.name;
@@ -32,25 +44,44 @@ const TaxConfigurationModify = () => {
     enableReinitialize: true,
 
     initialValues: {
-      taxname: "",
-      rate: "",
-      taxtype: "",
+      taxname: tax?.nmtax,
+      rate: tax?.pertax,
+      taxtype: tax?.typtax,
     },
 
     validationSchema: Yup.object({
       taxname: Yup.string().required("TAX NAME IS REQUIRED"),
       rate: Yup.string().required("TAX RATE IS REQUIRED"),
       taxtype: Yup.string().required("TAX TYPE IS REQUIRED"),
-
     }),
     onSubmit: async values => {
-      alert("form validated !");
-      console.log("values", values);
+      CreateTax([
+        {
+          idtax: id,
+          nmtax: values.taxname,
+          pertax: values.rate,
+          typtax: values.taxtype,
+        },
+      ])
+        .then(res => {
+          if (res.ok) {
+            toast("Tax Updated successfully");
+            navigate("/tax_details");
+          } else if (res.status === 400) {
+            toast("Failed to Update Tax");
+          } else {
+            toast("already created Tax");
+          }
+        })
+        .catch(err => {
+          toast(err.message);
+        });
     },
   });
 
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card>
@@ -81,7 +112,8 @@ const TaxConfigurationModify = () => {
                           invalid={
                             validation.touched.taxname &&
                             validation.errors.taxname
-                          }style={{ textTransform: "uppercase" }}
+                          }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.taxname &&
                         validation.errors.taxname ? (
@@ -108,7 +140,8 @@ const TaxConfigurationModify = () => {
                           onBlur={validation.handleBlur}
                           invalid={
                             validation.touched.rate && validation.errors.rate
-                          }style={{ textTransform: "uppercase" }}
+                          }
+                          style={{ textTransform: "uppercase" }}
                         />
                         {validation.touched.rate && validation.errors.rate ? (
                           <FormFeedback type="invalid">
@@ -123,7 +156,7 @@ const TaxConfigurationModify = () => {
                       <Col md={12}>
                         {" "}
                         <Label>
-                        TAX TYPE<font color="red">*</font>
+                          TAX TYPE<font color="red">*</font>
                         </Label>
                         <Input
                           type="select"
@@ -132,8 +165,10 @@ const TaxConfigurationModify = () => {
                           onChange={handleChange}
                           onBlur={validation.handleBlur}
                           invalid={
-                            validation.touched.taxtype && validation.errors.taxtype
-                          }                        >
+                            validation.touched.taxtype &&
+                            validation.errors.taxtype
+                          }
+                        >
                           <option value="">SELECT TAX TYPE</option>
                           <option value="CGST">CGST</option>
                           <option value="SGST">SGST</option>
@@ -141,7 +176,8 @@ const TaxConfigurationModify = () => {
                           <option value="UTGST">UTGST</option>
                           <option value="CESS">CESS</option>
                         </Input>
-                        {validation.touched.taxtype && validation.errors.taxtype ? (
+                        {validation.touched.taxtype &&
+                        validation.errors.taxtype ? (
                           <FormFeedback type="invalid">
                             {validation.errors.taxtype}
                           </FormFeedback>

@@ -73,11 +73,18 @@ const UserPermissionCreate = () => {
   const [dept, setDept] = useState([]);
   const [city, setCity] = useState([]);
   const [location, setLocation] = useState([]);
+  const [allLocation, setAllLocation] = useState([]);
+  const [responseData, setResponseData] = useState([]);
 
   useEffect(() => {
     GetSignleData("UPermission", id).then(data => {
-      console.log("item", data);
+      setResponseData(data);
+      data.iddept.forEach(item => {
+        selectedDepartment.push(item.iddept);
+      });
       data.submodules.forEach(item => {
+        // selectedDepartment.push(item.iddept.iddept);
+        // selectedLocation.push(item.entities.identity);
         switch (item.idmodule.nmModule) {
           case "MASTER": {
             setRightItems(prevLeftItems => [...prevLeftItems, item]);
@@ -114,7 +121,6 @@ const UserPermissionCreate = () => {
   useEffect(() => {
     GetAllData("SubModule").then(res => {
       if (Array.isArray(res)) {
-        console.log(res);
         setSubmodule(res);
       } else {
         setSubmodule([]);
@@ -125,7 +131,6 @@ const UserPermissionCreate = () => {
   useEffect(() => {
     GetAllData("Dept").then(res => {
       if (Array.isArray(res)) {
-        console.log(res);
         setDept(res);
       } else {
         setDept([]);
@@ -134,9 +139,8 @@ const UserPermissionCreate = () => {
   }, []);
 
   useEffect(() => {
-    GetAllData("Location").then(res => {
+    GetAllData("Entity").then(res => {
       if (Array.isArray(res)) {
-        console.log(res);
         setLocation(res);
       } else {
         setLocation([]);
@@ -145,9 +149,18 @@ const UserPermissionCreate = () => {
   }, []);
 
   useEffect(() => {
+    GetAllData("Location").then(res => {
+      if (Array.isArray(res)) {
+        setAllLocation(res);
+      } else {
+        setAllLocation([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
     GetAllData("City").then(res => {
       if (Array.isArray(res)) {
-        console.log(res);
         setCity(res);
       } else {
         setCity([]);
@@ -475,7 +488,7 @@ const UserPermissionCreate = () => {
 
   const formik = useFormik({
     initialValues: {
-      userType: "",
+      userType: responseData?.usertype?.nmusertype,
       owner: [],
       department: [],
       location: [],
@@ -494,87 +507,88 @@ const UserPermissionCreate = () => {
         };
       });
 
-      const depts = dept.map(res => {
+      let subMod1 = assetsRightItems.map(value => {
         return {
-          iddept: res.iddept,
+          idSubmodule: value.idSubmodule,
+          nmSubmodule: value.nmSubmodule,
+          idmodule: {
+            idmodule: value.idmodule.idmodule,
+            nmModule: value.idmodule.nmModule,
+          },
+        };
+      });
+
+      let subMod2 = depreciationRightItems.map(value => {
+        return {
+          idSubmodule: value.idSubmodule,
+          nmSubmodule: value.nmSubmodule,
+          idmodule: {
+            idmodule: value.idmodule.idmodule,
+            nmModule: value.idmodule.nmModule,
+          },
+        };
+      });
+
+      const combinedArray = [...subMod, ...subMod1, ...subMod2];
+
+      const depts = selectedDepartment.map(res => {
+        return {
+          iddept: res,
           nmdept: "string",
           cddept: "string",
         };
       });
 
-      const Location = location.map(item => {
+      const Entity = selectedLocation.map(item => {
         return {
-          idlocs: [
-            {
-              idloc: 6,
-              nmLoc: "string",
-              cdLoc: "string",
-              idcountry: {
-                idcountry: 0,
-                nmCountry: "string",
-                cdCountry: "string",
-              },
-            },
-          ],
+          identity: item,
+          nmentity: "string",
+          cdentity: "string",
         };
       });
 
-      console.log("sub", subMod);
-
-      // const SubLocation=SubLocation.map((res)=>{
-      //   return {
-
-      //   }
-      // })
+      const sub = selectedSublocation.map(item => {
+        return {
+          idsloc: item,
+          nmSubl: "string",
+          cdSubl: "string",
+          idloc: {
+            idloc: 0,
+            nmLoc: "string",
+            cdLoc: "string",
+            idcountry: {
+              idcountry: 0,
+              nmCountry: "string",
+              cdCountry: "string",
+            },
+          },
+        };
+      });
 
       CreateUserPermission([
         {
-          idpermission: 0,
+          idpermission: id,
           typasst: values.owner[0],
           idccs: "string",
           usertype: {
             idusertype: Number(values.userType),
             nmusertype: "string",
           },
-          submodules: subMod,
+          submodules: combinedArray,
           iddept: depts,
-          idlocs: [
-            {
-              idloc: 6,
-              nmLoc: "string",
-              cdLoc: "string",
-              idcountry: {
-                idcountry: 0,
-                nmCountry: "string",
-                cdCountry: "string",
-              },
-            },
-          ],
-          idsubls: [
-            {
-              idsloc: 2,
-              nmSubl: "string",
-              cdSubl: "string",
-              idloc: {
-                idloc: 0,
-                nmLoc: "string",
-                cdLoc: "string",
-                idcountry: {
-                  idcountry: 0,
-                  nmCountry: "string",
-                  cdCountry: "string",
-                },
-              },
-            },
-          ],
+          entities: Entity,
+          idsubls: sub,
         },
       ])
         .then(res => {
+          console.log("response", res);
           if (res.ok) {
-            toast("UserPermission Created successfully");
+            toast("UserPermission created successfully");
             navigate("/user_permission");
+          } else if (res.status === 400) {
+            toast("UserPermission already Given");
           } else {
-            toast("UserPermission already exists");
+            toast("Failed to Give Permission");
           }
         })
         .catch(err => {
@@ -582,6 +596,37 @@ const UserPermissionCreate = () => {
         });
     },
   });
+
+  useEffect(() => {
+    if (selectedLocation.length > 1) {
+      GetAllData("Location").then(res => {
+        if (Array.isArray(res)) {
+          let db = res.filter(res =>
+            selectedLocation.includes(res?.identity?.identity)
+          );
+          setAllLocation(db);
+        } else {
+          setAllLocation([]);
+        }
+      });
+    } else {
+      let db = allLocation.filter(res =>
+        selectedLocation.includes(res?.identity?.identity)
+      );
+      setAllLocation(db);
+    }
+  }, [selectedLocation]);
+
+  const handleOptionClick2 = (id, setSelected) => {
+    const index = selectedSublocation.indexOf(id);
+    if (index === -1) {
+      setSelected([...selectedSublocation, id]);
+    } else {
+      const updatedSelected = [...selectedSublocation];
+      updatedSelected.splice(index, 1);
+      setSelected(updatedSelected);
+    }
+  };
 
   return (
     <div className="page-content">
@@ -608,7 +653,9 @@ const UserPermissionCreate = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.userType}
                   >
-                    <option value="">SELECT USER TYPE</option>
+                    <option value="">
+                      {responseData?.usertype?.nmusertype}
+                    </option>
                     {userType &&
                       userType.map((item, index) => (
                         <option key={index} value={item.idusertype}>
@@ -974,9 +1021,11 @@ const UserPermissionCreate = () => {
                               handleOptionClick(item, setSelectedOwner)
                             }
                             style={{
-                              backgroundColor: selectedOwner.includes(item)
-                                ? "#c3e6cb"
-                                : "inherit",
+                              backgroundColor:
+                                selectedOwner.includes(item) ||
+                                item === responseData?.typasst
+                                  ? "#c3e6cb"
+                                  : "inherit",
                             }}
                           >
                             {item}
@@ -1018,17 +1067,20 @@ const UserPermissionCreate = () => {
                               )
                             }
                             style={{
-                              backgroundColor: selectedDepartment.includes(
-                                item.iddept
-                              )
-                                ? "#c3e6cb"
-                                : "inherit",
+                              backgroundColor:
+                                selectedDepartment?.includes(item.iddept) ||
+                                responseData?.iddept?.some(
+                                  res => res.iddept === item.iddept
+                                )
+                                  ? "#c3e6cb"
+                                  : "inherit",
                             }}
                           >
                             {item.nmdept}
                           </option>
                         ))}
                       </Input>
+
                       {formik.touched.department && formik.errors.department ? (
                         <div className="invalid-feedback d-block">
                           {formik.errors.department}
@@ -1039,7 +1091,7 @@ const UserPermissionCreate = () => {
                   <Col md={3} className="text-center">
                     <FormGroup>
                       <Label>
-                        CITY<font color="red">*</font>
+                        ENTITY<font color="red">*</font>
                       </Label>
                       <Input
                         type="select"
@@ -1053,20 +1105,27 @@ const UserPermissionCreate = () => {
                         }
                         style={{ height: "200px" }}
                       >
-                        {locations.map(item => (
+                        {location.map(item => (
                           <option
                             key={item}
                             value={item}
                             onClick={() =>
-                              handleOptionClick(item, setSelectedLocation)
+                              handleOptionClick(
+                                item.identity,
+                                setSelectedLocation
+                              )
                             }
                             style={{
-                              backgroundColor: selectedLocation.includes(item)
-                                ? "#c3e6cb"
-                                : "inherit",
+                              backgroundColor:
+                                selectedLocation.includes(item) ||
+                                responseData?.entities?.some(
+                                  res => res.identity === item.identity
+                                )
+                                  ? "#c3e6cb"
+                                  : "inherit",
                             }}
                           >
-                            {item}
+                            {item.nmentity}
                           </option>
                         ))}
                       </Input>
@@ -1095,25 +1154,27 @@ const UserPermissionCreate = () => {
                         }
                         style={{ height: "200px" }}
                       >
-                        {location.map(item => (
+                        {allLocation.map(item => (
                           <option
-                            key={item}
-                            value={item.idLoc}
+                            key={item.idloc}
+                            value={item.idloc}
                             onClick={() =>
-                              handleOptionClick(
-                                item.idLoc,
+                              handleOptionClick2(
+                                item.idloc,
                                 setSelectedSublocation
                               )
                             }
                             style={{
-                              backgroundColor: selectedSublocation.includes(
-                                item.idLoc
-                              )
-                                ? "#c3e6cb"
-                                : "inherit",
+                              backgroundColor:
+                                selectedSublocation.includes(item.idloc) ||
+                                responseData?.entities?.some(
+                                  res => res.identity === item.identity
+                                )
+                                  ? "#c3e6cb"
+                                  : "inherit",
                             }}
                           >
-                            {item.nmLoc}
+                            {item.nmcountry}
                           </option>
                         ))}
                       </Input>

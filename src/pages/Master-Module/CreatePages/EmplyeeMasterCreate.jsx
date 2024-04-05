@@ -311,26 +311,13 @@ const EmplyeeMasterCreate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT DESIGNATION</option>
-                            <option value="Manager">Manager</option>
-                            <option value="Assistant Manager">
-                              Assistant Manager
-                            </option>
-                            <option value="Team Lead">Team Lead</option>
-                            <option value="Software Engineer">
-                              Software Engineer
-                            </option>
-                            <option value="HR Coordinator">
-                              HR Coordinator
-                            </option>
-                            <option value="Sales Representative">
-                              Sales Representative
-                            </option>
-                            {/* {deligations &&
+                            
+                            {deligations &&
                               deligations.map((item, index) => (
-                                <option key={index} value={item.nmdept}>
-                                  {item.iddept}
+                                <option key={index} value={item.iddesign}>
+                                  {item.nmdesign}
                                 </option>
-                              ))} */}
+                              ))}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.designation &&
@@ -390,8 +377,8 @@ const EmplyeeMasterCreate = () => {
                             <option value="">SELECT DEPARTMENT</option>
                             {deperatment &&
                               deperatment.map((item, index) => (
-                                <option key={index} value={item.nmdept}>
-                                  {item.iddept}
+                                <option key={index} value={item.iddept}>
+                                  {item.nmdept}
                                 </option>
                               ))}
                           </Input>

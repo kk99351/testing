@@ -15,80 +15,23 @@ import {
   useGlobalFilter,
 } from "react-table";
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const Floor = () => {
-  const demoData = [
-    {
-      companygroup: "United States",
-      region: "California",
-      city: "Los Angeles",
-      branch: "Downtown Branch",
-      building: "Central Tower",
-      floor: 10,
-      entityName: "PR Limited",
-
-      door: "1001",
-      pincode: "90001",
-    },
-    {
-      companygroup: "United States",
-      region: "New York",
-      city: "New York City",
-      branch: "Midtown Branch",
-      building: "Empire State Building",
-      floor: 20,
-      door: "2001",
-      entityName: "PR Limited",
-
-      pincode: "10001",
-    },
-    {
-      companygroup: "United Kingdom",
-      region: "England",
-      city: "London",
-      entityName: "AR Corporation",
-
-      branch: "Westminster Branch",
-      building: "Westminster Palace",
-      floor: 5,
-      door: "501",
-      pincode: "SW1A 1AA",
-    },
-    {
-      companygroup: "Canada",
-      region: "Ontario",
-      city: "Toronto",
-      entityName: "AR Corporation",
-      branch: "Downtown Branch",
-      building: "CN Tower",
-      floor: 15,
-      door: "1501",
-      pincode: "M5V 2T6",
-    },
-    {
-      companygroup: "Australia",
-      region: "New South Wales",
-      city: "Sydney",
-      entityName: "PR Limited",
-
-      branch: "CBD Branch",
-      building: "Sydney Tower",
-      floor: 30,
-      door: "3001",
-      pincode: "2000",
-    },
-  ];
-
-  const [responseData, setResponseData] = useState(demoData);
+  
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   fetch("http://localhost:3000/plant")
-  //     .then(response => response.json())
-  //     .then(data => setResponseData(data))
-  //     .catch(error => console.error("Error fetching users:", error));
-  // }, []);
+  useEffect(()=>{
+    GetAllData("Floor").then(res => {
+      console.log("res", res[1]);
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  },[])
 
   const columns = useMemo(
     () => [
@@ -101,59 +44,48 @@ const Floor = () => {
       },
       {
         Header: "ENTITY",
-        accessor: "entityName",
+        accessor: "idbuilding.idloc.identity.nmentity",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "COUNTRY",
-        accessor: "companygroup",
+        accessor: "idbuilding.idloc.nmcountry",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "STATE ",
-        accessor: "region",
+        accessor: "idbuilding.idloc.nmstate",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "CITY ",
-        accessor: "city",
+        accessor: "idbuilding.idloc.nmcity",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "LOCATION NAME",
-        accessor: "branch",
+        accessor: "idbuilding.idloc.nmLoc",
 
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "BUILDING NAME",
-        accessor: "building",
+        accessor: "idbuilding.nmbuilding",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "FLOOR NUMBER",
-        accessor: "floor",
+        accessor: "nmflr",
         disableFilters: true,
         filterable: true,
       },
-      {
-        Header: "DOOR NUMBER",
-        accessor: "door",
-        disableFilters: true,
-        filterable: true,
-      },
-      {
-        Header: "PINCODE",
-        accessor: "pincode",
-        disableFilters: true,
-        filterable: true,
-      },
+     
     ],
     []
   );
@@ -301,7 +233,7 @@ const Floor = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/updatefloor/${row.original.id}`}>
+                                  <Link to={`/updatefloor/${row.original.idflr}`}>
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (

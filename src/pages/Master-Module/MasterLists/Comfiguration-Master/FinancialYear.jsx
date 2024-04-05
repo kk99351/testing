@@ -10,50 +10,27 @@ import {
   useSortBy,
   usePagination,
 } from "react-table";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const FinancialYear = () => {
   FinancialYear.propTypes = {
     row: PropTypes.object.isRequired,
   };
-  const demoData = [
-    {
-      stDate: "2022-04-01",
-      endDate: "2024-03-31",
-      halfendDate: "2022-04-01",
-      halfstDate: "2022-10-31",
-      secStDate: "2022-11-01",
-      secEndDate: "2024-03-31",
-    },
-    {
-      stDate: "2022-04-01",
-      endDate: "2024-03-31",
-      halfendDate: "2022-04-01",
-      halfstDate: "2022-10-31",
-      secStDate: "2022-11-01",
-      secEndDate: "2024-03-31",
-    },
-    {
-      stDate: "2022-04-01",
-      endDate: "2024-03-31",
-      halfendDate: "2022-04-01",
-      halfstDate: "2022-10-31",
-      secStDate: "2022-11-01",
-      secEndDate: "2024-03-31",
-    },
-    {
-      stDate: "2022-04-01",
-      endDate: "2024-03-31",
-      halfendDate: "2022-04-01",
-      halfstDate: "2022-10-31",
-      secStDate: "2022-11-01",
-      secEndDate: "2024-03-31",
-    },
-  ];
 
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
   const [selectedRowFirstTable, setSelectedRowFirstTable] = useState(null);
   const [selectedRowSecondTable, setSelectedRowSecondTable] = useState(null);
+
+  useEffect(() => {
+    GetAllData("FY").then(res => {
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
 
   const firstTableColumns = useMemo(
     () => [
@@ -69,13 +46,13 @@ const FinancialYear = () => {
         columns: [
           {
             Header: "START DATE",
-            accessor: "stDate",
+            accessor: "stdfinance",
             disableFilters: true,
             filterable: true,
           },
           {
             Header: "END DATE",
-            accessor: "endDate",
+            accessor: "endfinance",
             disableFilters: true,
             filterable: true,
           },
@@ -86,13 +63,13 @@ const FinancialYear = () => {
         columns: [
           {
             Header: "START DATE",
-            accessor: "halfstDate",
+            accessor: "stdtfirst",
             disableFilters: true,
             filterable: true,
           },
           {
             Header: "END DATE",
-            accessor: "halfendDate",
+            accessor: "endtfirst",
             disableFilters: true,
             filterable: true,
           },
@@ -103,13 +80,13 @@ const FinancialYear = () => {
         columns: [
           {
             Header: "START DATE",
-            accessor: "secStDate",
+            accessor: "stdtsecond",
             disableFilters: true,
             filterable: true,
           },
           {
             Header: "END DATE",
-            accessor: "secEndDate",
+            accessor: "endtsecond",
             disableFilters: true,
             filterable: true,
           },
@@ -151,13 +128,13 @@ const FinancialYear = () => {
         columns: [
           {
             Header: "START DATE",
-            accessor: "stDate",
+            accessor: "parstdfin",
             disableFilters: true,
             filterable: true,
           },
           {
             Header: "END DATE",
-            accessor: "endDate",
+            accessor: "parendfin",
             disableFilters: true,
             filterable: true,
           },
@@ -168,13 +145,13 @@ const FinancialYear = () => {
         columns: [
           {
             Header: "START DATE",
-            accessor: "halfstDate",
+            accessor: "parstdfirst",
             disableFilters: true,
             filterable: true,
           },
           {
             Header: "END DATE",
-            accessor: "halfendDate",
+            accessor: "parendfirst",
             disableFilters: true,
             filterable: true,
           },
@@ -185,13 +162,13 @@ const FinancialYear = () => {
         columns: [
           {
             Header: "START DATE",
-            accessor: "secStDate",
+            accessor: "parstdsecond",
             disableFilters: true,
             filterable: true,
           },
           {
             Header: "END DATE",
-            accessor: "secEndDate",
+            accessor: "parendsecond",
             disableFilters: true,
             filterable: true,
           },
@@ -228,8 +205,6 @@ const FinancialYear = () => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
-      
-   
     }));
   }, [responseData]);
 
