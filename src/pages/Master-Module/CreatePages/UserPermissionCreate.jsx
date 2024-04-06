@@ -503,19 +503,12 @@ const UserPermissionCreate = () => {
 
       const sub = selectedSublocation.map(item => {
         return {
-          idsloc: item,
-          nmSubl: "string",
-          cdSubl: "string",
-          idloc: {
-            idloc: 0,
-            nmLoc: "string",
-            cdLoc: "string",
-            idcountry: {
-              idcountry: 0,
-              nmCountry: "string",
-              cdCountry: "string",
-            },
-          },
+          idloc: item,
+          nmLoc: "string",
+          nmcountry: null,
+          nmstate: null,
+          nmcity: null,
+          identity: null,
         };
       });
 
@@ -531,7 +524,7 @@ const UserPermissionCreate = () => {
           submodules: combinedArray,
           iddept: depts,
           entities: Entity,
-          idsubls: sub,
+          idlocs: sub,
         },
       ])
         .then(res => {
@@ -539,9 +532,9 @@ const UserPermissionCreate = () => {
           if (res.ok) {
             toast("UserPermission created successfully");
             navigate("/user_permission");
-          } else if(res.status===400) {
+          } else if (res.status === 400) {
             toast("UserPermission already Given");
-          }else{
+          } else {
             toast("Failed to Give Permission");
           }
         })

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,10 +16,8 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import { CreateAssests } from "src/API/Assest/AddTostore/Api";
-import { GetAllData, GetSignleData } from "src/API/Master/GlobalGet";
 
-const AddNewAssetCreate = () => {
+const ApproveNewAssetCreate = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const navigate = useNavigate();
@@ -50,19 +48,19 @@ const AddNewAssetCreate = () => {
     initialFormData[key] = "";
     initialErrors[key] = "";
   });
-  const handlelogoChange = event => {
+  const handlelogoChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
-    setErrors(prevErrors => ({
+    setErrors((prevErrors) => ({
       ...prevErrors,
-      attachImage: "",
+      attachImage: "", 
     }));
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
-      attachImage: file,
+      attachImage: file, 
     }));
   };
-
+  
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
   const [showAmcDates, setShowAmcDates] = useState(false);
@@ -70,45 +68,10 @@ const AddNewAssetCreate = () => {
   const [showLicenseDropdown, setShowLicenseDropdown] = useState(false);
   const [showAdditionalInputs, setShowAdditionalInputs] = useState(false);
 
-  const [material, setMaterial] = useState([]);
-  const [depth, setDepth] = useState([]);
-  const [Location, setLocation] = useState([]);
-
   const handleAssetTypeChange = event => {
     const { value } = event.target;
     setShowAdditionalInputs(value);
   };
-
-  useEffect(() => {
-    GetAllData("Material").then(res => {
-      if (Array.isArray(res)) {
-        setMaterial(res);
-      } else {
-        setMaterial([]);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    GetAllData("Dept").then(res => {
-      console.log("dept", res);
-      if (Array.isArray(res)) {
-        setDepth(res);
-      } else {
-        setDepth([]);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    GetAllData("Location").then(res => {
-      if (Array.isArray(res)) {
-        setLocation(res);
-      } else {
-        setLocation([]);
-      }
-    });
-  }, []);
 
   const renderAssetTypeContent = () => {
     switch (showAdditionalInputs) {
@@ -349,6 +312,34 @@ const AddNewAssetCreate = () => {
                           </FormGroup>
                         </Col>
                       </Row>
+                      <Row className="mb-2">
+                      <Col md={6}>
+                        <Label for="attachImage">ATTACH IMAGE</Label>
+                        <Input
+                          type="file"
+                          name="attachImage"
+                          id="attachImage"
+                          onChange={handlelogoChange}
+                          accept="image/*"
+                          invalid={!!errors.attachImage}
+                          style={{ textTransform: "uppercase" }}
+
+                        />
+                        <span className="invalid-feedback">
+                          {errors.attachImage}
+                        </span>
+                      </Col>
+                      <Col md={6}>
+                        {selectedFile && (
+                          <img
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected"
+                            style={{ maxWidth: "100%", maxHeight: "100px" }}
+                          />
+                        )}
+                      </Col>
+                      <hr className="mb-0 mt-3" />
+                    </Row>
                     </Form>
                   </Col>
                 </Row>
@@ -400,133 +391,27 @@ const AddNewAssetCreate = () => {
     validationSchema: Yup.object({
       ponNumber: Yup.string().required("PO NUMBER IS REQUIRED"),
       invoiceNumber: Yup.string().required("INVOICE NUMBER IS REQUIRED"),
-      // invoiceDate: Yup.string().required(" INVOICE DATE IS REQUIRED"),
+      invoiceDate: Yup.string().required(" INVOICE DATE IS REQUIRED"),
       poDate: Yup.string().required("PO DATE IS REQUIRED"),
       vendor: Yup.string().required("SUPPLIER IS REQUIRED"),
+
       model: Yup.string().required("MATERIAL/MODEL  NAME IS REQUIRED"),
-      // matsubgroup: Yup.string().required("MATERIAL SUB GROUP IS REQUIRED"),
-      // matgroup: Yup.string().required("MATERIAL GROUP IS REQUIRED"),
-      // assttype: Yup.string().required("ASSET TYPE IS REQUIRED"),
+      matsubgroup: Yup.string().required("MATERIAL SUB GROUP IS REQUIRED"),
+      matgroup: Yup.string().required("MATERIAL GROUP IS REQUIRED"),
+      assttype: Yup.string().required("ASSET TYPE IS REQUIRED"),
       quantity: Yup.string().required("QUANTITY  IS REQUIRED"),
       unit: Yup.string().required("UNIT PRICE  IS REQUIRED"),
       tag: Yup.string().required("TAG IS REQUIRED"),
-
+      tag: Yup.string().required("TAG IS REQUIRED"),
       proc: Yup.string().required("TYPE OF PROCRUMENT IS REQUIRED"),
       loc: Yup.string().required("LOCATION IS REQUIRED"),
       dept: Yup.string().required("DEPARTMENT IS REQUIRED"),
       cost: Yup.string().required("COST CENTER REQUIRED"),
-      // remark: Yup.string().required("REMARKS IS REQUIRED"),
+      remark: Yup.string().required("REMARKS IS REQUIRED"),
     }),
     onSubmit: values => {
-      console.log("value", values);
-      console.log("formdata", formData);
-
-      GetSignleData("Material", Number(values.model)).then(res => {
-        console.log("res", res);
-      });
-
-      CreateAssests({
-        idwh: 0,
-        idinv: {
-          idinv: 0,
-          idinvm: {
-            idinvm: 0,
-            noinv: values.invoiceNumber,
-            dtinv: values.invoiceDate,
-            nopo: values.ponNumber,
-            dtpo: values.poDate,
-            nodc: values.dcNumber,
-            dtdc: values.dcDate,
-            nogrn: values.grnNumber,
-            dt_grn: values.grnDate,
-            idflr: {
-              idflr: 0,
-              nmflr: "string",
-              idbuilding: {
-                idbuilding: 0,
-                nmbuilding: "string",
-                idloc: {
-                  idloc: 0,
-                  nmLoc: "string",
-                  nmcountry: "string",
-                  nmstate: "string",
-                  nmcity: "string",
-                  identity: {
-                    identity: 0,
-                    nmentity: "string",
-                    cdentity: "string",
-                  },
-                },
-              },
-            },
-            iddept: {
-              iddept: Number(values.dept),
-              nmdept: "string",
-              cddept: "string",
-            },
-            idcc: {
-              idcc: 0,
-              nmcc: "string",
-            },
-            idven: {
-              idven: 0,
-              nmven: "string",
-              cdven: "string",
-              add1: "string",
-              add2: "string",
-              country: "string",
-              state: "string",
-              city: "string",
-              pin: "string",
-              mobno: "string",
-              phone: "string",
-              pan: "string",
-              gst: "string",
-              msme: "string",
-              cin: "string",
-              tan: "string",
-              tin: "string",
-              service: "string",
-              procured: "string",
-              mailid: "string",
-            },
-            addby: 0,
-            statusapprove: "string",
-          },
-          idmodel: {
-            idmodel: Number(values.model),
-            nmmodel: res.nmmodel,
-            typasst: res.typasst,
-            itemdesc: res.itemdesc,
-            mfr: res.mfr,
-            idsgrp: {
-              idsgrp: res.idsgrp.idsgrp,
-              nmsgrp: res.idsgrp.cdsgrp,
-              cdsgrp: res.idsgrp.nmsgrp,
-              idgrp: res.idgrp,
-            },
-            iduom: res.iduom,
-          },
-          qty: Number(values.quantity),
-          unprc: 0,
-          tag: res.tag,
-          typeproc: res.proc,
-          stlease: "string",
-          endtlease: "2024-04-06T04:30:26.596Z",
-          stdlease: "2024-04-06T04:30:26.596Z",
-          warramc: "string",
-          dtamcstart: "2024-04-06T04:30:26.596Z",
-          dtamcexp: "2024-04-06T04:30:26.596Z",
-          processtyp: "string",
-          storeagetyp: "string",
-          ramtyp: "string",
-          stconfig: "string",
-        },
-        idwhdyn: "string",
-        serialno: "string",
-        addby: 0,
-        editby: 0,
-      });
+      alert("form validated !");
+      //console.log("values", values);
     },
   });
 
@@ -688,7 +573,7 @@ const AddNewAssetCreate = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CREATE ADD NEW ASSET{" "}
+                APPROVE NEW ASSET DETAILS{" "}
               </h1>
             </CardHeader>
 
@@ -702,38 +587,6 @@ const AddNewAssetCreate = () => {
                     <Row className="mb-2">
                       <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="model">
-                            MATERIAL/MODEL NAME<font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            name="model"
-                            id="model"
-                            className="form-control"
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.model &&
-                              validation.errors.model
-                            }
-                            style={{ textTransform: "uppercase" }}
-                          >
-                            <option value="">SELECT MATERIAL GROUP</option>
-                            {material &&
-                              material.map((item, index) => (
-                                <option key={index} value={item.idmodel}>
-                                  {item.nmmodel}
-                                </option>
-                              ))}
-                          </Input>
-                          {validation.touched.model &&
-                          validation.errors.model ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.model}
-                            </FormFeedback>
-                          ) : null}
-                        </FormGroup>
-                        {/* <FormGroup className="mb-3">
                           <Label htmlFor="model">
                             MATERIAL/MODEL NAME<font color="red">*</font>
                           </Label>
@@ -758,7 +611,7 @@ const AddNewAssetCreate = () => {
                               {validation.errors.model}
                             </FormFeedback>
                           ) : null}
-                        </FormGroup> */}
+                        </FormGroup>
                       </Col>
                     </Row>
 
@@ -871,9 +724,7 @@ const AddNewAssetCreate = () => {
                     <Row className="mb-1">
                       <Col md={6}>
                         <FormGroup>
-                          <Label htmlFor="quantity">
-                            QUANTITY<font color="red">*</font>
-                          </Label>
+                          <Label htmlFor="quantity">QUANTITY<font color="red">*</font></Label>
                           <Input
                             type="number"
                             name="quantity"
@@ -922,7 +773,7 @@ const AddNewAssetCreate = () => {
                         </FormGroup>
                       </Col>
                     </Row>
-                    <Row className="mt-0">
+                    {/* <Row className="mt-0">
                       <Col md={6}>
                         <Label for="amc">
                           AMC/WARRENTY<font color="red">*</font>
@@ -1050,8 +901,8 @@ const AddNewAssetCreate = () => {
                           </Col>
                         </>
                       )}
-                    </Row>
-                    <Row className="mb-1 mt-0">
+                    </Row> */}
+                    {/* <Row className="mb-1 mt-0">
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="proc">
@@ -1109,7 +960,7 @@ const AddNewAssetCreate = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    </Row>
+                    </Row> */}
                     <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
@@ -1129,12 +980,9 @@ const AddNewAssetCreate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT LOCATION</option>
-                            {Location &&
-                              Location.map((item, index) => (
-                                <option key={index} value={item.idloc}>
-                                  {item.nmcountry}
-                                </option>
-                              ))}
+                            <option value="group1">OUTRIGHT PURCHASE</option>
+                            <option value="group2">LOAN BASIC</option>
+                            <option value="group3">ADD-ON</option>
                           </Input>
                           {validation.touched.loc && validation.errors.loc ? (
                             <FormFeedback type="invalid">
@@ -1161,12 +1009,10 @@ const AddNewAssetCreate = () => {
                             }
                             style={{ textTransform: "uppercase" }}
                           >
-                            {depth &&
-                              depth.map((item, index) => (
-                                <option key={index} value={item.iddept}>
-                                  {item.nmdept}
-                                </option>
-                              ))}
+                            <option value="">SELECT DEPARTMENT</option>
+                            <option value="group1">OUTRIGHT PURCHASE</option>
+                            <option value="group2">LOAN BASIC</option>
+                            <option value="group3">ADD-ON</option>
                           </Input>
                           {validation.touched.dept && validation.errors.dept ? (
                             <FormFeedback type="invalid">
@@ -1227,6 +1073,32 @@ const AddNewAssetCreate = () => {
                           {validation.touched.item && validation.errors.item ? (
                             <FormFeedback type="invalid">
                               {validation.errors.item}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row className="mb-1">
+
+                    <Col md={12}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="remark">REMARKS<font color="red">*</font></Label>
+                          <Input
+                            type="textarea"
+                            name="remark"
+                            id="remark"
+                            placeholder="PLEASE ENTER DESCRIPTION"
+                            className="form-control"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.remark && validation.errors.remark
+                            }
+                            style={{ textTransform: "uppercase" }}
+                          ></Input>
+                          {validation.touched.remark && validation.errors.remark ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.remark}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
@@ -1448,7 +1320,7 @@ const AddNewAssetCreate = () => {
                           </Col>
 
                           <Col md={4}>
-                            <FormGroup className="mb-3">
+                            <FormGroup className="mb-1">
                               <Label htmlFor="dcDate">DC DATE</Label>
                               <Input
                                 type="date"
@@ -1501,7 +1373,8 @@ const AddNewAssetCreate = () => {
                               ) : null}
                             </FormGroup>
                           </Col>
-                          <Row className="mb-2">
+                        </Row>
+                        <Row className="mb-2">
                             <Col md={6}>
                               <Label for="attachImage">UPLOAD FILE</Label>
                               <Input
@@ -1531,7 +1404,6 @@ const AddNewAssetCreate = () => {
                             </Col>
                             <hr className="mb-0 mt-3" />
                           </Row>
-                        </Row>
                       </Col>
                     </Row>
                   </Form>
@@ -1540,9 +1412,7 @@ const AddNewAssetCreate = () => {
             </CardBody>
           </Card>
           {renderAssetTypeContent()}
-          <Card>
-            <CardBody>{renderInputFields()}</CardBody>
-          </Card>
+          
           <div
             style={{
               display: "flex",
@@ -1569,13 +1439,13 @@ const AddNewAssetCreate = () => {
                   marginRight: "30px",
                 }}
               >
-                SAVE{" "}
+                UPDATE{" "}
               </Button>
               <button
                 type="button"
                 className="btn btn-secondary-subtle border border-secondary"
                 onClick={() => {
-                  navigate("/Add_new_asset");
+                  navigate("/approve_new_asset");
                 }}
                 style={{
                   paddingTop: "10px",
@@ -1593,6 +1463,6 @@ const AddNewAssetCreate = () => {
   );
 };
 
-export default AddNewAssetCreate;
+export default ApproveNewAssetCreate;
 
 // upload:"",

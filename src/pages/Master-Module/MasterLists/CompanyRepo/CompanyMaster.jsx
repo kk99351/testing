@@ -96,46 +96,49 @@ const CompanyMaster = props => {
     onSubmit: values => {
       console.log(values);
       //---------Creating Company Master--------------//
-
-      // UploadFile(values.logo).then(res => {
-      //   console.log(res);
-      // });
-      CreateCompanyMaster({
-        idCom: 0,
-        nmCom: values.companyname,
-        add1: values.address1,
-        add2: values.address2,
-        city: values.city,
-        country: values.country,
-        pin: values.pin,
-        licenseNo: values.licenseNumber,
-        licenceDt: "",
-        phone: values.phone,
-        fax: values.fax,
-        mailid: values.email,
-        nmState: values.state,
-        fileName: "",
-        tin: "",
-        cst: "",
-        pan: values.pan,
-        cin: "",
-        gst: values.gst,
-        dtRegister: new Date(),
-        liEnddt: "",
-        assetPrefix: "",
-        nmContact: "",
-      })
-        .then(res => {
-          console.log(res.status);
-          if (res.status === 200) {
-            toast("Form submitted successfully");
-          } else {
-            toast("Failed to submit form");
-          }
-        })
-        .catch(err => {
-          toast(err.message);
-        });
+      console.log("logo");
+      UploadFile(values.logo).then(res => {
+        if (res.message === "File uploaded successfully.") {
+          CreateCompanyMaster({
+            idCom: 0,
+            nmCom: values.companyname,
+            add1: values.address1,
+            add2: values.address2,
+            city: values.city,
+            country: values.country,
+            pin: values.pin,
+            licenseNo: values.licenseNumber,
+            licenceDt: "",
+            phone: values.phone,
+            fax: values.fax,
+            mailid: values.email,
+            nmState: values.state,
+            fileName: res.fileNames[0],
+            tin: "",
+            cst: "",
+            pan: values.pan,
+            cin: "",
+            gst: values.gst,
+            dtRegister: new Date(),
+            liEnddt: "",
+            assetPrefix: "",
+            nmContact: "",
+          })
+            .then(res => {
+              console.log(res.status);
+              if (res.status === 200) {
+                toast("Form submitted successfully");
+              } else {
+                toast("Failed to submit form");
+              }
+            })
+            .catch(err => {
+              toast(err.message);
+            });
+        } else {
+          toast("Failed to Upload File");
+        }
+      });
     },
   });
 

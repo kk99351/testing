@@ -1,48 +1,45 @@
-import React, { useMemo, useState } from "react";
-import {
-  Col,
-  Row,
-  CardBody,
-  CardHeader,
-  Card,
-  Label,
-  Input,
-  Button,
-  Container,
-  Table,
-} from "reactstrap";
-import { Link } from "react-router-dom";
+import React, { useMemo, useEffect, useState } from "react";
+import { Button, CardHeader, Card, Input, CardBody } from "reactstrap";
+import { Link, useNavigate } from "react-router-dom";
 import {
   useTable,
   useGlobalFilter,
   useSortBy,
   usePagination,
 } from "react-table";
+import { useGet } from "src/API/useGet";
 
-const BillsEntry = () => {
-  const initialData = [
+const ApproveNewAsset = () => {
+  const [responseData, setResponseData] = useState([
     {
-      bill_no: "B001",
-      dt_bill: "2024-03-10",
-      nm_ven: "CA Suppliers",
+      slno: 1,
+      bill_no0: "B001",
+      bill_no: "2024-03-10",
+      bill_noOO: "Z001",
+      dt_bill: "Item 1",
+      nm_ven: "Vendor A",
+      qty: 5,
     },
     {
-      bill_no: "B002",
-      dt_bill: "2024-03-11",
-      nm_ven: "RA Enterprises",
+      slno: 2,
+      bill_no0: "B002",
+      bill_no: "2024-03-11",
+      bill_noOO: "Z002",
+      dt_bill: "Item 2",
+      nm_ven: "Vendor B",
+      qty: 10,
     },
     {
-      id: 3,
-      bill_no: "B003",
-      dt_bill: "2024-03-12",
-      nm_ven: "HCL Traders",
+      slno: 3,
+      bill_no0: "B003",
+      bill_no: "2024-03-12",
+      bill_noOO: "Z003",
+      dt_bill: "Item 3",
+      nm_ven: "Vendor C",
+      qty: 8,
     },
-  ];
-
-  const [responseData, setResponseData] = useState(initialData);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [searchValue, setSearchValue] = useState("");
+  ]);
+  const navigate = useNavigate();
 
   const columns = useMemo(
     () => [
@@ -52,21 +49,32 @@ const BillsEntry = () => {
         width: "6%",
       },
       {
-        Header: "BILL NUMBER",
+        Header: "INVOICE NUMBER",
+        accessor: "bill_no0",
+      },
+      {
+        Header: "INVOICE DATE",
         accessor: "bill_no",
       },
       {
-        Header: "BILL DATE",
+        Header: "REQUEST BY",
+        accessor: "bill_noOO",
+      },
+      {
+        Header: "ASSET NAME",
         accessor: "dt_bill",
       },
       {
         Header: "SUPPLIER NAME",
         accessor: "nm_ven",
       },
+      {
+        Header: "QYT",
+        accessor: "qty",
+      },
     ],
     []
   );
-
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
@@ -99,93 +107,57 @@ const BillsEntry = () => {
     usePagination
   );
 
-  const handleStartDateChange = e => {
-    setStartDate(e.target.value);
-  };
-
-  const handleEndDateChange = e => {
-    setEndDate(e.target.value);
-  };
-
-  const handleSearch = () => {
-    // Filter data based on the selected date range
-    const filteredData = initialData.filter(item => {
-      return item.dt_bill >= startDate && item.dt_bill <= endDate;
-    });
-    setResponseData(filteredData);
-  };
-
-  const clearSearch = () => {
-    setResponseData(initialData);
-    setStartDate("");
-    setEndDate("");
-    setSearchValue("");
-  };
-
-  const handleInputChange = e => {
-    setSearchValue(e.target.value);
-  };
-
   return (
-    <Container fluid>
+    <React.Fragment>
       <div className="page-content">
-        <Card>
-          <CardHeader>
-            <h1 className="card-title" style={{ fontSize: "20px" }}>
-              BILLS ENTRY{" "}
-            </h1>
-          </CardHeader>
-          <CardBody>
-            <Row className="mb-2">
-              <Col md={5}>
-                <Label for="startDate">
-                  FROM DATE<font color="red">*</font>
-                </Label>
-                <Input
-                  type="date"
-                  name="startDate"
-                  id="startDate"
-                  placeholder="From Date"
-                  value={startDate}
-                  onChange={handleStartDateChange}
-                  style={{ textTransform: "uppercase" }}
-                />
-              </Col>
-              <Col md={5}>
-                <Label for="endDate">
-                  TO DATE<font color="red">*</font>
-                </Label>
-                <Input
-                  type="date"
-                  name="endDate"
-                  id="endDate"
-                  placeholder="To Date"
-                  value={endDate}
-                  onChange={handleEndDateChange}
-                  style={{ textTransform: "uppercase" }}
-                />
-              </Col>
-              <Col md={2} className="d-flex align-items-end">
-                <Button
-                  className="btn btn-success-subtle border border-success"
-                  color="primary"
-                  onClick={handleSearch}
-                >
-                  SEARCH
-                </Button>
-                <Button
-                  className="btn btn-secondary-subtle border border-secondary"
-                  color="danger"
-                  onClick={clearSearch}
-                  style={{width:"85px", marginLeft:"5px"}}
-                >
-                  CLEAR
-                </Button>
-              </Col>
-            </Row>
+        <div className="container-fluid">
+          <Card>
+            <CardHeader>
+              <h1 className="card-title" style={{ fontSize: "20px" }}>
+                APPROVE NEW ASSET DETAILS
+              </h1>
+            </CardHeader>
+            <CardBody>
+            <div className="container pt-0">
+              <div className="rmb-2 row">
+                <div className="col-md-2">
+                  <select className="form-select">
+                    <option value="10">Show 10</option>
+                    <option value="20">Show 20</option>
+                    <option value="30">Show 30</option>
+                    <option value="40">Show 40</option>
+                    <option value="50">Show 50</option>
+                  </select>
+                </div>
 
-            <div className="table-responsive">
-              <Table className="table table-bordered table-hover text-center">
+                <div className="col-md-4">
+                  <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+                    <div className="position-relative">
+                      <label htmlFor="search-bar-0" className="search-label">
+                        <span id="search-bar-0-label" className="sr-only">
+                          Search this table
+                        </span>
+                        <input
+                          id="search-bar-0"
+                          type="text"
+                          className="form-control"
+                          placeholder="SEARCH ..."
+                          value={globalFilter || ""}
+                          onChange={e =>
+                            setGlobalFilter(e.target.value.toUpperCase())
+                          }
+                        />
+                        <i className="bx bx-search-alt search-icon"></i>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+
+            <div className="table-responsive react-table">
+              <table className="table table-bordered table-hover text-center">
                 <thead className="table-light table-nowrap">
                   {headerGroups.map(headerGroup => (
                     <tr
@@ -226,11 +198,14 @@ const BillsEntry = () => {
                           {row.cells.map(cell => (
                             <td key={cell.column.id} {...cell.getCellProps()}>
                               {cell.column.id !== "SL NO" ? (
-                                <Link to={`/bill_entry/${row.original.id}`}>
-                                    {String(cell.value).toUpperCase()}{" "}
-                                  </Link>
-                                ) : (
-                                  String(cell.value).toUpperCase()
+                                <Link
+                                  to={`/create_approve_new_asset/${row.original.id}`}
+                                  state={{ formData: row.original }}
+                                >
+                                  {String(cell.value).toUpperCase()}{" "}
+                                </Link>
+                              ) : (
+                                String(cell.value).toUpperCase()
                               )}
                             </td>
                           ))}
@@ -244,12 +219,12 @@ const BillsEntry = () => {
                         style={{ textAlign: "center" }}
                       >
                         {" "}
-                        NO SEARCH RESULTS AVAILABLE
+                        NO SEARCH RESULTS FOUND
                       </td>
                     </tr>
                   )}
                 </tbody>
-              </Table>
+              </table>
             </div>
 
             <div className="row">
@@ -259,6 +234,7 @@ const BillsEntry = () => {
                 </p>
               </div>
               <div className="col-sm-6">
+                {" "}
                 <div className="pagination justify-content-end pb-2 pe-2">
                   <button
                     className="btn btn-info"
@@ -292,11 +268,12 @@ const BillsEntry = () => {
                 </div>
               </div>
             </div>
-          </CardBody>
-        </Card>
+            </CardBody>
+          </Card>
+        </div>
       </div>
-    </Container>
+    </React.Fragment>
   );
 };
 
-export default BillsEntry;
+export default ApproveNewAsset;

@@ -16,6 +16,7 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { CreateUserLogin } from "src/API/Master/AccessManagement/Api";
 
 const UserLoginCreate = () => {
   const getCurrentDate = () => {
@@ -31,7 +32,7 @@ const UserLoginCreate = () => {
     if (values.Status === "Inactive" && !value) {
       return "Disabled Date is Required";
     }
-    return true; // Return true if validation passes
+    return true; 
   };
   const navigate = useNavigate();
   const validation = useFormik({
@@ -69,7 +70,7 @@ const UserLoginCreate = () => {
     }),
     onSubmit: values => {
       alert("form validated!");
-      // console.log("values", values);
+     CreateUserLogin()
     },
   });
 

@@ -36,10 +36,10 @@ const BarcodePage = () => {
       invoiceNo: "",
     },
     validationSchema: Yup.object({
-      cat: Yup.string().required("MATERIAL-GROUP  IS REQUIRED"),
-      subCat: Yup.string().required("SUB-MATERIALIS REQUIRED"),
-      poNo: Yup.string().required("PO.NUMBER IS REQUIRED"),
-      invoiceNo: Yup.string().required("INVOICE NUMBER IS REQUIRED"),
+      // cat: Yup.string().required("MATERIAL-GROUP  IS REQUIRED"),
+      // subCat: Yup.string().required("SUB-MATERIALIS REQUIRED"),
+      // poNo: Yup.string().required("PO.NUMBER IS REQUIRED"),
+      // invoiceNo: Yup.string().required("INVOICE NUMBER IS REQUIRED"),
     }),
 
     onSubmit: async values => {
@@ -139,7 +139,7 @@ const BarcodePage = () => {
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="cat">
-                            MATERIAL-GROUP <font color="red">*</font>
+                            MATERIAL-GROUP 
                           </Label>
                           <Input
                             type="select"
@@ -168,7 +168,7 @@ const BarcodePage = () => {
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="subCat">
-                            MATERIAL SUB GROUP <font color="red">*</font>
+                            MATERIAL SUB GROUP 
                           </Label>
                           <Input
                             type="select"
@@ -201,7 +201,7 @@ const BarcodePage = () => {
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="poNo">
-                            PO.NUMBER <font color="red">*</font>
+                            PO.NUMBER 
                           </Label>
                           <Input
                             type="select"
@@ -229,7 +229,7 @@ const BarcodePage = () => {
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="invoiceNo">
-                            INVOICE NUMBER<font color="red">*</font>
+                            INVOICE NUMBER
                           </Label>
                           <Input
                             type="select"
@@ -354,7 +354,7 @@ const BarcodePage = () => {
                               <th>ASSET ID</th>
                               <th>ASSET REF.NO</th>
                               <th>SERIAL NUMBER</th>
-                              <th>SUB MATERIAL</th>
+                              <th> MATERIAL SUB GROUP</th>
                               <th>CHECK/UNCHECK</th>
                             </tr>
                           </thead>

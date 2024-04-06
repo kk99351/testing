@@ -18,11 +18,10 @@ import { useGet } from "src/API/useGet";
 import { GetAllData } from "src/API/Master/GlobalGet";
 
 const Floor = () => {
-  
   const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     GetAllData("Floor").then(res => {
       console.log("res", res[1]);
       if (Array.isArray(res)) {
@@ -31,7 +30,7 @@ const Floor = () => {
         setResponseData([]);
       }
     });
-  },[])
+  }, []);
 
   const columns = useMemo(
     () => [
@@ -85,7 +84,6 @@ const Floor = () => {
         disableFilters: true,
         filterable: true,
       },
-     
     ],
     []
   );
@@ -233,7 +231,9 @@ const Floor = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/updatefloor/${row.original.idflr}`}>
+                                  <Link
+                                    to={`/updatefloor/${row.original.idflr}`}
+                                  >
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (
