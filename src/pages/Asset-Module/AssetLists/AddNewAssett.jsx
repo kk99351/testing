@@ -8,14 +8,14 @@ import {
   usePagination,
 } from "react-table";
 import { useGet } from "src/API/useGet";
-import { GetAssests } from "src/API/Assest/AddTostore/Api";
+import { GetAssests, GetRejectedAssests } from "src/API/Assest/AddTostore/Api";
 
 const AddNewAssett = () => {
   const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    GetAssests().then(res => {
+    GetRejectedAssests().then(res => {
       if (Array.isArray(res)) {
         setResponseData(res);
       } else {
@@ -49,7 +49,7 @@ const AddNewAssett = () => {
       },
       {
         Header: "SUPPLIER NAME",
-        accessor: "idven.nmven",
+        accessor: "idinvm.idven.nmven",
       },
       {
         Header: "QYT",
@@ -193,7 +193,7 @@ const AddNewAssett = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/modify_add_new_asset/${row.original.id}`}
+                                    to={`/modify_add_new_asset/${row.original.idinv}`}
                                     state={{ formData: row.original }}
                                   >
                                     {String(cell.value).toUpperCase()}{" "}

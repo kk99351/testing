@@ -32,7 +32,7 @@ const UserLoginCreate = () => {
     if (values.Status === "Inactive" && !value) {
       return "Disabled Date is Required";
     }
-    return true; 
+    return true;
   };
   const navigate = useNavigate();
   const validation = useFormik({
@@ -61,7 +61,6 @@ const UserLoginCreate = () => {
       Status: Yup.string().required("STATUS IS REQUIRED"),
       UserType: Yup.string().required("USER TYPE IS REQUIRED"),
 
-      
       DisabledDate: Yup.string().test(
         "disabledDate",
         "INVALID DISABLED DATE",
@@ -69,8 +68,101 @@ const UserLoginCreate = () => {
       ),
     }),
     onSubmit: values => {
-      alert("form validated!");
-     CreateUserLogin()
+      console.log("values", values);
+      CreateUserLogin([
+        {
+          idlog: 0,
+          nmlogin: values.LoginName,
+          idemail: values.Email,
+          pwd: values.Password,
+          statususer: values.status,
+          mailid: "string",
+          dt_disable: values.DisabledDate,
+          subLocation: {
+            idsloc: 0,
+            nmSubl: "string",
+            cdSubl: "string",
+            idloc: {
+              idloc: 0,
+              nmLoc: "string",
+              cdLoc: "string",
+              idcountry: {
+                idcountry: 0,
+                nmCountry: "string",
+                cdCountry: "string",
+              },
+            },
+          },
+          idlocs: [
+            {
+              idloc: 0,
+              nmLoc: "string",
+              cdLoc: "string",
+              idcountry: {
+                idcountry: 0,
+                nmCountry: "string",
+                cdCountry: "string",
+              },
+            },
+          ],
+          getuPermission: {
+            idpermission: 0,
+            typasst: "string",
+            idccs: "string",
+            usertype: {
+              idusertype: 0,
+              nmusertype: "string",
+              cdusertype: "string",
+            },
+            submodules: [
+              {
+                idSubmodule: 0,
+                nmSubmodule: "string",
+                module: {
+                  idmodule: 0,
+                  nmModule: "string",
+                },
+              },
+            ],
+            iddept: [
+              {
+                iddept: 0,
+                nmdept: "string",
+                cddept: "string",
+              },
+            ],
+            idlocs: [
+              {
+                idloc: 0,
+                nmLoc: "string",
+                cdLoc: "string",
+                idcountry: {
+                  idcountry: 0,
+                  nmCountry: "string",
+                  cdCountry: "string",
+                },
+              },
+            ],
+            idsubls: [
+              {
+                idsloc: 0,
+                nmSubl: "string",
+                cdSubl: "string",
+                idloc: {
+                  idloc: 0,
+                  nmLoc: "string",
+                  cdLoc: "string",
+                  idcountry: {
+                    idcountry: 0,
+                    nmCountry: "string",
+                    cdCountry: "string",
+                  },
+                },
+              },
+            ],
+          },
+        },
+      ]);
     },
   });
 
@@ -81,7 +173,7 @@ const UserLoginCreate = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CREATE USER LOGIN 
+                CREATE USER LOGIN
               </h1>
             </CardHeader>
 
@@ -111,7 +203,6 @@ const UserLoginCreate = () => {
                               validation.errors.EmployeeInitials
                             }
                             style={{ textTransform: "uppercase" }}
-
                           >
                             <option value="">SELECT EMPLOYEE INITIALS</option>
                             <option value="dept1">ADMIN</option>
@@ -145,7 +236,6 @@ const UserLoginCreate = () => {
                               validation.errors.Email
                             }
                             style={{ textTransform: "uppercase" }}
-
                           />
                           {validation.touched.Email &&
                           validation.errors.Email ? (
@@ -176,7 +266,6 @@ const UserLoginCreate = () => {
                               validation.errors.LoginName
                             }
                             style={{ textTransform: "uppercase" }}
-
                           />
                           {validation.touched.LoginName &&
                           validation.errors.LoginName ? (
@@ -204,7 +293,6 @@ const UserLoginCreate = () => {
                               validation.errors.Password
                             }
                             style={{ textTransform: "uppercase" }}
-
                           />
                           {validation.touched.Password &&
                           validation.errors.Password ? (
@@ -235,7 +323,6 @@ const UserLoginCreate = () => {
                               validation.errors.ConfirmPassword
                             }
                             style={{ textTransform: "uppercase" }}
-
                           />
                           {validation.touched.ConfirmPassword &&
                           validation.errors.ConfirmPassword ? (
@@ -247,15 +334,15 @@ const UserLoginCreate = () => {
                       </Col>
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="validationCustom06">USER TYPE<font color="red">*</font></Label>
+                          <Label htmlFor="validationCustom06">
+                            USER TYPE<font color="red">*</font>
+                          </Label>
                           <Input
                             name="UserType"
                             type="select"
                             placeholder="PLEASE ENTER USER TYPE"
                             className="form-control"
                             id="validationCustom06"
-
-                            
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -263,7 +350,6 @@ const UserLoginCreate = () => {
                               validation.errors.UserType
                             }
                             style={{ textTransform: "uppercase" }}
-
                           >
                             <option value="">SELECT USER TYPE</option>
                             <option value="dept1">ADMIN</option>
@@ -306,7 +392,6 @@ const UserLoginCreate = () => {
                                   validation.values.Status === "Inactive"
                                 }
                                 style={{ textTransform: "uppercase" }}
-
                               />
                               <Label check>DISABLED</Label>
                             </FormGroup>
@@ -347,7 +432,6 @@ const UserLoginCreate = () => {
                                 validation.errors.DisabledDate
                               }
                               style={{ textTransform: "uppercase" }}
-
                             />
                             {validation.touched.DisabledDate &&
                             validation.errors.DisabledDate ? (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { ToastContainer, toast } from "react-toastify";
 import {
   Button,
   Col,
@@ -16,7 +17,10 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import { GetSingleAssests } from "src/API/Assest/AddTostore/Api";
+import {
+  ApproveAssests,
+  GetSingleAssests,
+} from "src/API/Assest/AddTostore/Api";
 import { useParams } from "react-router";
 
 const ApproveNewAssetCreate = () => {
@@ -27,6 +31,8 @@ const ApproveNewAssetCreate = () => {
 
   useEffect(() => {
     GetSingleAssests(id).then(res => {
+      console.log(res);
+      console.log(res?.idinvm.idflr?.idbuilding?.nmbuilding);
       setResData(res);
     });
   }, []);
@@ -77,6 +83,7 @@ const ApproveNewAssetCreate = () => {
   const [showLeaseDates, setShowLeaseDates] = useState(false);
   const [showLicenseDropdown, setShowLicenseDropdown] = useState(false);
   const [showAdditionalInputs, setShowAdditionalInputs] = useState(false);
+  const [status, setStatus] = useState("");
 
   const handleAssetTypeChange = event => {
     const { value } = event.target;
@@ -368,27 +375,27 @@ const ApproveNewAssetCreate = () => {
     initialValues: {
       model: resData?.idmodel?.nmmodel,
       matsubgroup: "",
-      matgroup: "alok",
+      matgroup: "",
       assttype: "",
       quantity: resData?.qty,
       unit: resData?.unprc,
       tag: "",
       proc: "",
-      loc: resData?.idflr?.idbuilding?.nmbuilding,
-      dept: "",
-      cost: "",
+      loc: resData?.idinvm?.idflr?.idbuilding?.nmbuilding,
+      dept: resData?.idinvm?.iddept?.nmdept,
+      cost: resData?.idinvm?.idcc?.nmcc,
       remark: "",
       item: "",
 
-      ponNumber: "",
-      invoiceNumber: "",
-      grnNumber: "",
-      dcNumber: "",
-      vendor: "",
-      poDate: "",
-      invoiceDate: "",
-      grnDate: "",
-      dcDate: "",
+      ponNumber: resData?.idinvm?.nopo,
+      invoiceNumber: resData?.idinvm?.noinv,
+      grnNumber: resData?.idinvm?.nogrn,
+      dcNumber: resData?.idinvm?.nodc,
+      vendor: resData?.idinvm?.idven?.nmven,
+      poDate: resData?.idinvm?.dtpo,
+      invoiceDate: resData?.idinvm?.dtinv,
+      grnDate: resData?.idinvm?.dt_grn,
+      dcDate: resData?.idinvm?.dtdc,
       upload: "",
 
       gb: "",
@@ -398,29 +405,40 @@ const ApproveNewAssetCreate = () => {
     },
 
     validationSchema: Yup.object({
-      ponNumber: Yup.string().required("PO NUMBER IS REQUIRED"),
-      invoiceNumber: Yup.string().required("INVOICE NUMBER IS REQUIRED"),
-      invoiceDate: Yup.string().required(" INVOICE DATE IS REQUIRED"),
-      poDate: Yup.string().required("PO DATE IS REQUIRED"),
-      vendor: Yup.string().required("SUPPLIER IS REQUIRED"),
+      // ponNumber: Yup.string().required("PO NUMBER IS REQUIRED"),
+      // invoiceNumber: Yup.string().required("INVOICE NUMBER IS REQUIRED"),
+      // invoiceDate: Yup.string().required(" INVOICE DATE IS REQUIRED"),
+      // poDate: Yup.string().required("PO DATE IS REQUIRED"),
+      // vendor: Yup.string().required("SUPPLIER IS REQUIRED"),
 
-      model: Yup.string().required("MATERIAL/MODEL  NAME IS REQUIRED"),
-      matsubgroup: Yup.string().required("MATERIAL SUB GROUP IS REQUIRED"),
-      matgroup: Yup.string().required("MATERIAL GROUP IS REQUIRED"),
-      assttype: Yup.string().required("ASSET TYPE IS REQUIRED"),
-      quantity: Yup.string().required("QUANTITY  IS REQUIRED"),
-      unit: Yup.string().required("UNIT PRICE  IS REQUIRED"),
-      tag: Yup.string().required("TAG IS REQUIRED"),
-      tag: Yup.string().required("TAG IS REQUIRED"),
-      proc: Yup.string().required("TYPE OF PROCRUMENT IS REQUIRED"),
-      loc: Yup.string().required("LOCATION IS REQUIRED"),
-      dept: Yup.string().required("DEPARTMENT IS REQUIRED"),
-      cost: Yup.string().required("COST CENTER REQUIRED"),
+      // model: Yup.string().required("MATERIAL/MODEL  NAME IS REQUIRED"),
+      // matsubgroup: Yup.string().required("MATERIAL SUB GROUP IS REQUIRED"),
+      // matgroup: Yup.string().required("MATERIAL GROUP IS REQUIRED"),
+      // assttype: Yup.string().required("ASSET TYPE IS REQUIRED"),
+      // quantity: Yup.string().required("QUANTITY  IS REQUIRED"),
+      // unit: Yup.string().required("UNIT PRICE  IS REQUIRED"),
+      // tag: Yup.string().required("TAG IS REQUIRED"),
+      // tag: Yup.string().required("TAG IS REQUIRED"),
+      // proc: Yup.string().required("TYPE OF PROCRUMENT IS REQUIRED"),
+      // loc: Yup.string().required("LOCATION IS REQUIRED"),
+      // dept: Yup.string().required("DEPARTMENT IS REQUIRED"),
+      // cost: Yup.string().required("COST CENTER REQUIRED"),
       remark: Yup.string().required("REMARKS IS REQUIRED"),
     }),
     onSubmit: values => {
-      alert("form validated !");
-      //console.log("values", values);
+      console.log("status,", resData?.idinv);
+      ApproveAssests(resData?.idinv, status, values.remark)
+        .then(res => {
+          if (res.ok) {
+            toast("Successfully Updated Assests");
+            navigate("/approve_new_asset");
+          } else {
+            toast("Failed to Approve Assests");
+          }
+        })
+        .catch(err => {
+          toast(err);
+        });
     },
   });
 
@@ -441,7 +459,8 @@ const ApproveNewAssetCreate = () => {
       setShowAdditionalInputs(true);
     }
   };
-  const handleCreateClick = () => {
+  const handleCreateClick = data => {
+    setStatus(data);
     validation.validateForm().then(() => {
       validation.handleSubmit();
     });
@@ -578,6 +597,7 @@ const ApproveNewAssetCreate = () => {
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Card>
             <CardHeader>
@@ -989,6 +1009,7 @@ const ApproveNewAssetCreate = () => {
                             value={validation.values.loc}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
+                            placeholder="PLEASE ENTER LOCATION"
                             invalid={
                               validation.touched.loc && validation.errors.loc
                             }
@@ -1008,22 +1029,19 @@ const ApproveNewAssetCreate = () => {
                             DEPARTMENT<font color="red">*</font>
                           </Label>
                           <Input
-                            type="select"
+                            type="text"
                             name="dept"
                             id="dept"
                             className="form-control"
                             onChange={validation.handleChange}
+                            value={validation.values.dept}
                             onBlur={validation.handleBlur}
+                            placeholder="PLEASE ENTER DEPERTMENT"
                             invalid={
                               validation.touched.dept && validation.errors.dept
                             }
                             style={{ textTransform: "uppercase" }}
-                          >
-                            <option value="">SELECT DEPARTMENT</option>
-                            <option value="group1">OUTRIGHT PURCHASE</option>
-                            <option value="group2">LOAN BASIC</option>
-                            <option value="group3">ADD-ON</option>
-                          </Input>
+                          ></Input>
                           {validation.touched.dept && validation.errors.dept ? (
                             <FormFeedback type="invalid">
                               {validation.errors.dept}
@@ -1039,22 +1057,20 @@ const ApproveNewAssetCreate = () => {
                             COST CENTER/PROJECT<font color="red">*</font>
                           </Label>
                           <Input
-                            type="select"
+                            type="text"
                             name="cost"
                             id="cost"
                             className="form-control"
+                            value={validation.values.cost}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
+                            placeholder="PLEASE ENTER COST"
                             invalid={
                               validation.touched.cost && validation.errors.cost
                             }
                             style={{ textTransform: "uppercase" }}
                           >
                             {" "}
-                            <option value="">SELECT COST CENTER/PROJECT</option>
-                            <option value="group1">OUTRIGHT PURCHASE</option>
-                            <option value="group2">LOAN BASIC</option>
-                            <option value="group3">ADD-ON</option>
                           </Input>
                           {validation.touched.cost && validation.errors.cost ? (
                             <FormFeedback type="invalid">
@@ -1151,6 +1167,7 @@ const ApproveNewAssetCreate = () => {
                                 placeholder="PLEASE ENTER PO NUMBER"
                                 id="ponNumber"
                                 className="form-control"
+                                value={validation.values.ponNumber}
                                 onChange={validation.handleChange}
                                 onBlur={validation.handleBlur}
                                 invalid={
@@ -1172,9 +1189,10 @@ const ApproveNewAssetCreate = () => {
                             <FormGroup className="mb-3">
                               <Label htmlFor="poDate">PO DATE</Label>
                               <Input
-                                type="date"
+                                type="text"
                                 name="poDate"
                                 id="poDate"
+                                value={validation.values.poDate}
                                 placeholder="PLEASE ENTER PO DATE"
                                 className="form-control"
                                 onChange={validation.handleChange}
@@ -1202,6 +1220,7 @@ const ApproveNewAssetCreate = () => {
                                 placeholder="PLEASE ENTER INVOICE NUMBER"
                                 type="text"
                                 name="invoiceNumber"
+                                value={validation.values.invoiceNumber}
                                 id="invoiceNumber"
                                 className="form-control"
                                 onChange={validation.handleChange}
@@ -1229,22 +1248,23 @@ const ApproveNewAssetCreate = () => {
                                 INVOICE DATE<font color="red">*</font>
                               </Label>
                               <Input
-                                type="date"
-                                name="ponNumber"
-                                id="ponNumber"
+                                type="text"
+                                name="invoiceDate"
+                                id="invoiceDate"
                                 className="form-control"
+                                value={validation.values.invoiceDate}
                                 onChange={validation.handleChange}
                                 onBlur={validation.handleBlur}
                                 invalid={
-                                  validation.touched.ponNumber &&
-                                  validation.errors.ponNumber
+                                  validation.touched.invoiceDate &&
+                                  validation.errors.invoiceDate
                                 }
                                 style={{ textTransform: "uppercase" }}
                               ></Input>
-                              {validation.touched.ponNumber &&
-                              validation.errors.ponNumber ? (
+                              {validation.touched.invoiceDate &&
+                              validation.errors.invoiceDate ? (
                                 <FormFeedback type="invalid">
-                                  {validation.errors.ponNumber}
+                                  {validation.errors.invoiceDate}
                                 </FormFeedback>
                               ) : null}
                             </FormGroup>
@@ -1260,6 +1280,7 @@ const ApproveNewAssetCreate = () => {
                                 placeholder="PLEASE ENTER GRN NUMBER"
                                 className="form-control"
                                 onChange={validation.handleChange}
+                                value={validation.values.grnNumber}
                                 onBlur={validation.handleBlur}
                                 invalid={
                                   validation.touched.grnNumber &&
@@ -1281,9 +1302,10 @@ const ApproveNewAssetCreate = () => {
                                 GRN DATE<font color="red">*</font>
                               </Label>
                               <Input
-                                type="date"
+                                type="text"
                                 name="grnDate"
                                 id="grnDate"
+                                value={validation.values.grnDate}
                                 className="form-control"
                                 onChange={validation.handleChange}
                                 onBlur={validation.handleBlur}
@@ -1317,6 +1339,7 @@ const ApproveNewAssetCreate = () => {
                                 className="form-control"
                                 onChange={validation.handleChange}
                                 onBlur={validation.handleBlur}
+                                value={validation.values.dcNumber}
                                 invalid={
                                   validation.touched.dcNumber &&
                                   validation.errors.dcNumber
@@ -1336,12 +1359,13 @@ const ApproveNewAssetCreate = () => {
                             <FormGroup className="mb-1">
                               <Label htmlFor="dcDate">DC DATE</Label>
                               <Input
-                                type="date"
+                                type="text"
                                 name="dcDate"
                                 id="dcDate"
                                 className="form-control"
                                 onChange={validation.handleChange}
                                 onBlur={validation.handleBlur}
+                                value={validation.values.dcDate}
                                 invalid={
                                   validation.touched.dcDate &&
                                   validation.errors.dcDate
@@ -1362,22 +1386,19 @@ const ApproveNewAssetCreate = () => {
                                 SUPPLIER<font color="red">*</font>
                               </Label>
                               <Input
-                                type="select"
+                                type="text"
                                 name="vendor"
                                 id="vendor"
                                 className="form-control"
                                 onChange={validation.handleChange}
                                 onBlur={validation.handleBlur}
+                                value={validation.values.vendor}
                                 invalid={
                                   validation.touched.vendor &&
                                   validation.errors.vendor
                                 }
                                 style={{ textTransform: "uppercase" }}
-                              >
-                                <option value="">SELECT SUPPLIER</option>
-                                <option value="electronics">AMIT</option>
-                                <option value="clothing">CHANCHAL</option>
-                              </Input>
+                              ></Input>
                               {validation.touched.vendor &&
                               validation.errors.vendor ? (
                                 <FormFeedback type="invalid">
@@ -1443,7 +1464,7 @@ const ApproveNewAssetCreate = () => {
               <Button
                 type="submit"
                 color="success-subtle"
-                onClick={handleCreateClick}
+                onClick={() => handleCreateClick("Approve")}
                 className="btn btn-success-subtle border border-success"
                 style={{
                   paddingTop: "10px",
@@ -1452,7 +1473,22 @@ const ApproveNewAssetCreate = () => {
                   marginRight: "30px",
                 }}
               >
-                UPDATE{" "}
+                APPROVE{" "}
+              </Button>
+
+              <Button
+                type="submit"
+                color="success-subtle"
+                onClick={() => handleCreateClick("Reject")}
+                className="btn btn-success-subtle border border-success"
+                style={{
+                  paddingTop: "10px",
+                  height: "45px",
+                  width: "80px",
+                  marginRight: "30px",
+                }}
+              >
+                REJECT{" "}
               </Button>
               <button
                 type="button"

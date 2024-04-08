@@ -96,7 +96,7 @@ const ApproveNewAsset = () => {
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                ADD NEW ASSET DETAILS
+              APPROVE NEW ASSET DETAILS{" "}
               </h1>
             </CardHeader>
             <CardBody>
@@ -134,7 +134,7 @@ const ApproveNewAsset = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-sm-6">
+                  {/* <div className="col-sm-6">
                     <div className="text-sm-end">
                       <button
                         type="button"
@@ -145,7 +145,7 @@ const ApproveNewAsset = () => {
                         CREATE NEW{" "}
                       </button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 

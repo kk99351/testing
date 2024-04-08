@@ -138,9 +138,7 @@ const BarcodePage = () => {
                     <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="cat">
-                            MATERIAL-GROUP 
-                          </Label>
+                          <Label htmlFor="cat">MATERIAL-GROUP</Label>
                           <Input
                             type="select"
                             name="cat"
@@ -149,7 +147,8 @@ const BarcodePage = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.cat && validation.errors.cat
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT MATERIAL GROUP</option>
                             <option value="electronics">Electronics</option>
@@ -167,9 +166,7 @@ const BarcodePage = () => {
 
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="subCat">
-                            MATERIAL SUB GROUP 
-                          </Label>
+                          <Label htmlFor="subCat">MATERIAL SUB GROUP</Label>
                           <Input
                             type="select"
                             name="subCat"
@@ -179,7 +176,8 @@ const BarcodePage = () => {
                             invalid={
                               validation.touched.subCat &&
                               validation.errors.subCat
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT MATERIAL SUB GROUP</option>
                             <option value="electronics">
@@ -200,9 +198,7 @@ const BarcodePage = () => {
                     <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="poNo">
-                            PO.NUMBER 
-                          </Label>
+                          <Label htmlFor="poNo">PO.NUMBER</Label>
                           <Input
                             type="select"
                             name="poNo"
@@ -211,7 +207,8 @@ const BarcodePage = () => {
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.poNo && validation.errors.poNo
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT PO.NUMBER</option>
                             <option value="PO123456">PO123456</option>
@@ -228,9 +225,7 @@ const BarcodePage = () => {
 
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="invoiceNo">
-                            INVOICE NUMBER
-                          </Label>
+                          <Label htmlFor="invoiceNo">INVOICE NUMBER</Label>
                           <Input
                             type="select"
                             name="invoiceNo"
@@ -240,7 +235,8 @@ const BarcodePage = () => {
                             invalid={
                               validation.touched.invoiceNo &&
                               validation.errors.invoiceNo
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT INVOICE NUMBER</option>
                             <option value="INV2024001">INV2024001</option>

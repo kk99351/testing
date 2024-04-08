@@ -443,10 +443,9 @@ const AddNewAssetCreate = () => {
     }),
     onSubmit: values => {
       console.log("value", values);
-      console.log("formdata", serialNos);
-
       UploadFile(formData.attachImage).then(response => {
-        if (res.message === "File uploaded successfully.") {
+        console.log("response", response);
+        if (response.message === "File uploaded successfully.") {
           GetSignleData("Material", Number(values.model)).then(res => {
             CreateAssests({
               idwh: 0,

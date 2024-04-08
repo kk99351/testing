@@ -24,10 +24,10 @@ const UpdateAddNewAsset = () => {
   const [resData, setResData] = useState([]);
   const { id } = useParams();
 
-  console.log("alok")
+  console.log("alok");
   useEffect(() => {
     GetSingleAssests(id).then(res => {
-      console.log("alok",res);
+      console.log("alok", res);
     });
   }, []);
 

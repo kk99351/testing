@@ -42,3 +42,35 @@ export const GetSingleAssests = async id => {
     return error.message;
   }
 };
+
+//------------------Approve Assessts--------------------------//
+
+export const ApproveAssests = async (id, status, remark) => {
+  try {
+    let result = await fetch(
+      `${ApiBaseUrl}/asset/updateStatusAndSaveAWareHouse?idInv=${id}&statusApprove=${status}&rmkAsst=${remark}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+//--------------------------Get All Rejected Assests----------------------------------//
+export const GetRejectedAssests = async () => {
+  try {
+    let result = await fetch(`${ApiBaseUrl}/asset/rejectinvoices`, {
+      method: "GET",
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
