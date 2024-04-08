@@ -425,8 +425,9 @@ const AddNewAssetCreate = () => {
     validationSchema: Yup.object({
       ponNumber: Yup.string().required("PO NUMBER IS REQUIRED"),
       invoiceNumber: Yup.string().required("INVOICE NUMBER IS REQUIRED"),
-      // invoiceDate: Yup.string().required(" INVOICE DATE IS REQUIRED"),
+      invoiceDate: Yup.string().required(" INVOICE DATE IS REQUIRED"),
       poDate: Yup.string().required("PO DATE IS REQUIRED"),
+      grnDate: Yup.string().required("GRN DATE IS REQUIRED"),
       vendor: Yup.string().required("SUPPLIER IS REQUIRED"),
       model: Yup.string().required("MATERIAL/MODEL  NAME IS REQUIRED"),
       // matsubgroup: Yup.string().required("MATERIAL SUB GROUP IS REQUIRED"),
@@ -598,26 +599,37 @@ const AddNewAssetCreate = () => {
     validation.setFieldValue("quantity", value);
   };
 
+  // const handleFillFields = () => {
+  //   const quantity = parseInt(validation.values.quantity, 10);
+  //   const serialNos = [];
+  //   const assetRefNos = [];
+
+  //   for (let i = 0; i < quantity; i++) {
+  //     serialNos.push(`serialNo${i}`);
+  //     assetRefNos.push(`assetRefNo${i}`);
+  //   }
+
+  //   // Update formik state with populated values
+  //   serialNos.forEach((serialNo, index) => {
+  //     validation.setFieldValue(serialNo, `SA${index + 1}`);
+  //   });
+
+  //   assetRefNos.forEach((assetRefNo, index) => {
+  //     validation.setFieldValue(assetRefNo, `NA${index + 1}`);
+  //   });
+  // };
   const handleFillFields = () => {
     const quantity = parseInt(validation.values.quantity, 10);
-    const serialNos = [];
-    const assetRefNos = [];
-
+    const updatedValues = { ...validation.values };
+  
     for (let i = 0; i < quantity; i++) {
-      serialNos.push(`serialNo${i}`);
-      assetRefNos.push(`assetRefNo${i}`);
+      updatedValues[`serialNo${i}`] = `SN${i + 1}`;
+      updatedValues[`assetRefNo${i}`] = `NA${i + 1}`;
     }
-
-    // Update formik state with populated values
-    serialNos.forEach((serialNo, index) => {
-      validation.setFieldValue(serialNo, `SA${index + 1}`);
-    });
-
-    assetRefNos.forEach((assetRefNo, index) => {
-      validation.setFieldValue(assetRefNo, `NA${index + 1}`);
-    });
+  
+    validation.setValues(updatedValues);
   };
-
+  
   const renderInputFields = () => {
     const quantity = parseInt(validation.values.quantity, 10);
     const inputs = [];
@@ -1384,26 +1396,26 @@ const AddNewAssetCreate = () => {
                         <Row className="mb-3">
                           <Col md={4}>
                             <FormGroup className="mb-3">
-                              <Label htmlFor="ponNumber">
+                              <Label htmlFor="invoiceDate">
                                 INVOICE DATE<font color="red">*</font>
                               </Label>
                               <Input
                                 type="date"
-                                name="ponNumber"
-                                id="ponNumber"
+                                name="invoiceDate"
+                                id="invoiceDate"
                                 className="form-control"
                                 onChange={validation.handleChange}
                                 onBlur={validation.handleBlur}
                                 invalid={
-                                  validation.touched.ponNumber &&
-                                  validation.errors.ponNumber
+                                  validation.touched.invoiceDate &&
+                                  validation.errors.invoiceDate
                                 }
                                 style={{ textTransform: "uppercase" }}
                               ></Input>
-                              {validation.touched.ponNumber &&
-                              validation.errors.ponNumber ? (
+                              {validation.touched.invoiceDate &&
+                              validation.errors.invoiceDate ? (
                                 <FormFeedback type="invalid">
-                                  {validation.errors.ponNumber}
+                                  {validation.errors.invoiceDate}
                                 </FormFeedback>
                               ) : null}
                             </FormGroup>

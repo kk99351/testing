@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,7 +16,6 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import { CreateUserLogin } from "src/API/Master/AccessManagement/Api";
 
 const UserLoginCreate = () => {
   const getCurrentDate = () => {
@@ -165,6 +164,37 @@ const UserLoginCreate = () => {
       ]);
     },
   });
+  const [leftItems, setLeftItems] = useState([
+    "Company Master",
+    "Branch",
+    "Plant",
+    "Designation Master",
+    "Employee Master",
+    "Login Provision",
+    "Approved Vendor List",
+    "DOA",
+    "Bank Master",
+    "Payment Terms",
+  ]);
+  const [rightItems, setRightItems] = useState([]);
+
+  const handleMoveRight = () => {
+    const selectedItems = leftItems.filter((_, index) => {
+      const option = document.getElementById(`leftItem${index}`);
+      return option.selected;
+    });
+    setRightItems([...rightItems, ...selectedItems]);
+    setLeftItems(leftItems.filter(item => !selectedItems.includes(item)));
+  };
+
+  const handleMoveLeft = () => {
+    const selectedItems = rightItems.filter((_, index) => {
+      const option = document.getElementById(`rightItem${index}`);
+      return option.selected;
+    });
+    setLeftItems([...leftItems, ...selectedItems]);
+    setRightItems(rightItems.filter(item => !selectedItems.includes(item)));
+  };
 
   return (
     <React.Fragment>
@@ -443,6 +473,57 @@ const UserLoginCreate = () => {
                         </Col>
                       </Row>
                     )}
+                    <Row className="justify-content-center">
+                      <Col xl={12}>
+                        <Row className="m-2">
+                          <Col
+                            md={2}
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <Label style={{ marginBottom: "0" }}>
+                              LOCATION
+                            </Label>
+                          </Col>
+                          <Col md={4}>
+                            <select
+                              multiple
+                              className="w-100 h-100"
+                              style={{ minHeight: "150px" }}
+                            >
+                              {leftItems.map((item, index) => (
+                                <option key={index} id={`leftItem${index}`}>
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
+                          </Col>
+                          <Col
+                            md={2}
+                            className="d-flex justify-content-evenly align-items-center"
+                          >
+                            <Button onClick={handleMoveRight}>Right »</Button>
+                            <Button onClick={handleMoveLeft}>« Left</Button>
+                          </Col>
+                          <Col md={4}>
+                            <select
+                              multiple
+                              className="w-100 h-100"
+                              style={{ minHeight: "150px" }}
+                            >
+                              <Label style={{ marginBottom: "0" }}>
+                              LOCATION
+                            </Label>
+                              {rightItems.map((item, index) => (
+                                <option key={index} id={`rightItem${index}`}>
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                    <hr className="mb-2" />
 
                     <div
                       style={{

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,6 +16,7 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import "simplebar/dist/simplebar.min.css";
 
 const UserLoginUpdate = () => {
   const getCurrentDate = () => {
@@ -60,7 +61,6 @@ const UserLoginUpdate = () => {
       Status: Yup.string().required("STATUS IS REQUIRED"),
       UserType: Yup.string().required("USER TYPE IS REQUIRED"),
 
-      
       DisabledDate: Yup.string().test(
         "disabledDate",
         "INVALID DISABLED DATE",
@@ -72,6 +72,37 @@ const UserLoginUpdate = () => {
       // console.log("values", values);
     },
   });
+  const [leftItems, setLeftItems] = useState([
+    "Company Master",
+    "Branch",
+    "Plant",
+    "Designation Master",
+    "Employee Master",
+    "Login Provision",
+    "Approved Vendor List",
+    "DOA",
+    "Bank Master",
+    "Payment Terms",
+  ]);
+  const [rightItems, setRightItems] = useState([]);
+
+  const handleMoveRight = () => {
+    const selectedItems = leftItems.filter((_, index) => {
+      const option = document.getElementById(`leftItem${index}`);
+      return option.selected;
+    });
+    setRightItems([...rightItems, ...selectedItems]);
+    setLeftItems(leftItems.filter(item => !selectedItems.includes(item)));
+  };
+
+  const handleMoveLeft = () => {
+    const selectedItems = rightItems.filter((_, index) => {
+      const option = document.getElementById(`rightItem${index}`);
+      return option.selected;
+    });
+    setLeftItems([...leftItems, ...selectedItems]);
+    setRightItems(rightItems.filter(item => !selectedItems.includes(item)));
+  };
 
   return (
     <React.Fragment>
@@ -108,7 +139,8 @@ const UserLoginUpdate = () => {
                             invalid={
                               validation.touched.EmployeeInitials &&
                               validation.errors.EmployeeInitials
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT EMPLOYEE INITIALS</option>
                             <option value="dept1">ADMIN</option>
@@ -140,7 +172,8 @@ const UserLoginUpdate = () => {
                             invalid={
                               validation.touched.Email &&
                               validation.errors.Email
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.Email &&
                           validation.errors.Email ? (
@@ -169,7 +202,8 @@ const UserLoginUpdate = () => {
                             invalid={
                               validation.touched.LoginName &&
                               validation.errors.LoginName
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.LoginName &&
                           validation.errors.LoginName ? (
@@ -195,7 +229,8 @@ const UserLoginUpdate = () => {
                             invalid={
                               validation.touched.Password &&
                               validation.errors.Password
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.Password &&
                           validation.errors.Password ? (
@@ -224,7 +259,8 @@ const UserLoginUpdate = () => {
                             invalid={
                               validation.touched.ConfirmPassword &&
                               validation.errors.ConfirmPassword
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           />
                           {validation.touched.ConfirmPassword &&
                           validation.errors.ConfirmPassword ? (
@@ -236,21 +272,22 @@ const UserLoginUpdate = () => {
                       </Col>
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="validationCustom06">USER TYPE<font color="red">*</font></Label>
+                          <Label htmlFor="validationCustom06">
+                            USER TYPE<font color="red">*</font>
+                          </Label>
                           <Input
                             name="UserType"
                             type="select"
                             placeholder="PLEASE ENTER USER TYPE"
                             className="form-control"
                             id="validationCustom06"
-
-                            
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.UserType &&
                               validation.errors.UserType
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT USER TYPE</option>
                             <option value="dept1">ADMIN</option>
@@ -291,7 +328,8 @@ const UserLoginUpdate = () => {
                                 onChange={validation.handleChange}
                                 checked={
                                   validation.values.Status === "Inactive"
-                                }style={{ textTransform: "uppercase" }}
+                                }
+                                style={{ textTransform: "uppercase" }}
                               />
                               <Label check>DISABLED</Label>
                             </FormGroup>
@@ -330,7 +368,8 @@ const UserLoginUpdate = () => {
                               invalid={
                                 validation.touched.DisabledDate &&
                                 validation.errors.DisabledDate
-                              }style={{ textTransform: "uppercase" }}
+                              }
+                              style={{ textTransform: "uppercase" }}
                             />
                             {validation.touched.DisabledDate &&
                             validation.errors.DisabledDate ? (
@@ -342,6 +381,53 @@ const UserLoginUpdate = () => {
                         </Col>
                       </Row>
                     )}
+                   <Row className="justify-content-center">
+                <Col xl={12}>
+                    <Row className="m-2">
+                      <Col
+                        md={2}
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                      
+                        <Label style={{ marginBottom: "0" }}>LOCATION</Label>
+                      </Col>
+                      <Col md={4}>
+                        <select
+                          multiple
+                          className="w-100 h-100"
+                          style={{ minHeight: "150px" }}
+                        >
+                          {leftItems.map((item, index) => (
+                            <option key={index} id={`leftItem${index}`}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                      </Col>
+                      <Col
+                        md={2}
+                        className="d-flex justify-content-evenly align-items-center"
+                      >
+                        <Button onClick={handleMoveRight}>Right »</Button>
+                        <Button onClick={handleMoveLeft}>« Left</Button>
+                      </Col>
+                      <Col md={4}>
+                        <select
+                          multiple
+                          className="w-100 h-100"
+                          style={{ minHeight: "150px" }}
+                        >
+                          {rightItems.map((item, index) => (
+                            <option key={index} id={`rightItem${index}`}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                      </Col>
+                    </Row>
+                    </Col>
+                    </Row>
+                    <hr className="mb-2" />
 
                     <div
                       style={{

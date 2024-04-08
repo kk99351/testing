@@ -334,13 +334,17 @@ import CreateVendor from "src/pages/Master-Module/CreatePages/VendorCreate";
 import VendorUpdate from "src/pages/Master-Module/UpdatePage/VendorUpdate";
 import VendorCreate from "src/pages/Master-Module/CreatePages/VendorCreate";
 import UserPermissionUpdate from "src/pages/Master-Module/UpdatePage/UserPermissionUpdate";
-import UserPermissionCreate from "src/pages/Master-Module/CreatePages/UserPermissionCreate";
+// import UserPermissionCreate from "src/pages/Master-Module/UpdatePage/UserPermissionUpdate";
+
 import AddNewAssett from "src/pages/Asset-Module/AssetLists/AddNewAssett";
 import UpdateAddNewAsset from "src/pages/Asset-Module/UpdatePages/UpdateAddNewAsset";
 import ApproveNewAsset from "src/pages/Asset-Module/AssetLists/ApproveNewAsset";
 import ApproveNewAssetCreate from "src/pages/Asset-Module/CreatePages/ApproveNewAssetCreate";
 import CustomTagPrinting from "src/pages/Master-Module/MasterLists/CustomTagPrinting";
-
+import UserPermissionCreate from "src/pages/Master-Module/CreatePages/UserPermissionCreate";
+import CostCenterUpdate from "src/pages/Master-Module/UpdatePage/CostCenterUpdate";
+import CostCenterCreate from "src/pages/Master-Module/CreatePages/CostCenterCreate";
+import CostCenter from "src/pages/Master-Module/MasterLists/AccessManegment/CostCenter";
 interface RouteProps {
   path: string;
   component: any;
@@ -358,6 +362,12 @@ const userRoutes: Array<RouteProps> = [
   { path: "/yearly_depreciation", component: <YearlyDep /> },
   { path: "/addition_Deletion", component: <AdditionDeletion /> },
   { path: "/addition_Deletion_view/:id", component: <AdditionDeletionlist /> },
+
+
+
+  { path: "/cost_center", component: <CostCenter /> },
+  { path: "/cost_center_create", component: <CostCenterCreate /> },
+  { path: "/cost_center_modify/:id", component: <CostCenterUpdate /> },
 
   //ASSET MASTER PAGES PATH
   { path: "/create_new_asset", component: <AddNewAssetCreate /> },

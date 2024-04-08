@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Container,
   Form,
@@ -15,56 +15,17 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { CreateEmploye } from "src/API/Master/AccessManagement/Api";
-import { GetAllData } from "src/API/Master/GlobalGet";
 
 const EmplyeeMasterCreate = () => {
   const navigate = useNavigate();
-  const [deperatment, setDeperatment] = useState([]);
-  const [deligations, setDeligations] = useState([]);
-  const [floor, setFloor] = useState([]);
-  const [emp, setEmp] = useState([]);
+  const [status, setStatus] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    GetAllData("Dept").then(res => {
-      if (Array.isArray(res)) {
-        setDeperatment(res);
-      } else {
-        setDeperatment([]);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    GetAllData("Designation").then(res => {
-      if (Array.isArray(res)) {
-        setDeligations(res);
-      } else {
-        setDeligations([]);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    GetAllData("Floor").then(res => {
-      if (Array.isArray(res)) {
-        setFloor(res);
-      } else {
-        setFloor([]);
-      }
-    });
-  }, []);
-
-  // useEffect(() => {
-  //   GetAllData("Employee").then(res => {
-  //     if (Array.isArray(res)) {
-  //       setEmp(res);
-  //     } else {
-  //       setEmp([]);
-  //     }
-  //   });
-  // }, []);
-
+  const handleLogoChange = event => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -76,14 +37,13 @@ const EmplyeeMasterCreate = () => {
       reportingManager: "",
       department: "",
       location: "",
+      statusempl: "",
+      costCenter: "",
       subLocation: "",
-
       employeeType: "",
       status: "",
-
-      company_group: "",
-      region_name: "",
-      cityname: "",
+      costCenter: "",
+      entity: "",
       plantname: "",
       building: "",
       floor: "",
@@ -92,7 +52,7 @@ const EmplyeeMasterCreate = () => {
       employeeName: Yup.string().required("EMPLOYEE NAME IS REQUIRED"),
       employeeCode: Yup.string().required("EMPLOYEE CODE IS REQUIRED"),
       officialMailId: Yup.string()
-        .email("ENTER A VALID MAIL ID")
+        .email("Enter a valid email")
         .required("OFFICIAL MAIL ID IS REQUIRED"),
       contactNo: Yup.string().required("CONTACT NO IS REQUIRED"),
       designation: Yup.string().required("DESIGNATION IS REQUIRED"),
@@ -101,70 +61,16 @@ const EmplyeeMasterCreate = () => {
       location: Yup.string().required("LOCATION IS REQUIRED"),
       subLocation: Yup.string().required("SUB-LOCATION IS REQUIRED"),
       employeeType: Yup.string().required("EMPLOYEE TYPE IS REQUIRED"),
-      status: Yup.string().required("STATUS IS REQUIRED"),
-
-      company_group: Yup.string().required("COUNTRY NAME IS REQUIRED"),
-      region_name: Yup.string().required("STATE NAME IS REQUIRED"),
-      cityname: Yup.string().required("CITY NAME IS REQUIRED"),
+      statusempl: Yup.string().required("STATUS IS REQUIRED"),
+      costCenter: Yup.string().required("COST CENTER IS REQUIRED"),
+      entity: Yup.string().required("ENTITY IS REQUIRED"),
       plantname: Yup.string().required("LOCATION NAME IS REQUIRED"),
       building: Yup.string().required("BUILDING NAME IS REQUIRED"),
       floor: Yup.string().required("FLOOR NUMBER IS REQUIRED"),
     }),
     onSubmit: values => {
-      CreateEmploye([
-        {
-          idempuser: 0,
-          nmemp: "string",
-          cdemp: "string",
-          idemp: "string",
-          contno: "string",
-          iddesign: {
-            iddesign: 0,
-            nmdesign: "string",
-            cddesign: "string",
-          },
-          repomngr: "string",
-          iddept: {
-            iddept: 0,
-            nmdept: "string",
-            cddept: "string",
-          },
-          idflr: {
-            idflr: 0,
-            nmflr: "string",
-            cdflr: "string",
-            idbuilding: {
-              idbuilding: 0,
-              nmbuilding: "string",
-              cdbuilding: "string",
-              idsloc: {
-                idsloc: 0,
-                nmSubl: "string",
-                cdSubl: "string",
-                idloc: {
-                  idloc: 0,
-                  nmLoc: "string",
-                  cdLoc: "string",
-                  idcountry: {
-                    idcountry: 0,
-                    nmCountry: "string",
-                    cdCountry: "string",
-                  },
-                },
-              },
-            },
-          },
-          emptype: "string",
-          status_emp: "string",
-          idcc: {
-            idcc: 0,
-            nmcc: "string",
-          },
-          empimage: "string",
-        },
-      ])
-        .then(res => {})
-        .catch(err => {});
+      alert("Form validated!");
+      // Add your form submission logic here
     },
   });
 
@@ -175,7 +81,7 @@ const EmplyeeMasterCreate = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                CREATE EMPLOYEE
+               CREATE EMPLOYEE 
               </h1>
             </CardHeader>
             <CardBody>
@@ -311,6 +217,20 @@ const EmplyeeMasterCreate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT DESIGNATION</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Assistant Manager">
+                              Assistant Manager
+                            </option>
+                            <option value="Team Lead">Team Lead</option>
+                            <option value="Software Engineer">
+                              Software Engineer
+                            </option>
+                            <option value="HR Coordinator">
+                              HR Coordinator
+                            </option>
+                            <option value="Sales Representative">
+                              Sales Representative
+                            </option>
 
                             {deligations &&
                               deligations.map((item, index) => (
@@ -375,12 +295,12 @@ const EmplyeeMasterCreate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT DEPARTMENT</option>
-                            {deperatment &&
-                              deperatment.map((item, index) => (
-                                <option key={index} value={item.iddept}>
-                                  {item.nmdept}
-                                </option>
-                              ))}
+                            <option value="Sales">Sales</option>
+                            <option value="Human Resources">
+                              Human Resources
+                            </option>
+                            <option value="Finance">Finance</option>
+                            <option value="Engineering">Engineering</option>
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.department &&
@@ -419,27 +339,26 @@ const EmplyeeMasterCreate = () => {
                       </Col>
                       <hr className="mb-2" />
                     </Row>
-
                     <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-2">
-                          <Label for="company_group">
-                            COUNTRY<font color="red">*</font>
+                          <Label for="entity">
+                            ENTITY<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            id="company_group"
-                            name="company_group"
-                            value={validation.values.company_group}
+                            id="entity"
+                            name="entity"
+                            value={validation.values.entity}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.company_group &&
-                              !!validation.errors.company_group
+                              validation.touched.entity &&
+                              !!validation.errors.entity
                             }
                             style={{ textTransform: "uppercase" }}
                           >
-                            <option value="">SELECT COUNTRY </option>
+                            <option value="">SELECT ENTITY </option>
                             <option value="United States">United States</option>
                             <option value="United Kingdom">
                               United Kingdom
@@ -448,73 +367,8 @@ const EmplyeeMasterCreate = () => {
                             <option value="Australia">Australia</option>
                           </Input>
                           <div className="invalid-feedback">
-                            {validation.touched.company_group &&
-                              validation.errors.company_group}
-                          </div>
-                        </FormGroup>
-                      </Col>
-                      <Col md={6}>
-                        <FormGroup className="mb-2">
-                          <Label for="region_name">
-                            STATE<font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            id="region_name"
-                            name="region_name"
-                            value={validation.values.region_name}
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.region_name &&
-                              !!validation.errors.region_name
-                            }
-                            style={{ textTransform: "uppercase" }}
-                          >
-                            <option value="">SELECT STATE</option>
-                            <option value="CA">California</option>
-                            <option value="NY">New York</option>
-                            <option value="ENG">England</option>
-                            <option value="ON">Ontario</option>
-                          </Input>
-                          <div className="invalid-feedback">
-                            {validation.touched.region_name &&
-                              validation.errors.region_name}
-                          </div>
-                        </FormGroup>
-                      </Col>
-                      <hr className="mb-2" />
-                    </Row>
-
-                    <Row className="mb-2">
-                      <Col md={6}>
-                        <FormGroup className="mb-2">
-                          <Label for="cityname">
-                            CITY<font color="red">*</font>
-                          </Label>
-                          <Input
-                            type="select"
-                            id="cityname"
-                            name="cityname"
-                            value={validation.values.cityname}
-                            onChange={validation.handleChange}
-                            onBlur={validation.handleBlur}
-                            invalid={
-                              validation.touched.cityname &&
-                              !!validation.errors.cityname
-                            }
-                            style={{ textTransform: "uppercase" }}
-                          >
-                            <option value="">SELECT CITY</option>
-                            <option value="Los Angeles">Los Angeles</option>
-                            <option value="New York City">New York City</option>
-                            <option value="London">London</option>
-                            <option value="Toronto">Toronto</option>
-                            <option value="Sydney">Sydney</option>
-                          </Input>
-                          <div className="invalid-feedback">
-                            {validation.touched.cityname &&
-                              validation.errors.cityname}
+                            {validation.touched.entity &&
+                              validation.errors.entity}
                           </div>
                         </FormGroup>
                       </Col>
@@ -534,6 +388,7 @@ const EmplyeeMasterCreate = () => {
                               validation.touched.plantname &&
                               !!validation.errors.plantname
                             }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="" disabled>
                               SELEECT LOCATION
@@ -554,6 +409,7 @@ const EmplyeeMasterCreate = () => {
                           </div>
                         </FormGroup>
                       </Col>
+                      <hr className="mb-2" />
                       <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
@@ -611,12 +467,11 @@ const EmplyeeMasterCreate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELEECT FLOOR</option>
-                            {floor &&
-                              floor.map((item, index) => (
-                                <option key={index} value={item.idflr}>
-                                  {item.nmflr}
-                                </option>
-                              ))}
+                            <option value="1">1st Floor</option>
+                            <option value="2">2nd Floor</option>
+                            <option value="3">3rd Floor</option>
+                            <option value="4">4th Floor</option>
+                            <option value="5">5th Floor</option>
                           </Input>
                           <div className="invalid-feedback">
                             {validation.errors.floor}
@@ -625,6 +480,94 @@ const EmplyeeMasterCreate = () => {
                       </Col>
                       <hr className="mb-2" />
                     </Row>
+                    <Row className="mb-2">
+                      <Col md={6}>
+                        <FormGroup className="mb-2">
+                          <Label for="statusempl">
+                            STATUS<font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            id="statusempl"
+                            name="statusempl"
+                            value={validation.values.statusempl}
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.statusempl &&
+                              !!validation.errors.statusempl
+                            }
+                            style={{ textTransform: "uppercase" }}
+                          >
+                            <option value="">SELECT STATUS</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                          </Input>
+                          <div className="invalid-feedback">
+                            {validation.errors.statusempl}
+                          </div>
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup className="mb-2">
+                          <Label for="costCenter">
+                            COST CENTER/PROJECT<font color="red">*</font>
+                          </Label>
+                          <Input
+                            type="select"
+                            id="costCenter"
+                            name="costCenter"
+                            value={validation.values.costCenter}
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.costCenter &&
+                              !!validation.errors.costCenter
+                            }
+                            style={{ textTransform: "uppercase" }}
+                          >
+                            <option value="">SELECT COST CENTER/PROJECT</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                          </Input>
+                          <div className="invalid-feedback">
+                            {validation.errors.costCenter}
+                          </div>
+                        </FormGroup>
+                      </Col>
+                      <hr className="mb-2" />
+                    </Row>
+
+                    <Row className="mb-2">
+                      <Col md={6}>
+                        <Label for="attachImage">UPLOAD FILE</Label>
+                        <Input
+                          type="file"
+                          name="attachImage"
+                          id="attachImage"
+                          onChange={handleLogoChange}
+                          accept="image/*"
+                          invalid={!!errors.attachImage}
+                          style={{ textTransform: "uppercase" }}
+                        />
+                        <span className="invalid-feedback">
+                          {errors.attachImage}
+                        </span>
+                      </Col>
+                      <Col md={6}>
+                        {selectedFile && (
+                          <img
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected"
+                            style={{
+                              maxWidth: "100%",
+                              maxHeight: "100px",
+                            }}
+                          />
+                        )}
+                      </Col>
+                    </Row>
+                    <hr className="mb-3" />
 
                     <div
                       style={{
