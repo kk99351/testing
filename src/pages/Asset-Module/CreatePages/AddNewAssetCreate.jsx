@@ -70,7 +70,7 @@ const AddNewAssetCreate = () => {
   const [errors, setErrors] = useState(initialErrors);
   const [showAmcDates, setShowAmcDates] = useState(false);
   const [showLeaseDates, setShowLeaseDates] = useState(false);
-  const [showLicenseDropdown, setShowLicenseDropdown] = useState(false);
+  // const [showLicenseDropdown, setShowLicenseDropdown] = useState(false);
   const [showAdditionalInputs, setShowAdditionalInputs] = useState(false);
 
   const [material, setMaterial] = useState([]);
@@ -420,6 +420,12 @@ const AddNewAssetCreate = () => {
       mb: "",
       os: "",
       service: "",
+      amc: "",
+      amcStartDate: "",
+      amcEndDate: "",
+      leaseStatus: "",
+      leaseStartDate: "",
+      leaseEndDate: "",
     },
 
     validationSchema: Yup.object({
@@ -441,6 +447,24 @@ const AddNewAssetCreate = () => {
       dept: Yup.string().required("DEPARTMENT IS REQUIRED"),
       cost: Yup.string().required("COST CENTER REQUIRED"),
       // remark: Yup.string().required("REMARKS IS REQUIRED"),
+      amc: Yup.string().required("AMC/WARRANTY IS REQUIRED"),
+      amcStartDate: Yup.string().when(['amc', 'leaseStatus'], {
+        is: (amc, leaseStatus) => (amc === 'amc' || amc === 'warrenty') && leaseStatus !== 'Notunderlease',
+        then: Yup.string().required("AMC/WARRANTY START DATE IS REQUIRED"),
+      }),
+      amcEndDate: Yup.string().when(['amc', 'leaseStatus'], {
+        is: (amc, leaseStatus) => (amc === 'amc' || amc === 'warrenty') && leaseStatus !== 'Notunderlease',
+        then: Yup.string().required("AMC/WARRANTY END DATE IS REQUIRED"),
+      }),
+      leaseStatus: Yup.string().required("LEASE STATUS IS REQUIRED"),
+      leaseStartDate: Yup.string().when('leaseStatus', {
+        is: 'underlease',
+        then: Yup.string().required("LEASE START DATE IS REQUIRED"),
+      }),
+      leaseEndDate: Yup.string().when('leaseStatus', {
+        is: 'underlease',
+        then: Yup.string().required("LEASE END DATE IS REQUIRED"),
+      }),
     }),
     onSubmit: values => {
       console.log("value", values);
@@ -572,17 +596,17 @@ const AddNewAssetCreate = () => {
     },
   });
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
-
-    if (name === "model" && value.trim() !== "") {
-      setShowAdditionalInputs(true);
-    } else {
-      setShowAdditionalInputs(false);
-    }
-
-    validation.handleChange(event);
+  
+    const formattedValue = value; 
+  
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: formattedValue
+    }));
   };
+  
 
   const handleCityNameKeyPress = event => {
     if (event.key === "Enter" && validation.values.cityname.trim() !== "") {
@@ -1051,8 +1075,8 @@ const AddNewAssetCreate = () => {
                               name="amcEndDate"
                               id="amcEndDate"
                               placeholder="PLEASE ENTER AMC/WARRENTY END DATE"
-                              value={formData.amcEndDate}
-                              onChange={handleInputChange}
+                              value={formData.amcEndDate}  // Confirm this corresponds to the correct property in formData
+                              onChange={handleInputChange} // Make sure this function correctly updates the formData state
                               invalid={!!errors.amcEndDate}
                               style={{ textTransform: "uppercase" }}
                             />
