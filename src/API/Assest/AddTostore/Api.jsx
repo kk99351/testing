@@ -74,3 +74,19 @@ export const GetRejectedAssests = async () => {
     return error.message;
   }
 };
+
+//-----------------------------Generate serial number------------------------------//
+export const GenerateSerialNumber = async quantity => {
+  try {
+    let result = await fetch(
+      `${ApiBaseUrl}/asset/generateSerialNumbers?quantity=${quantity}`,
+      {
+        method: "GET",
+      }
+    );
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};

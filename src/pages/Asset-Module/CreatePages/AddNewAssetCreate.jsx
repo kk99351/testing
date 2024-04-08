@@ -17,7 +17,10 @@ import {
 } from "reactstrap";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { CreateAssests } from "src/API/Assest/AddTostore/Api";
+import {
+  CreateAssests,
+  GenerateSerialNumber,
+} from "src/API/Assest/AddTostore/Api";
 import { GetAllData, GetSignleData } from "src/API/Master/GlobalGet";
 import { UploadFile } from "src/API/Upload";
 
@@ -134,6 +137,12 @@ const AddNewAssetCreate = () => {
       }
     });
   }, []);
+
+  const GenerateSerial = () => {
+    GenerateSerialNumber().then(res => {
+      console.log("serial", res);
+    });
+  };
 
   const renderAssetTypeContent = () => {
     switch (showAdditionalInputs) {
@@ -448,21 +457,25 @@ const AddNewAssetCreate = () => {
       cost: Yup.string().required("COST CENTER REQUIRED"),
       // remark: Yup.string().required("REMARKS IS REQUIRED"),
       amc: Yup.string().required("AMC/WARRANTY IS REQUIRED"),
-      amcStartDate: Yup.string().when(['amc', 'leaseStatus'], {
-        is: (amc, leaseStatus) => (amc === 'amc' || amc === 'warrenty') && leaseStatus !== 'Notunderlease',
+      amcStartDate: Yup.string().when(["amc", "leaseStatus"], {
+        is: (amc, leaseStatus) =>
+          (amc === "amc" || amc === "warrenty") &&
+          leaseStatus !== "Notunderlease",
         then: Yup.string().required("AMC/WARRANTY START DATE IS REQUIRED"),
       }),
-      amcEndDate: Yup.string().when(['amc', 'leaseStatus'], {
-        is: (amc, leaseStatus) => (amc === 'amc' || amc === 'warrenty') && leaseStatus !== 'Notunderlease',
+      amcEndDate: Yup.string().when(["amc", "leaseStatus"], {
+        is: (amc, leaseStatus) =>
+          (amc === "amc" || amc === "warrenty") &&
+          leaseStatus !== "Notunderlease",
         then: Yup.string().required("AMC/WARRANTY END DATE IS REQUIRED"),
       }),
       leaseStatus: Yup.string().required("LEASE STATUS IS REQUIRED"),
-      leaseStartDate: Yup.string().when('leaseStatus', {
-        is: 'underlease',
+      leaseStartDate: Yup.string().when("leaseStatus", {
+        is: "underlease",
         then: Yup.string().required("LEASE START DATE IS REQUIRED"),
       }),
-      leaseEndDate: Yup.string().when('leaseStatus', {
-        is: 'underlease',
+      leaseEndDate: Yup.string().when("leaseStatus", {
+        is: "underlease",
         then: Yup.string().required("LEASE END DATE IS REQUIRED"),
       }),
     }),
@@ -595,17 +608,16 @@ const AddNewAssetCreate = () => {
     },
   });
 
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     const { name, value } = event.target;
-  
-    const formattedValue = value; 
-  
+
+    const formattedValue = value;
+
     setFormData(prevState => ({
       ...prevState,
-      [name]: formattedValue
+      [name]: formattedValue,
     }));
   };
-  
 
   const handleCityNameKeyPress = event => {
     if (event.key === "Enter" && validation.values.cityname.trim() !== "") {
@@ -1074,7 +1086,7 @@ const AddNewAssetCreate = () => {
                               name="amcEndDate"
                               id="amcEndDate"
                               placeholder="PLEASE ENTER AMC/WARRENTY END DATE"
-                              value={formData.amcEndDate}  // Confirm this corresponds to the correct property in formData
+                              value={formData.amcEndDate} // Confirm this corresponds to the correct property in formData
                               onChange={handleInputChange} // Make sure this function correctly updates the formData state
                               invalid={!!errors.amcEndDate}
                               style={{ textTransform: "uppercase" }}
