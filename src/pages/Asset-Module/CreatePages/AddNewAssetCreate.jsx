@@ -547,14 +547,14 @@ const AddNewAssetCreate = () => {
                 stdlease: formData.leaseStartDate,
                 warramc: formData.amc,
                 dtamcstart: formData.amcStartDate,
-                dtamcexp: "2024-04-06T06:04:31.890Z",
-                processtyp: "string",
+                dtamcexp: formData.amcEndDate,
+                processtyp: "",
                 storeagetyp: response.fileNames[0],
-                ramtyp: "string",
-                stconfig: "string",
+                ramtyp: "",
+                stconfig: "",
               },
-              idwhdyn: "string",
-              serialno: "A1,A2",
+              idwhdyn: "",
+              serialno: "1,2,3,4,5",
               addby: 0,
               editby: 0,
             }).then(res => {
@@ -621,15 +621,15 @@ const AddNewAssetCreate = () => {
   const handleFillFields = () => {
     const quantity = parseInt(validation.values.quantity, 10);
     const updatedValues = { ...validation.values };
-  
+
     for (let i = 0; i < quantity; i++) {
       updatedValues[`serialNo${i}`] = `SN${i + 1}`;
       updatedValues[`assetRefNo${i}`] = `NA${i + 1}`;
     }
-  
+
     validation.setValues(updatedValues);
   };
-  
+
   const renderInputFields = () => {
     const quantity = parseInt(validation.values.quantity, 10);
     const inputs = [];
@@ -1152,8 +1152,8 @@ const AddNewAssetCreate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT TAGGABLE OR NOT</option>
-                            <option value="electronics">YES</option>
-                            <option value="clothing">NO</option>
+                            <option value="Yes">YES</option>
+                            <option value="No">NO</option>
                           </Input>
                           {validation.touched.tag && validation.errors.tag ? (
                             <FormFeedback type="invalid">

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -19,12 +19,51 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import Barcode from "react-barcode";
+import { GetAssests } from "src/API/Assest/AddTostore/Api";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const BarcodePage = () => {
   const navigate = useNavigate();
+
+  const [responseData, setResponseData] = useState([])
   const [submitted, setSubmitted] = useState(false);
   const [barcodeData, setBarcodeData] = useState(null);
   const [selectedRows, setSelectedRows] = useState([]);
+  const [module, setModule] = useState([]);
+  const [submodule, setSubmodule] = useState([]);
+
+
+  useEffect(() => {
+    GetAllData("Module").then(res => {
+      if (Array.isArray(res)) {
+        setModule(res);
+      } else {
+        setModule([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("SubModule").then(res => {
+      if (Array.isArray(res)) {
+        console.log(res);
+        setSubmodule(res);
+      } else {
+        setSubmodule([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAssests().then((res)=>{
+      if (Array.isArray(res)) {
+        console.log(res);
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    })
+  }, []);
 
   const validation = useFormik({
     enableReinitialize: true,
@@ -47,33 +86,7 @@ const BarcodePage = () => {
       setSubmitted(true);
     },
   });
-  const [responseData, setResponseData] = useState([
-    {
-      slno: 1,
-      assetId: "03/IT/EBE-0001/2024",
-      assetName: "Laptop",
-      serialNumber: "AB1",
-      assetRemarks: "Good condition",
-      allocateType: "Active",
-      checked: false,
-      employeename: "John Doe",
-      client: "ABC Corp",
-      allocatedDate: "2023-01-15",
-    },
-    {
-      slno: 2,
-      assetId: "03/IT/EBE-0002/2024",
-      assetName: "Desktop",
-      serialNumber: "AB2",
-      assetRemarks: "Good condition",
-      allocateType: "Active",
-      checked: false,
-      employeename: "Jane Doe",
-      client: "XYZ Corp",
-      allocatedDate: "2023-01-16",
-    },
-    // Other data...
-  ]);
+  
 
   const handleDeallocate = () => {
     console.log("Deallocate button clicked");
