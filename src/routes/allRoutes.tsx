@@ -342,9 +342,9 @@ import ApproveNewAsset from "src/pages/Asset-Module/AssetLists/ApproveNewAsset";
 import ApproveNewAssetCreate from "src/pages/Asset-Module/CreatePages/ApproveNewAssetCreate";
 import CustomTagPrinting from "src/pages/Master-Module/MasterLists/CustomTagPrinting";
 import UserPermissionCreate from "src/pages/Master-Module/CreatePages/UserPermissionCreate";
-import CostCenter from "src/pages/Master-Module/MasterLists/AccessManegment/CostCenter";
-import CostCenterCreate from "src/pages/Master-Module/CreatePages/CostCenterCreate";
 import CostCenterUpdate from "src/pages/Master-Module/UpdatePage/CostCenterUpdate";
+import CostCenterCreate from "src/pages/Master-Module/CreatePages/CostCenterCreate";
+import CostCenter from "src/pages/Master-Module/MasterLists/AccessManegment/CostCenter";
 interface RouteProps {
   path: string;
   component: any;
@@ -353,7 +353,7 @@ interface RouteProps {
 const userRoutes: Array<RouteProps> = [
   //new page
   { path: "ex", component: <Experimental /> },
-  { path: "/home", component: <Home /> },
+  { path: "/", component: <Home /> },
   //DEPRETIATION MODFY PATH
   { path: "/depreciation_master", component: <DepreciationMaster /> },
   { path: "/ca_yearly", component: <CAYearly /> },
@@ -636,7 +636,10 @@ const userRoutes: Array<RouteProps> = [
   //AssetsSraban
   { path: "/bill_entry/:id", component: <DisplayBillEntryDetails /> },
   { path: "/via_bill/:id", component: <DisplayViaBillEntryDetails /> },
-  { path: "/create_approve_new_asset/:id", component: <ApproveNewAssetCreate /> },
+  {
+    path: "/create_approve_new_asset/:id",
+    component: <ApproveNewAssetCreate />,
+  },
 
   //dashboard
   { path: "/sales", component: <Sales /> },
@@ -752,9 +755,9 @@ const userRoutes: Array<RouteProps> = [
   {
     path: "/",
     exact: true,
-    component: <Navigate to="/home" />,
+    component: <Navigate to="/" />,
   },
-  { path: "*", component: <Navigate to="/home" /> },
+  { path: "*", component: <Navigate to="/" /> },
 ];
 
 const authRoutes: Array<RouteProps> = [

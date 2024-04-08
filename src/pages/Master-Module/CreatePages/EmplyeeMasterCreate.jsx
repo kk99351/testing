@@ -231,6 +231,13 @@ const EmplyeeMasterCreate = () => {
                             <option value="Sales Representative">
                               Sales Representative
                             </option>
+
+                            {deligations &&
+                              deligations.map((item, index) => (
+                                <option key={index} value={item.iddesign}>
+                                  {item.nmdesign}
+                                </option>
+                              ))}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.designation &&

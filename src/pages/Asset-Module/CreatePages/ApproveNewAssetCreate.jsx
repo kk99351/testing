@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,11 +16,21 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { GetSingleAssests } from "src/API/Assest/AddTostore/Api";
+import { useParams } from "react-router";
 
 const ApproveNewAssetCreate = () => {
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const { id } = useParams();
   const navigate = useNavigate();
+  const [resData, setResData] = useState([]);
+
+  useEffect(() => {
+    GetSingleAssests(id).then(res => {
+      setResData(res);
+    });
+  }, []);
+
   const requiredFields = {
     assetId: "ASSET ID",
     typeOfProc: "TYPE OF PROCUREMENT",
@@ -48,19 +58,19 @@ const ApproveNewAssetCreate = () => {
     initialFormData[key] = "";
     initialErrors[key] = "";
   });
-  const handlelogoChange = (event) => {
+  const handlelogoChange = event => {
     const file = event.target.files[0];
     setSelectedFile(file);
-    setErrors((prevErrors) => ({
+    setErrors(prevErrors => ({
       ...prevErrors,
-      attachImage: "", 
+      attachImage: "",
     }));
-    setFormData((prevData) => ({
+    setFormData(prevData => ({
       ...prevData,
-      attachImage: file, 
+      attachImage: file,
     }));
   };
-  
+
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
   const [showAmcDates, setShowAmcDates] = useState(false);
@@ -313,33 +323,32 @@ const ApproveNewAssetCreate = () => {
                         </Col>
                       </Row>
                       <Row className="mb-2">
-                      <Col md={6}>
-                        <Label for="attachImage">ATTACH IMAGE</Label>
-                        <Input
-                          type="file"
-                          name="attachImage"
-                          id="attachImage"
-                          onChange={handlelogoChange}
-                          accept="image/*"
-                          invalid={!!errors.attachImage}
-                          style={{ textTransform: "uppercase" }}
-
-                        />
-                        <span className="invalid-feedback">
-                          {errors.attachImage}
-                        </span>
-                      </Col>
-                      <Col md={6}>
-                        {selectedFile && (
-                          <img
-                            src={URL.createObjectURL(selectedFile)}
-                            alt="Selected"
-                            style={{ maxWidth: "100%", maxHeight: "100px" }}
+                        <Col md={6}>
+                          <Label for="attachImage">ATTACH IMAGE</Label>
+                          <Input
+                            type="file"
+                            name="attachImage"
+                            id="attachImage"
+                            onChange={handlelogoChange}
+                            accept="image/*"
+                            invalid={!!errors.attachImage}
+                            style={{ textTransform: "uppercase" }}
                           />
-                        )}
-                      </Col>
-                      <hr className="mb-0 mt-3" />
-                    </Row>
+                          <span className="invalid-feedback">
+                            {errors.attachImage}
+                          </span>
+                        </Col>
+                        <Col md={6}>
+                          {selectedFile && (
+                            <img
+                              src={URL.createObjectURL(selectedFile)}
+                              alt="Selected"
+                              style={{ maxWidth: "100%", maxHeight: "100px" }}
+                            />
+                          )}
+                        </Col>
+                        <hr className="mb-0 mt-3" />
+                      </Row>
                     </Form>
                   </Col>
                 </Row>
@@ -357,15 +366,15 @@ const ApproveNewAssetCreate = () => {
     enableReinitialize: true,
 
     initialValues: {
-      model: "",
+      model: resData?.idmodel?.nmmodel,
       matsubgroup: "",
-      matgroup: "",
+      matgroup: "alok",
       assttype: "",
-      quantity: "",
-      unit: "",
+      quantity: resData?.qty,
+      unit: resData?.unprc,
       tag: "",
       proc: "",
-      loc: "",
+      loc: resData?.idflr?.idbuilding?.nmbuilding,
       dept: "",
       cost: "",
       remark: "",
@@ -596,6 +605,7 @@ const ApproveNewAssetCreate = () => {
                             placeholder="PLEASE ENTER  MATERIAL/MODEL NAME"
                             className="form-control"
                             id="model"
+                            value={validation.values.model}
                             onChange={handleInputChange}
                             onBlur={validation.handleBlur}
                             onKeyPress={handleCityNameKeyPress}
@@ -628,6 +638,7 @@ const ApproveNewAssetCreate = () => {
                                 name="matgroup"
                                 id="matgroup"
                                 className="form-control"
+                                value={validation.values.model}
                                 onChange={validation.handleChange}
                                 onBlur={validation.handleBlur}
                                 invalid={
@@ -724,7 +735,9 @@ const ApproveNewAssetCreate = () => {
                     <Row className="mb-1">
                       <Col md={6}>
                         <FormGroup>
-                          <Label htmlFor="quantity">QUANTITY<font color="red">*</font></Label>
+                          <Label htmlFor="quantity">
+                            QUANTITY<font color="red">*</font>
+                          </Label>
                           <Input
                             type="number"
                             name="quantity"
@@ -760,6 +773,7 @@ const ApproveNewAssetCreate = () => {
                             id="unit"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
+                            value={validation.values.unit}
                             invalid={
                               validation.touched.unit && validation.errors.unit
                             }
@@ -968,22 +982,18 @@ const ApproveNewAssetCreate = () => {
                             LOCATION<font color="red">*</font>
                           </Label>
                           <Input
-                            type="select"
+                            type="text"
                             name="loc"
                             id="loc"
                             className="form-control"
+                            value={validation.values.loc}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.loc && validation.errors.loc
                             }
                             style={{ textTransform: "uppercase" }}
-                          >
-                            <option value="">SELECT LOCATION</option>
-                            <option value="group1">OUTRIGHT PURCHASE</option>
-                            <option value="group2">LOAN BASIC</option>
-                            <option value="group3">ADD-ON</option>
-                          </Input>
+                          ></Input>
                           {validation.touched.loc && validation.errors.loc ? (
                             <FormFeedback type="invalid">
                               {validation.errors.loc}
@@ -1079,10 +1089,11 @@ const ApproveNewAssetCreate = () => {
                       </Col>
                     </Row>
                     <Row className="mb-1">
-
-                    <Col md={12}>
+                      <Col md={12}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="remark">REMARKS<font color="red">*</font></Label>
+                          <Label htmlFor="remark">
+                            REMARKS<font color="red">*</font>
+                          </Label>
                           <Input
                             type="textarea"
                             name="remark"
@@ -1092,11 +1103,13 @@ const ApproveNewAssetCreate = () => {
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.remark && validation.errors.remark
+                              validation.touched.remark &&
+                              validation.errors.remark
                             }
                             style={{ textTransform: "uppercase" }}
                           ></Input>
-                          {validation.touched.remark && validation.errors.remark ? (
+                          {validation.touched.remark &&
+                          validation.errors.remark ? (
                             <FormFeedback type="invalid">
                               {validation.errors.remark}
                             </FormFeedback>
@@ -1375,35 +1388,35 @@ const ApproveNewAssetCreate = () => {
                           </Col>
                         </Row>
                         <Row className="mb-2">
-                            <Col md={6}>
-                              <Label for="attachImage">UPLOAD FILE</Label>
-                              <Input
-                                type="file"
-                                name="attachImage"
-                                id="attachImage"
-                                onChange={handlelogoChange}
-                                accept="image/*"
-                                invalid={!!errors.attachImage}
-                                style={{ textTransform: "uppercase" }}
+                          <Col md={6}>
+                            <Label for="attachImage">UPLOAD FILE</Label>
+                            <Input
+                              type="file"
+                              name="attachImage"
+                              id="attachImage"
+                              onChange={handlelogoChange}
+                              accept="image/*"
+                              invalid={!!errors.attachImage}
+                              style={{ textTransform: "uppercase" }}
+                            />
+                            <span className="invalid-feedback">
+                              {errors.attachImage}
+                            </span>
+                          </Col>
+                          <Col md={6}>
+                            {selectedFile && (
+                              <img
+                                src={URL.createObjectURL(selectedFile)}
+                                alt="Selected"
+                                style={{
+                                  maxWidth: "100%",
+                                  maxHeight: "100px",
+                                }}
                               />
-                              <span className="invalid-feedback">
-                                {errors.attachImage}
-                              </span>
-                            </Col>
-                            <Col md={6}>
-                              {selectedFile && (
-                                <img
-                                  src={URL.createObjectURL(selectedFile)}
-                                  alt="Selected"
-                                  style={{
-                                    maxWidth: "100%",
-                                    maxHeight: "100px",
-                                  }}
-                                />
-                              )}
-                            </Col>
-                            <hr className="mb-0 mt-3" />
-                          </Row>
+                            )}
+                          </Col>
+                          <hr className="mb-0 mt-3" />
+                        </Row>
                       </Col>
                     </Row>
                   </Form>
@@ -1412,7 +1425,7 @@ const ApproveNewAssetCreate = () => {
             </CardBody>
           </Card>
           {renderAssetTypeContent()}
-          
+
           <div
             style={{
               display: "flex",

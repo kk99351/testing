@@ -79,9 +79,17 @@ const UserPermissionCreate = () => {
   useEffect(() => {
     GetSignleData("UPermission", id).then(data => {
       setResponseData(data);
+
+      console.log("data", data);
+
       data.iddept.forEach(item => {
         selectedDepartment.push(item.iddept);
       });
+
+      data.entities.forEach(item => {
+        selectedLocation.push(item.identity);
+      });
+
       data.submodules.forEach(item => {
         // selectedDepartment.push(item.iddept.iddept);
         // selectedLocation.push(item.entities.identity);
@@ -482,7 +490,7 @@ const UserPermissionCreate = () => {
     userType: Yup.string().required("USER TYPE IS REQUIRED"),
     owner: Yup.array().min(1, "ASSET OWNER IS REQUIRED"),
     department: Yup.array().min(1, "DEPARTMENT IS REQUIRED"),
-    location: Yup.array().min(1, "CITY IS REQUIRED"),
+    location: Yup.array().min(1, "ENTITY IS REQUIRED"),
     sublocation: Yup.array().min(1, "LOCATION IS REQUIRED"),
   });
 
@@ -549,19 +557,12 @@ const UserPermissionCreate = () => {
 
       const sub = selectedSublocation.map(item => {
         return {
-          idsloc: item,
-          nmSubl: "string",
-          cdSubl: "string",
-          idloc: {
-            idloc: 0,
-            nmLoc: "string",
-            cdLoc: "string",
-            idcountry: {
-              idcountry: 0,
-              nmCountry: "string",
-              cdCountry: "string",
-            },
-          },
+          idloc: item,
+          nmLoc: "string",
+          nmcountry: null,
+          nmstate: null,
+          nmcity: null,
+          identity: null,
         };
       });
 
@@ -577,7 +578,7 @@ const UserPermissionCreate = () => {
           submodules: combinedArray,
           iddept: depts,
           entities: Entity,
-          idsubls: sub,
+          idlocs: sub,
         },
       ])
         .then(res => {
@@ -594,6 +595,8 @@ const UserPermissionCreate = () => {
         .catch(err => {
           console.log(err);
         });
+
+      console.log("dept", selectedDepartment);
     },
   });
 
