@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,9 +16,20 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
+import { GetSingleAssests } from "src/API/Assest/AddTostore/Api";
+import { useParams } from "react-router";
 
 const UpdateAddNewAsset = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [resData, setResData] = useState([]);
+  const { id } = useParams();
+
+  console.log("alok")
+  useEffect(() => {
+    GetSingleAssests(id).then(res => {
+      console.log("alok",res);
+    });
+  }, []);
 
   const navigate = useNavigate();
   const requiredFields = {
@@ -48,19 +59,19 @@ const UpdateAddNewAsset = () => {
     initialFormData[key] = "";
     initialErrors[key] = "";
   });
-  const handlelogoChange = (event) => {
+  const handlelogoChange = event => {
     const file = event.target.files[0];
     setSelectedFile(file);
-    setErrors((prevErrors) => ({
+    setErrors(prevErrors => ({
       ...prevErrors,
-      attachImage: "", 
+      attachImage: "",
     }));
-    setFormData((prevData) => ({
+    setFormData(prevData => ({
       ...prevData,
-      attachImage: file, 
+      attachImage: file,
     }));
   };
-  
+
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
   const [showAmcDates, setShowAmcDates] = useState(false);
@@ -313,33 +324,32 @@ const UpdateAddNewAsset = () => {
                         </Col>
                       </Row>
                       <Row className="mb-2">
-                      <Col md={6}>
-                        <Label for="attachImage">ATTACH IMAGE</Label>
-                        <Input
-                          type="file"
-                          name="attachImage"
-                          id="attachImage"
-                          onChange={handlelogoChange}
-                          accept="image/*"
-                          invalid={!!errors.attachImage}
-                          style={{ textTransform: "uppercase" }}
-
-                        />
-                        <span className="invalid-feedback">
-                          {errors.attachImage}
-                        </span>
-                      </Col>
-                      <Col md={6}>
-                        {selectedFile && (
-                          <img
-                            src={URL.createObjectURL(selectedFile)}
-                            alt="Selected"
-                            style={{ maxWidth: "100%", maxHeight: "100px" }}
+                        <Col md={6}>
+                          <Label for="attachImage">ATTACH IMAGE</Label>
+                          <Input
+                            type="file"
+                            name="attachImage"
+                            id="attachImage"
+                            onChange={handlelogoChange}
+                            accept="image/*"
+                            invalid={!!errors.attachImage}
+                            style={{ textTransform: "uppercase" }}
                           />
-                        )}
-                      </Col>
-                      <hr className="mb-0 mt-3" />
-                    </Row>
+                          <span className="invalid-feedback">
+                            {errors.attachImage}
+                          </span>
+                        </Col>
+                        <Col md={6}>
+                          {selectedFile && (
+                            <img
+                              src={URL.createObjectURL(selectedFile)}
+                              alt="Selected"
+                              style={{ maxWidth: "100%", maxHeight: "100px" }}
+                            />
+                          )}
+                        </Col>
+                        <hr className="mb-0 mt-3" />
+                      </Row>
                     </Form>
                   </Col>
                 </Row>
@@ -724,7 +734,9 @@ const UpdateAddNewAsset = () => {
                     <Row className="mb-1">
                       <Col md={6}>
                         <FormGroup>
-                          <Label htmlFor="quantity">QUANTITY<font color="red">*</font></Label>
+                          <Label htmlFor="quantity">
+                            QUANTITY<font color="red">*</font>
+                          </Label>
                           <Input
                             type="number"
                             name="quantity"
@@ -1349,35 +1361,35 @@ const UpdateAddNewAsset = () => {
                           </Col>
                         </Row>
                         <Row className="mb-2">
-                            <Col md={6}>
-                              <Label for="attachImage">UPLOAD FILE</Label>
-                              <Input
-                                type="file"
-                                name="attachImage"
-                                id="attachImage"
-                                onChange={handlelogoChange}
-                                accept="image/*"
-                                invalid={!!errors.attachImage}
-                                style={{ textTransform: "uppercase" }}
+                          <Col md={6}>
+                            <Label for="attachImage">UPLOAD FILE</Label>
+                            <Input
+                              type="file"
+                              name="attachImage"
+                              id="attachImage"
+                              onChange={handlelogoChange}
+                              accept="image/*"
+                              invalid={!!errors.attachImage}
+                              style={{ textTransform: "uppercase" }}
+                            />
+                            <span className="invalid-feedback">
+                              {errors.attachImage}
+                            </span>
+                          </Col>
+                          <Col md={6}>
+                            {selectedFile && (
+                              <img
+                                src={URL.createObjectURL(selectedFile)}
+                                alt="Selected"
+                                style={{
+                                  maxWidth: "100%",
+                                  maxHeight: "100px",
+                                }}
                               />
-                              <span className="invalid-feedback">
-                                {errors.attachImage}
-                              </span>
-                            </Col>
-                            <Col md={6}>
-                              {selectedFile && (
-                                <img
-                                  src={URL.createObjectURL(selectedFile)}
-                                  alt="Selected"
-                                  style={{
-                                    maxWidth: "100%",
-                                    maxHeight: "100px",
-                                  }}
-                                />
-                              )}
-                            </Col>
-                            <hr className="mb-0 mt-3" />
-                          </Row>
+                            )}
+                          </Col>
+                          <hr className="mb-0 mt-3" />
+                        </Row>
                       </Col>
                     </Row>
                   </Form>

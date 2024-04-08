@@ -578,7 +578,7 @@ const UserPermissionCreate = () => {
           submodules: combinedArray,
           iddept: depts,
           entities: Entity,
-          idlocs: sub
+          idlocs: sub,
         },
       ])
         .then(res => {

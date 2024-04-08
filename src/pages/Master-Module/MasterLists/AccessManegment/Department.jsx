@@ -24,12 +24,12 @@ const Department = () => {
 
   useEffect(() => {
     GetAllData("Dept").then(res => {
-      if (Array.isArray(res)) { 
+      if (Array.isArray(res)) {
         setResponseData(res);
       } else {
-        setResponseData([]); 
+        setResponseData([]);
       }
-    })
+    });
   }, []);
 
   const columns = useMemo(
@@ -134,7 +134,7 @@ const Department = () => {
                             value={globalFilter || ""}
                             onChange={e =>
                               setGlobalFilter(e.target.value.toUpperCase())
-                            } 
+                            }
                           />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>

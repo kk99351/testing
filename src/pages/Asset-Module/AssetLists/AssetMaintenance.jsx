@@ -95,7 +95,7 @@ const AssetMaintenance = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                    
+
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="assetSubMaterial">
@@ -159,7 +159,7 @@ const AssetMaintenance = () => {
                           ) : null}
                         </FormGroup>
                       </Col>
-                   
+
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="assetId">

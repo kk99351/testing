@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 // Import Routes all
 import { userRoutes, authRoutes } from "./routes/allRoutes";
@@ -24,6 +24,7 @@ import "./assets/scss/theme.scss";
 
 import fakeBackend from "./helpers/AuthType/fakeBackend";
 import { createSelector } from "reselect";
+import Department from "./pages/Master-Module/MasterLists/AccessManegment/Department";
 
 //api config
 // import config from "./config";
@@ -45,12 +46,9 @@ fakeBackend();
 //init firebase backend
 //initFirebaseBackend(config["firebase"]);
 
-
-
-
 function getLayout(layoutType: string) {
   let layoutCls: Object = VerticalLayout;
-  if(window.innerWidth<765){
+  if (window.innerWidth < 765) {
     return VerticalLayout;
   }
   switch (layoutType) {
@@ -65,21 +63,18 @@ function getLayout(layoutType: string) {
 }
 
 const App = () => {
-
   const selectLayoutProperties = createSelector(
-    (state:any) => state.Layout,
-    (layout:any) => ({
+    (state: any) => state.Layout,
+    (layout: any) => ({
       layoutType: layout.layoutType,
     })
   );
 
   // Inside your component
-  const {
-    layoutType
-  } = useSelector(selectLayoutProperties);
+  const { layoutType } = useSelector(selectLayoutProperties);
 
   const Layout: any = getLayout(layoutType);
-  
+
   return (
     <React.Fragment>
       <Routes>
@@ -87,11 +82,7 @@ const App = () => {
           {authRoutes.map((route, idx) => (
             <Route
               path={route.path}
-              element={
-                <NonAuthLayout>
-                  {route.component}
-                </NonAuthLayout>
-              }
+              element={<NonAuthLayout>{route.component}</NonAuthLayout>}
               key={idx}
               exact={true}
             />

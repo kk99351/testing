@@ -311,7 +311,7 @@ const EmplyeeMasterCreate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT DESIGNATION</option>
-                            
+
                             {deligations &&
                               deligations.map((item, index) => (
                                 <option key={index} value={item.iddesign}>

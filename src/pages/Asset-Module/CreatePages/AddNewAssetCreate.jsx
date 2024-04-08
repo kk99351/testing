@@ -15,12 +15,15 @@ import {
   Container,
   Card,
 } from "reactstrap";
+import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { CreateAssests } from "src/API/Assest/AddTostore/Api";
 import { GetAllData, GetSignleData } from "src/API/Master/GlobalGet";
+import { UploadFile } from "src/API/Upload";
 
 const AddNewAssetCreate = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [serialNos, setSerialNos] = useState("");
 
   const navigate = useNavigate();
   const requiredFields = {
@@ -73,6 +76,8 @@ const AddNewAssetCreate = () => {
   const [material, setMaterial] = useState([]);
   const [depth, setDepth] = useState([]);
   const [Location, setLocation] = useState([]);
+  const [vendors, setVendors] = useState([]);
+  const [cost, setCost] = useState([]);
 
   const handleAssetTypeChange = event => {
     const { value } = event.target;
@@ -101,11 +106,31 @@ const AddNewAssetCreate = () => {
   }, []);
 
   useEffect(() => {
-    GetAllData("Location").then(res => {
+    GetAllData("Floor").then(res => {
       if (Array.isArray(res)) {
         setLocation(res);
       } else {
         setLocation([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Vendor").then(res => {
+      if (Array.isArray(res)) {
+        setVendors(res);
+      } else {
+        setVendors([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("CC").then(res => {
+      if (Array.isArray(res)) {
+        setCost(res);
+      } else {
+        setCost([]);
       }
     });
   }, []);
@@ -410,7 +435,6 @@ const AddNewAssetCreate = () => {
       quantity: Yup.string().required("QUANTITY  IS REQUIRED"),
       unit: Yup.string().required("UNIT PRICE  IS REQUIRED"),
       tag: Yup.string().required("TAG IS REQUIRED"),
-
       proc: Yup.string().required("TYPE OF PROCRUMENT IS REQUIRED"),
       loc: Yup.string().required("LOCATION IS REQUIRED"),
       dept: Yup.string().required("DEPARTMENT IS REQUIRED"),
@@ -419,113 +443,130 @@ const AddNewAssetCreate = () => {
     }),
     onSubmit: values => {
       console.log("value", values);
-      console.log("formdata", formData);
+      console.log("formdata", serialNos);
 
-      GetSignleData("Material", Number(values.model)).then(res => {
-        console.log("res", res);
-      });
-
-      CreateAssests({
-        idwh: 0,
-        idinv: {
-          idinv: 0,
-          idinvm: {
-            idinvm: 0,
-            noinv: values.invoiceNumber,
-            dtinv: values.invoiceDate,
-            nopo: values.ponNumber,
-            dtpo: values.poDate,
-            nodc: values.dcNumber,
-            dtdc: values.dcDate,
-            nogrn: values.grnNumber,
-            dt_grn: values.grnDate,
-            idflr: {
-              idflr: 0,
-              nmflr: "string",
-              idbuilding: {
-                idbuilding: 0,
-                nmbuilding: "string",
-                idloc: {
-                  idloc: 0,
-                  nmLoc: "string",
-                  nmcountry: "string",
-                  nmstate: "string",
-                  nmcity: "string",
-                  identity: {
-                    identity: 0,
-                    nmentity: "string",
-                    cdentity: "string",
+      UploadFile(formData.attachImage).then(response => {
+        if (res.message === "File uploaded successfully.") {
+          GetSignleData("Material", Number(values.model)).then(res => {
+            CreateAssests({
+              idwh: 0,
+              idinv: {
+                idinv: 0,
+                idinvm: {
+                  idinvm: 0,
+                  noinv: values.invoiceNumber,
+                  dtinv: values.invoiceDate,
+                  nopo: values.ponNumber,
+                  dtpo: values.poDate,
+                  nodc: values.dcNumber,
+                  dtdc: values.dcDate,
+                  nogrn: values.grnNumber,
+                  dt_grn: values.grnDate,
+                  idflr: {
+                    idflr: Number(values.loc),
+                    nmflr: "string",
+                    idbuilding: {
+                      idbuilding: 0,
+                      nmbuilding: "string",
+                      idloc: {
+                        idloc: 0,
+                        nmLoc: "string",
+                        nmcountry: "string",
+                        nmstate: "string",
+                        nmcity: "string",
+                        identity: {
+                          identity: 0,
+                          nmentity: "string",
+                          cdentity: "string",
+                        },
+                      },
+                    },
+                  },
+                  iddept: {
+                    iddept: Number(values.dept),
+                    nmdept: "string",
+                    cddept: "string",
+                  },
+                  idcc: {
+                    idcc: Number(values.cost),
+                    nmcc: "string",
+                  },
+                  idven: {
+                    idven: Number(values.vendor),
+                    nmven: "string",
+                    cdven: "string",
+                    add1: "string",
+                    add2: "string",
+                    country: "string",
+                    state: "string",
+                    city: "string",
+                    pin: "string",
+                    mobno: "string",
+                    phone: "string",
+                    pan: "string",
+                    gst: "string",
+                    msme: "string",
+                    cin: "string",
+                    tan: "string",
+                    tin: "string",
+                    service: "string",
+                    procured: "string",
+                    mailid: "string",
+                  },
+                  addby: 0,
+                  statusapprove: "waiting",
+                },
+                idmodel: {
+                  idmodel: Number(res.idmodel),
+                  nmmodel: "string",
+                  typasst: "string",
+                  itemdesc: "string",
+                  mfr: "string",
+                  idsgrp: {
+                    idsgrp: Number(res.idsgrp.idsgrp),
+                    nmsgrp: "string",
+                    cdsgrp: "string",
+                    idgrp: {
+                      idgrp: Number(res.idsgrp.idgrp.idgrp),
+                      nmgrp: "string",
+                      cdgrp: "string",
+                    },
+                  },
+                  iduom: {
+                    iduom: 0,
+                    nmuom: "string",
+                    cduom: "string",
                   },
                 },
+                qty: Number(values.quantity),
+                unprc: Number(values.unit),
+                tag: values.tag,
+                typeproc: values.proc,
+                stlease: formData.leaseStatus,
+                endtlease: formData.leaseEndDate,
+                stdlease: formData.leaseStartDate,
+                warramc: formData.amc,
+                dtamcstart: formData.amcStartDate,
+                dtamcexp: "2024-04-06T06:04:31.890Z",
+                processtyp: "string",
+                storeagetyp: response.fileNames[0],
+                ramtyp: "string",
+                stconfig: "string",
               },
-            },
-            iddept: {
-              iddept: Number(values.dept),
-              nmdept: "string",
-              cddept: "string",
-            },
-            idcc: {
-              idcc: 0,
-              nmcc: "string",
-            },
-            idven: {
-              idven: 0,
-              nmven: "string",
-              cdven: "string",
-              add1: "string",
-              add2: "string",
-              country: "string",
-              state: "string",
-              city: "string",
-              pin: "string",
-              mobno: "string",
-              phone: "string",
-              pan: "string",
-              gst: "string",
-              msme: "string",
-              cin: "string",
-              tan: "string",
-              tin: "string",
-              service: "string",
-              procured: "string",
-              mailid: "string",
-            },
-            addby: 0,
-            statusapprove: "string",
-          },
-          idmodel: {
-            idmodel: Number(values.model),
-            nmmodel: res.nmmodel,
-            typasst: res.typasst,
-            itemdesc: res.itemdesc,
-            mfr: res.mfr,
-            idsgrp: {
-              idsgrp: res.idsgrp.idsgrp,
-              nmsgrp: res.idsgrp.cdsgrp,
-              cdsgrp: res.idsgrp.nmsgrp,
-              idgrp: res.idgrp,
-            },
-            iduom: res.iduom,
-          },
-          qty: Number(values.quantity),
-          unprc: 0,
-          tag: res.tag,
-          typeproc: res.proc,
-          stlease: "string",
-          endtlease: "2024-04-06T04:30:26.596Z",
-          stdlease: "2024-04-06T04:30:26.596Z",
-          warramc: "string",
-          dtamcstart: "2024-04-06T04:30:26.596Z",
-          dtamcexp: "2024-04-06T04:30:26.596Z",
-          processtyp: "string",
-          storeagetyp: "string",
-          ramtyp: "string",
-          stconfig: "string",
-        },
-        idwhdyn: "string",
-        serialno: "string",
-        addby: 0,
-        editby: 0,
+              idwhdyn: "string",
+              serialno: "A1,A2",
+              addby: 0,
+              editby: 0,
+            }).then(res => {
+              if (res.ok) {
+                toast("Successfully Created Assests");
+                navigate("/Add_new_asset");
+              } else {
+                toast("Failed to Create Assests");
+              }
+            });
+          });
+        }
       });
     },
   });
@@ -683,6 +724,7 @@ const AddNewAssetCreate = () => {
   };
   return (
     <React.Fragment>
+      <ToastContainer></ToastContainer>
       <Container fluid>
         <div className="page-content">
           <Card>
@@ -1131,8 +1173,8 @@ const AddNewAssetCreate = () => {
                             <option value="">SELECT LOCATION</option>
                             {Location &&
                               Location.map((item, index) => (
-                                <option key={index} value={item.idloc}>
-                                  {item.nmcountry}
+                                <option key={index} value={item.idflr}>
+                                  {item.nmflr},{item.idbuilding.nmbuilding}
                                 </option>
                               ))}
                           </Input>
@@ -1196,9 +1238,12 @@ const AddNewAssetCreate = () => {
                           >
                             {" "}
                             <option value="">SELECT COST CENTER/PROJECT</option>
-                            <option value="group1">OUTRIGHT PURCHASE</option>
-                            <option value="group2">LOAN BASIC</option>
-                            <option value="group3">ADD-ON</option>
+                            {cost &&
+                              cost.map((item, index) => (
+                                <option key={index} value={item.idcc}>
+                                  {item.nmcc}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.cost && validation.errors.cost ? (
                             <FormFeedback type="invalid">
@@ -1490,8 +1535,12 @@ const AddNewAssetCreate = () => {
                                 style={{ textTransform: "uppercase" }}
                               >
                                 <option value="">SELECT SUPPLIER</option>
-                                <option value="electronics">AMIT</option>
-                                <option value="clothing">CHANCHAL</option>
+                                {vendors &&
+                                  vendors.map((res, index) => (
+                                    <option key={index} value={res.idven}>
+                                      {res.nmven}
+                                    </option>
+                                  ))}
                               </Input>
                               {validation.touched.vendor &&
                               validation.errors.vendor ? (

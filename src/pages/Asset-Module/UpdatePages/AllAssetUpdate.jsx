@@ -19,9 +19,21 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router";
 
 const AllAssetUpdate = () => {
   const navigate = useNavigate();
+
+  const [resData, setResData] = useState([]);
+  const { id } = useParams;
+
+  console.log("alok")
+  useEffect(() => {
+    GetSingleAssests(id).then(res => {
+      console.log("alok",res);
+    });
+  }, []);
+
   const requiredFields = {
     assetId: "ASSET ID",
     taggable: "TAGGABLE",
