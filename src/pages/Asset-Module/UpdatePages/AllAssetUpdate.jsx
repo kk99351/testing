@@ -27,12 +27,12 @@ const AllAssetUpdate = () => {
   const [resData, setResData] = useState([]);
   const { id } = useParams;
 
-  console.log("alok")
-  useEffect(() => {
-    GetSingleAssests(id).then(res => {
-      console.log("alok",res);
-    });
-  }, []);
+  // console.log("alok")
+  // useEffect(() => {
+  //   GetSingleAssests(id).then(res => {
+  //     console.log("alok",res);
+  //   });
+  // }, []);
 
   const requiredFields = {
     assetId: "ASSET ID",

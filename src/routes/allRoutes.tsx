@@ -345,6 +345,7 @@ import UserPermissionCreate from "src/pages/Master-Module/CreatePages/UserPermis
 import CostCenterUpdate from "src/pages/Master-Module/UpdatePage/CostCenterUpdate";
 import CostCenterCreate from "src/pages/Master-Module/CreatePages/CostCenterCreate";
 import CostCenter from "src/pages/Master-Module/MasterLists/AccessManegment/CostCenter";
+import Notification from "src/pages/Master-Module/MasterLists/Notification";
 interface RouteProps {
   path: string;
   component: any;
@@ -396,6 +397,7 @@ const userRoutes: Array<RouteProps> = [
   //ASSET MASTER CREATE PATH
   { path: "/create_add_new_asset", component: <AddNewAssetCreate /> },
   { path: "/create_all_asset", component: <AllAssetCreate /> },
+  { path: "/notification_remainder", component: <Notification /> },
 
   //ASSET MASTER MODIFY PATH
   { path: "/approve_new_asset", component: <ApproveNewAsset /> },
