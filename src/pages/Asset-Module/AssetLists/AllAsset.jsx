@@ -15,6 +15,7 @@ import {
   useSortBy,
   usePagination,
 } from "react-table";
+import { GetApprovedAssests } from "src/API/Assest/AllAssests/Api";
 
 const AllAsset = () => {
   const demoData = [
@@ -80,8 +81,18 @@ const AllAsset = () => {
     },
   ];
 
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    GetApprovedAssests().then(res => {
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
 
   const columns = useMemo(
     () => [
@@ -94,31 +105,31 @@ const AllAsset = () => {
       },
       {
         Header: "ASSET ID",
-        accessor: "assetId",
+        accessor: "idwhdyn",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "ASSET NAME",
-        accessor: "assetName",
+        accessor: "idinv.idmodel.nmmodel",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "SERIAL NUMBER",
-        accessor: "serialNumber",
+        accessor: "serialno",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "INVOICE NUMBER",
-        accessor: "invoiceNumber",
+        accessor: "idinv.idinvm.noinv",
         disableFilters: true,
         filterable: true,
       },
       {
         Header: "STATUS",
-        accessor: "status",
+        accessor: "devicestatus",
         disableFilters: true,
         filterable: true,
       },
@@ -130,7 +141,7 @@ const AllAsset = () => {
       },
       {
         Header: "TYPE",
-        accessor: "type",
+        accessor: "idinv.idmodel.typasst",
         disableFilters: true,
         filterable: true,
       },
@@ -219,7 +230,8 @@ const AllAsset = () => {
                             value={globalFilter || ""}
                             onChange={e =>
                               setGlobalFilter(e.target.value.toUpperCase())
-                            }                           />
+                            }
+                          />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
                       </div>
@@ -289,7 +301,7 @@ const AllAsset = () => {
                                   <Link
                                     to={`/modify_all_asset/${row.original.id}`}
                                   >
-                                     {String(cell.value).toUpperCase()}{" "}
+                                    {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (
                                   String(cell.value).toUpperCase()

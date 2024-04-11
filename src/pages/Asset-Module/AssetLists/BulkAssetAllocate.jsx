@@ -20,40 +20,58 @@ import {
   useSortBy,
   usePagination,
 } from "react-table";
+import { GetApprovedAssests } from "src/API/Assest/AllAssests/Api";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const BulkAssetAllocate = () => {
   BulkAssetAllocate.propTypes = {
     row: PropTypes.object.isRequired,
   };
-  const [responseData, setResponseData] = useState([
-    {
-      slno: 1,
-      assetId: "ASSET001",
-      assetName: "Laptop",
-      allocateTo: "John Doe",
-      assetRemarks: "Good condition",
-      allocateType: "Active",
-    },
-    {
-      assetId: "ASSET002",
-      assetName: "Desktop",
-      allocateTo: "Jane Smith",
-      assetRemarks: "Needs maintenance",
-      allocateType: "Inactive",
-    },
-  ]);
+  const [responseData, setResponseData] = useState([]);
+  const [floor, setFloor] = useState([]);
+  const [empUser, setEmpUser] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    GetApprovedAssests().then(res => {
+      if (Array.isArray(res)) {
+        let response = res.filter(item => item.devicestatus === "instore");
+        setResponseData(response);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Floor").then(res => {
+      if (Array.isArray(res)) {
+        setFloor(res);
+      } else {
+        setFloor([]);
+      }
+    }, []);
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Empuser").then(res => {
+      if (Array.isArray(res)) {
+        setEmpUser(res);
+      } else {
+        setEmpUser([]);
+      }
+    }, []);
+  }, []);
 
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
-      assetId: item.assetId.toUpperCase(), 
-      assetName: item.assetName.toUpperCase(), 
-      allocateTo: item.allocateTo.toUpperCase(), 
-      assetRemarks: item.assetRemarks.toUpperCase(), 
-      allocateType: item.allocateType.toUpperCase(), 
-
+      // assetId: item.assetId.toUpperCase(),
+      // assetName: item.assetName.toUpperCase(),
+      // allocateTo: item.allocateTo.toUpperCase(),
+      // assetRemarks: item.assetRemarks.toUpperCase(),
+      // allocateType: item.allocateType.toUpperCase(),
     }));
   }, [responseData]);
   const requiredFields = {
@@ -79,15 +97,15 @@ const BulkAssetAllocate = () => {
       },
       {
         Header: "ASSET ID",
-        accessor: "assetId",
+        accessor: "idwhdyn",
       },
       {
         Header: "ASSET NAME",
-        accessor: "assetName",
+        accessor: "idinv.idmodel.nmmodel",
       },
       {
         Header: "SERIAL NUMBER",
-        accessor: "allocateTo",
+        accessor: "serialno",
       },
       {
         Header: "ASSET REMARKS",
@@ -121,12 +139,21 @@ const BulkAssetAllocate = () => {
         id: "checkbox",
         accessor: "",
         Cell: ({ row }) => (
-          <input type="checkbox" checked={row.isSelected} onChange={() => {}} />
+          <input type="checkbox" onChange={e => handleCheckboxChange(e, row)} />
         ),
       },
     ],
     []
   );
+  const handleCheckboxChange = (e, row) => {
+    if (e.target.checked) {
+      setCheckedData(prev => [...prev, row.original]);
+    } else {
+      setCheckedData(prev => prev.filter(item => item !== row.original));
+    }
+  };
+
+  const [checkedData, setCheckedData] = useState([]);
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
 
@@ -216,8 +243,7 @@ const BulkAssetAllocate = () => {
 
     if (isValid) {
       try {
-        // await axios.post(`http://localhost:3000/region/`, formData);
-        // navigate("/company_group");
+        console.log(checkedData);
         console.log("Form submitted successfully");
       } catch (error) {
         console.log("error in creating group data" + error);
@@ -255,7 +281,6 @@ const BulkAssetAllocate = () => {
                       onChange={handleDropdownChange}
                       invalid={!!errors.assignTo}
                       style={{ textTransform: "uppercase" }}
-
                     >
                       <option value="">SELECT ASSIGN TO</option>
                       <option value="JohnDoe">John Doe</option>
@@ -276,11 +301,15 @@ const BulkAssetAllocate = () => {
                       onChange={handleDropdownChange}
                       invalid={!!errors.flr}
                       style={{ textTransform: "uppercase" }}
-
+                      disabled
                     >
                       <option value="">SELECT FLOOR</option>
-                      <option value="group1">1ST FLOOR</option>
-                      <option value="group2">2ST FLOOR</option>
+                      {floor &&
+                        floor.map((item, index) => (
+                          <option key={index} value={item.idflr}>
+                            {item.nmflr}
+                          </option>
+                        ))}
                     </Input>
                     <span className="invalid-feedback">{errors.flr}</span>
                   </Col>
@@ -294,7 +323,6 @@ const BulkAssetAllocate = () => {
                       onChange={handleInputChange}
                       invalid={!!errors.alocationDate}
                       style={{ textTransform: "uppercase" }}
-
                     />
                     <span className="invalid-feedback">
                       {errors.alocationDate}

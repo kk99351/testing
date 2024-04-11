@@ -16,7 +16,10 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import { CreateUserType } from "src/API/Master/AccessManagement/Api";
+import {
+  CreateCost,
+  CreateUserType,
+} from "src/API/Master/AccessManagement/Api";
 import { ToastContainer, toast } from "react-toastify";
 
 const CostCenterCreate = () => {
@@ -32,20 +35,18 @@ const CostCenterCreate = () => {
       usertypename: Yup.string().required("COST CENTER/PROJECT IS REQUIRED"),
     }),
     onSubmit: values => {
-      CreateUserType([
+      CreateCost([
         {
-          idusertype: 0,
-          nmusertype: values.usertypename,
-          cdusertype: "",
+          idcc: 0,
+          nmcc: values?.usertypename,
         },
       ])
         .then(res => {
-          console.log(res);
           if (res.ok) {
-            toast("User created successfully");
-            navigate("/user_type");
+            toast("Cost created successfully");
+            navigate("/cost_center");
           } else {
-            toast("User already exists");
+            toast("Failed to create cost center");
           }
         })
         .catch(err => {

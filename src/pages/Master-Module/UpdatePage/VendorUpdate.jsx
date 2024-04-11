@@ -29,6 +29,7 @@ const VendorUpdate = () => {
 
   useEffect(() => {
     GetSignleData("Vendor", id).then(res => {
+      console.log(res.mobno);
       setVendor(res);
     });
   }, []);
@@ -74,21 +75,21 @@ const VendorUpdate = () => {
       nmven: vendor?.nmven,
       vencode: vendor?.cdven,
       add1: vendor?.add1,
-      // add2: "",
+      add2: vendor?.add2,
       // add3: "",
-      // cou: "",
-      // state: "",
-      // city: "",
-      // poscode: "",
-      // tele: "",
-      // mobile: "",
+      cou: vendor?.country,
+      state: vendor?.state,
+      city: vendor?.city,
+      poscode: vendor?.pin,
+      tele: vendor?.phone,
+      mobile: vendor?.mobno,
       email: vendor?.mailid,
-      // gst: "",
-      // tin: "",
-      // cin: "",
-      // msme: "",
-      pan: vendor?.pin,
-      // tan: "",
+      gst: vendor?.gst,
+      tin: vendor?.tin,
+      cin: vendor?.cin,
+      msme: vendor?.msme,
+      pan: vendor?.pan,
+      tan: vendor?.tan,
       // nature: "",
       // year: "",
       // payterm: "",
@@ -113,18 +114,18 @@ const VendorUpdate = () => {
       nmven: Yup.string().required("SUPPLIER NAME IS REQUIRED"),
       vencode: Yup.string().required("SUPPLIER CODE IS REQUIRED"),
       add1: Yup.string().required("ADDRESS1 IS REQUIRED"),
-      // add2: Yup.string().required("ADDRESS2  IS REQUIRED"),
-      // cou: Yup.string().required("COUNTRY  IS REQUIRED"),
-      // state: Yup.string().required("STATE  IS REQUIRED"),
-      // city: Yup.string().required("CITY  IS REQUIRED"),
-      // poscode: Yup.string().required("POSTAL CODE  IS REQUIRED"),
+      add2: Yup.string().required("ADDRESS2  IS REQUIRED"),
+      cou: Yup.string().required("COUNTRY  IS REQUIRED"),
+      state: Yup.string().required("STATE  IS REQUIRED"),
+      city: Yup.string().required("CITY  IS REQUIRED"),
+      poscode: Yup.string().required("POSTAL CODE  IS REQUIRED"),
       // tele: Yup.string().required("TELEPHONE NUMBER  IS REQUIRED"),
-      // mobile: Yup.string().required("MOBILE NUMBER  IS REQUIRED"),
+      mobile: Yup.string().required("MOBILE NUMBER  IS REQUIRED"),
       email: Yup.string().required("EMAIL ID  IS REQUIRED"),
-      // gst: Yup.string().required("GST NUMBER  IS REQUIRED"),
-      // tin: Yup.string().required("TIN NUMBER  IS REQUIRED"),
-      // cin: Yup.string().required("CIN NUMBER  IS REQUIRED"),
-      // msme: Yup.string().required("MSME NUMBER  IS REQUIRED"),
+      gst: Yup.string().required("GST NUMBER  IS REQUIRED"),
+      tin: Yup.string().required("TIN NUMBER  IS REQUIRED"),
+      cin: Yup.string().required("CIN NUMBER  IS REQUIRED"),
+      msme: Yup.string().required("MSME NUMBER  IS REQUIRED"),
       pan: Yup.string().required("PAN  IS REQUIRED"),
       // nature: Yup.string().required("NATURE OF BUSINESS  IS REQUIRED"),
       // year: Yup.string().required(
@@ -154,12 +155,24 @@ const VendorUpdate = () => {
       CreateSuppliers([
         {
           idven: id,
-          nmven: values.nmven,
-          cdven: values.vencode,
+          nmven: values?.nmven,
+          cdven: values?.vencode,
           add1: values.add1,
+          add2: values.add2,
+          country: values.cou,
+          state: values.state,
+          city: values.city,
+          pin: values.poscode,
+          mobno: values.mobile,
+          phone: "string",
+          pan: values.pan,
+          gst: values.gst,
+          msme: values.msme,
+          cin: values.cin,
+          tan: values.tan,
+          tin: values.tin,
           service: manufacturerChecked ? "true" : "false",
           procured: procuredChecked ? "true" : "false",
-          pin: values.pan,
           mailid: values.email,
         },
       ])
@@ -349,6 +362,7 @@ const VendorUpdate = () => {
                             name="add2"
                             id="add2"
                             className="form-control"
+                            value={validation.values.add2}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -375,6 +389,7 @@ const VendorUpdate = () => {
                             id="cou"
                             className="form-control"
                             onChange={validation.handleChange}
+                            value={validation.values.cou}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.cou && validation.errors.cou
@@ -402,6 +417,7 @@ const VendorUpdate = () => {
                             placeholder="PLEASE ENTER STATE"
                             name="state"
                             id="state"
+                            value={validation.values.state}
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
@@ -430,6 +446,7 @@ const VendorUpdate = () => {
                             name="city"
                             id="city"
                             className="form-control"
+                            value={validation.values.city}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -460,6 +477,7 @@ const VendorUpdate = () => {
                             id="poscode"
                             className="form-control"
                             onChange={validation.handleChange}
+                            value={validation.values.poscode}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.poscode &&
@@ -485,6 +503,7 @@ const VendorUpdate = () => {
                             placeholder="PLEASE ENTER  TELEPHONE NUMBER"
                             name="tele"
                             id="tele"
+                            value={validation.values.tele}
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
@@ -515,6 +534,7 @@ const VendorUpdate = () => {
                             name="mobile"
                             id="mobile"
                             className="form-control"
+                            value={validation.values.mobile}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -574,6 +594,7 @@ const VendorUpdate = () => {
                             name="gst"
                             id="gst"
                             className="form-control"
+                            value={validation.values.gst}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -600,6 +621,7 @@ const VendorUpdate = () => {
                             className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
+                            value={validation.values.tin}
                             invalid={
                               validation.touched.tin && validation.errors.tin
                             }
@@ -627,6 +649,7 @@ const VendorUpdate = () => {
                             name="cin"
                             id="cin"
                             className="form-control"
+                            value={validation.values.cin}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -652,6 +675,7 @@ const VendorUpdate = () => {
                             name="msme"
                             id="msme"
                             className="form-control"
+                            value={validation.values.msme}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -707,6 +731,7 @@ const VendorUpdate = () => {
                             name="tan"
                             id="tan"
                             className="form-control"
+                            value={validation.values.tan}
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={

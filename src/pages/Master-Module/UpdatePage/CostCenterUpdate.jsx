@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -16,36 +16,50 @@ import {
   Card,
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import { CreateUserType } from "src/API/Master/AccessManagement/Api";
+import {
+  CreateCost,
+  CreateUserType,
+} from "src/API/Master/AccessManagement/Api";
 import { ToastContainer, toast } from "react-toastify";
+import { GetSignleData } from "src/API/Master/GlobalGet";
+import { useParams } from "react-router";
 
 const CostCenterUpdate = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const [cost, setCost] = useState([]);
+
+  useEffect(() => {
+    GetSignleData("CC", id).then(res => {
+      setCost(res);
+    });
+  }, []);
+
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      usertypename: "",
+      usertypename: cost?.nmcc,
     },
 
     validationSchema: Yup.object({
       usertypename: Yup.string().required("COST CENTER/PROJECT IS REQUIRED"),
     }),
     onSubmit: values => {
-      CreateUserType([
+      CreateCost([
         {
-          idusertype: 0,
-          nmusertype: values.usertypename,
-          cdusertype: "",
+          idcc: id,
+          nmcc: values?.usertypename,
         },
       ])
         .then(res => {
           console.log(res);
           if (res.ok) {
-            toast("User created successfully");
-            navigate("/user_type");
+            toast("User Updated successfully");
+            navigate("/cost_center");
           } else {
-            toast("User already exists");
+            toast("Failed to Update Cost Center");
           }
         })
         .catch(err => {
@@ -78,13 +92,14 @@ const CostCenterUpdate = () => {
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="validationCustom03">
-                          COST CENTER/PROJECT <font color="red">*</font>
+                            COST CENTER/PROJECT <font color="red">*</font>
                           </Label>
                           <Input
                             name="usertypename"
                             placeholder="PLEASE ENTER COST CENTER/PROJECT"
                             type="text"
                             className="form-control"
+                            value={validation.values.usertypename}
                             id="validationCustom03"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
@@ -93,7 +108,6 @@ const CostCenterUpdate = () => {
                               validation.errors.usertypename
                             }
                             style={{ textTransform: "uppercase" }}
-
                           />
                           {validation.touched.usertypename &&
                           validation.errors.usertypename ? (
@@ -131,7 +145,7 @@ const CostCenterUpdate = () => {
                             marginRight: "30px",
                           }}
                         >
-                          CREATE
+                          UPDATE
                         </Button>
                         <button
                           type="button"

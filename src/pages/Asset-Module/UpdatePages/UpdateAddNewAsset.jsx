@@ -27,7 +27,7 @@ const UpdateAddNewAsset = () => {
   console.log("alok");
   useEffect(() => {
     GetSingleAssests(id).then(res => {
-      console.log("alok", res);
+      setResData(res);
     });
   }, []);
 
@@ -367,7 +367,7 @@ const UpdateAddNewAsset = () => {
     enableReinitialize: true,
 
     initialValues: {
-      model: "",
+      model: resData?.idmodel?.nmmodel,
       matsubgroup: "",
       matgroup: "",
       assttype: "",

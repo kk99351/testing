@@ -20,6 +20,7 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
+import { GetSingleAssests } from "src/API/Assest/AddTostore/Api";
 
 const AllAssetUpdate = () => {
   const navigate = useNavigate();
@@ -27,10 +28,9 @@ const AllAssetUpdate = () => {
   const [resData, setResData] = useState([]);
   const { id } = useParams;
 
-  console.log("alok")
   useEffect(() => {
     GetSingleAssests(id).then(res => {
-      console.log("alok",res);
+      setResData(res);
     });
   }, []);
 
@@ -913,10 +913,7 @@ const AllAssetUpdate = () => {
                   <div className="container pt-0">
                     <div className="row">
                       <div className="col-md-2">
-                        <select
-                          className="form-select"
-                        
-                        >
+                        <select className="form-select">
                           <option value="10">SHOW 10</option>
                           <option value="20">SHOW 20</option>
                           <option value="30">SHOW 30</option>
