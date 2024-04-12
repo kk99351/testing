@@ -137,7 +137,6 @@ const AddNewAssetCreate = () => {
       }
     });
   }, []);
-
   const GenerateSerial = () => {
     GenerateSerialNumber(Number(validation.values.quantity)).then(res => {
       const formattedString = res
@@ -147,8 +146,26 @@ const AddNewAssetCreate = () => {
         .join("");
       setSerialNos(formattedString);
       console.log(serialNos);
+  
+      const updatedValues = { ...validation.values };
+      res.forEach((item, index) => {
+        updatedValues[`serialNo${index}`] = item;
+      });
+      validation.setValues(updatedValues);
     });
   };
+
+  // const GenerateSerial = () => {
+  //   GenerateSerialNumber(Number(validation.values.quantity)).then(res => {
+  //     const formattedString = res
+  //       .map((item, index) => {
+  //         return `${index !== 0 ? "," : ""}${item}`;
+  //       })
+  //       .join("");
+  //     setSerialNos(formattedString);
+  //     console.log(serialNos);
+  //   });
+  // };
 
   const renderAssetTypeContent = () => {
     switch (showAdditionalInputs) {

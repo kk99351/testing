@@ -389,6 +389,9 @@ const Navbar = (props: any) => {
                     <Link to="/custom_tag_printing" className="dropdown-item ">
                           {props.t("Custom Tag Printing")}
                         </Link>
+                        <Link to="/notification_remainder" className="dropdown-item ">
+                          {props.t("Notification and Reminder")}
+                        </Link>
                   </div>
                 </li>
 

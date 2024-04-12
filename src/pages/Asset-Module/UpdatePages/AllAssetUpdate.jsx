@@ -624,7 +624,7 @@ const AllAssetUpdate = () => {
                         </span>
                       </Col>
                       <Col md={4}>
-                        <Label for="serviceVendor">SERVICE VENDOR</Label>
+                        <Label for="serviceVendor">SERVICE SUPPLIER</Label>
                         <Input
                           type="select"
                           name="serviceVendor"

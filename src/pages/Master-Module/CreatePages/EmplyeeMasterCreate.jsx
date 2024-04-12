@@ -596,7 +596,6 @@ const EmplyeeMasterCreate = () => {
                         </FormGroup>
                       </Col>
                       <hr className="mb-2" />
-                      <hr className="mb-2" />
                     </Row>
                     <Row className="mb-2">
                       <Col md={6}>

@@ -25,9 +25,20 @@ import {
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { GetAllData } from "src/API/Master/GlobalGet";
+import { CreateFloor } from "src/API/Master/GeoGraphicalArea.js/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const InterTarnsferReq = () => {
   const [showTable, setShowTable] = useState(false);
+  const [deptarment, setDepartment] = useState([]);
+  const [entity, setEntity] = useState([]);
+  const [location, setLOcation] = useState([]);
+  const [building, setBuilding] = useState([]);
+  const [floor, setFloor] = useState([]);
+  const [cost, setCost] = useState([]);
+  const [manager, setManager] = useState([]);
+
   const navigate = useNavigate();
 
   const validation = useFormik({
@@ -35,17 +46,17 @@ const InterTarnsferReq = () => {
 
     initialValues: {
       companygroup: "",
-      statename: "",
-      cityname: "",
+      // statename: "",
+      // cityname: "",
       plantname: "",
       building: "",
       floor: "",
       department: "",
     },
     validationSchema: Yup.object({
-      companygroup: Yup.string().required("COUNTRY IS REQUIRED"),
-      statename: Yup.string().required("STATE NAME IS REQUIRED"),
-      cityname: Yup.string().required("CITY NAME IS REQUIRED"),
+      companygroup: Yup.string().required("ENTITY IS REQUIRED"),
+      // statename: Yup.string().required("STATE NAME IS REQUIRED"),
+      // cityname: Yup.string().required("CITY NAME IS REQUIRED"),
       plantname: Yup.string().required("LOCATION NAME IS REQUIRED"),
       building: Yup.string().required("BUILDING NAME IS REQUIRED"),
       department: Yup.string().required("DEPARTMENT IS REQUIRED"),
@@ -57,7 +68,7 @@ const InterTarnsferReq = () => {
       setShowTable(true);
     },
   });
-
+ 
   const columns = useMemo(
     () => [
       {
@@ -150,12 +161,122 @@ const InterTarnsferReq = () => {
       }
     }
   };
+  useEffect(() => {
+    GetAllData("Entity").then(res => {
+      if (Array.isArray(res)) {
+        setEntity(res);
+      } else {
+        setEntity([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Location").then(res => {
+      if (Array.isArray(res)) {
+        setLOcation(res);
+      } else {
+        setLOcation([]);
+      }
+    });
+  }, []);
+
+
+  useEffect(() => {
+    GetAllData("Dept").then(res => {
+      if (Array.isArray(res)) {
+        setDepartment(res);
+      } else {
+        setDepartment([]);
+      }
+    });
+  }, []);
+
+
+  useEffect(() => {
+    GetAllData("Building").then(res => {
+      if (Array.isArray(res)) {
+        setBuilding(res);
+      } else {
+        setBuilding([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Floor").then(res => {
+      if (Array.isArray(res)) {
+        setFloor(res);
+      } else {
+        setFloor([]);
+      }
+    });
+  }, []);
+
+  const handleEntityChnage = e => {
+    GetAllData("Location").then(res => {
+      let result = res.filter(item => item?.identity?.identity === Number(e));
+      setLOcation(result);
+    });
+  };
+
+  const handleLocationChnage = e => {
+    console.log(e);
+    GetAllData("Building").then(res => {
+      let result = res.filter(item => item?.idloc?.idloc === Number(e));
+      setBuilding(result);
+    });
+  };
+
+  const handleBuildingChnage = e => {
+    console.log(e);
+    GetAllData("Floor").then(res => {
+      let result = res.filter(
+        item => item?.idbuilding?.idbuilding === Number(e)
+      );
+      setFloor(result);
+    });
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  const handleChange = event => {
+    switch (event.target.name) {
+      case "entity": {
+        handleEntityChnage(event.target.value);
+        break;
+      }
+      case "plantname": {
+        handleLocationChnage(event.target.value);
+        break;
+      }
+      case "building": {
+        handleBuildingChnage(event.target.value);
+        break;
+      }
+    }
+    const fieldName = event.target.name;
+    const inputValue = event.target.value;
+    const uppercaseValue = inputValue ? inputValue.toUpperCase() : "";
+    validation.handleChange(event);
+    validation.setFieldValue(fieldName, uppercaseValue);
+  };
 
   const requiredFields = {
     transType: "TRANSFER TYPE",
-    ComGroup: "COMPANY GROUP",
-    state: "STATE",
-    city: "CITY",
+    ComGroup: "ENTITY",
+    // state: "STATE",
+    // city: "CITY",
     location: "LOCATION",
     building: "BUILDING",
     floor: "FLOOR",
@@ -166,13 +287,14 @@ const InterTarnsferReq = () => {
   const initialFormData = {
     transType: "",
     ComGroup: "",
-    state: "",
-    city: "",
+    // state: "",
+    // city: "",
     location: "",
     building: "",
     floor: "",
     RDate: "",
     department: "",
+    returnInput: new Date().toISOString().split("T")[0],
   };
 
   const initialErrors = {};
@@ -216,10 +338,10 @@ const InterTarnsferReq = () => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
-      assetid: item.assetid.toUpperCase(), 
-      assetname: item.assetname.toUpperCase(), 
-      sn: item.sn.toUpperCase(), 
-      assetdes: item.assetdes.toUpperCase(), 
+      assetid: item.assetid.toUpperCase(),
+      assetname: item.assetname.toUpperCase(),
+      sn: item.sn.toUpperCase(),
+      assetdes: item.assetdes.toUpperCase(),
     }));
   }, [responseData]);
 
@@ -307,37 +429,39 @@ const InterTarnsferReq = () => {
                     onSubmit={validation.handleSubmit}
                   >
                     <Row className="mb-2">
-                      <Col md={6}>
-                        <FormGroup className="mb-3">
-                          <Label htmlFor="companygroup">
-                            COUNTRY <font color="red">*</font>
+                    <Col md={6}>
+                        <FormGroup className="mb-2">
+                          <Label for="companygroup">
+                            ENTITY<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="companygroup"
                             id="companygroup"
-                            // className="form-control"
-                            onChange={validation.handleChange}
+                            name="companygroup"
+                            value={validation.values.companygroup}
+                            onChange={handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.companygroup &&
-                              validation.errors.companygroup
-                            }style={{ textTransform: "uppercase" }}
+                              !!validation.errors.companygroup
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
-                            <option value="">SELECT COUNTRY</option>
-                            <option value="USA">United States</option>
-                            <option value="CAN">Canada</option>
-                            <option value="UK">United Kingdom</option>
+                            <option value="">SELECT ENTITY </option>
+                            {entity &&
+                              entity.map((item, index) => (
+                                <option key={index} value={item.identity}>
+                                  {item.nmentity}
+                                </option>
+                              ))}
                           </Input>
-                          {validation.touched.companygroup &&
-                          validation.errors.companygroup ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.companygroup}
-                            </FormFeedback>
-                          ) : null}
+                          <div className="invalid-feedback">
+                            {validation.touched.companygroup &&
+                              validation.errors.companygroup}
+                          </div>
                         </FormGroup>
                       </Col>
-                      <Col md={6}>
+                      {/* <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="statename">
                             STATE NAME <font color="red">*</font>
@@ -398,36 +522,38 @@ const InterTarnsferReq = () => {
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
-                      </Col>
+                      </Col> */}
                       <Col md={6}>
-                        <FormGroup className="mb-3">
-                          <Label htmlFor="plantname">
-                            LOCATION NAME <font color="red">*</font>
+                        <FormGroup>
+                          <Label for="plantname">
+                            LOCATION<font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="plantname"
                             id="plantname"
-                            // className="form-control"
-                            onChange={validation.handleChange}
+                            name="plantname"
+                            value={validation.values.plantname}
+                            onChange={handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.plantname &&
-                              validation.errors.plantname
-                            }style={{ textTransform: "uppercase" }}
+                              !!validation.errors.plantname
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
-                            <option value="">SELECT LOCATION NAME</option>
-                            <option value="NewYork">New York</option>
-                            <option value="LosAngeles">Los Angeles</option>
-                            <option value="Chicago">Chicago</option>
-                            <option value="Houston">Houston</option>
+                            <option value="" disabled>
+                              SELEECT LOCATION
+                            </option>
+                            {location &&
+                              location.map((item, index) => (
+                                <option key={index} value={item.idloc}>
+                                  {item.nmLoc}
+                                </option>
+                              ))}
                           </Input>
-                          {validation.touched.plantname &&
-                          validation.errors.plantname ? (
-                            <FormFeedback type="invalid">
-                              {validation.errors.plantname}
-                            </FormFeedback>
-                          ) : null}
+                          <div className="invalid-feedback">
+                            {validation.errors.plantname}
+                          </div>
                         </FormGroup>
                       </Col>
                       <Col md={6}>
@@ -440,22 +566,21 @@ const InterTarnsferReq = () => {
                             name="building"
                             id="building"
                             // className="form-control"
-                            onChange={validation.handleChange}
+                            onChange={handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.building &&
                               validation.errors.building
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
-                            <option value="">SELECT BUILDING NAME</option>
-                            <option value="EmpireState">
-                              Empire State Building
-                            </option>
-                            <option value="Chrysler">Chrysler Building</option>
-                            <option value="Rockefeller">
-                              Rockefeller Center
-                            </option>
-                            <option value="Flatiron">Flatiron Building</option>
+                             <option value="">SELECT BUILDING</option>
+                            {building &&
+                              building.map((item, index) => (
+                                <option key={index} value={item.idbuilding}>
+                                  {item.nmbuilding}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.building &&
                           validation.errors.building ? (
@@ -480,11 +605,16 @@ const InterTarnsferReq = () => {
                             invalid={
                               validation.touched.floor &&
                               validation.errors.floor
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
-                            <option value="">SELECT FLOOR</option>
-                            <option value="building1">1st floor</option>
-                            <option value="building2"> 2nd floor</option>
+                           <option value="">SELEECT FLOOR</option>
+                            {floor &&
+                              floor.map((item, index) => (
+                                <option key={index} value={item.idflr}>
+                                  {item.nmflr}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.floor &&
                           validation.errors.floor ? (
@@ -509,15 +639,16 @@ const InterTarnsferReq = () => {
                             invalid={
                               validation.touched.department &&
                               validation.errors.department
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT DEPARTMENT</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Finance">Finance</option>
-                            <option value="Human Resources">
-                              Human Resources
-                            </option>
-                            <option value="IT">IT</option>
+                            {deptarment &&
+                              deptarment.map((item, index) => (
+                                <option key={index} value={item.iddept}>
+                                  {item.nmdept}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.building &&
                           validation.errors.department ? (
@@ -574,8 +705,7 @@ const InterTarnsferReq = () => {
                 <Col xl={10}>
                   <form className="needs-validation" noValidate>
                     <Row className="mb-2">
-                      <Col md={6}>
-                        {" "}
+                      <Col md={12}>
                         <Label for="transType">TRANSFER TYPE</Label>
                         <Input
                           type="select"
@@ -587,18 +717,33 @@ const InterTarnsferReq = () => {
                           style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT TRANSFER TYPE</option>
-                          <option value="Internal">Internal Transfer</option>
-                          <option value="External">External Transfer</option>
-                          <option value="Departmental">
-                            Departmental Transfer
-                          </option>
+                          <option value="Internal">RETUENABLE</option>
+                          <option value="External">NON RETUENABLE</option>
                         </Input>
                         <span className="invalid-feedback">
                           {errors.transType}
                         </span>
                       </Col>
-                      <Col md={6}>
-                        <Label for="ComGroup">COMPANY GROUP/COUNTRY</Label>
+                      {formData.transType === "Internal" && (
+                        <Col md={12}>
+                          <Label for="returnInput">RETURN</Label>
+                          <Input
+                            type="date"
+                            name="returnInput"
+                            id="returnInput"
+                            value={formData.returnInput}
+                            onChange={handleInputChange}
+                            invalid={!!errors.returnInput}
+                            style={{ textTransform: "uppercase" }}
+                          />
+                          <span className="invalid-feedback">
+                            {errors.returnInput}
+                          </span>
+                        </Col>
+                      )}
+
+                      <Col md={12}>
+                        <Label for="ComGroup">ENTITY</Label>
                         <Input
                           type="select"
                           name="ComGroup"
@@ -608,17 +753,19 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.ComGroup}
                           style={{ textTransform: "uppercase" }}
                         >
-                          <option value="">SELECT COMPANY GROUP/COUNTRY</option>
-                          <option value="USA">United States</option>
-                          <option value="CAN">Canada</option>
-                          <option value="UK">United Kingdom</option>
-                        </Input>
+                           <option value="">SELECT ENTITY </option>
+                            {entity &&
+                              entity.map((item, index) => (
+                                <option key={index} value={item.identity}>
+                                  {item.nmentity}
+                                </option>
+                              ))}  </Input>
                         <span className="invalid-feedback">
                           {errors.ComGroup}
                         </span>
                       </Col>
                     </Row>
-                    <Row className="mb-2">
+                    {/* <Row className="mb-2">
                       <Col md={6}>
                         <Label for="state">STATE</Label>
                         <Input
@@ -657,7 +804,7 @@ const InterTarnsferReq = () => {
                         </Input>
                         <span className="invalid-feedback">{errors.city}</span>
                       </Col>
-                    </Row>{" "}
+                    </Row>{" "} */}
                     <Row className="mb-2">
                       <Col md={6}>
                         <Label for="location">LOCATION</Label>
@@ -670,11 +817,15 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.location}
                           style={{ textTransform: "uppercase" }}
                         >
-                          <option value="">SELECT LOCATION</option>
-                          <option value="NewYork">New York</option>
-                          <option value="LosAngeles">Los Angeles</option>
-                          <option value="Chicago">Chicago</option>
-                          <option value="Houston">Houston</option>
+                           <option value="" disabled>
+                              SELEECT LOCATION
+                            </option>
+                            {location &&
+                              location.map((item, index) => (
+                                <option key={index} value={item.idloc}>
+                                  {item.nmLoc}
+                                </option>
+                              ))}
                         </Input>
                         <span className="invalid-feedback">
                           {errors.location}
@@ -693,16 +844,13 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.building}
                           style={{ textTransform: "uppercase" }}
                         >
-                          <option value="">SELECT BUILDING</option>
-                          <option value="EmpireState">
-                            Empire State Building
-                          </option>
-                          <option value="Chrysler">Chrysler Building</option>
-                          <option value="Rockefeller">
-                            Rockefeller Center
-                          </option>
-                          <option value="Flatiron">Flatiron Building</option>
-                        </Input>
+                         <option value="">SELECT BUILDING</option>
+                            {building &&
+                              building.map((item, index) => (
+                                <option key={index} value={item.idbuilding}>
+                                  {item.nmbuilding}
+                                </option>
+                              ))}  </Input>
                         <span className="invalid-feedback">
                           {errors.building}
                         </span>
@@ -722,10 +870,13 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.floor}
                           style={{ textTransform: "uppercase" }}
                         >
-                          <option value="">SELECT FLOOR</option>
-                          <option value="Notunderlease">1st floor</option>
-                          <option value="underlease">2nd floor</option>
-                        </Input>
+                          <option value="">SELEECT FLOOR</option>
+                            {floor &&
+                              floor.map((item, index) => (
+                                <option key={index} value={item.idflr}>
+                                  {item.nmflr}
+                                </option>
+                              ))}  </Input>
                         <span className="invalid-feedback">{errors.floor}</span>
                       </Col>
                       <Col md={6}>
@@ -741,13 +892,13 @@ const InterTarnsferReq = () => {
                           invalid={!!errors.department}
                           style={{ textTransform: "uppercase" }}
                         >
-                          <option value="">SELECT DEPARTMENT</option>
-                          <option value="Marketing">Marketing</option>
-                          <option value="Finance">Finance</option>
-                          <option value="Human Resources">
-                            Human Resources
-                          </option>
-                          <option value="IT">IT</option>
+                         <option value="">SELECT DEPARTMENT</option>
+                            {deptarment &&
+                              deptarment.map((item, index) => (
+                                <option key={index} value={item.iddept}>
+                                  {item.nmdept}
+                                </option>
+                              ))}
                         </Input>
                         <span className="invalid-feedback">
                           {errors.department}
@@ -764,7 +915,7 @@ const InterTarnsferReq = () => {
                           name="RDate"
                           id="RDate"
                           value={formData.RDate}
-                          onChange={handleInputChange}
+                          onChange={handleChange}
                           invalid={!!errors.RDate}
                           style={{ textTransform: "uppercase" }}
                         />
@@ -809,10 +960,7 @@ const InterTarnsferReq = () => {
                   <div className="container pt-0">
                     <div className="row">
                       <div className="col-md-2">
-                        <select
-                          className="form-select"
-                          
-                        >
+                        <select className="form-select">
                           <option value="10">SHOW 10</option>
                           <option value="20">SHOW 20</option>
                           <option value="30">SHOW 30</option>
@@ -839,7 +987,8 @@ const InterTarnsferReq = () => {
                                 value={globalFilter || ""}
                                 onChange={e =>
                                   setGlobalFilter(e.target.value.toUpperCase())
-                                }                               />
+                                }
+                              />
                               <i className="bx bx-search-alt search-icon"></i>
                             </label>
                           </div>

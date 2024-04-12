@@ -15,7 +15,6 @@ import {
   FormFeedback,
 } from "reactstrap";
 import PropTypes from "prop-types";
-
 import {
   useTable,
   useGlobalFilter,
@@ -25,25 +24,33 @@ import {
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { GetAllData } from "src/API/Master/GlobalGet";
+import { CreateFloor } from "src/API/Master/GeoGraphicalArea.js/Api";
+import { ToastContainer, toast } from "react-toastify";
 
 const IntraTransferRequest = () => {
   const [showTable, setShowTable] = useState(false);
+  const [locationAl, setLocationAl] = useState([]);
+  const [buildingAl, setBuildingAl] = useState([]);
+  const [entityAl, setEntityAl] = useState([]);
+  const [floor, setFloor] = useState([]);
+setEntityAl
   const navigate = useNavigate();
 
   const validation = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      companygroup: "",
-      statename: "",
-      cityname: "",
+      entity: "",
+      // statename: "",
+      // cityname: "",
       plantname: "",
       building: "",
     },
     validationSchema: Yup.object({
-      companygroup: Yup.string().required("COUNTRY IS REQUIRED"),
-      statename: Yup.string().required("STATE NAME IS REQUIRED"),
-      cityname: Yup.string().required("CITY NAME IS REQUIRED"),
+      entity: Yup.string().required("ENTITY IS REQUIRED"),
+      // statename: Yup.string().required("STATE NAME IS REQUIRED"),
+      // cityname: Yup.string().required("CITY NAME IS REQUIRED"),
       plantname: Yup.string().required("LOCATION NAME IS REQUIRED"),
       building: Yup.string().required("BUILDING NAME IS REQUIRED"),
     }),
@@ -60,6 +67,45 @@ const IntraTransferRequest = () => {
   const initialFormData = {
     floor: "",
   };
+  useEffect(() => {
+    GetAllData("Floor").then(res => {
+      if (Array.isArray(res)) {
+        setFloor(res);
+      } else {
+        setFloor([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Entity").then(res => {
+      if (Array.isArray(res)) {
+        setEntityAl(res);
+      } else {
+        setEntityAl([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Location").then(res => {
+      if (Array.isArray(res)) {
+        setLocationAl(res);
+      } else {
+        setLocationAl([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Building").then(res => {
+      if (Array.isArray(res)) {
+        setBuildingAl(res);
+      } else {
+        setBuildingAl([]);
+      }
+    });
+  }, []);
 
   const initialErrors = {};
   Object.keys(requiredFields).forEach(key => {
@@ -165,28 +211,28 @@ const IntraTransferRequest = () => {
   const demoData = useMemo(
     () => [
       {
-        "slno": 1,
-        "assetid": "ASSET001",
-        "assetname": "Laptop",
-        "sn": "SN12345",
-        "assetdes": "Good condition"
+        slno: 1,
+        assetid: "ASSET001",
+        assetname: "Laptop",
+        sn: "SN12345",
+        assetdes: "Good condition",
       },
       {
-        "slno": 2,
-        "assetid": "ASSET002",
-        "assetname": "Desktop",
-        "sn": "SN67890",
-        "assetdes": "Needs maintenance"
+        slno: 2,
+        assetid: "ASSET002",
+        assetname: "Desktop",
+        sn: "SN67890",
+        assetdes: "Needs maintenance",
       },
       {
-        "slno": 3,
-        "assetid": "ASSET003",
-        "assetname": "Printer",
-        "sn": "SN24680",
-        "assetdes": "Ink levels low"
-      }
+        slno: 3,
+        assetid: "ASSET003",
+        assetname: "Printer",
+        sn: "SN24680",
+        assetdes: "Ink levels low",
+      },
     ],
-    
+
     []
   );
   const [responseData, setResponseData] = useState(demoData);
@@ -195,11 +241,10 @@ const IntraTransferRequest = () => {
     return responseData.map((item, index) => ({
       ...item,
       slno: index + 1,
-      assetid: item.assetid.toUpperCase(), 
-      assetname: item.assetname.toUpperCase(), 
-      sn: item.sn.toUpperCase(), 
-      assetdes: item.assetdes.toUpperCase(), 
-
+      assetid: item.assetid.toUpperCase(),
+      assetname: item.assetname.toUpperCase(),
+      sn: item.sn.toUpperCase(),
+      assetdes: item.assetdes.toUpperCase(),
     }));
   }, [responseData]);
 
@@ -276,7 +321,7 @@ const IntraTransferRequest = () => {
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                INTRA TRANSFER REQUEST 
+                INTRA TRANSFER REQUEST
               </h1>
             </CardHeader>
             <CardBody>
@@ -289,37 +334,39 @@ const IntraTransferRequest = () => {
                     <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="companygroup">
-                            COUNTRY <font color="red">*</font>
+                          <Label htmlFor="entity">
+                            ENTITY <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
-                            name="companygroup"
-                            id="companygroup"
+                            name="entity"
+                            id="entity"
                             // className="form-control"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.companygroup &&
-                              validation.errors.companygroup
-                            }style={{ textTransform: "uppercase" }}
+                              validation.touched.entity &&
+                              validation.errors.entity
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
-                            <option value="">
-                              SELECT COUNTRY
-                            </option>
-                            <option value="USA">United States</option>
-                            <option value="CAN">Canada</option>
-                            <option value="UK">United Kingdom</option>
+                          <option value="">SELECT ENTITY </option>
+                            {entityAl &&
+                              entityAl.map((item, index) => (
+                                <option key={index} value={item.identity}>
+                                  {item.nmentity}
+                                </option>
+                              ))}
                           </Input>
-                          {validation.touched.companygroup &&
-                          validation.errors.companygroup ? (
+                          {validation.touched.entity &&
+                          validation.errors.entity ? (
                             <FormFeedback type="invalid">
-                              {validation.errors.companygroup}
+                              {validation.errors.entity}
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
                       </Col>
-                      <Col md={6}>
+                      {/* <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="statename">
                             STATE NAME <font color="red">*</font>
@@ -334,7 +381,8 @@ const IntraTransferRequest = () => {
                             invalid={
                               validation.touched.statename &&
                               validation.errors.statename
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT STATE NAME</option>
                             <option value="Alabama">Alabama</option>
@@ -365,7 +413,8 @@ const IntraTransferRequest = () => {
                             invalid={
                               validation.touched.cityname &&
                               validation.errors.cityname
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT CITY NAME</option>
                             <option value="New York">New York</option>
@@ -380,11 +429,11 @@ const IntraTransferRequest = () => {
                             </FormFeedback>
                           ) : null}
                         </FormGroup>
-                      </Col>
+                      </Col> */}
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="plantname">
-                            LOCATION NAME <font color="red">*</font>
+                            LOCATION  <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -396,13 +445,16 @@ const IntraTransferRequest = () => {
                             invalid={
                               validation.touched.plantname &&
                               validation.errors.plantname
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
-                            <option value="">SELECT LOCATION NAME</option>
-                            <option value="NewYork">New York</option>
-                            <option value="LosAngeles">Los Angeles</option>
-                            <option value="Chicago">Chicago</option>
-                            <option value="Houston">Houston</option>
+                           <option value="">SELECT LOCATION </option>
+                            {locationAl &&
+                              locationAl.map((item, index) => (
+                                <option key={index} value={item.idloc}>
+                                  {item.nmLoc}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.plantname &&
                           validation.errors.plantname ? (
@@ -415,7 +467,7 @@ const IntraTransferRequest = () => {
                       <Col md={12}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="building">
-                            BUILDING NAME <font color="red">*</font>
+                            BUILDING  <font color="red">*</font>
                           </Label>
                           <Input
                             type="select"
@@ -427,18 +479,16 @@ const IntraTransferRequest = () => {
                             invalid={
                               validation.touched.building &&
                               validation.errors.building
-                            }style={{ textTransform: "uppercase" }}
+                            }
+                            style={{ textTransform: "uppercase" }}
                           >
-                            <option value="">SELECT BUILDING NAME</option>
-                            <option value="EmpireState">
-                              Empire State Building
-                            </option>
-                            <option value="Chrysler">Chrysler Building</option>
-                            <option value="Rockefeller">
-                              Rockefeller Center
-                            </option>
-                            <option value="Flatiron">Flatiron Building</option>
-                          </Input>
+                            <option value="">SELECT BUILDING </option>
+                            {buildingAl &&
+                              buildingAl.map((item, index) => (
+                                <option key={index} value={item.idbuilding}>
+                                  {item.nmbuilding}
+                                </option>
+                              ))} </Input>
                           {validation.touched.building &&
                           validation.errors.building ? (
                             <FormFeedback type="invalid">
@@ -493,7 +543,7 @@ const IntraTransferRequest = () => {
               <div className="container pt-0">
                 <div className="row">
                   <div className="col-md-2">
-                    <select className="form-select" >
+                    <select className="form-select">
                       <option value="10">SHOW 10</option>
                       <option value="20">SHOW 20</option>
                       <option value="30">SHOW 30</option>
@@ -517,7 +567,8 @@ const IntraTransferRequest = () => {
                             value={globalFilter || ""}
                             onChange={e =>
                               setGlobalFilter(e.target.value.toUpperCase())
-                            }                           />
+                            }
+                          />
                           <i className="bx bx-search-alt search-icon"></i>
                         </label>
                       </div>
@@ -548,7 +599,9 @@ const IntraTransferRequest = () => {
                   <form className="needs-validation" noValidate>
                     <Row className="mb-2">
                       <Col md={12}>
-                        <Label for="floor">FLOOR<font color="red">*</font></Label>
+                        <Label for="floor">
+                          FLOOR<font color="red">*</font>
+                        </Label>
                         <Input
                           type="select"
                           name="floor"
@@ -559,8 +612,12 @@ const IntraTransferRequest = () => {
                           style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT FLOOR</option>
-                          <option value="group1">2st floor</option>
-                          <option value="amgroup2c">3rd floor</option>
+                          {floor &&
+                              floor.map((item, index) => (
+                                <option key={index} value={item.idflr}>
+                                  {item.nmflr}
+                                </option>
+                              ))}
                         </Input>
                         <span className="invalid-feedback">{errors.floor}</span>
                       </Col>
