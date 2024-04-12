@@ -14,3 +14,15 @@ export const UploadFile = async file => {
     return error.response.message;
   }
 };
+
+export const GetImage = async file => {
+  try {
+    let result = await fetch(`${UploadUrl}files/upload/${file}`, {
+      method: "GET",
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.response.message;
+  }
+};

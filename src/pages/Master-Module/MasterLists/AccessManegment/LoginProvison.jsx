@@ -16,52 +16,22 @@ import {
   usePagination,
 } from "react-table";
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const LoginProvison = () => {
-  const demoData = [
-    {
-      slno: 1,
-      employeeName: "John Doe",
-      nmLogin: "johndoe123",
-      typeUser: "Admin",
-      designation: "Active",
-    },
-    {
-      slno: 2,
-      employeeName: "Jane Smith",
-      nmLogin: "janesmith456",
-      typeUser: "Manager",
-      designation: "Active",
-    },
-    {
-      slno: 3,
-      employeeName: "Alice Johnson",
-      nmLogin: "alicej123",
-      typeUser: "Staff",
-      designation: "Active",
-    },
-    {
-      slno: 4,
-      employeeName: "Bob Brown",
-      nmLogin: "bobb456",
-      typeUser: "Guest",
-      designation: "Inactive",
-    },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/loginprovision");
-  //   }
-  //   fetch();
-  // }, [getData]);
-
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
+  useEffect(() => {
+    GetAllData("Userlogin").then(res => {
+      console.log(res[0].aprvloc[0].usertype.nmusertype);
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
   const dataWithSlno = useMemo(() => {
     return responseData.map((item, index) => ({
       ...item,
@@ -82,15 +52,15 @@ const LoginProvison = () => {
       },
       {
         Header: "LOGIN NAME",
-        accessor: "nmLogin",
+        accessor: "nmlogin",
       },
       {
         Header: "USER TYPE",
-        accessor: "typeUser",
+        accessor: "aprvloc[0].usertype.nmusertype",
       },
       {
         Header: "STATUS",
-        accessor: "designation",
+        accessor: "statususer",
       },
     ],
     []

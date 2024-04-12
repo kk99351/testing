@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Form,
@@ -12,15 +12,123 @@ import {
   Col,
   CardHeader,
 } from "reactstrap";
+import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { GetAllData, GetSignleData } from "src/API/Master/GlobalGet";
+import { CreateEmploye } from "src/API/Master/AccessManagement/Api";
+import { GetImage, UploadFile } from "src/API/Upload";
+import { useParams } from "react-router";
 
 const EmplyeeMasterUpdate = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [errors, setErrors] = useState({});
+  const { id } = useParams();
+
+  const [degination, setDegination] = useState([]);
+  const [deptarment, setDepartment] = useState([]);
+  const [entity, setEntity] = useState([]);
+  const [location, setLOcation] = useState([]);
+  const [building, setBuilding] = useState([]);
+  const [floor, setFloor] = useState([]);
+  const [cost, setCost] = useState([]);
+  const [manager, setManager] = useState([]);
+  const [empMaster, setEmMaster] = useState([]);
+  const [image, setImage] = useState("");
+
+  useEffect(() => {
+    GetSignleData("Employee", id).then(res => {
+      console.log("emp", res.empimage);
+      setEmMaster(res);
+      GetImage(res.empimage).then(item => {
+        console.log(item);
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Dept").then(res => {
+      if (Array.isArray(res)) {
+        setDepartment(res);
+      } else {
+        setDepartment([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Designation").then(res => {
+      if (Array.isArray(res)) {
+        setDegination(res);
+      } else {
+        setDegination([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Entity").then(res => {
+      if (Array.isArray(res)) {
+        setEntity(res);
+      } else {
+        setEntity([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Location").then(res => {
+      if (Array.isArray(res)) {
+        setLOcation(res);
+      } else {
+        setLOcation([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Building").then(res => {
+      if (Array.isArray(res)) {
+        setBuilding(res);
+      } else {
+        setBuilding([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Floor").then(res => {
+      if (Array.isArray(res)) {
+        setFloor(res);
+      } else {
+        setFloor([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("CC").then(res => {
+      if (Array.isArray(res)) {
+        setCost(res);
+      } else {
+        setCost([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Employee").then(res => {
+      console.log("user", res);
+      if (Array.isArray(res)) {
+        setManager(res);
+      } else {
+        setManager([]);
+      }
+    });
+  }, []);
 
   const handleLogoChange = event => {
     const file = event.target.files[0];
@@ -29,28 +137,28 @@ const EmplyeeMasterUpdate = () => {
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
-      employeeName: "",
-      employeeCode: "",
-      officialMailId: "",
-      contactNo: "",
-      designation: "",
-      reportingManager: "",
-      department: "",
+      employeeName: empMaster?.nmemp,
+      employeeCode: empMaster?.cdemp,
+      officialMailId: empMaster?.idemp,
+      contactNo: empMaster?.contno,
+      designation: empMaster?.iddesign?.iddesign,
+      reportingManager: empMaster?.idempuser,
+      department: empMaster?.iddept?.iddept,
       location: "",
-      statusempl: "",
+      statusempl: empMaster?.status_emp,
       costCenter: "",
       subLocation: "",
-      employeeType: "",
-      status: "",
-      costCenter: "",
-      entity: "",
-      plantname: "",
-      building: "",
-      floor: "",
+      employeeType: empMaster?.emptype,
+      // status: "",
+      costCenter: empMaster?.idcc?.idcc,
+      entity: empMaster?.idflr?.idbuilding?.idloc?.identity?.identity,
+      plantname: empMaster?.idflr?.idbuilding?.idloc?.idloc,
+      building: empMaster?.idflr?.idbuilding?.idbuilding,
+      floor: empMaster?.idflr?.idflr,
     },
     validationSchema: Yup.object({
       employeeName: Yup.string().required("EMPLOYEE NAME IS REQUIRED"),
-      employeeCode: Yup.string().required("EMPLOYEE CODE IS REQUIRED"),
+      // employeeCode: Yup.string().required("EMPLOYEE CODE IS REQUIRED"),
       officialMailId: Yup.string()
         .email("Enter a valid email")
         .required("OFFICIAL MAIL ID IS REQUIRED"),
@@ -58,8 +166,8 @@ const EmplyeeMasterUpdate = () => {
       designation: Yup.string().required("DESIGNATION IS REQUIRED"),
       reportingManager: Yup.string().required("REPORTING MANAGER IS REQUIRED"),
       department: Yup.string().required("DEPARTMENT IS REQUIRED"),
-      location: Yup.string().required("LOCATION IS REQUIRED"),
-      subLocation: Yup.string().required("SUB-LOCATION IS REQUIRED"),
+      // location: Yup.string().required("LOCATION IS REQUIRED"),
+      // subLocation: Yup.string().required("SUB-LOCATION IS REQUIRED"),
       employeeType: Yup.string().required("EMPLOYEE TYPE IS REQUIRED"),
       statusempl: Yup.string().required("STATUS IS REQUIRED"),
       costCenter: Yup.string().required("COST CENTER IS REQUIRED"),
@@ -69,19 +177,128 @@ const EmplyeeMasterUpdate = () => {
       floor: Yup.string().required("FLOOR NUMBER IS REQUIRED"),
     }),
     onSubmit: values => {
-      alert("Form validated!");
-      // Add your form submission logic here
+      console.log(values);
+      UploadFile(selectedFile).then(res => {
+        if (res.message === "File uploaded successfully.") {
+          CreateEmploye([
+            {
+              idempuser: id,
+              nmemp: values?.employeeName,
+              cdemp: values?.employeeCode,
+              idemp: values?.officialMailId,
+              contno: values?.contactNo,
+              iddesign: {
+                iddesign: Number(values.designation),
+                nmdesign: "string",
+                cddesign: "string",
+              },
+              repomngr: {
+                idempuser: 4,
+              },
+              iddept: {
+                iddept: Number(values.department),
+                nmdept: "string",
+                cddept: "string",
+              },
+              idflr: {
+                idflr: Number(values.floor),
+                nmflr: "string",
+                idbuilding: {
+                  idbuilding: Number(values.building),
+                  nmbuilding: "string",
+                  idloc: {
+                    idloc: Number(values.plantname),
+                    nmLoc: "string",
+                    nmcountry: "string",
+                    nmstate: "string",
+                    nmcity: "string",
+                    identity: {
+                      identity: Number(values.entity),
+                      nmentity: "string",
+                      cdentity: "string",
+                    },
+                  },
+                },
+              },
+              emptype: values.employeeType,
+              status_emp: values.statusempl,
+              idcc: {
+                idcc: Number(values.costCenter),
+                nmcc: "string",
+              },
+              empimage: res.fileNames[0],
+            },
+          ]).then(response => {
+            if (response.ok) {
+              toast("Sucessfully Updated Employe Master");
+              navigate("/emplyee_master");
+            } else {
+              toast("Failed to Update");
+            }
+          });
+        } else {
+          toast("Failed to Upload image");
+        }
+      });
     },
   });
+
+  const handleEntityChnage = e => {
+    GetAllData("Location").then(res => {
+      let result = res.filter(item => item?.identity?.identity === Number(e));
+      setLOcation(result);
+    });
+  };
+
+  const handleLocationChnage = e => {
+    console.log(e);
+    GetAllData("Building").then(res => {
+      let result = res.filter(item => item?.idloc?.idloc === Number(e));
+      setBuilding(result);
+    });
+  };
+
+  const handleBuildingChnage = e => {
+    console.log(e);
+    GetAllData("Floor").then(res => {
+      let result = res.filter(
+        item => item?.idbuilding?.idbuilding === Number(e)
+      );
+      setFloor(result);
+    });
+  };
+
+  const handleChange = event => {
+    switch (event.target.name) {
+      case "entity": {
+        handleEntityChnage(event.target.value);
+        break;
+      }
+      case "plantname": {
+        handleLocationChnage(event.target.value);
+        break;
+      }
+      case "building": {
+        handleBuildingChnage(event.target.value);
+        break;
+      }
+    }
+    const fieldName = event.target.name;
+    const inputValue = event.target.value;
+    const uppercaseValue = inputValue ? inputValue.toUpperCase() : "";
+    validation.handleChange(event);
+    validation.setFieldValue(fieldName, uppercaseValue);
+  };
 
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Card className="mt-0">
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                EMPLOYEE DETAILS
+                UPDATE EMPLOYEE
               </h1>
             </CardHeader>
             <CardBody>
@@ -217,20 +434,13 @@ const EmplyeeMasterUpdate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT DESIGNATION</option>
-                            <option value="Manager">Manager</option>
-                            <option value="Assistant Manager">
-                              Assistant Manager
-                            </option>
-                            <option value="Team Lead">Team Lead</option>
-                            <option value="Software Engineer">
-                              Software Engineer
-                            </option>
-                            <option value="HR Coordinator">
-                              HR Coordinator
-                            </option>
-                            <option value="Sales Representative">
-                              Sales Representative
-                            </option>
+
+                            {degination &&
+                              degination.map((item, index) => (
+                                <option key={index} value={item.iddesign}>
+                                  {item.nmdesign}
+                                </option>
+                              ))}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.designation &&
@@ -257,8 +467,12 @@ const EmplyeeMasterUpdate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT REPORTING MANAGER</option>
-                            <option value="Project Manager ">Manager 1</option>
-                            <option value="Manager">Manager 2</option>
+                            {manager &&
+                              manager.map((item, index) => (
+                                <option key={index} value={item.idempuser}>
+                                  {item.nmemp}
+                                </option>
+                              ))}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.reportingManager &&
@@ -288,12 +502,12 @@ const EmplyeeMasterUpdate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT DEPARTMENT</option>
-                            <option value="Sales">Sales</option>
-                            <option value="Human Resources">
-                              Human Resources
-                            </option>
-                            <option value="Finance">Finance</option>
-                            <option value="Engineering">Engineering</option>
+                            {deptarment &&
+                              deptarment.map((item, index) => (
+                                <option key={index} value={item.iddept}>
+                                  {item.nmdept}
+                                </option>
+                              ))}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.department &&
@@ -343,7 +557,7 @@ const EmplyeeMasterUpdate = () => {
                             id="entity"
                             name="entity"
                             value={validation.values.entity}
-                            onChange={validation.handleChange}
+                            onChange={handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.entity &&
@@ -352,12 +566,12 @@ const EmplyeeMasterUpdate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT ENTITY </option>
-                            <option value="United States">United States</option>
-                            <option value="United Kingdom">
-                              United Kingdom
-                            </option>
-                            <option value="Canada">Canada</option>
-                            <option value="Australia">Australia</option>
+                            {entity &&
+                              entity.map((item, index) => (
+                                <option key={index} value={item.identity}>
+                                  {item.nmentity}
+                                </option>
+                              ))}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.entity &&
@@ -375,7 +589,7 @@ const EmplyeeMasterUpdate = () => {
                             id="plantname"
                             name="plantname"
                             value={validation.values.plantname}
-                            onChange={validation.handleChange}
+                            onChange={handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.plantname &&
@@ -386,16 +600,12 @@ const EmplyeeMasterUpdate = () => {
                             <option value="" disabled>
                               SELEECT LOCATION
                             </option>
-                            <option value="Downtown Branch">
-                              Downtown Branch
-                            </option>
-                            <option value="Midtown Branch">
-                              Midtown Branch
-                            </option>
-                            <option value="Westminster Branch">
-                              Westminster Branch
-                            </option>
-                            <option value="CBD Branch">CBD Branch</option>
+                            {location &&
+                              location.map((item, index) => (
+                                <option key={index} value={item.idloc}>
+                                  {item.nmLoc}
+                                </option>
+                              ))}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.errors.plantname}
@@ -416,7 +626,7 @@ const EmplyeeMasterUpdate = () => {
                             id="building"
                             name="building"
                             value={validation.values.building}
-                            onChange={validation.handleChange}
+                            onChange={handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.building &&
@@ -425,15 +635,12 @@ const EmplyeeMasterUpdate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT BUILDING</option>
-                            <option value="Central Tower">Central Tower</option>
-                            <option value="Empire State Building">
-                              Empire State Building
-                            </option>
-                            <option value="Westminster Palace">
-                              Westminster Palace
-                            </option>
-                            <option value="CN Tower">CN Tower</option>
-                            <option value="Sydney Tower">Sydney Tower</option>
+                            {building &&
+                              building.map((item, index) => (
+                                <option key={index} value={item.idbuilding}>
+                                  {item.nmbuilding}
+                                </option>
+                              ))}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.touched.building &&
@@ -460,11 +667,12 @@ const EmplyeeMasterUpdate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELEECT FLOOR</option>
-                            <option value="1">1st Floor</option>
-                            <option value="2">2nd Floor</option>
-                            <option value="3">3rd Floor</option>
-                            <option value="4">4th Floor</option>
-                            <option value="5">5th Floor</option>
+                            {floor &&
+                              floor.map((item, index) => (
+                                <option key={index} value={item.idflr}>
+                                  {item.nmflr}
+                                </option>
+                              ))}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.errors.floor}
@@ -520,8 +728,12 @@ const EmplyeeMasterUpdate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT COST CENTER/PROJECT</option>
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
+                            {cost &&
+                              cost.map((item, index) => (
+                                <option key={index} value={item.idcc}>
+                                  {item.nmcc}
+                                </option>
+                              ))}
                           </Input>
                           <div className="invalid-feedback">
                             {validation.errors.costCenter}

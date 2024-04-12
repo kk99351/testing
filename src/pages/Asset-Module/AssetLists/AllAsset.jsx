@@ -299,7 +299,7 @@ const AllAsset = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "id" ? (
                                   <Link
-                                    to={`/modify_all_asset/${row.original.id}`}
+                                    to={`/modify_all_asset/${row.original.idwh}`}
                                   >
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>

@@ -20,17 +20,32 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
-import { GetSingleAssests } from "src/API/Assest/AddTostore/Api";
+import {
+  GetSingleApprovedAssests,
+  UpdateAssests,
+} from "src/API/Assest/AllAssests/Api";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const AllAssetUpdate = () => {
   const navigate = useNavigate();
-
   const [resData, setResData] = useState([]);
-  const { id } = useParams;
+  const [vendor, setVendor] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
-    GetSingleAssests(id).then(res => {
+    GetSingleApprovedAssests(id).then(res => {
       setResData(res);
+      console.log("resData", resData[0]?.idinv?.idmodel);
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Vendor").then(res => {
+      if (Array.isArray(res)) {
+        setVendor(res);
+      } else {
+        setVendor([]);
+      }
     });
   }, []);
 
@@ -51,39 +66,7 @@ const AllAssetUpdate = () => {
     providerName: "PROVIDER NAME",
   };
 
-  const initialFormData = {
-    assetId: "",
-    invoiceNumber: "",
-    invoiceDate: "",
-    poNumber: "",
-    poDate: "",
-    serialNumber: "",
-    assetRef: "",
-    diviceStatus: "",
-    processType: "",
-    storageType: "",
-    ramType: "",
-    assetName: "",
-    assetRemarks: "",
-    serviceVendor: "",
-    assetDescription: "",
-    taggable: "",
-    typeOfProc: "",
-    amc: "",
-    amcStartDate: "",
-    amcEndDate: "",
-    leaseStatus: "",
-    leaseStartDate: "",
-    leaseEndDate: "",
-    additionalCost: "",
-    totalUnitPrice: "",
-    netValue: "",
-    license: "",
-    licenseStartDate: "",
-    licenseEndDate: "",
-    policyNumber: "",
-    providerName: "",
-  };
+  const initialFormData = {};
 
   const initialErrors = {};
   Object.keys(requiredFields).forEach(key => {
@@ -91,11 +74,79 @@ const AllAssetUpdate = () => {
     initialErrors[key] = "";
   });
 
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState({
+    assetId: resData[0]?.idwhdyn,
+    invoiceNumber: resData[0]?.idinv?.idinvm?.noinv,
+    invoiceDate: resData[0]?.idinv?.idinvm?.dtinv,
+    poNumber: resData[0]?.idinv?.idinvm?.nopo,
+    poDate: resData[0]?.idinv?.idinvm?.dtpo,
+    serialNumber: resData[0]?.serialno,
+    assetRef: resData[0]?.serialno,
+    diviceStatus: resData[0]?.devicestatus,
+    processType: resData[0]?.idinv?.processtyp,
+    storageType: resData[0]?.idinv.storeagetyp,
+    ramType: resData[0]?.ramtyp,
+    assetName: resData[0]?.idinv?.idmodel?.nmmodel,
+    assetRemarks: resData[0]?.idinv?.idinvm?.rmkacceptreject,
+    serviceVendor: resData[0]?.idinv?.idinvm?.idven?.idven,
+    assetDescription: resData[0]?.idinv?.idmodel?.itemdesc,
+    taggable: resData[0]?.idinv.tag,
+    typeOfProc: resData[0]?.idinv?.typeproc,
+    amc: resData[0]?.idinv?.warramc,
+    amcStartDate: resData[0]?.idinv?.dtamcstart,
+    amcEndDate: resData[0]?.idinv?.dtamcexp,
+    leaseStatus: resData[0]?.idinv?.stlease,
+    leaseStartDate: resData[0]?.idinv?.stdlease,
+    leaseEndDate: resData[0]?.idinv?.endtlease,
+    additionalCost: "",
+    totalUnitPrice: resData[0]?.idinv?.unprc,
+    netValue: "",
+    license: "",
+    licenseStartDate: "",
+    licenseEndDate: "",
+    policyNumber: "",
+    providerName: "",
+  });
   const [errors, setErrors] = useState(initialErrors);
   const [showAmcDates, setShowAmcDates] = useState(false);
   const [showLeaseDates, setShowLeaseDates] = useState(false);
   const [showLicenseDropdown, setShowLicenseDropdown] = useState(false);
+
+  useEffect(() => {
+    setFormData({
+      assetId: resData[0]?.idwhdyn,
+      invoiceNumber: resData[0]?.idinv?.idinvm?.noinv,
+      invoiceDate: resData[0]?.idinv?.idinvm?.dtinv,
+      poNumber: resData[0]?.idinv?.idinvm?.nopo,
+      poDate: resData[0]?.idinv?.idinvm?.dtpo,
+      serialNumber: resData[0]?.serialno,
+      assetRef: resData[0]?.serialno,
+      diviceStatus: resData[0]?.devicestatus,
+      processType: resData[0]?.idinv?.processtyp,
+      storageType: resData[0]?.idinv.storeagetyp,
+      ramType: resData[0]?.ramtyp,
+      assetName: resData[0]?.idinv?.idmodel?.nmmodel,
+      assetRemarks: resData[0]?.idinv?.idinvm?.rmkacceptreject,
+      serviceVendor: resData[0]?.idinv?.idinvm?.idven?.idven,
+      assetDescription: resData[0]?.idinv?.idmodel?.itemdesc,
+      taggable: resData[0]?.idinv.tag,
+      typeOfProc: resData[0]?.idinv?.typeproc,
+      amc: resData[0]?.idinv?.warramc,
+      amcStartDate: resData[0]?.idinv?.dtamcstart,
+      amcEndDate: resData[0]?.idinv?.dtamcexp,
+      leaseStatus: resData[0]?.idinv?.stlease,
+      leaseStartDate: resData[0]?.idinv?.stdlease,
+      leaseEndDate: resData[0]?.idinv?.endtlease,
+      additionalCost: "",
+      totalUnitPrice: resData[0]?.idinv?.unprc,
+      netValue: "",
+      license: "",
+      licenseStartDate: "",
+      licenseEndDate: "",
+      policyNumber: "",
+      providerName: "",
+    });
+  }, [resData]);
 
   const demoData = useMemo(
     () => [
@@ -243,10 +294,91 @@ const AllAssetUpdate = () => {
     });
 
     if (isValid) {
+      console.log(formData);
       try {
-        // await axios.post(`http://localhost:3000/region/`, formData);
-        // navigate("/company_group");
-        console.log("Form submitted successfully");
+        UpdateAssests([
+          {
+            idwh: id,
+            idinv: {
+              idinv: resData[0]?.idinv?.idinv,
+              idinvm: {
+                idinvm: resData[0]?.idinv?.idinvm?.idinvm,
+                noinv: resData[0]?.idinv?.idinvm?.noinv,
+                dtinv: resData[0]?.idinv?.idinvm?.dtinv,
+                nopo: resData[0]?.idinv?.idinvm?.nopo,
+                dtpo: resData[0]?.idinv?.idinvm?.dtpo,
+                nodc: resData[0]?.idinv?.idinvm?.nodc,
+                dtdc: resData[0]?.idinv?.idinvm?.dtdc,
+                nogrn: resData[0]?.idinv?.idinvm?.nogrn,
+                dt_grn: resData[0]?.idinv?.idinvm?.dt_grn,
+                idflr: resData[0]?.idinv?.idinvm?.idflr,
+                iddept: resData[0]?.idinv?.idinvm?.iddept,
+                idcc: resData[0]?.idinv?.idinvm?.idcc,
+                idven: resData[0]?.idinv?.idinvm?.idven,
+                addby: 0,
+                statusapprove: "Approve",
+                rmkacceptreject: "GOOD morning",
+              },
+              idmodel: resData[0]?.idinv?.idmodel,
+              qty: 2,
+              unprc: 1223,
+              tag: "Yes",
+              typeproc: "group2",
+              stlease: "underlease",
+              endtlease: "2024-04-18T00:00:00.000+00:00",
+              stdlease: "2024-04-19T00:00:00.000+00:00",
+              warramc: "warrenty",
+              dtamcstart: "2024-04-18T00:00:00.000+00:00",
+              dtamcexp: "2024-04-20T00:00:00.000+00:00",
+              processtyp: "",
+              storeagetyp:
+                "f1cef7e5-e6e5-415a-8c09-2b98773cd718_Screenshot (2).png",
+              ramtyp: "",
+              stconfig: "",
+            },
+            addby: 0,
+            editby: 0,
+            idwhdyn: "sasjks/str-0002",
+            serialno: "9be09e47d4e1",
+            devicestatus: "instore",
+            allocate: null,
+            toassign: null,
+            dtdeallocate: null,
+            dtallocate: null,
+            parent: 0,
+            dtreq: null,
+            reqno: 0,
+            reqby: 0,
+            idcc: 0,
+            iddept: 0,
+            idloc: 0,
+            idsloc: 0,
+            idbuilding: 0,
+            idflr: 0,
+            typasst: null,
+            linkdate: null,
+            idrmapprove: null,
+            repomngr: null,
+            statusins: null,
+            sold: null,
+            assettran: null,
+            noinspolicy: null,
+            insven: null,
+            ins: null,
+            stdtins: null,
+            endtins: "sjsj",
+            dtsold: null,
+            dtdispose: null,
+            sttrvl: null,
+            repaircost: null,
+            physicalverificationdate: null,
+            physicalverificationstatus: null,
+            rmkasst: null,
+            dlinkeddate: null,
+          },
+        ]).then(res => {
+          console.log(res);
+        });
       } catch (error) {
         console.log("error in creating group data" + error);
       }
@@ -503,12 +635,12 @@ const AllAssetUpdate = () => {
                           style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT SERVICE VENDOR</option>
-                          <option value="apple">Apple Inc.</option>
-                          <option value="amazon">Amazon.com Inc.</option>
-                          <option value="microsoft">
-                            Microsoft Corporation
-                          </option>
-                          <option value="google">Google LLC</option>
+                          {vendor &&
+                            vendor.map((item, index) => (
+                              <option key={index} value={item.idven}>
+                                {item.nmven}
+                              </option>
+                            ))}
                         </Input>
                         <span className="invalid-feedback">
                           {errors.serviceVendor}
@@ -547,8 +679,8 @@ const AllAssetUpdate = () => {
                           style={{ textTransform: "uppercase" }}
                         >
                           <option value="">SELECT TAGGABLE OR NOT</option>
-                          <option value="group1">YES</option>
-                          <option value="group2">NO</option>
+                          <option value="Yes">YES</option>
+                          <option value="No">NO</option>
                         </Input>
                         <span className="invalid-feedback">
                           {errors.taggable}
@@ -887,7 +1019,7 @@ const AllAssetUpdate = () => {
                             marginRight: "30px",
                           }}
                         >
-                          <Label>CREATE</Label>
+                          <Label>UPDATE</Label>
                         </button>
                         <button
                           type="button"

@@ -15,51 +15,21 @@ import {
   usePagination,
 } from "react-table";
 import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const EmplyeeMaster = () => {
-  const demoData = [
-    {
-      employeename: "John Doe",
-      employeeid: "E12345",
-      officialmailid: "john.doe@example.com",
-      designation: "Software Engineer",
-      status: "Active",
-    },
-    {
-      employeename: "Jane Smith",
-      employeeid: "E23456",
-      officialmailid: "jane.smith@example.com",
-      designation: "HR Coordinator",
-      status: "Active",
-    },
-    {
-      employeename: "Alice Johnson",
-      employeeid: "E34567",
-      officialmailid: "alice.johnson@example.com",
-      designation: "Manager",
-      status: "Inactive",
-    },
-    {
-      employeename: "Bob Brown",
-      employeeid: "E45678",
-      officialmailid: "bob.brown@example.com",
-      designation: "Sales Representative",
-      status: "Active",
-    },
-  ];
-  const [responseData, setResponseData] = useState(demoData);
+  const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
-  // const { getData, data, isLoading } = useGet();
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getData("http://localhost:3000/employeemaster");
-  //   }
-  //   fetch();
-  // }, [getData]);
 
-  // useEffect(() => {
-  //   setResponseData(data);
-  // }, [data]);
+  useEffect(() => {
+    GetAllData("Employee").then(res => {
+      if (Array.isArray(res)) {
+        setResponseData(res);
+      } else {
+        setResponseData([]);
+      }
+    });
+  }, []);
 
   const columns = useMemo(
     () => [
@@ -70,23 +40,23 @@ const EmplyeeMaster = () => {
       },
       {
         Header: "EMPLOYEE NAME",
-        accessor: "employeename",
+        accessor: "nmemp",
       },
       {
         Header: "EMPLOYEE ID",
-        accessor: "employeeid",
+        accessor: "cdemp",
       },
       {
         Header: "EMPLOYEE MAIL ID",
-        accessor: "officialmailid",
+        accessor: "idemp",
       },
       {
         Header: "DESIGNATION",
-        accessor: "designation",
+        accessor: "iddept.nmdept",
       },
       {
         Header: "STATUS",
-        accessor: "status",
+        accessor: "status_emp",
       },
     ],
     []
@@ -236,7 +206,7 @@ const EmplyeeMaster = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/emplyee_master/${row.original.id}`}
+                                    to={`/emplyee_master/${row.original.idempuser}`}
                                   >
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>

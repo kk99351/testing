@@ -54,13 +54,14 @@ const BulkAssetAllocate = () => {
   }, []);
 
   useEffect(() => {
-    GetAllData("Empuser").then(res => {
+    GetAllData("Employee").then(res => {
+      console.log(res);
       if (Array.isArray(res)) {
         setEmpUser(res);
       } else {
         setEmpUser([]);
       }
-    }, []);
+    });
   }, []);
 
   const dataWithSlno = useMemo(() => {
@@ -283,9 +284,12 @@ const BulkAssetAllocate = () => {
                       style={{ textTransform: "uppercase" }}
                     >
                       <option value="">SELECT ASSIGN TO</option>
-                      <option value="JohnDoe">John Doe</option>
-                      <option value="JaneSmith">Jane Smith</option>
-                      <option value="RobertJohnson">Robert Johnson</option>
+                      {empUser &&
+                        empUser.map((item, index) => (
+                          <option key={index} value={item.idempuser}>
+                            {item.nmemp}
+                          </option>
+                        ))}
                     </Input>
                     <span className="invalid-feedback">{errors.assignTo}</span>
                   </Col>
@@ -301,7 +305,6 @@ const BulkAssetAllocate = () => {
                       onChange={handleDropdownChange}
                       invalid={!!errors.flr}
                       style={{ textTransform: "uppercase" }}
-                      disabled
                     >
                       <option value="">SELECT FLOOR</option>
                       {floor &&

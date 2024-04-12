@@ -165,41 +165,44 @@ const EmplyeeMasterCreate = () => {
     onSubmit: values => {
       console.log(values);
       UploadFile(selectedFile).then(res => {
+        console.log(res);
         if (res.message === "File uploaded successfully.") {
           CreateEmploye([
             {
               idempuser: 0,
-              nmemp: values.employeeName,
-              cdemp: values.officialMailId,
-              idemp: values.employeeCode,
-              contno: values.contactNo,
+              nmemp: values?.employeeName,
+              cdemp: values?.employeeCode,
+              idemp: values?.officialMailId,
+              contno: values?.contactNo,
               iddesign: {
                 iddesign: Number(values.designation),
-                nmdesign: "",
-                cddesign: "",
+                nmdesign: "string",
+                cddesign: "string",
               },
-              repomngr: 0,
+              repomngr: {
+                idempuser: 4,
+              },
               iddept: {
-                iddept: Number(values.deptarment),
-                nmdept: "",
-                cddept: "",
+                iddept: Number(values.department),
+                nmdept: "string",
+                cddept: "string",
               },
               idflr: {
                 idflr: Number(values.floor),
-                nmflr: "",
+                nmflr: "string",
                 idbuilding: {
                   idbuilding: Number(values.building),
-                  nmbuilding: "",
+                  nmbuilding: "string",
                   idloc: {
                     idloc: Number(values.plantname),
-                    nmLoc: "",
-                    nmcountry: "",
-                    nmstate: "",
-                    nmcity: "",
+                    nmLoc: "string",
+                    nmcountry: "string",
+                    nmstate: "string",
+                    nmcity: "string",
                     identity: {
                       identity: Number(values.entity),
-                      nmentity: "",
-                      cdentity: "",
+                      nmentity: "string",
+                      cdentity: "string",
                     },
                   },
                 },
@@ -208,15 +211,17 @@ const EmplyeeMasterCreate = () => {
               status_emp: values.statusempl,
               idcc: {
                 idcc: Number(values.costCenter),
-                nmcc: "",
+                nmcc: "string",
               },
               empimage: res.fileNames[0],
-              manager: {
-                idempuser: 0,
-              },
             },
           ]).then(response => {
-            console.log(response);
+            if (response.ok) {
+              toast("Sucessfully Create Employe Master");
+              navigate("/emplyee_master");
+            } else {
+              toast("Failed to Create");
+            }
           });
         } else {
           toast("Failed to Upload image");
