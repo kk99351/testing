@@ -26,6 +26,7 @@ const LoginProvison = () => {
     GetAllData("Userlogin").then(res => {
       console.log(res[0].aprvloc[0].usertype.nmusertype);
       if (Array.isArray(res)) {
+        console.log(res[1]);
         setResponseData(res);
       } else {
         setResponseData([]);
@@ -202,7 +203,9 @@ const LoginProvison = () => {
                             {row.cells.map(cell => (
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
-                                  <Link to={`/user_login/${row.original.id}`}>
+                                  <Link
+                                    to={`/user_login/${row.original.idlog}`}
+                                  >
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>
                                 ) : (

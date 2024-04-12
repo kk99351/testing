@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -15,10 +15,14 @@ import {
   Container,
   Card,
 } from "reactstrap";
+import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import "simplebar/dist/simplebar.min.css";
+import { GetAllData, GetSignleData } from "src/API/Master/GlobalGet";
+import { CreateUserLogin } from "src/API/Master/AccessManagement/Api";
+import { useParams } from "react-router";
 
 const UserLoginUpdate = () => {
+  const { id } = useParams();
   const getCurrentDate = () => {
     const now = new Date();
     const year = now.getFullYear();
@@ -32,35 +36,81 @@ const UserLoginUpdate = () => {
     if (values.Status === "Inactive" && !value) {
       return "Disabled Date is Required";
     }
-    return true; // Return true if validation passes
+    return true;
   };
   const navigate = useNavigate();
+  const [userType, setUserType] = useState([]);
+  const [empy, setEmpy] = useState([]);
+  const [location, setLocation] = useState([]);
+  const [leftItems, setLeftItems] = useState([]);
+  const [allEmploye, setAllemploye] = useState([]);
+  const [email, setEmail] = useState("");
+  const [login, setLogin] = useState([]);
+
+  useEffect(() => {
+    GetSignleData("Userlogin", id).then(res => {
+      console.log(res?.aprvloc[0].usertype.nmusertype);
+      setLogin(res);
+      setEmail(login?.mailid);
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("UPermission").then(res => {
+      if (Array.isArray(res)) {
+        setUserType(res);
+      } else {
+        setUserType([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Employee").then(res => {
+      if (Array.isArray(res)) {
+        setAllemploye(res);
+        setEmpy(res);
+      } else {
+        setEmpy([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("Location").then(res => {
+      if (Array.isArray(res)) {
+        setLeftItems(res);
+      } else {
+        setLeftItems([]);
+      }
+    });
+  }, []);
+
   const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
       EmployeeInitials: "",
-      Email: "",
-      LoginName: "",
-      Password: "",
-      ConfirmPassword: "",
-      UserType: "",
-      Status: "",
-      DisabledDate: "",
+      Email: email ? email : login.mailid,
+      LoginName: login?.nmlogin,
+      Password: login?.pwd,
+      ConfirmPassword: login?.pwd,
+      UserType: "alk",
+      Status: login?.statususer,
+      DisabledDate: login?.dt_disable,
     },
 
     validationSchema: Yup.object({
       EmployeeInitials: Yup.string().required("EMPLOYEE INITIALS IS REQUIRED"),
-      Email: Yup.string()
-        .email("Enter a valid email")
-        .required("EMAIL IS REQUIRED"),
+      // Email: Yup.string()
+      //   .email("Enter a valid email")
+      //   .required("EMAIL IS REQUIRED"),
       LoginName: Yup.string().required("LOGINNAME IS REQUIRED"),
       Password: Yup.string().required("PASSWORD IS REQUIRED"),
       ConfirmPassword: Yup.string()
-        .oneOf([Yup.ref("Password"), null], "Passwords must match")
+        .oneOf([Yup.ref("Password"), null], "PASSWORD MUST MATCH")
         .required("CONFIRM PASSWORD IS REQUIRED"),
       Status: Yup.string().required("STATUS IS REQUIRED"),
       UserType: Yup.string().required("USER TYPE IS REQUIRED"),
-
       DisabledDate: Yup.string().test(
         "disabledDate",
         "INVALID DISABLED DATE",
@@ -68,22 +118,141 @@ const UserLoginUpdate = () => {
       ),
     }),
     onSubmit: values => {
-      alert("form validated!");
-      // console.log("values", values);
+      const loc = rightItems.map(item => {
+        return {
+          idloc: item.idloc,
+          nmLoc: "",
+          nmcountry: "",
+          nmstate: "",
+          nmcity: "",
+          identity: {
+            identity: 0,
+            nmentity: "",
+            cdentity: "",
+          },
+        };
+      });
+
+      CreateUserLogin([
+        {
+          idlog: id,
+          nmlogin: values?.LoginName,
+          idemail: values?.Email,
+          pwd: values?.Password,
+          statususer: values?.Status,
+          mailid: email,
+          dt_disable: values?.DisabledDate,
+          idlocs: loc,
+          getuPermission: {
+            idpermission: Number(values.UserType),
+            typasst: "string",
+            idccs: "string",
+            usertype: {
+              idusertype: 0,
+              nmusertype: "string",
+            },
+            submodules: [
+              {
+                idSubmodule: 0,
+                nmSubmodule: "string",
+                idmodule: {
+                  idmodule: 0,
+                  nmModule: "string",
+                },
+              },
+            ],
+            iddept: [
+              {
+                iddept: 0,
+                nmdept: "string",
+                cddept: "string",
+              },
+            ],
+            entities: [
+              {
+                identity: 0,
+                nmentity: "string",
+                cdentity: "string",
+              },
+            ],
+            idlocs: [
+              {
+                idloc: 0,
+                nmLoc: "string",
+                nmcountry: "string",
+                nmstate: "string",
+                nmcity: "string",
+                identity: {
+                  identity: 0,
+                  nmentity: "string",
+                  cdentity: "string",
+                },
+              },
+            ],
+          },
+          aprvloc: [
+            {
+              idpermission: Number(values.UserType),
+              typasst: "string",
+              idccs: "string",
+              usertype: {
+                idusertype: 0,
+                nmusertype: "string",
+              },
+              submodules: [
+                {
+                  idSubmodule: 0,
+                  nmSubmodule: "string",
+                  idmodule: {
+                    idmodule: 0,
+                    nmModule: "string",
+                  },
+                },
+              ],
+              iddept: [
+                {
+                  iddept: 0,
+                  nmdept: "string",
+                  cddept: "string",
+                },
+              ],
+              entities: [
+                {
+                  identity: 0,
+                  nmentity: "string",
+                  cdentity: "string",
+                },
+              ],
+              idlocs: [
+                {
+                  idloc: 0,
+                  nmLoc: "string",
+                  nmcountry: "string",
+                  nmstate: "string",
+                  nmcity: "string",
+                  identity: {
+                    identity: 0,
+                    nmentity: "string",
+                    cdentity: "string",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ]).then(res => {
+        if (res.ok) {
+          toast("UserLogin Updated successfully");
+          navigate("/user_login");
+        } else if (res.status === 400) {
+          toast("already Updated UserLogin");
+        } else {
+          toast("Failed to Updated UserLogin");
+        }
+      });
     },
   });
-  const [leftItems, setLeftItems] = useState([
-    "Company Master",
-    "Branch",
-    "Plant",
-    "Designation Master",
-    "Employee Master",
-    "Login Provision",
-    "Approved Vendor List",
-    "DOA",
-    "Bank Master",
-    "Payment Terms",
-  ]);
+
   const [rightItems, setRightItems] = useState([]);
 
   const handleMoveRight = () => {
@@ -91,8 +260,12 @@ const UserLoginUpdate = () => {
       const option = document.getElementById(`leftItem${index}`);
       return option.selected;
     });
-    setRightItems([...rightItems, ...selectedItems]);
+
+    setRightItems(prevRightItems => [...prevRightItems, ...selectedItems]);
     setLeftItems(leftItems.filter(item => !selectedItems.includes(item)));
+    setRightItems(prevRightItems => {
+      return prevRightItems;
+    });
   };
 
   const handleMoveLeft = () => {
@@ -104,14 +277,38 @@ const UserLoginUpdate = () => {
     setRightItems(rightItems.filter(item => !selectedItems.includes(item)));
   };
 
+  const HandleChange = event => {
+    console.log(event.target.value);
+    switch (event.target.name) {
+      case "EmployeeInitials": {
+        let res = allEmploye.find(
+          item => item.idempuser === Number(event.target.value)
+        );
+        setEmail(res.idemp);
+      }
+      case "UserType": {
+        // let res = allEmploye.find(
+        //   item => item.idempuser === Number(event.target.value)
+        // );
+        // setEmail(res.idemp);
+      }
+    }
+
+    const fieldName = event.target.name;
+    const inputValue = event.target.value;
+    const uppercaseValue = inputValue ? inputValue.toUpperCase() : "";
+    validation.handleChange(event);
+    validation.setFieldValue(fieldName, uppercaseValue);
+  };
   return (
     <React.Fragment>
       <Container fluid>
+        <ToastContainer></ToastContainer>
         <div className="page-content">
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                USER LOGIN DETAILS
+                CREATE USER LOGIN
               </h1>
             </CardHeader>
 
@@ -134,7 +331,7 @@ const UserLoginUpdate = () => {
                             placeholder="PLEASE ENTER EMPLOYEE INITIALS"
                             className="form-control"
                             id="validationCustom01"
-                            onChange={validation.handleChange}
+                            onChange={HandleChange}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.EmployeeInitials &&
@@ -143,10 +340,12 @@ const UserLoginUpdate = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT EMPLOYEE INITIALS</option>
-                            <option value="dept1">ADMIN</option>
-                            <option value="dept2">AMIT</option>
-                            <option value="dept2">ASIT</option>
-                            <option value="dept2">AMIT</option>
+                            {empy &&
+                              empy.map((item, index) => (
+                                <option key={index} value={item.idempuser}>
+                                  {item.nmemp}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.EmployeeInitials &&
                           validation.errors.EmployeeInitials ? (
@@ -169,11 +368,13 @@ const UserLoginUpdate = () => {
                             id="validationCustom02"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
+                            value={validation.values.Email}
                             invalid={
                               validation.touched.Email &&
                               validation.errors.Email
                             }
                             style={{ textTransform: "uppercase" }}
+                            disabled
                           />
                           {validation.touched.Email &&
                           validation.errors.Email ? (
@@ -199,6 +400,7 @@ const UserLoginUpdate = () => {
                             id="validationCustom03"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
+                            value={validation.values.LoginName}
                             invalid={
                               validation.touched.LoginName &&
                               validation.errors.LoginName
@@ -226,6 +428,7 @@ const UserLoginUpdate = () => {
                             id="validationCustom04"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
+                            value={validation.values.Password}
                             invalid={
                               validation.touched.Password &&
                               validation.errors.Password
@@ -256,6 +459,7 @@ const UserLoginUpdate = () => {
                             id="validationCustom05"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
+                            value={validation.values.ConfirmPassword}
                             invalid={
                               validation.touched.ConfirmPassword &&
                               validation.errors.ConfirmPassword
@@ -281,18 +485,22 @@ const UserLoginUpdate = () => {
                             placeholder="PLEASE ENTER USER TYPE"
                             className="form-control"
                             id="validationCustom06"
-                            onChange={validation.handleChange}
+                            onChange={HandleChange}
                             onBlur={validation.handleBlur}
+                            value={validation.values.UserType}
                             invalid={
                               validation.touched.UserType &&
                               validation.errors.UserType
                             }
                             style={{ textTransform: "uppercase" }}
                           >
-                            <option value="">SELECT USER TYPE</option>
-                            <option value="dept1">ADMIN</option>
-                            <option value="dept2">HOD</option>
-                            <option value="dept2">PROFESSOR</option>
+                            <option value=""></option>
+                            {userType &&
+                              userType.map((item, index) => (
+                                <option key={index} value={item.idpermission}>
+                                  {item.typasst}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.UserType &&
                           validation.errors.UserType ? (
@@ -381,51 +589,55 @@ const UserLoginUpdate = () => {
                         </Col>
                       </Row>
                     )}
-                   <Row className="justify-content-center">
-                <Col xl={12}>
-                    <Row className="m-2">
-                      <Col
-                        md={2}
-                        style={{ display: "flex", alignItems: "center" }}
-                      >
-                      
-                        <Label style={{ marginBottom: "0" }}>LOCATION</Label>
+                    <Row className="justify-content-center">
+                      <Col xl={12}>
+                        <Row className="m-2">
+                          <Col
+                            md={2}
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <Label style={{ marginBottom: "0" }}>
+                              LOCATION
+                            </Label>
+                          </Col>
+                          <Col md={4}>
+                            <select
+                              multiple
+                              className="w-100 h-100"
+                              style={{ minHeight: "150px" }}
+                            >
+                              {leftItems.map((item, index) => (
+                                <option key={index} id={`leftItem${index}`}>
+                                  {item.nmLoc}
+                                </option>
+                              ))}
+                            </select>
+                          </Col>
+                          <Col
+                            md={2}
+                            className="d-flex justify-content-evenly align-items-center"
+                          >
+                            <Button onClick={handleMoveRight}>Right »</Button>
+                            <Button onClick={handleMoveLeft}>« Left</Button>
+                          </Col>
+                          <Col md={4}>
+                            <select
+                              multiple
+                              className="w-100 h-100"
+                              style={{ minHeight: "150px" }}
+                            >
+                              <Label style={{ marginBottom: "0" }}>
+                                LOCATION
+                              </Label>
+                              {rightItems.map((item, index) => (
+                                <option key={index} id={`rightItem${index}`}>
+                                  {item.nmLoc}
+                                </option>
+                              ))}
+                            </select>
+                          </Col>
+                        </Row>
                       </Col>
-                      <Col md={4}>
-                        <select
-                          multiple
-                          className="w-100 h-100"
-                          style={{ minHeight: "150px" }}
-                        >
-                          {leftItems.map((item, index) => (
-                            <option key={index} id={`leftItem${index}`}>
-                              {item}
-                            </option>
-                          ))}
-                        </select>
-                      </Col>
-                      <Col
-                        md={2}
-                        className="d-flex justify-content-evenly align-items-center"
-                      >
-                        <Button onClick={handleMoveRight}>Right »</Button>
-                        <Button onClick={handleMoveLeft}>« Left</Button>
-                      </Col>
-                      <Col md={4}>
-                        <select
-                          multiple
-                          className="w-100 h-100"
-                          style={{ minHeight: "150px" }}
-                        >
-                          {rightItems.map((item, index) => (
-                            <option key={index} id={`rightItem${index}`}>
-                              {item}
-                            </option>
-                          ))}
-                        </select>
-                      </Col>
-                    </Row>
-                    </Col>
                     </Row>
                     <hr className="mb-2" />
 
@@ -454,7 +666,7 @@ const UserLoginUpdate = () => {
                             marginRight: "30px",
                           }}
                         >
-                          UPDATE
+                          CREATE
                         </Button>
                         <button
                           type="button"
