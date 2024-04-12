@@ -1,7 +1,6 @@
 {
   "name": "dashonic-typescript",
   "version": "1.0.0",
-  "homepage": "http://localhost:3000",
   "private": true,
   "dependencies": {
     "@ailibs/feather-react-ts": "^3.0.3",
