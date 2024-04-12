@@ -23,7 +23,7 @@ const CostCenter = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    GetAllData("Usertype").then(res => {
+    GetAllData("CC").then(res => {
       console.log(res);
       if (Array.isArray(res)) {
         setResponseData(res);
@@ -48,7 +48,7 @@ const CostCenter = () => {
       },
       {
         Header: "COST CENTER/PROJECT NAME",
-        accessor: "nmusertype",
+        accessor: "nmcc",
         disableFilters: true,
         filterable: true,
       },
@@ -204,7 +204,7 @@ const CostCenter = () => {
                               <td key={cell.column.id} {...cell.getCellProps()}>
                                 {cell.column.id !== "SL NO" ? (
                                   <Link
-                                    to={`/cost_center_modify/${row.original.idusertype}`}
+                                    to={`/cost_center_modify/${row.original.idcc}`}
                                   >
                                     {String(cell.value).toUpperCase()}{" "}
                                   </Link>

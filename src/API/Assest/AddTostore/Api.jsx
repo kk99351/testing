@@ -90,3 +90,16 @@ export const GenerateSerialNumber = async quantity => {
     return error.message;
   }
 };
+
+//------------------------Get Approved Assests-------------------------------//
+export const GetApprovedAssests = async quantity => {
+  try {
+    let result = await fetch(`${ApiBaseUrl}/asset/allassets`, {
+      method: "GET",
+    });
+    result = await result.json();
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};

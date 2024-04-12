@@ -19,19 +19,24 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import Barcode from "react-barcode";
-import { GetAssests } from "src/API/Assest/AddTostore/Api";
+import {
+  ApproveAssests,
+  GetApprovedAssests,
+  GetAssests,
+} from "src/API/Assest/AddTostore/Api";
 import { GetAllData } from "src/API/Master/GlobalGet";
+import { GetAssetListforTagging } from "src/API/Master/CustomTagPrinting/Api";
 
 const BarcodePage = () => {
   const navigate = useNavigate();
 
-  const [responseData, setResponseData] = useState([])
+  const [responseData, setResponseData] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [barcodeData, setBarcodeData] = useState(null);
   const [selectedRows, setSelectedRows] = useState([]);
   const [module, setModule] = useState([]);
   const [submodule, setSubmodule] = useState([]);
-
+  const [materials, setMaterial] = useState([]);
 
   useEffect(() => {
     GetAllData("Module").then(res => {
@@ -45,6 +50,7 @@ const BarcodePage = () => {
 
   useEffect(() => {
     GetAllData("SubModule").then(res => {
+      console.log("res: ", res);
       if (Array.isArray(res)) {
         console.log(res);
         setSubmodule(res);
@@ -54,15 +60,28 @@ const BarcodePage = () => {
     });
   }, []);
 
+  // useEffect(() => {
+  //   GetApprovedAssests().then(res => {
+  //     console.log("approve", res);
+  //     if (Array.isArray(res)) {
+  //       console.log(res);
+  //       setResponseData(res);
+  //     } else {
+  //       setResponseData([]);
+  //     }
+  //   });
+  // }, []);
+
   useEffect(() => {
-    GetAssests().then((res)=>{
+    GetAllData("Material").then(res => {
+      console.log("res: ", res);
       if (Array.isArray(res)) {
         console.log(res);
-        setResponseData(res);
+        setMaterial(res);
       } else {
-        setResponseData([]);
+        setMaterial([]);
       }
-    })
+    });
   }, []);
 
   const validation = useFormik({
@@ -71,6 +90,7 @@ const BarcodePage = () => {
     initialValues: {
       cat: "",
       subCat: "",
+      Mat: "",
       poNo: "",
       invoiceNo: "",
     },
@@ -82,11 +102,12 @@ const BarcodePage = () => {
     }),
 
     onSubmit: async values => {
-      console.log("Form submitted successfully!");
       setSubmitted(true);
+      GetAssetListforTagging().then(res => {
+        
+      });
     },
   });
-  
 
   const handleDeallocate = () => {
     console.log("Deallocate button clicked");
@@ -164,10 +185,12 @@ const BarcodePage = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT MATERIAL GROUP</option>
-                            <option value="electronics">Electronics</option>
-                            <option value="clothing">Clothing</option>
-                            <option value="automobile">Automobile</option>
-                            <option value="cosmetics">Cosmetics</option>
+                            {module &&
+                              module.map((item, index) => (
+                                <option key={index} value={item.idmodule}>
+                                  {item.nmModule}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.cat && validation.errors.cat ? (
                             <FormFeedback type="invalid">
@@ -193,11 +216,12 @@ const BarcodePage = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT MATERIAL SUB GROUP</option>
-                            <option value="electronics">
-                              Consumer Electronics
-                            </option>
-                            <option value="apparel">Apparel & Clothing</option>
-                            <option value="automotive">Automotive Parts</option>
+                            {submodule &&
+                              submodule.map((item, index) => (
+                                <option key={index} value={item.idSubmodule}>
+                                  {item.nmSubmodule}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.subCat &&
                           validation.errors.subCat ? (
@@ -209,6 +233,35 @@ const BarcodePage = () => {
                       </Col>
                     </Row>
                     <Row className="mb-2">
+                      <Col md={6}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="Mat">MATERIAL GROUP</Label>
+                          <Input
+                            type="select"
+                            name="Mat"
+                            id="Mat"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.Mat && validation.errors.Mat
+                            }
+                            style={{ textTransform: "uppercase" }}
+                          >
+                            <option value="">SELECT MATERIAL GROUP</option>
+                            {materials &&
+                              materials.map((item, index) => (
+                                <option key={index} value={item.idmodel}>
+                                  {item.nmmodel}
+                                </option>
+                              ))}
+                          </Input>
+                          {validation.touched.Mat && validation.errors.Mat ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.Mat}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
                       <Col md={6}>
                         <FormGroup className="mb-3">
                           <Label htmlFor="poNo">PO.NUMBER</Label>
@@ -370,11 +423,12 @@ const BarcodePage = () => {
                           <tbody>
                             {filteredData.map((row, index) => (
                               <tr key={index}>
-                                <td>{String(index + 1).toUpperCase()}</td>
+                                {console.log("row", row)}
+                                {/* <td>{String(index + 1).toUpperCase()}</td>
                                 <td>{row.assetId.toUpperCase()}</td>
                                 <td>{row.assetName.toUpperCase()}</td>
                                 <td>{row.serialNumber.toUpperCase()}</td>
-                                <td>{row.assetName.toUpperCase()}</td>
+                                <td>{row.assetName.toUpperCase()}</td> */}
                                 <td
                                   style={{
                                     display: "flex",

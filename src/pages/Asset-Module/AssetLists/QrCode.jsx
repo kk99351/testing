@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -19,6 +19,7 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import QRCode from "react-qr-code";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const QrCode = () => {
   const navigate = useNavigate();
@@ -26,6 +27,43 @@ const QrCode = () => {
   const [qrData, setQrData] = useState(null);
   const [selectedRows, setSelectedRows] = useState([]);
 
+  const [module, setModule] = useState([]);
+  const [submodule, setSubmodule] = useState([]);
+  const [materials, setMaterial] = useState([]);
+
+  useEffect(() => {
+    GetAllData("Module").then(res => {
+      if (Array.isArray(res)) {
+        setModule(res);
+      } else {
+        setModule([]);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    GetAllData("SubModule").then(res => {
+      if (Array.isArray(res)) {
+        console.log(res);
+        setSubmodule(res);
+      } else {
+        setSubmodule([]);
+      }
+    });
+  }, []);
+
+
+  useEffect(() => {
+    GetAllData("Material").then(res => {
+      console.log("res: ", res);
+      if (Array.isArray(res)) {
+        console.log(res);
+        setMaterial(res);
+      } else {
+        setMaterial([]);
+      }
+    });
+  }, []);
   const validation = useFormik({
     enableReinitialize: true,
 
@@ -137,9 +175,7 @@ const QrCode = () => {
                     <Row className="mb-2">
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="cat">
-                            MATERIAL GROUP 
-                          </Label>
+                          <Label htmlFor="cat">MATERIAL GROUP</Label>
                           <Input
                             type="select"
                             name="cat"
@@ -152,10 +188,12 @@ const QrCode = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT MATERIAL GROUP</option>
-                            <option value="electronics">Electronics</option>
-                            <option value="clothing">Clothing</option>
-                            <option value="automobile">Automobile</option>
-                            <option value="cosmetics">Cosmetics</option>
+                            {module &&
+                              module.map((item, index) => (
+                                <option key={index} value={item.idmodule}>
+                                  {item.nmModule}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.cat && validation.errors.cat ? (
                             <FormFeedback type="invalid">
@@ -167,9 +205,7 @@ const QrCode = () => {
 
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="subCat">
-                            MATERIAL SUB GROUP 
-                          </Label>
+                          <Label htmlFor="subCat">MATERIAL SUB GROUP</Label>
                           <Input
                             type="select"
                             name="subCat"
@@ -183,11 +219,12 @@ const QrCode = () => {
                             style={{ textTransform: "uppercase" }}
                           >
                             <option value="">SELECT MATERIAL SUB GROUP</option>
-                            <option value="electronics">
-                              Consumer Electronics
-                            </option>
-                            <option value="apparel">Apparel & Clothing</option>
-                            <option value="automotive">Automotive Parts</option>
+                            {submodule &&
+                              submodule.map((item, index) => (
+                                <option key={index} value={item.idSubmodule}>
+                                  {item.nmSubmodule}
+                                </option>
+                              ))}
                           </Input>
                           {validation.touched.subCat &&
                           validation.errors.subCat ? (
@@ -199,11 +236,40 @@ const QrCode = () => {
                       </Col>
                     </Row>
                     <Row className="mb-2">
+                    <Col md={6}>
+                        <FormGroup className="mb-3">
+                          <Label htmlFor="subCat">MATERIAL</Label>
+                          <Input
+                            type="select"
+                            name="subCat"
+                            id="subCat"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            invalid={
+                              validation.touched.subCat &&
+                              validation.errors.subCat
+                            }
+                            style={{ textTransform: "uppercase" }}
+                          >
+                            <option value="">SELECT MATERIAL SUB GROUP</option>
+                            {materials &&
+                              materials.map((item, index) => (
+                                <option key={index} value={item.idmodel}>
+                                  {item.nmmodel}
+                                </option>
+                              ))}
+                          </Input>
+                          {validation.touched.subCat &&
+                          validation.errors.subCat ? (
+                            <FormFeedback type="invalid">
+                              {validation.errors.subCat}
+                            </FormFeedback>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="poNo">
-                            PO.NUMBER 
-                          </Label>
+                          <Label htmlFor="poNo">PO.NUMBER</Label>
                           <Input
                             type="select"
                             name="poNo"
@@ -230,9 +296,7 @@ const QrCode = () => {
 
                       <Col md={6}>
                         <FormGroup className="mb-3">
-                          <Label htmlFor="invoiceNo">
-                            INVOICE NUMBER
-                          </Label>
+                          <Label htmlFor="invoiceNo">INVOICE NUMBER</Label>
                           <Input
                             type="select"
                             name="invoiceNo"

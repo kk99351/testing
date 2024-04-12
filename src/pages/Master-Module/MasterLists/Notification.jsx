@@ -1,557 +1,306 @@
-// // import React, { useState } from "react";
-// // import {
-// //   Button,
-// //   Col,
-// //   Form,
-// //   FormGroup,
-// //   Input,
-// //   Label,
-// //   Row,
-// //   CardBody,
-// //   CardHeader,
-// //   Container,
-// //   Card,
-// //   Table
-// // } from "reactstrap";
-
-// // const Notification = () => {
-// //   const [userType, setUserType] = useState("");
-// //   const [functionalities, setFunctionalities] = useState([]);
-// //   const [additionalRows, setAdditionalRows] = useState([]);
-
-// //   const handleUserTypeChange = (e) => {
-// //     setUserType(e.target.value);
-// //     // Set functionalities based on user type
-// //     if (e.target.value === "admin") {
-// //       setFunctionalities([
-// //         { name: "AMC", notification: false, reminder: false, daysPrior: '' },
-// //         { name: "Warranty Incurrence", notification: false, reminder: false, daysPrior: '' },
-// //         { name: "Allocation", notification: false, reminder: false, daysPrior: '' },
-// //         { name: "Deallocation", notification: false, reminder: false, daysPrior: '' },
-// //         { name: "Damage Approval", notification: false, reminder: false, daysPrior: '' }
-// //       ]);
-// //     } else if (e.target.value === "super") {
-// //       setFunctionalities([
-// //         { name: "Functionality 1", notification: false, reminder: false, daysPrior: '' },
-// //         { name: "Functionality 2", notification: false, reminder: false, daysPrior: '' },
-// //         { name: "Functionality 3", notification: false, reminder: false, daysPrior: '' }
-// //       ]);
-// //     } else {
-// //       setFunctionalities([]);
-// //     }
-// //   };
-
-// //   const handleAddRow = () => {
-// //     setAdditionalRows([...additionalRows, { name: "", notification: false, reminder: false, daysPrior: '' }]);
-// //   };
-
-// //   return (
-// //     <React.Fragment>
-// //       <Container fluid>
-// //         <div className="page-content">
-// //           <Card>
-// //             <CardHeader>
-// //               <h1 className="card-title" style={{ fontSize: "20px" }}>
-// //                 NOTIFICATION AND REMAINDER
-// //               </h1>
-// //             </CardHeader>
-
-// //             <CardBody>
-// //               <Row className="justify-content-center">
-// //                 <Col xl={6}>
-// //                   <Form>
-// //                     <FormGroup>
-// //                       <Label for="userType">USER TYPE</Label>
-// //                       <Input type="select" name="userType" id="userType" value={userType} onChange={handleUserTypeChange}>
-// //                         <option value="">SELECT USER TYPE</option>
-// //                         <option value="admin">ADMIN</option>
-// //                         <option value="super">SUPER</option>
-// //                       </Input>
-// //                     </FormGroup>
-// //                   </Form>
-// //                 </Col>
-// //               </Row>
-
-// //               {userType === "admin" && (
-// //                 <Row className="justify-content-center mt-4">
-// //                   <Col xl={10}>
-// //                     <Table striped bordered>
-// //                       <thead>
-// //                         <tr>
-// //                           <th>FUNCTIONALITY</th>
-// //                           <th>NOTIFICATION</th>
-// //                           <th>REMAINDER</th>
-// //                           <th>DAYS PRIOR</th>
-// //                         </tr>
-// //                       </thead>
-// //                       <tbody>
-// //                         {functionalities.map((func, index) => (
-// //                           <tr key={index}>
-// //                             <td><Input type="text" value={func.name} onChange={(e) => {
-// //                               const newFunctionalities = [...functionalities];
-// //                               newFunctionalities[index].name = e.target.value;
-// //                               setFunctionalities(newFunctionalities);
-// //                             }} /></td>
-// //                             <td><Input type="checkbox" checked={func.notification} onChange={(e) => {
-// //                               const newFunctionalities = [...functionalities];
-// //                               newFunctionalities[index].notification = e.target.checked;
-// //                               setFunctionalities(newFunctionalities);
-// //                             }} /></td>
-// //                             <td><Input type="checkbox" checked={func.reminder} onChange={(e) => {
-// //                               const newFunctionalities = [...functionalities];
-// //                               newFunctionalities[index].reminder = e.target.checked;
-// //                               setFunctionalities(newFunctionalities);
-// //                             }} /></td>
-// //                             <td><Input type="number" min="0" value={func.daysPrior} onChange={(e) => {
-// //                               const newFunctionalities = [...functionalities];
-// //                               newFunctionalities[index].daysPrior = e.target.value;
-// //                               setFunctionalities(newFunctionalities);
-// //                             }} /></td>
-// //                           </tr>
-// //                         ))}
-// //                         {additionalRows.map((row, index) => (
-// //                           <tr key={index}>
-// //                             <td><Input type="text" value={row.name} onChange={(e) => {
-// //                               const newRows = [...additionalRows];
-// //                               newRows[index].name = e.target.value;
-// //                               setAdditionalRows(newRows);
-// //                             }} /></td>
-// //                             <td><Input type="checkbox" checked={row.notification} onChange={(e) => {
-// //                               const newRows = [...additionalRows];
-// //                               newRows[index].notification = e.target.checked;
-// //                               setAdditionalRows(newRows);
-// //                             }} /></td>
-// //                             <td><Input type="checkbox" checked={row.reminder} onChange={(e) => {
-// //                               const newRows = [...additionalRows];
-// //                               newRows[index].reminder = e.target.checked;
-// //                               setAdditionalRows(newRows);
-// //                             }} /></td>
-// //                             <td><Input type="number" min="0" value={row.daysPrior} onChange={(e) => {
-// //                               const newRows = [...additionalRows];
-// //                               newRows[index].daysPrior = e.target.value;
-// //                               setAdditionalRows(newRows);
-// //                             }} /></td>
-// //                           </tr>
-// //                         ))}
-// //                       </tbody>
-// //                     </Table>
-// //                     <Button color="primary" onClick={handleAddRow}>Add</Button>
-// //                   </Col>
-// //                 </Row>
-// //               )}
-// //             </CardBody>
-// //           </Card>
-// //         </div>
-// //       </Container>
-// //     </React.Fragment>
-// //   );
-// // };
-
-// // export default Notification;
-// import React, { useState } from "react";
-// import {
-//   Button,
-//   Col,
-//   Form,
-//   FormGroup,
-//   Input,
-//   Label,
-//   Row,
-//   CardBody,
-//   CardHeader,
-//   Container,
-//   Card,
-//   Table
-// } from "reactstrap";
-
-// const Notification = () => {
-//   const [userType, setUserType] = useState("");
-//   const [functionalities, setFunctionalities] = useState([]);
-//   const [additionalRows, setAdditionalRows] = useState([]);
-
-//   const handleUserTypeChange = (e) => {
-//     setUserType(e.target.value);
-//     if (e.target.value === "admin") {
-//       setFunctionalities([
-//         { name: "AMC", notification: false, reminder: false, daysPrior: '' },
-//         { name: "Warranty Incurrence", notification: false, reminder: false, daysPrior: '' },
-//         { name: "Allocation", notification: false, reminder: false, daysPrior: '' },
-//         { name: "Deallocation", notification: false, reminder: false, daysPrior: '' },
-//         { name: "Damage Approval", notification: false, reminder: false, daysPrior: '' }
-//       ]);
-//     }
-//   };
-
-//   const handleAddRow = () => {
-//     setAdditionalRows([...additionalRows, { name: "", notification: false, reminder: false, daysPrior: '' }]);
-//   };
-
-//   const handleSend = () => {
-//     // Implement send functionality here
-//   };
-
-//   return (
-//     <React.Fragment>
-//       <Container fluid>
-//         <div className="page-content">
-//           <Card>
-//             <CardHeader>
-//               <h1 className="card-title" style={{ fontSize: "20px" }}>
-//                 NOTIFICATION AND REMINDER
-//               </h1>
-//             </CardHeader>
-
-//             <CardBody>
-//               <Row className="justify-content-center">
-//                 <Col xl={6}>
-//                   <Form>
-//                     <FormGroup>
-//                       <Label for="userType">USER TYPE</Label>
-//                       <Input type="select" name="userType" id="userType" value={userType} onChange={handleUserTypeChange}>
-//                         <option value="">SELECT USER TYPE</option>
-//                         <option value="admin">ADMIN</option>
-//                         <option value="super">SUPER</option>
-//                       </Input>
-//                     </FormGroup>
-//                   </Form>
-//                 </Col>
-//               </Row>
-
-//               {userType === "admin" && (
-//                 <Row className="justify-content-center mt-4">
-//                   <Col xl={10}>
-//                     <Table striped bordered>
-//                       <thead>
-//                         <tr className="text-center">
-//                           <th>FUNCTIONALITY</th>
-//                           <th>NOTIFICATION</th>
-//                           <th>REMINDER</th>
-//                           <th>DAYS PRIOR</th>
-//                         </tr>
-//                       </thead>
-//                       <tbody>
-//                         {functionalities.map((func, index) => (
-//                           <tr key={index}>
-//                             <td className="text-center"><Input type="text" value={func.name} onChange={(e) => {
-//                               const newFunctionalities = [...functionalities];
-//                               newFunctionalities[index].name = e.target.value;
-//                               setFunctionalities(newFunctionalities);
-//                             }} /></td>
-//                             <td className="text-center"><Input type="checkbox" checked={func.notification} onChange={(e) => {
-//                               const newFunctionalities = [...functionalities];
-//                               newFunctionalities[index].notification = e.target.checked;
-//                               setFunctionalities(newFunctionalities);
-//                             }} /></td>
-//                             <td className="text-center"><Input type="checkbox" checked={func.reminder} onChange={(e) => {
-//                               const newFunctionalities = [...functionalities];
-//                               newFunctionalities[index].reminder = e.target.checked;
-//                               setFunctionalities(newFunctionalities);
-//                             }} /></td>
-//                             <td className="text-center"><Input type="number" min="0" value={func.daysPrior} onChange={(e) => {
-//                               const newFunctionalities = [...functionalities];
-//                               newFunctionalities[index].daysPrior = e.target.value;
-//                               setFunctionalities(newFunctionalities);
-//                             }} /></td>
-//                           </tr>
-//                         ))}
-//                         {additionalRows.map((row, index) => (
-//                           <tr key={index}>
-//                             <td className="text-center"><Input type="text" value={row.name} onChange={(e) => {
-//                               const newRows = [...additionalRows];
-//                               newRows[index].name = e.target.value;
-//                               setAdditionalRows(newRows);
-//                             }} /></td>
-//                             <td className="text-center"><Input type="checkbox" checked={row.notification} onChange={(e) => {
-//                               const newRows = [...additionalRows];
-//                               newRows[index].notification = e.target.checked;
-//                               setAdditionalRows(newRows);
-//                             }} /></td>
-//                             <td className="text-center"><Input type="checkbox" checked={row.reminder} onChange={(e) => {
-//                               const newRows = [...additionalRows];
-//                               newRows[index].reminder = e.target.checked;
-//                               setAdditionalRows(newRows);
-//                             }} /></td>
-//                             <td className="text-center"><Input type="number" min="0" value={row.daysPrior} onChange={(e) => {
-//                               const newRows = [...additionalRows];
-//                               newRows[index].daysPrior = e.target.value;
-//                               setAdditionalRows(newRows);
-//                             }} /></td>
-//                           </tr>
-//                         ))}
-//                       </tbody>
-//                     </Table>
-//                     <div className="text-center">
-//                       <Button color="primary" onClick={handleAddRow}>Add</Button>
-//                       <Button color="success" onClick={handleSend} className="ml-3">Send</Button>
-//                     </div>
-//                   </Col>
-//                 </Row>
-//               )}
-//             </CardBody>
-//           </Card>
-//         </div>
-//       </Container>
-//     </React.Fragment>
-//   );
-// };
-
-// export default Notification;
-import React, { useState } from "react";
+import React, { useMemo, useEffect, useState, useCallback } from "react";
+import Icon from "@ailibs/feather-react-ts";
 import {
-  Button,
-  Col,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Row,
+  Container,
   CardBody,
   CardHeader,
-  Container,
+  Button,
   Card,
-  Table,
+  Input,
 } from "reactstrap";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  useTable,
+  useGlobalFilter,
+  useSortBy,
+  usePagination,
+} from "react-table";
+import { useGet } from "src/API/useGet";
+import { GetAllData } from "src/API/Master/GlobalGet";
 
 const Notification = () => {
-  const [userType, setUserType] = useState("");
-  const [functionalities, setFunctionalities] = useState([]);
-  const [additionalRows, setAdditionalRows] = useState([]);
 
-  const handleUserTypeChange = e => {
-    setUserType(e.target.value);
-    // Set functionalities based on user type
-    if (e.target.value === "admin") {
-      setFunctionalities([
-        { name: "AMC", notification: false, reminder: false, daysPrior: "" },
-        {
-          name: "Warranty Incurrence",
-          notification: false,
-          reminder: false,
-          daysPrior: "",
-        },
-        {
-          name: "Allocation",
-          notification: false,
-          reminder: false,
-          daysPrior: "",
-        },
-        {
-          name: "Deallocation",
-          notification: false,
-          reminder: false,
-          daysPrior: "",
-        },
-        {
-          name: "Damage Approval",
-          notification: false,
-          reminder: false,
-          daysPrior: "",
-        },
-      ]);
-    }
-  };
+ 
+  const [responseData, setResponseData] = useState([
+    {
+      id: 1,
+      identity: "User" ,
+      nmcountry: "Functionality 1",
+      nmstate: "Notification 1",
+      nmcity: "Reminder 1",
+      nmLoc: "5 Days",
+    },
+    {
+      id: 2,
+      identity: "Admin" ,
+      nmcountry: "Functionality 2",
+      nmstate: "Notification 2",
+      nmcity: "Reminder 2",
+      nmLoc: "3 Days",
+    },
+    // Add more demo data as needed
+  ]);
+  const navigate = useNavigate();
 
-  const handleAddRow = () => {
-    setAdditionalRows([
-      ...additionalRows,
-      { name: "", notification: false, reminder: false, daysPrior: "" },
-    ]);
-  };
+  const columns = useMemo(
+    () => [
+      {
+        Header: "SL NO",
+        accessor: "slno",
+        width: "6%",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "USER TYPE",
+        accessor: "identity",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "FUNCTIONALITIES",
+        accessor: "nmcountry",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "NOTIFICATION",
+        accessor: "nmstate",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "REMINDER",
+        accessor: "nmcity",
+        disableFilters: true,
+        filterable: true,
+      },
+      {
+        Header: "DAYS PRIOR",
+        accessor: "nmLoc",
+        disableFilters: true,
+        filterable: true,
+      },
+    ],
+    []
+  );
 
-  const handleSend = () => {
-    // Implement send functionality here
+  const dataWithSlno = useMemo(() => {
+    return responseData.map((item, index) => ({
+      ...item,
+      slno: index + 1,
+      identity: item.identity.toUpperCase(), 
+      nmcountry: item.nmcountry.toUpperCase(), 
+      nmstate: item.nmstate.toUpperCase(), 
+      nmcity: item.nmcity.toUpperCase(), 
+      nmLoc: item.nmLoc.toUpperCase(), 
+
+    }));
+  }, [responseData]);
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    nextPage,
+    previousPage,
+    canPreviousPage,
+    canNextPage,
+    state: { pageIndex, globalFilter },
+    pageCount,
+    gotoPage,
+    setGlobalFilter,
+  } = useTable(
+    {
+      columns,
+      data: dataWithSlno,
+      initialState: { pageSize: 10 },
+    },
+    useGlobalFilter,
+    useSortBy,
+    usePagination
+  );
+
+  const handleRowClick = row => {
+    console.log("Selected Row:", row.original.id);
   };
 
   return (
     <React.Fragment>
+      {/* {isLoading ? (
+        <div className="page-content">
+          <Card>
+            <div><h1>Loading...</h1></div>
+          </Card>
+        </div>
+      ) : ( */}
       <Container fluid>
         <div className="page-content">
           <Card>
             <CardHeader>
               <h1 className="card-title" style={{ fontSize: "20px" }}>
-                NOTIFICATION AND REMINDER
+                NOTIFICATION AND REMAINDER DETAILS
               </h1>
             </CardHeader>
-
             <CardBody>
-              <Row className="justify-content-center">
-                <Col xl={6}>
-                  <Form>
-                    <FormGroup>
-                      <Label for="userType">USER TYPE</Label>
-                      <Input
-                        type="select"
-                        name="userType"
-                        id="userType"
-                        value={userType}
-                        onChange={handleUserTypeChange}
-                      >
-                        <option value="">SELECT USER TYPE</option>
-                        <option value="admin">ADMIN</option>
-                        <option value="super">SUPER</option>
-                      </Input>
-                    </FormGroup>
-                  </Form>
-                </Col>
-              </Row>
+              {" "}
+              <div className="container pt-0">
+                <div className="rmb-2 row">
+                  <div className="col-md-2">
+                    <select className="form-select">
+                      <option value="10">SHOW 10</option>
+                      <option value="20">SHOW 20</option>
+                      <option value="30">SHOW 30</option>
+                      <option value="40">SHOW 40</option>
+                      <option value="50">SHOW 50</option>
+                    </select>
+                  </div>
 
-              {userType === "admin" && (
-                <Row className="justify-content-center mt-4">
-                  <Col xl={10}>
-                    <Table striped bordered>
-                      <thead>
-                        <tr className="text-center">
-                          <th>FUNCTIONALITY</th>
-                          <th>NOTIFICATION</th>
-                          <th>REMINDER</th>
-                          <th>DAYS PRIOR</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {functionalities.map((func, index) => (
-                          <tr key={index}>
-                            <td className="text-uppercase text-center">
-                              <Input
-                                type="text"
-                                value={func.name.toUpperCase()}
-                                onChange={e => {
-                                  const newFunctionalities = [
-                                    ...functionalities,
-                                  ];
-                                  newFunctionalities[index].name =
-                                    e.target.value;
-                                  setFunctionalities(newFunctionalities);
-                                }}
-                              />
-                            </td>
-                            <td className="text-center">
-                              <Input
-                                type="checkbox"
-                                checked={func.notification}
-                                onChange={e => {
-                                  const newFunctionalities = [
-                                    ...functionalities,
-                                  ];
-                                  newFunctionalities[index].notification =
-                                    e.target.checked;
-                                  setFunctionalities(newFunctionalities);
-                                }}
-                              />
-                            </td>
-                            <td className="text-center">
-                              <Input
-                                type="checkbox"
-                                checked={func.reminder}
-                                onChange={e => {
-                                  const newFunctionalities = [
-                                    ...functionalities,
-                                  ];
-                                  newFunctionalities[index].reminder =
-                                    e.target.checked;
-                                  setFunctionalities(newFunctionalities);
-                                }}
-                              />
-                            </td>
-                            <td className="text-center">
-                              <Input
-                                type="number"
-                                min="0"
-                                value={func.daysPrior}
-                                onChange={e => {
-                                  const newFunctionalities = [
-                                    ...functionalities,
-                                  ];
-                                  newFunctionalities[index].daysPrior =
-                                    e.target.value;
-                                  setFunctionalities(newFunctionalities);
-                                }}
-                              />
-                            </td>
-                          </tr>
-                        ))}
-                        {additionalRows.map((row, index) => (
-                          <tr key={index}>
-                            <td className="text-uppercase text-center">
-                              <Input
-                                type="text"
-                                value={row.name.toUpperCase()}
-                                onChange={e => {
-                                  const newRows = [...additionalRows];
-                                  newRows[index].name = e.target.value;
-                                  setAdditionalRows(newRows);
-                                }}
-                              />
-                            </td>
-                            <td className="text-center">
-                              <Input
-                                type="checkbox"
-                                checked={row.notification}
-                                onChange={e => {
-                                  const newRows = [...additionalRows];
-                                  newRows[index].notification =
-                                    e.target.checked;
-                                  setAdditionalRows(newRows);
-                                }}
-                              />
-                            </td>
-                            <td className="text-center">
-                              <Input
-                                type="checkbox"
-                                checked={row.reminder}
-                                onChange={e => {
-                                  const newRows = [...additionalRows];
-                                  newRows[index].reminder = e.target.checked;
-                                  setAdditionalRows(newRows);
-                                }}
-                              />
-                            </td>
-                            <td className="text-center">
-                              <Input
-                                type="number"
-                                min="0"
-                                value={row.daysPrior}
-                                onChange={e => {
-                                  const newRows = [...additionalRows];
-                                  newRows[index].daysPrior = e.target.value;
-                                  setAdditionalRows(newRows);
-                                }}
-                              />
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </Table>
-                    <div className="text-center">
-                      <Button
-                        className="btn btn-success-subtle border border-success"
-                        onClick={handleAddRow}
-                        style={{
-                          paddingTop: "10px",
-                          height: "45px",
-                          width: "80px",
-                          marginRight: "30px",
-                        }}
-                      >
-                        Add
-                      </Button>
-                      <Button
-                        className="btn btn-secondary-subtle border border-secondary"
-                        onClick={handleSend}
-                        style={{
-                          paddingTop: "10px",
-                          width: "80px",
-                          height: "45px",
-                        }}
-                      >
-                        Send
-                      </Button>
+                  <div className="col-md-4">
+                    <div className="search-box me-xxl-2 my-3 my-xxl-0 d-inline-block">
+                      <div className="position-relative">
+                        <label htmlFor="search-bar-0" className="search-label">
+                          <span id="search-bar-0-label" className="sr-only">
+                            Search this table
+                          </span>
+                          <input
+                            id="search-bar-0"
+                            type="text"
+                            className="form-control"
+                            placeholder="SEARCH ..."
+                            value={globalFilter || ""}
+                            onChange={e =>
+                              setGlobalFilter(e.target.value.toUpperCase())
+                            }
+                          />
+                          <i className="bx bx-search-alt search-icon"></i>
+                        </label>
+                      </div>
                     </div>
-                  </Col>
-                </Row>
-              )}
+                  </div>
+
+                  <div className="col-sm-6">
+                    <div className="text-sm-end">
+                      <button
+                        type="button"
+                        className="btn mb-2 me-2 btn btn-primary"
+                        onClick={() => navigate("/create_notification_remainder")}
+                      >
+                        <i className="mdi mdi-plus-circle-outline me-1"></i>
+                        CREATE NEW{" "}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="table-responsive react-table">
+                <table className="table table-bordered table-hover text-center">
+                  <thead className="table-light table-nowrap">
+                    {headerGroups.map(headerGroup => (
+                      <tr
+                        key={headerGroup.id}
+                        {...headerGroup.getHeaderGroupProps()}
+                      >
+                        {headerGroup.headers.map(column => (
+                          <th
+                            key={column.id}
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            style={{ width: column.width }}
+                          >
+                            <div className="d-flex justify-content-center">
+                              <span className="font-weight-bold">
+                                {column.render("Header")}
+                              </span>
+                              <span>
+                                {column.isSorted
+                                  ? column.isSortedDesc
+                                    ? " 🔽"
+                                    : " 🔼"
+                                  : ""}
+                              </span>
+                            </div>
+                          </th>
+                        ))}
+                      </tr>
+                    ))}
+                  </thead>
+                  <tbody {...getTableBodyProps()}>
+                    {page.length > 0 ? (
+                      page.map(row => {
+                        prepareRow(row);
+                        return (
+                          <tr key={row.id} {...row.getRowProps()}>
+                          {row.cells.map(cell => (
+                            <td key={cell.column.id} {...cell.getCellProps()}>
+                              {cell.render("Cell")}
+                            </td>
+                          ))}
+                        </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan={headerGroups[0].headers.length}
+                          style={{ textAlign: "center" }}
+                        >
+                          {" "}
+                          NO SEARCH RESULTS FOUND{" "}
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+              <div className="row">
+                <div className="col-sm-6">
+                  <p className="ps-2">
+                    Showing {pageIndex + 1} of {pageCount} pages
+                  </p>
+                </div>
+                <div className="col-sm-6">
+                  {" "}
+                  <div className="pagination justify-content-end pb-2 pe-2">
+                    <button
+                      className="btn btn-info"
+                      disabled={pageIndex === 0}
+                      onClick={() => gotoPage(0)}
+                    >
+                      FIRST
+                    </button>
+                    <button
+                      className="btn btn-primary"
+                      disabled={!canPreviousPage}
+                      onClick={previousPage}
+                    >
+                      PRE
+                    </button>
+                    <span className="btn btn-light">{pageIndex + 1}</span>
+                    <button
+                      className="btn btn-primary"
+                      disabled={!canNextPage}
+                      onClick={nextPage}
+                    >
+                      NEXT
+                    </button>
+                    <button
+                      className="btn btn-info"
+                      disabled={pageIndex >= pageCount - 1}
+                      onClick={() => gotoPage(pageCount - 1)}
+                    >
+                      LAST
+                    </button>
+                  </div>
+                </div>
+              </div>
             </CardBody>
           </Card>
         </div>
+        {/* )} */}
       </Container>
     </React.Fragment>
   );

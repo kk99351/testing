@@ -79,20 +79,17 @@ const UserPermissionCreate = () => {
   useEffect(() => {
     GetSignleData("UPermission", id).then(data => {
       setResponseData(data);
-
-      console.log("data", data);
-
       data.iddept.forEach(item => {
         selectedDepartment.push(item.iddept);
       });
-
       data.entities.forEach(item => {
         selectedLocation.push(item.identity);
       });
+      data.idlocs.forEach(item => {
+        selectedSublocation.push(item.idloc);
+      });
 
       data.submodules.forEach(item => {
-        // selectedDepartment.push(item.iddept.iddept);
-        // selectedLocation.push(item.entities.identity);
         switch (item.idmodule.nmModule) {
           case "MASTER": {
             setRightItems(prevLeftItems => [...prevLeftItems, item]);
@@ -487,16 +484,16 @@ const UserPermissionCreate = () => {
     );
   };
   const validationSchema = Yup.object({
-    userType: Yup.string().required("USER TYPE IS REQUIRED"),
-    owner: Yup.array().min(1, "ASSET OWNER IS REQUIRED"),
-    department: Yup.array().min(1, "DEPARTMENT IS REQUIRED"),
-    location: Yup.array().min(1, "ENTITY IS REQUIRED"),
-    sublocation: Yup.array().min(1, "LOCATION IS REQUIRED"),
+    // userType: Yup.string().required("USER TYPE IS REQUIRED"),
+    // owner: Yup.array().min(1, "ASSET OWNER IS REQUIRED"),
+    // department: Yup.array().min(1, "DEPARTMENT IS REQUIRED"),
+    // location: Yup.array().min(1, "ENTITY IS REQUIRED"),
+    // sublocation: Yup.array().min(1, "LOCATION IS REQUIRED"),
   });
 
   const formik = useFormik({
     initialValues: {
-      userType: responseData?.usertype?.nmusertype,
+      userType: "",
       owner: [],
       department: [],
       location: [],
@@ -504,6 +501,7 @@ const UserPermissionCreate = () => {
     },
     validationSchema: validationSchema,
     onSubmit: values => {
+      console.log(values);
       let subMod = rightItems.map(value => {
         return {
           idSubmodule: value.idSubmodule,
@@ -569,10 +567,13 @@ const UserPermissionCreate = () => {
       CreateUserPermission([
         {
           idpermission: id,
-          typasst: values.owner[0],
-          idccs: "string",
+          typasst: values.owner[0] ? values.owner[0] : responseData?.typasst,
+          idccs: "",
           usertype: {
-            idusertype: Number(values.userType),
+            idusertype: values.userType
+              ? Number(values.userType)
+              : responseData?.usertype?.idusertype,
+
             nmusertype: "string",
           },
           submodules: combinedArray,
@@ -1170,8 +1171,8 @@ const UserPermissionCreate = () => {
                             style={{
                               backgroundColor:
                                 selectedSublocation.includes(item.idloc) ||
-                                responseData?.entities?.some(
-                                  res => res.identity === item.identity
+                                responseData?.idlocs?.some(
+                                  res => res.idloc === item.idloc
                                 )
                                   ? "#c3e6cb"
                                   : "inherit",

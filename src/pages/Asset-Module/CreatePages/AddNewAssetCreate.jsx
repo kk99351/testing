@@ -137,12 +137,35 @@ const AddNewAssetCreate = () => {
       }
     });
   }, []);
-
   const GenerateSerial = () => {
-    GenerateSerialNumber().then(res => {
-      console.log("serial", res);
+    GenerateSerialNumber(Number(validation.values.quantity)).then(res => {
+      const formattedString = res
+        .map((item, index) => {
+          return `${index !== 0 ? "," : ""}${item}`;
+        })
+        .join("");
+      setSerialNos(formattedString);
+      console.log(serialNos);
+  
+      const updatedValues = { ...validation.values };
+      res.forEach((item, index) => {
+        updatedValues[`serialNo${index}`] = item;
+      });
+      validation.setValues(updatedValues);
     });
   };
+
+  // const GenerateSerial = () => {
+  //   GenerateSerialNumber(Number(validation.values.quantity)).then(res => {
+  //     const formattedString = res
+  //       .map((item, index) => {
+  //         return `${index !== 0 ? "," : ""}${item}`;
+  //       })
+  //       .join("");
+  //     setSerialNos(formattedString);
+  //     console.log(serialNos);
+  //   });
+  // };
 
   const renderAssetTypeContent = () => {
     switch (showAdditionalInputs) {
@@ -456,20 +479,20 @@ const AddNewAssetCreate = () => {
       dept: Yup.string().required("DEPARTMENT IS REQUIRED"),
       cost: Yup.string().required("COST CENTER REQUIRED"),
       // remark: Yup.string().required("REMARKS IS REQUIRED"),
-      amc: Yup.string().required("AMC/WARRANTY IS REQUIRED"),
-      amcStartDate: Yup.string().when(["amc", "leaseStatus"], {
-        is: (amc, leaseStatus) =>
-          (amc === "amc" || amc === "warrenty") &&
-          leaseStatus !== "Notunderlease",
-        then: Yup.string().required("AMC/WARRANTY START DATE IS REQUIRED"),
-      }),
+      // amc: Yup.string().required("AMC/WARRANTY IS REQUIRED"),
+      // amcStartDate: Yup.string().when(["amc", "leaseStatus"], {
+      //   is: (amc, leaseStatus) =>
+      //     (amc === "amc" || amc === "warrenty") &&
+      //     leaseStatus !== "Notunderlease",
+      //   then: Yup.string().required("AMC/WARRANTY START DATE IS REQUIRED"),
+      // }),
       amcEndDate: Yup.string().when(["amc", "leaseStatus"], {
         is: (amc, leaseStatus) =>
           (amc === "amc" || amc === "warrenty") &&
           leaseStatus !== "Notunderlease",
         then: Yup.string().required("AMC/WARRANTY END DATE IS REQUIRED"),
       }),
-      leaseStatus: Yup.string().required("LEASE STATUS IS REQUIRED"),
+      // leaseStatus: Yup.string().required("LEASE STATUS IS REQUIRED"),
       leaseStartDate: Yup.string().when("leaseStatus", {
         is: "underlease",
         then: Yup.string().required("LEASE START DATE IS REQUIRED"),
@@ -591,7 +614,7 @@ const AddNewAssetCreate = () => {
                 stconfig: "",
               },
               idwhdyn: "",
-              serialno: "1,2,3,4,5",
+              serialno: serialNos,
               addby: 0,
               editby: 0,
             }).then(res => {
@@ -673,7 +696,7 @@ const AddNewAssetCreate = () => {
     inputs.push(
       <Row key="button">
         <Col md={12} className="d-flex justify-content-end">
-          <Button onClick={handleFillFields} className="mb-1">
+          <Button onClick={GenerateSerial} className="mb-1">
             DO NOT HAVE SERIAL NUMBER
           </Button>
         </Col>

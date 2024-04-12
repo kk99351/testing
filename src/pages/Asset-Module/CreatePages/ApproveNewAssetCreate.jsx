@@ -385,7 +385,7 @@ const ApproveNewAssetCreate = () => {
       dept: resData?.idinvm?.iddept?.nmdept,
       cost: resData?.idinvm?.idcc?.nmcc,
       remark: "",
-      item: "",
+      item: resData?.idmodel?.itemdesc,
 
       ponNumber: resData?.idinvm?.nopo,
       invoiceNumber: resData?.idinvm?.noinv,
@@ -1090,6 +1090,7 @@ const ApproveNewAssetCreate = () => {
                             placeholder="PLEASE ENTER DESCRIPTION"
                             className="form-control"
                             onChange={validation.handleChange}
+                            value={validation.values.item}
                             onBlur={validation.handleBlur}
                             invalid={
                               validation.touched.item && validation.errors.item

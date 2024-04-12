@@ -31,6 +31,22 @@ export const CreateDesignation = async payload => {
     return error.message;
   }
 };
+
+//-----------------------Create Cost-----------------------------//
+export const CreateCost = async payload => {
+  try {
+    const result = await fetch(`${ApiBaseUrl}/master/CostCenter`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
 //---------------------Create EMPLOYE-------------------------//
 export const CreateEmploye = async payload => {
   try {
@@ -46,6 +62,7 @@ export const CreateEmploye = async payload => {
     return error.message;
   }
 };
+
 //--------------------CReate USER TYPE------------------------//
 export const CreateUserType = async payload => {
   try {

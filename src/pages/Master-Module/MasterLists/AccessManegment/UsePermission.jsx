@@ -21,6 +21,8 @@ const UserPermission = () => {
   const [responseData, setResponseData] = useState([]);
   const navigate = useNavigate();
 
+  
+
   useEffect(() => {
     GetAllData("UPermission").then(res => {
       console.log(res);
